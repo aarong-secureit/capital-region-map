@@ -76,7 +76,7 @@ blocked by the policy: keep those off, or add their sources to `csp_for()`.
 Upload `site.zip` in Cloudflare: Workers & Pages > your project > Create a new deployment > Production.
 
 Or let Cloudflare build from this GitHub repository on every push to `main` (Workers with static assets):
-create a Worker by importing the repository, name it `capital-region-map` (must match `name` in
+create a Worker by importing the repository, name it `reykjavik-map` (must match `name` in
 `wrangler.jsonc`), build command `python3 build/make_site.py`, deploy command `npx wrangler deploy`.
 `wrangler.jsonc` serves `site/` as static files and Cloudflare applies `site/_headers`. Cloudflare's build
 machines have no Pillow, so the icons come from `build/icons/`. Test locally with `npx wrangler dev`.
