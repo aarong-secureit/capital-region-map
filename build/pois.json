@@ -1,0 +1,4919 @@
+[
+ {
+  "name": "BYKO Skemmuvegur",
+  "cat": "store",
+  "brand": "BYKO",
+  "addr": "Skemmuvegur 4",
+  "g": "BYKO, Skemmuvegur 4, 200 Kópavogur",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -21.851538,
+   64.109625
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "BYKO Fiskislóð",
+  "cat": "store",
+  "brand": "BYKO",
+  "addr": "Fiskislóð 15-21",
+  "g": "BYKO, Fiskislóð 15-21, 101 Reykjavík",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -21.950609,
+   64.155826
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "BYKO Selhella",
+  "cat": "store",
+  "brand": "BYKO",
+  "addr": "Selhella",
+  "g": "BYKO, Selhella, 221 Hafnarfjörður",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -21.990447,
+   64.050412
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Bauhaus",
+  "cat": "store",
+  "brand": "Bauhaus",
+  "addr": "Lambhagavegur 2",
+  "g": "Bauhaus, Lambhagavegur 2, 113 Reykjavík",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -21.753141,
+   64.14041
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "113"
+  ]
+ },
+ {
+  "name": "Bónus Norðlingabraut",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Norðlingabraut 2",
+  "g": "Bónus, Norðlingabraut 2, 110 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.776961,
+   64.101253
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "110"
+  ]
+ },
+ {
+  "name": "Bónus Tjarnarvellir",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Tjarnarvellir 15",
+  "g": "Bónus, Tjarnarvellir 15, 221 Hafnarfjörður",
+  "words": [],
+  "ll": [
+   -21.979749,
+   64.052359
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Bónus Bjarkarholt",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Bjarkarholt 7-9",
+  "g": "Bónus, Bjarkarholt 7-9, 270 Mosfellsbær",
+  "words": [],
+  "ll": [
+   -21.699043,
+   64.165727
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Bónus Nýbýlavegur",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Nýbýlavegur 4",
+  "g": "Bónus, Nýbýlavegur 4, 200 Kópavogur",
+  "words": [],
+  "ll": [
+   -21.898298,
+   64.114372
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Bónus Helluhraun",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Helluhraun 18",
+  "g": "Bónus, Helluhraun 18, 220 Hafnarfjörður",
+  "words": [],
+  "ll": [
+   -21.942087,
+   64.077509
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Bónus Holtavegur",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Holtavegur 10",
+  "g": "Bónus, Holtavegur 10, 104 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.847606,
+   64.142501
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Bónus Laugavegur",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Laugavegur 59",
+  "g": "Bónus, Laugavegur 59, 101 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.922825,
+   64.144572
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Bónus Skútuvogur",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Skútuvogur 13",
+  "g": "Bónus, Skútuvogur 13, 104 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.846234,
+   64.135111
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Bónus Fiskislóð",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Fiskislóð 2-8",
+  "g": "Bónus, Fiskislóð 2-8, 101 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.951466,
+   64.153627
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Bónus Garðatorg",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Garðatorg 1",
+  "g": "Bónus, Garðatorg 1, 210 Garðabær",
+  "words": [],
+  "ll": [
+   -21.920261,
+   64.089051
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Bónus Smáratorg",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Smáratorg",
+  "g": "Bónus, Smáratorg, 201 Kópavogur",
+  "words": [],
+  "ll": [
+   -21.879654,
+   64.103561
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Bónus Ögurhvarf",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Ögurhvarf 3",
+  "g": "Bónus, Ögurhvarf 3, 203 Kópavogur",
+  "words": [],
+  "ll": [
+   -21.802901,
+   64.096427
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "203"
+  ]
+ },
+ {
+  "name": "Bónus Hraunbær",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Hraunbær 121",
+  "g": "Bónus, Hraunbær 121, 110 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.795707,
+   64.117983
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "110"
+  ]
+ },
+ {
+  "name": "Bónus Kringlan",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Kringlan 4",
+  "g": "Bónus, Kringlan 4, 103 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.895959,
+   64.129693
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "103"
+  ]
+ },
+ {
+  "name": "Bónus Lóuhólar",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Lóuhólar 2-4",
+  "g": "Bónus, Lóuhólar 2-4, 111 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.816042,
+   64.108945
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "111"
+  ]
+ },
+ {
+  "name": "Bónus Miðhraun",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Miðhraun 24",
+  "g": "Bónus, Miðhraun 24, 210 Garðabær",
+  "words": [],
+  "ll": [
+   -21.927112,
+   64.076221
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Bónus Skipholt",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Skipholt 11-13",
+  "g": "Bónus, Skipholt 11-13, 105 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.907392,
+   64.141487
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Bónus Kauptún",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Kauptún 3",
+  "g": "Bónus, Kauptún 3, 210 Garðabær",
+  "words": [],
+  "ll": [
+   -21.912065,
+   64.072947
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Bónus Skeifan",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Skeifan 11a",
+  "g": "Bónus, Skeifan 11a, 108 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.869297,
+   64.131285
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Bónus Spöngin",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Spöngin 9",
+  "g": "Bónus, Spöngin 9, 112 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.789413,
+   64.150472
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Costco",
+  "cat": "store",
+  "brand": "Costco",
+  "addr": "Kauptún 3",
+  "g": "Costco, Kauptún 3, 210 Garðabær",
+  "words": [
+   "wholesale"
+  ],
+  "ll": [
+   -21.911931,
+   64.073553
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Elko Skógarlind",
+  "cat": "store",
+  "brand": "Elko",
+  "addr": "Skógarlind 2",
+  "g": "Elko, Skógarlind 2, 201 Kópavogur",
+  "words": [
+   "electronics"
+  ],
+  "ll": [
+   -21.872884,
+   64.101227
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Elko Fiskislóð",
+  "cat": "store",
+  "brand": "Elko",
+  "addr": "Fiskislóð 15",
+  "g": "Elko, Fiskislóð 15, 101 Reykjavík",
+  "words": [
+   "electronics"
+  ],
+  "ll": [
+   -21.950412,
+   64.155701
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Elko Hagasmári",
+  "cat": "store",
+  "brand": "Elko",
+  "addr": "Hagasmári 1",
+  "g": "Elko, Hagasmári 1, 201 Kópavogur",
+  "words": [
+   "electronics"
+  ],
+  "ll": [
+   -21.882127,
+   64.101264
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Elko Skeifan",
+  "cat": "store",
+  "brand": "Elko",
+  "addr": "Skeifan 19",
+  "g": "Elko, Skeifan 19, 108 Reykjavík",
+  "words": [
+   "electronics"
+  ],
+  "ll": [
+   -21.872735,
+   64.130236
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Hagkaup Eiðistorg",
+  "cat": "grocery",
+  "brand": "Hagkaup",
+  "addr": "Eiðistorg 11",
+  "g": "Hagkaup, Eiðistorg 11, 170 Seltjarnarnes",
+  "words": [
+   "department store"
+  ],
+  "kind": "department",
+  "ll": [
+   -21.98433,
+   64.150286
+  ],
+  "muni": "Seltjarnarnes",
+  "postal": [
+   "170"
+  ]
+ },
+ {
+  "name": "Hagkaup Hagasmári",
+  "cat": "grocery",
+  "brand": "Hagkaup",
+  "addr": "Hagasmári 1",
+  "g": "Hagkaup, Hagasmári 1, 201 Kópavogur",
+  "words": [
+   "department store"
+  ],
+  "kind": "department",
+  "ll": [
+   -21.881492,
+   64.100835
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Hagkaup Kringlan",
+  "cat": "grocery",
+  "brand": "Hagkaup",
+  "addr": "Kringlan 4-12",
+  "g": "Hagkaup, Kringlan 4-12, 103 Reykjavík",
+  "words": [
+   "department store"
+  ],
+  "kind": "department",
+  "ll": [
+   -21.893675,
+   64.131122
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "103"
+  ]
+ },
+ {
+  "name": "Hagkaup Litlatún",
+  "cat": "grocery",
+  "brand": "Hagkaup",
+  "addr": "Litlatún 1",
+  "g": "Hagkaup, Litlatún 1, 210 Garðabær",
+  "words": [
+   "department store"
+  ],
+  "kind": "department",
+  "ll": [
+   -21.925928,
+   64.090518
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Hagkaup Skeifan",
+  "cat": "grocery",
+  "brand": "Hagkaup",
+  "addr": "Skeifan 15",
+  "g": "Hagkaup, Skeifan 15, 108 Reykjavík",
+  "words": [
+   "department store"
+  ],
+  "kind": "department",
+  "ll": [
+   -21.869196,
+   64.129611
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Hagkaup Spöngin",
+  "cat": "grocery",
+  "brand": "Hagkaup",
+  "addr": "Spöngin 25",
+  "g": "Hagkaup, Spöngin 25, 112 Reykjavík",
+  "words": [
+   "department store"
+  ],
+  "kind": "department",
+  "ll": [
+   -21.787195,
+   64.150725
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Húsasmiðjan Skútuvogur",
+  "cat": "store",
+  "brand": "Húsasmiðjan",
+  "addr": "Skútuvogur",
+  "g": "Húsasmiðjan, Skútuvogur, 104 Reykjavík",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -21.848548,
+   64.135093
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Húsasmiðjan Þjóðhildarstígur",
+  "cat": "store",
+  "brand": "Húsasmiðjan",
+  "addr": "Þjóðhildarstígur",
+  "g": "Húsasmiðjan, Þjóðhildarstígur, 113 Reykjavík",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -21.762681,
+   64.131147
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "113"
+  ]
+ },
+ {
+  "name": "Húsasmiðjan Dalshraun",
+  "cat": "store",
+  "brand": "Húsasmiðjan",
+  "addr": "Dalshraun",
+  "g": "Húsasmiðjan, Dalshraun, 220 Hafnarfjörður",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -21.942136,
+   64.079191
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "IKEA",
+  "cat": "store",
+  "brand": "IKEA",
+  "addr": "Kauptún 4",
+  "g": "IKEA, Kauptún 4, 210 Garðabær",
+  "words": [
+   "furniture"
+  ],
+  "ll": [
+   -21.919735,
+   64.074615
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "JYSK Blikastaðavegur",
+  "cat": "store",
+  "brand": "JYSK",
+  "addr": "Blikastaðavegur 2-8",
+  "g": "JYSK, Blikastaðavegur 2-8, 112 Reykjavík",
+  "words": [
+   "furniture"
+  ],
+  "ll": [
+   -21.755069,
+   64.145998
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "JYSK Bíldshöfði",
+  "cat": "store",
+  "brand": "JYSK",
+  "addr": "Bíldshöfði 20",
+  "g": "JYSK, Bíldshöfði 20, 110 Reykjavík",
+  "words": [
+   "furniture"
+  ],
+  "ll": [
+   -21.814735,
+   64.125203
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "110"
+  ]
+ },
+ {
+  "name": "JYSK Fiskislóð",
+  "cat": "store",
+  "brand": "JYSK",
+  "addr": "Fiskislóð 15-21",
+  "g": "JYSK, Fiskislóð 15-21, 101 Reykjavík",
+  "words": [
+   "furniture"
+  ],
+  "ll": [
+   -21.950047,
+   64.155488
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "JYSK Smáratorg",
+  "cat": "store",
+  "brand": "JYSK",
+  "addr": "Smáratorg 1",
+  "g": "JYSK, Smáratorg 1, 201 Kópavogur",
+  "words": [
+   "furniture"
+  ],
+  "ll": [
+   -21.877517,
+   64.103702
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "JYSK Skeifan",
+  "cat": "store",
+  "brand": "JYSK",
+  "addr": "Skeifan 13",
+  "g": "JYSK, Skeifan 13, 108 Reykjavík",
+  "words": [
+   "furniture"
+  ],
+  "ll": [
+   -21.868938,
+   64.130295
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Krónan Hallveigarstígur",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Hallveigarstígur 1",
+  "g": "Krónan, Hallveigarstígur 1, 101 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.934089,
+   64.145629
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Krónan Þjóðhildarstígur",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Þjóðhildarstígur 2",
+  "g": "Krónan, Þjóðhildarstígur 2, 113 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.761236,
+   64.13009
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "113"
+  ]
+ },
+ {
+  "name": "Krónan Hvaleyrarbraut",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Hvaleyrarbraut 3",
+  "g": "Krónan, Hvaleyrarbraut 3, 220 Hafnarfjörður",
+  "words": [],
+  "ll": [
+   -21.964474,
+   64.062026
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Krónan Háaleitisbraut",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Háaleitisbraut 68",
+  "g": "Krónan, Háaleitisbraut 68, 103 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.887338,
+   64.128511
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "103"
+  ]
+ },
+ {
+  "name": "Krónan Bjarkarholt",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Bjarkarholt 3-5",
+  "g": "Krónan, Bjarkarholt 3-5, 270 Mosfellsbær",
+  "words": [],
+  "ll": [
+   -21.69696,
+   64.165803
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Krónan Norðurhella",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Norðurhella 1",
+  "g": "Krónan, Norðurhella 1, 221 Hafnarfjörður",
+  "words": [],
+  "ll": [
+   -21.983982,
+   64.046318
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Krónan Bíldshöfði",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Bíldshöfði 20",
+  "g": "Krónan, Bíldshöfði 20, 110 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.814976,
+   64.125147
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "110"
+  ]
+ },
+ {
+  "name": "Krónan Flatahraun",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Flatahraun 13",
+  "g": "Krónan, Flatahraun 13, 220 Hafnarfjörður",
+  "words": [],
+  "ll": [
+   -21.941856,
+   64.076464
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Krónan Skógarlind",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Skógarlind 2-4",
+  "g": "Krónan, Skógarlind 2-4, 201 Kópavogur",
+  "words": [],
+  "ll": [
+   -21.872967,
+   64.10191
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Krónan Akrabraut",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Akrabraut 1",
+  "g": "Krónan, Akrabraut 1, 210 Garðabær",
+  "words": [],
+  "ll": [
+   -21.908546,
+   64.098189
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Krónan Borgartún",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Borgartún",
+  "g": "Krónan, Borgartún, 105 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.898156,
+   64.145693
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Krónan Fiskislóð",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Fiskislóð 15-21",
+  "g": "Krónan, Fiskislóð 15-21, 101 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.949509,
+   64.155137
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Krónan Hamraborg",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Hamraborg 18",
+  "g": "Krónan, Hamraborg 18, 200 Kópavogur",
+  "words": [],
+  "ll": [
+   -21.903886,
+   64.112236
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Krónan Jafnaseli",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Jafnaseli 2",
+  "g": "Krónan, Jafnaseli 2, 109 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.826532,
+   64.097334
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "109"
+  ]
+ },
+ {
+  "name": "Krónan Vallakór",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Vallakór 4",
+  "g": "Krónan, Vallakór 4, 203 Kópavogur",
+  "words": [],
+  "ll": [
+   -21.821531,
+   64.08448
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "203"
+  ]
+ },
+ {
+  "name": "Krónan Rofabær",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Rofabær 39",
+  "g": "Krónan, Rofabær 39, 110 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.790077,
+   64.11551
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "110"
+  ]
+ },
+ {
+  "name": "Krónan Skeifan",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Skeifan 19",
+  "g": "Krónan, Skeifan 19, 108 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.872492,
+   64.130205
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Nettó Þönglabakki",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Þönglabakki 1",
+  "g": "Nettó, Þönglabakki 1, 109 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.842562,
+   64.108591
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "109"
+  ]
+ },
+ {
+  "name": "Nettó Engihjalli",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Engihjalli 8",
+  "g": "Nettó, Engihjalli 8, 200 Kópavogur",
+  "words": [],
+  "ll": [
+   -21.858837,
+   64.110007
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Nettó Seljabraut",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Seljabraut 54",
+  "g": "Nettó, Seljabraut 54, 109 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.831239,
+   64.099486
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "109"
+  ]
+ },
+ {
+  "name": "Nettó Sunnukriki",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Sunnukriki 3",
+  "g": "Nettó, Sunnukriki 3, 270 Mosfellsbær",
+  "words": [],
+  "ll": [
+   -21.691029,
+   64.163497
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Nettó Fiskislóð",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Fiskislóð 3",
+  "g": "Nettó, Fiskislóð 3, 101 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.951995,
+   64.154554
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Nettó Miðvangur",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Miðvangur 41",
+  "g": "Nettó, Miðvangur 41, 220 Hafnarfjörður",
+  "words": [],
+  "ll": [
+   -21.957327,
+   64.078814
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Nettó Salavegur",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Salavegur 2",
+  "g": "Nettó, Salavegur 2, 201 Kópavogur",
+  "words": [],
+  "ll": [
+   -21.859131,
+   64.093836
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Nettó Álfheimar",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Álfheimar 74",
+  "g": "Nettó, Álfheimar 74, 104 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.867859,
+   64.133459
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Nettó Selhella",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Selhella 1",
+  "g": "Nettó, Selhella 1, 221 Hafnarfjörður",
+  "words": [],
+  "ll": [
+   -21.989714,
+   64.050542
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Nettó Lágmúli",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Lágmúli 7",
+  "g": "Nettó, Lágmúli 7, 108 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.891032,
+   64.138577
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Eiðistorg",
+  "cat": "mall",
+  "addr": "Eiðistorg 19",
+  "g": "Eiðistorg, 170 Seltjarnarnes",
+  "ll": [
+   -21.984916,
+   64.150433
+  ],
+  "muni": "Seltjarnarnes",
+  "postal": [
+   "170"
+  ]
+ },
+ {
+  "name": "Fjörður",
+  "cat": "mall",
+  "addr": "Fjarðargata 13-15",
+  "g": "Fjörður, 220 Hafnarfjörður",
+  "ll": [
+   -21.956401,
+   64.068056
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Glæsibær",
+  "cat": "mall",
+  "addr": "Álfheimar 74",
+  "g": "Glæsibær, 104 Reykjavík",
+  "ll": [
+   -21.869393,
+   64.134488
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Holtagarðar",
+  "cat": "mall",
+  "addr": "Holtavegur 10",
+  "g": "Holtagarðar, 104 Reykjavík",
+  "ll": [
+   -21.84726,
+   64.142109
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Hólagarður",
+  "cat": "mall",
+  "addr": "Hólagarður",
+  "g": "Hólagarður, 111 Reykjavík",
+  "ll": [
+   -21.817612,
+   64.109106
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "111"
+  ]
+ },
+ {
+  "name": "Kringlan",
+  "cat": "mall",
+  "addr": "Kringlan",
+  "g": "Kringlan, 103 Reykjavík",
+  "ll": [
+   -21.894832,
+   64.130234
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "103"
+  ]
+ },
+ {
+  "name": "Mjóddin",
+  "cat": "mall",
+  "addr": "",
+  "g": "Mjóddin, 109 Reykjavík",
+  "ll": [
+   -21.843013,
+   64.108788
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "109"
+  ]
+ },
+ {
+  "name": "Smáralind",
+  "cat": "mall",
+  "addr": "Hagasmári 1",
+  "g": "Smáralind, 201 Kópavogur",
+  "ll": [
+   -21.883913,
+   64.100965
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Spöngin",
+  "cat": "mall",
+  "addr": "Spöngin",
+  "g": "Spöngin, 112 Reykjavík",
+  "ll": [
+   -21.7883,
+   64.1506
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Basarinn",
+  "cat": "second",
+  "kind": "shop",
+  "addr": "Háaleitisbraut",
+  "g": "Basarinn, Háaleitisbraut, 103 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.886864,
+   64.128616
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "103"
+  ]
+ },
+ {
+  "name": "Góði hirðirinn",
+  "cat": "second",
+  "kind": "shop",
+  "addr": "Breiðhella 8-10",
+  "g": "Góði hirðirinn, Breiðhella 8-10, 221 Hafnarfjörður",
+  "words": [
+   "good shepherd",
+   "sorpa"
+  ],
+  "ll": [
+   -21.992508,
+   64.040723
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Góði hirðirinn",
+  "cat": "second",
+  "kind": "shop",
+  "addr": "Köllunarklettsvegur 1",
+  "g": "Góði hirðirinn, Köllunarklettsvegur 1, 104 Reykjavík",
+  "words": [
+   "good shepherd",
+   "sorpa"
+  ],
+  "ll": [
+   -21.87344,
+   64.151024
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Hringekjan",
+  "cat": "second",
+  "kind": "shop",
+  "addr": "",
+  "g": "Hringekjan, 105 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.910675,
+   64.145072
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Kolaportið",
+  "cat": "second",
+  "kind": "flea",
+  "addr": "",
+  "g": "Kolaportið, 101 Reykjavík",
+  "words": [
+   "kolaport",
+   "flea market"
+  ],
+  "ll": [
+   -21.938609,
+   64.148838
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Nytjamarkaður abc",
+  "cat": "second",
+  "kind": "shop",
+  "addr": "",
+  "g": "Nytjamarkaður abc, 200 Kópavogur",
+  "words": [],
+  "ll": [
+   -21.896927,
+   64.114311
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Nytjamarkaðurinn",
+  "cat": "second",
+  "kind": "shop",
+  "addr": "Laugavegur 118",
+  "g": "Nytjamarkaðurinn, Laugavegur 118, 105 Reykjavík",
+  "words": [],
+  "ll": [
+   -21.914405,
+   64.142918
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Alþingisgarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.001,
+  "bb": [
+   -21.9407,
+   64.14637,
+   -21.93998,
+   64.14671
+  ],
+  "g": "Alþingisgarðurinn, 101 Reykjavík",
+  "ll": [
+   -21.940345,
+   64.146537
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Arnarhóll",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.014,
+  "bb": [
+   -21.93486,
+   64.14733,
+   -21.93172,
+   64.14885
+  ],
+  "g": "Arnarhóll, 101 Reykjavík",
+  "ll": [
+   -21.933332,
+   64.148095
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Bakarabrekkan",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.002,
+  "bb": [
+   -21.93704,
+   64.14643,
+   -21.93585,
+   64.14708
+  ],
+  "g": "Bakarabrekkan, 101 Reykjavík",
+  "ll": [
+   -21.936396,
+   64.14678
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Bakkagarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.027,
+  "bb": [
+   -22.00165,
+   64.1497,
+   -21.9944,
+   64.15229
+  ],
+  "g": "Bakkagarður, 170 Seltjarnarnes",
+  "ll": [
+   -21.997464,
+   64.151007
+  ],
+  "muni": "Seltjarnarnes",
+  "postal": [
+   "170"
+  ]
+ },
+ {
+  "name": "Bakkatjörn",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.149,
+  "bb": [
+   -22.02228,
+   64.15466,
+   -22.00867,
+   64.1588
+  ],
+  "g": "Bakkatjörn, 170 Seltjarnarnes",
+  "ll": [
+   -22.014736,
+   64.15673
+  ],
+  "muni": "Seltjarnarnes",
+  "postal": [
+   "170"
+  ]
+ },
+ {
+  "name": "Bali",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.007,
+  "bb": [
+   -21.98644,
+   64.07887,
+   -21.98363,
+   64.0797
+  ],
+  "g": "Bali, 210 Garðabær",
+  "ll": [
+   -21.985349,
+   64.079287
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Bláfjallafólkvangur",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 90.015,
+  "bb": [
+   -21.82621,
+   63.96106,
+   -21.54615,
+   64.05958
+  ],
+  "g": "Bláfjallafólkvangur, 206 Kópavogur",
+  "ll": [
+   -21.686046,
+   64.011606
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "206"
+  ]
+ },
+ {
+  "name": "Borgir",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.03,
+  "bb": [
+   -21.91485,
+   64.11121,
+   -21.91123,
+   64.11338
+  ],
+  "g": "Borgir, 200 Kópavogur",
+  "ll": [
+   -21.914101,
+   64.112334
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Bringan",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.004,
+  "bb": [
+   -21.92329,
+   64.13797,
+   -21.92118,
+   64.13904
+  ],
+  "g": "Bringan, 101 Reykjavík",
+  "ll": [
+   -21.92237,
+   64.138424
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Bringur",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.185,
+  "bb": [
+   -21.53618,
+   64.17462,
+   -21.52588,
+   64.1795
+  ],
+  "g": "Bringur, 271 Mosfellsbær",
+  "ll": [
+   -21.530658,
+   64.177278
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "271"
+  ]
+ },
+ {
+  "name": "Búrfell",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 3.21,
+  "bb": [
+   -21.87531,
+   64.02689,
+   -21.82181,
+   64.05101
+  ],
+  "g": "Búrfell, 161 Reykjavík",
+  "ll": [
+   -21.850428,
+   64.039708
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "161"
+  ]
+ },
+ {
+  "name": "Einarsgarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.003,
+  "bb": [
+   -21.93336,
+   64.13825,
+   -21.93146,
+   64.13886
+  ],
+  "g": "Einarsgarður, 101 Reykjavík",
+  "ll": [
+   -21.932516,
+   64.138574
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Eldborg",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.345,
+  "bb": [
+   -21.6465,
+   63.9952,
+   -21.63121,
+   64.00166
+  ],
+  "g": "Eldborg, 206 Kópavogur",
+  "ll": [
+   -21.638885,
+   63.99836
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "206"
+  ]
+ },
+ {
+  "name": "Elliðaárdalur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 2.48,
+  "bb": [
+   -21.84726,
+   64.09712,
+   -21.79001,
+   64.12413
+  ],
+  "g": "Elliðaárdalur, 111 Reykjavík",
+  "ll": [
+   -21.800752,
+   64.11064
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "111"
+  ]
+ },
+ {
+  "name": "Fjárskjól við Stórhöfða",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.0,
+  "bb": [
+   -21.94471,
+   64.02741,
+   -21.94435,
+   64.02755
+  ],
+  "g": "Fjárskjól við Stórhöfða, 221 Hafnarfjörður",
+  "ll": [
+   -21.94452,
+   64.027488
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Fjölskyldu- og húsdýragarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.093,
+  "bb": [
+   -21.87448,
+   64.13616,
+   -21.86436,
+   64.14013
+  ],
+  "g": "Fjölskyldu- og húsdýragarðurinn, 104 Reykjavík",
+  "ll": [
+   -21.871502,
+   64.138637
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Fossvogsdalur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.371,
+  "bb": [
+   -21.8892,
+   64.11384,
+   -21.85296,
+   64.11875
+  ],
+  "g": "Fossvogsdalur, 200 Kópavogur",
+  "ll": [
+   -21.865799,
+   64.116296
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Frakkland",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.0,
+  "bb": [
+   -21.92689,
+   64.14278,
+   -21.92639,
+   64.14301
+  ],
+  "g": "Frakkland, 101 Reykjavík",
+  "ll": [
+   -21.926639,
+   64.142901
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Fógetagarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.0,
+  "bb": [
+   -21.94229,
+   64.14722,
+   -21.94175,
+   64.14752
+  ],
+  "g": "Fógetagarðurinn, 101 Reykjavík",
+  "ll": [
+   -21.942163,
+   64.147376
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Garðaflöt",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.003,
+  "bb": [
+   -21.87447,
+   64.12329,
+   -21.87307,
+   64.12394
+  ],
+  "g": "Garðaflöt, 108 Reykjavík",
+  "ll": [
+   -21.873772,
+   64.123613
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Garðahraun - efra",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.574,
+  "bb": [
+   -21.93612,
+   64.07836,
+   -21.8982,
+   64.08494
+  ],
+  "g": "Garðahraun - efra, 210 Garðabær",
+  "ll": [
+   -21.912782,
+   64.081659
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Garðahraun - neðra",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.197,
+  "bb": [
+   -21.96321,
+   64.08588,
+   -21.95157,
+   64.09177
+  ],
+  "g": "Garðahraun - neðra, 210 Garðabær",
+  "ll": [
+   -21.957749,
+   64.088917
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Geislagarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.001,
+  "bb": [
+   -21.90341,
+   64.11185,
+   -21.90273,
+   64.11209
+  ],
+  "g": "Geislagarðurinn, 200 Kópavogur",
+  "ll": [
+   -21.903053,
+   64.11197
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Grasagarður Reykjavíkur",
+  "cat": "park",
+  "kind": "botanical",
+  "km2": 0.054,
+  "bb": [
+   -21.87241,
+   64.13927,
+   -21.86624,
+   64.14258
+  ],
+  "g": "Grasagarður Reykjavíkur, 104 Reykjavík",
+  "ll": [
+   -21.869855,
+   64.140981
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Grundargerðisgarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.012,
+  "bb": [
+   -21.87481,
+   64.1268,
+   -21.87138,
+   64.12789
+  ],
+  "g": "Grundargerðisgarður, 108 Reykjavík",
+  "ll": [
+   -21.873052,
+   64.127351
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Grótta",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.395,
+  "bb": [
+   -22.02901,
+   64.16119,
+   -22.01278,
+   64.1679
+  ],
+  "g": "Grótta, 170 Seltjarnarnes",
+  "ll": [
+   -22.020994,
+   64.164543
+  ],
+  "muni": "Seltjarnarnes",
+  "postal": [
+   "170"
+  ]
+ },
+ {
+  "name": "Gálgahraun",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 1.077,
+  "bb": [
+   -21.98257,
+   64.08987,
+   -21.94684,
+   64.1008
+  ],
+  "g": "Gálgahraun, 210 Garðabær",
+  "ll": [
+   -21.967355,
+   64.095056
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Hallargarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.006,
+  "bb": [
+   -21.94006,
+   64.14287,
+   -21.93834,
+   64.14404
+  ],
+  "g": "Hallargarðurinn, 101 Reykjavík",
+  "ll": [
+   -21.939411,
+   64.143454
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Hallsteinsgarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.024,
+  "bb": [
+   -21.80245,
+   64.15295,
+   -21.79746,
+   64.15535
+  ],
+  "g": "Hallsteinsgarður, 112 Reykjavík",
+  "ll": [
+   -21.799716,
+   64.154316
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Hamarinn",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.021,
+  "bb": [
+   -21.95193,
+   64.06514,
+   -21.94783,
+   64.06655
+  ],
+  "g": "Hamarinn, 220 Hafnarfjörður",
+  "ll": [
+   -21.950006,
+   64.065933
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Heimaás",
+  "cat": "park",
+  "kind": "wood",
+  "km2": 0.428,
+  "bb": [
+   -21.76585,
+   64.07982,
+   -21.74907,
+   64.09006
+  ],
+  "g": "Heimaás, 161 Reykjavík",
+  "ll": [
+   -21.758841,
+   64.084928
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "161"
+  ]
+ },
+ {
+  "name": "Heiðmörk",
+  "cat": "park",
+  "kind": "wood",
+  "km2": 5.142,
+  "bb": [
+   -21.88166,
+   64.04244,
+   -21.71987,
+   64.08228
+  ],
+  "g": "Heiðmörk, 161 Reykjavík",
+  "ll": [
+   -21.750067,
+   64.071303
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "161"
+  ]
+ },
+ {
+  "name": "Hellisgerði",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.013,
+  "bb": [
+   -21.96017,
+   64.071,
+   -21.95624,
+   64.07204
+  ],
+  "g": "Hellisgerði, 220 Hafnarfjörður",
+  "ll": [
+   -21.958292,
+   64.071491
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Hermannsgarður í Guðmundarlundi",
+  "cat": "park",
+  "kind": "garden",
+  "km2": 0.001,
+  "bb": [
+   -21.8239,
+   64.07403,
+   -21.82317,
+   64.07423
+  ],
+  "g": "Hermannsgarður í Guðmundarlundi, 203 Kópavogur",
+  "ll": [
+   -21.823534,
+   64.074114
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "203"
+  ]
+ },
+ {
+  "name": "Hermannslundur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.006,
+  "bb": [
+   -21.89367,
+   64.1171,
+   -21.89027,
+   64.11755
+  ],
+  "g": "Hermannslundur, 200 Kópavogur",
+  "ll": [
+   -21.891964,
+   64.117311
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Hleinar",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.321,
+  "bb": [
+   -21.9881,
+   64.07315,
+   -21.96667,
+   64.07934
+  ],
+  "g": "Hleinar, 220 Hafnarfjörður",
+  "ll": [
+   -21.976983,
+   64.07633
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Hljómskálagarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.103,
+  "bb": [
+   -21.94548,
+   64.13891,
+   -21.93803,
+   64.14407
+  ],
+  "g": "Hljómskálagarðurinn, 101 Reykjavík",
+  "ll": [
+   -21.941662,
+   64.14097
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Hlíðargarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.008,
+  "bb": [
+   -21.90345,
+   64.10591,
+   -21.90056,
+   64.10739
+  ],
+  "g": "Hlíðargarður, 200 Kópavogur",
+  "ll": [
+   -21.901702,
+   64.10667
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Hádegishólar",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.021,
+  "bb": [
+   -21.87086,
+   64.09338,
+   -21.86559,
+   64.09498
+  ],
+  "g": "Hádegishólar, 201 Kópavogur",
+  "ll": [
+   -21.868801,
+   64.093874
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Höggmyndagarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.004,
+  "bb": [
+   -21.93015,
+   64.1414,
+   -21.92834,
+   64.14221
+  ],
+  "g": "Höggmyndagarðurinn, 101 Reykjavík",
+  "ll": [
+   -21.929217,
+   64.141786
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Kaldárhraun og Gjárnar",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 2.074,
+  "bb": [
+   -21.92646,
+   64.01603,
+   -21.85792,
+   64.02772
+  ],
+  "g": "Kaldárhraun og Gjárnar, 221 Hafnarfjörður",
+  "ll": [
+   -21.894721,
+   64.021302
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Kambsvöllur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.002,
+  "bb": [
+   -21.86365,
+   64.1444,
+   -21.86265,
+   64.14495
+  ],
+  "g": "Kambsvöllur, 104 Reykjavík",
+  "ll": [
+   -21.863187,
+   64.144684
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Kasthúsatjörn",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.042,
+  "bb": [
+   -22.01809,
+   64.11089,
+   -22.01208,
+   64.11392
+  ],
+  "g": "Kasthúsatjörn, 225 Garðabær",
+  "ll": [
+   -22.014834,
+   64.112488
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "225"
+  ]
+ },
+ {
+  "name": "Klambratún",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.116,
+  "bb": [
+   -21.91814,
+   64.13526,
+   -21.90861,
+   64.13891
+  ],
+  "g": "Klambratún, 105 Reykjavík",
+  "ll": [
+   -21.913375,
+   64.13704
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Kænugarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.0,
+  "bb": [
+   -21.94457,
+   64.14756,
+   -21.94415,
+   64.14774
+  ],
+  "g": "Kænugarður, 101 Reykjavík",
+  "ll": [
+   -21.944359,
+   64.147658
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Kópavogsdalur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.339,
+  "bb": [
+   -21.90357,
+   64.10333,
+   -21.85881,
+   64.10874
+  ],
+  "g": "Kópavogsdalur, 200 Kópavogur",
+  "ll": [
+   -21.890983,
+   64.106018
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Landakotstún",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.007,
+  "bb": [
+   -21.94838,
+   64.14659,
+   -21.94627,
+   64.14779
+  ],
+  "g": "Landakotstún, 101 Reykjavík",
+  "ll": [
+   -21.947227,
+   64.147423
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Laugarás",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.015,
+  "bb": [
+   -21.86819,
+   64.14331,
+   -21.86515,
+   64.14506
+  ],
+  "g": "Laugarás, 104 Reykjavík",
+  "ll": [
+   -21.866891,
+   64.144212
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Litli Rauðamelur",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.001,
+  "bb": [
+   -22.06238,
+   64.03462,
+   -22.06167,
+   64.03486
+  ],
+  "g": "Litli Rauðamelur, 220 Hafnarfjörður",
+  "ll": [
+   -22.062045,
+   64.03476
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Litluborgir",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.105,
+  "bb": [
+   -21.83828,
+   64.00632,
+   -21.82657,
+   64.00954
+  ],
+  "g": "Litluborgir, 221 Hafnarfjörður",
+  "ll": [
+   -21.832536,
+   64.008076
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Lottutún",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.001,
+  "bb": [
+   -21.83729,
+   64.11822,
+   -21.83646,
+   64.1185
+  ],
+  "g": "Lottutún, 110 Reykjavík",
+  "ll": [
+   -21.836887,
+   64.118357
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "110"
+  ]
+ },
+ {
+  "name": "Lýðveldisgarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.001,
+  "bb": [
+   -21.93085,
+   64.14676,
+   -21.93009,
+   64.14707
+  ],
+  "g": "Lýðveldisgarðurinn, 101 Reykjavík",
+  "ll": [
+   -21.930483,
+   64.146899
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Magnúsarlundur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.014,
+  "bb": [
+   -21.83024,
+   64.07713,
+   -21.82721,
+   64.07859
+  ],
+  "g": "Magnúsarlundur, 203 Kópavogur",
+  "ll": [
+   -21.828766,
+   64.077847
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "203"
+  ]
+ },
+ {
+  "name": "Maríuhellar",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.04,
+  "bb": [
+   -21.89391,
+   64.07106,
+   -21.88769,
+   64.07317
+  ],
+  "g": "Maríuhellar, 210 Garðabær",
+  "ll": [
+   -21.891077,
+   64.072078
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Mæðragarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.002,
+  "bb": [
+   -21.93906,
+   64.14521,
+   -21.93805,
+   64.14584
+  ],
+  "g": "Mæðragarðurinn, 101 Reykjavík",
+  "ll": [
+   -21.938417,
+   64.145543
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Rauðhólar",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 1.297,
+  "bb": [
+   -21.7749,
+   64.08789,
+   -21.73775,
+   64.1005
+  ],
+  "g": "Rauðhólar, 161 Reykjavík",
+  "ll": [
+   -21.755225,
+   64.094215
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "161"
+  ]
+ },
+ {
+  "name": "Riddaralundurinn",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.0,
+  "bb": [
+   -21.92365,
+   64.03509,
+   -21.92351,
+   64.03518
+  ],
+  "g": "Riddaralundurinn, 221 Hafnarfjörður",
+  "ll": [
+   -21.923583,
+   64.035143
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Rósagarðurinn",
+  "cat": "park",
+  "kind": "garden",
+  "km2": 0.002,
+  "bb": [
+   -21.84905,
+   64.11475,
+   -21.84767,
+   64.11527
+  ],
+  "g": "Rósagarðurinn, 200 Kópavogur",
+  "ll": [
+   -21.848355,
+   64.115037
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Rútstún",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.012,
+  "bb": [
+   -21.91798,
+   64.10918,
+   -21.91565,
+   64.11041
+  ],
+  "g": "Rútstún, 200 Kópavogur",
+  "ll": [
+   -21.916837,
+   64.109699
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Seljabotnar",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.035,
+  "bb": [
+   -21.84999,
+   64.09922,
+   -21.8449,
+   64.10283
+  ],
+  "g": "Seljabotnar, 109 Reykjavík",
+  "ll": [
+   -21.846667,
+   64.101272
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "109"
+  ]
+ },
+ {
+  "name": "Skógræktarfélag Mosfellsbæjar Hamrahlíð",
+  "cat": "park",
+  "kind": "wood",
+  "km2": 0.45,
+  "bb": [
+   -21.74359,
+   64.14771,
+   -21.6893,
+   64.15702
+  ],
+  "g": "Skógræktarfélag Mosfellsbæjar Hamrahlíð, 270 Mosfellsbær",
+  "ll": [
+   -21.694903,
+   64.153505
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Skúlagarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.004,
+  "bb": [
+   -21.91237,
+   64.14337,
+   -21.90925,
+   64.14382
+  ],
+  "g": "Skúlagarður, 105 Reykjavík",
+  "ll": [
+   -21.911281,
+   64.143581
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Stekkjarhraun",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.158,
+  "bb": [
+   -21.93649,
+   64.05754,
+   -21.92463,
+   64.06592
+  ],
+  "g": "Stekkjarhraun, 221 Hafnarfjörður",
+  "ll": [
+   -21.931261,
+   64.061539
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Tröllabörn",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.046,
+  "bb": [
+   -21.66854,
+   64.07768,
+   -21.66322,
+   64.0804
+  ],
+  "g": "Tröllabörn, 206 Kópavogur",
+  "ll": [
+   -21.666183,
+   64.078722
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "206"
+  ]
+ },
+ {
+  "name": "Tungufoss",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.014,
+  "bb": [
+   -21.68256,
+   64.17765,
+   -21.67972,
+   64.17954
+  ],
+  "g": "Tungufoss, 270 Mosfellsbær",
+  "ll": [
+   -21.680881,
+   64.178608
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Urtagarður í Nesi",
+  "cat": "park",
+  "kind": "garden",
+  "km2": 0.0,
+  "bb": [
+   -22.00705,
+   64.15724,
+   -22.00659,
+   64.15745
+  ],
+  "g": "Urtagarður í Nesi, 170 Seltjarnarnes",
+  "ll": [
+   -22.006825,
+   64.15731
+  ],
+  "muni": "Seltjarnarnes",
+  "postal": [
+   "170"
+  ]
+ },
+ {
+  "name": "Valhúsahæð",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.1,
+  "bb": [
+   -21.99837,
+   64.15193,
+   -21.98949,
+   64.156
+  ],
+  "g": "Valhúsahæð, 170 Seltjarnarnes",
+  "ll": [
+   -21.994983,
+   64.153977
+  ],
+  "muni": "Seltjarnarnes",
+  "postal": [
+   "170"
+  ]
+ },
+ {
+  "name": "Varmárósar",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.289,
+  "bb": [
+   -21.70933,
+   64.17406,
+   -21.69506,
+   64.17996
+  ],
+  "g": "Varmárósar, 270 Mosfellsbær",
+  "ll": [
+   -21.701655,
+   64.176963
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Vífilsstaðagarður",
+  "cat": "park",
+  "kind": "garden",
+  "km2": 0.101,
+  "bb": [
+   -21.89289,
+   64.079,
+   -21.87972,
+   64.08236
+  ],
+  "g": "Vífilsstaðagarður, 210 Garðabær",
+  "ll": [
+   -21.885891,
+   64.080856
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Vífilsstaðahraun",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.659,
+  "bb": [
+   -21.91063,
+   64.07228,
+   -21.88182,
+   64.08173
+  ],
+  "g": "Vífilsstaðahraun, 210 Garðabær",
+  "ll": [
+   -21.899432,
+   64.077095
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Vífilsstaðavatn",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 1.873,
+  "bb": [
+   -21.884,
+   64.06446,
+   -21.84833,
+   64.08366
+  ],
+  "g": "Vífilsstaðavatn, 210 Garðabær",
+  "ll": [
+   -21.86751,
+   64.075534
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Víghólar",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.014,
+  "bb": [
+   -21.88403,
+   64.11015,
+   -21.88093,
+   64.11138
+  ],
+  "g": "Víghólar, 200 Kópavogur",
+  "ll": [
+   -21.882262,
+   64.110829
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Víðistaðatún",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.055,
+  "bb": [
+   -21.96525,
+   64.07298,
+   -21.95827,
+   64.0763
+  ],
+  "g": "Víðistaðatún, 220 Hafnarfjörður",
+  "ll": [
+   -21.962352,
+   64.074678
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Yndisgarðurinn Fossvogi",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.005,
+  "bb": [
+   -21.85445,
+   64.11512,
+   -21.852,
+   64.11607
+  ],
+  "g": "Yndisgarðurinn Fossvogi, 200 Kópavogur",
+  "ll": [
+   -21.853659,
+   64.115398
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Álafoss",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.014,
+  "bb": [
+   -21.67715,
+   64.16518,
+   -21.67309,
+   64.16724
+  ],
+  "g": "Álafoss, 270 Mosfellsbær",
+  "ll": [
+   -21.674331,
+   64.16621
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Álfhóll",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.001,
+  "bb": [
+   -21.87079,
+   64.11106,
+   -21.86967,
+   64.1113
+  ],
+  "g": "Álfhóll, 200 Kópavogur",
+  "ll": [
+   -21.870291,
+   64.11117
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Ástjörn",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.278,
+  "bb": [
+   -21.96817,
+   64.04931,
+   -21.95131,
+   64.05407
+  ],
+  "g": "Ástjörn, 221 Hafnarfjörður",
+  "ll": [
+   -21.959829,
+   64.051737
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Ástjörn og Ásfjall",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.566,
+  "bb": [
+   -21.96983,
+   64.04768,
+   -21.9368,
+   64.05467
+  ],
+  "g": "Ástjörn og Ásfjall, 221 Hafnarfjörður",
+  "ll": [
+   -21.944926,
+   64.051737
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Ævintýragarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.789,
+  "bb": [
+   -21.70543,
+   64.16779,
+   -21.67673,
+   64.1806
+  ],
+  "g": "Ævintýragarðurinn, 270 Mosfellsbær",
+  "ll": [
+   -21.685381,
+   64.174042
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Óla Run tún",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.015,
+  "bb": [
+   -21.96748,
+   64.05829,
+   -21.96427,
+   64.0597
+  ],
+  "g": "Óla Run tún, 220 Hafnarfjörður",
+  "ll": [
+   -21.965713,
+   64.058819
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Öskjuhlíð",
+  "cat": "park",
+  "kind": "wood",
+  "km2": 0.404,
+  "bb": [
+   -21.92792,
+   64.12201,
+   -21.91196,
+   64.13237
+  ],
+  "g": "Öskjuhlíð, 105 Reykjavík",
+  "ll": [
+   -21.920778,
+   64.12717
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Breiðholtslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Breiðholtslaug, 111 Reykjavík",
+  "ll": [
+   -21.818508,
+   64.104659
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "111"
+  ]
+ },
+ {
+  "name": "Dalslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Dalslaug, 113 Reykjavík",
+  "ll": [
+   -21.736456,
+   64.132244
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "113"
+  ]
+ },
+ {
+  "name": "Grafarvogslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Grafarvogslaug, 112 Reykjavík",
+  "ll": [
+   -21.786562,
+   64.138187
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Klébergslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Klébergslaug, 116 Reykjavík",
+  "ll": [
+   -21.82766,
+   64.237499
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "116"
+  ]
+ },
+ {
+  "name": "Laugardalslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Laugardalslaug, 105 Reykjavík",
+  "ll": [
+   -21.879684,
+   64.146158
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Lágafellslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Lágafellslaug, 270 Mosfellsbær",
+  "ll": [
+   -21.725663,
+   64.165037
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Salalaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Salalaug, 201 Kópavogur",
+  "ll": [
+   -21.855971,
+   64.091799
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Seltjarnarneslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Seltjarnarneslaug, 170 Seltjarnarnes",
+  "ll": [
+   -21.991995,
+   64.150399
+  ],
+  "muni": "Seltjarnarnes",
+  "postal": [
+   "170"
+  ]
+ },
+ {
+  "name": "Sky Lagoon",
+  "cat": "pool",
+  "kind": "spa",
+  "words": [
+   "lagoon",
+   "spa"
+  ],
+  "g": "Sky Lagoon, 200 Kópavogur",
+  "ll": [
+   -21.946435,
+   64.116465
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Sundhöll Hafnarfjarðar",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundhöll Hafnarfjarðar, 220 Hafnarfjörður",
+  "ll": [
+   -21.968261,
+   64.07259
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Sundhöll Reykjavíkur",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [
+   "sundhollin"
+  ],
+  "g": "Sundhöll Reykjavíkur, 101 Reykjavík",
+  "ll": [
+   -21.920333,
+   64.141675
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Sundlaug Kópavogs",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [
+   "kopavogslaug"
+  ],
+  "g": "Sundlaug Kópavogs, 200 Kópavogur",
+  "ll": [
+   -21.916539,
+   64.110514
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Suðurbæjarlaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Suðurbæjarlaug, 220 Hafnarfjörður",
+  "ll": [
+   -21.961982,
+   64.060091
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Urriðaholtslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Urriðaholtslaug, 210 Garðabær",
+  "ll": [
+   -21.90149,
+   64.069375
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Varmárlaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Varmárlaug, 270 Mosfellsbær",
+  "ll": [
+   -21.689644,
+   64.17041
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Vesturbæjarlaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Vesturbæjarlaug, 107 Reykjavík",
+  "ll": [
+   -21.962907,
+   64.144584
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "107"
+  ]
+ },
+ {
+  "name": "Nauthólsvík",
+  "cat": "pool",
+  "kind": "beach",
+  "words": [
+   "ylstrondin",
+   "beach"
+  ],
+  "g": "Nauthólsvík, 102 Reykjavík",
+  "ll": [
+   -21.930503,
+   64.121361
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "102"
+  ]
+ },
+ {
+  "name": "Álftaneslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Álftaneslaug, 225 Garðabær",
+  "ll": [
+   -22.019116,
+   64.104271
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "225"
+  ]
+ },
+ {
+  "name": "Árbæjarlaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Árbæjarlaug, 110 Reykjavík",
+  "ll": [
+   -21.79473,
+   64.112179
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "110"
+  ]
+ },
+ {
+  "name": "Ásgarðslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [
+   "sundlaug gardabaejar"
+  ],
+  "g": "Ásgarðslaug, 210 Garðabær",
+  "ll": [
+   -21.929237,
+   64.08822
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Ásvallalaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Ásvallalaug, 221 Hafnarfjörður",
+  "ll": [
+   -21.975838,
+   64.051881
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Perlan",
+  "cat": "sight",
+  "g": "Perlan, Reykjavík",
+  "ll": [
+   -21.919006,
+   64.129246
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Fjörður",
+  "cat": "bus",
+  "kind": "hub",
+  "stops": "",
+  "lines": [
+   "1",
+   "19a",
+   "19b",
+   "21",
+   "55",
+   "101"
+  ],
+  "ll": [
+   -21.957385,
+   64.067779
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Ásgarður",
+  "cat": "bus",
+  "kind": "hub",
+  "stops": "ABC",
+  "lines": [
+   "1",
+   "22",
+   "23a",
+   "23b",
+   "24",
+   "55",
+   "101"
+  ],
+  "ll": [
+   -21.930166,
+   64.089917
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "210"
+  ]
+ },
+ {
+  "name": "Hamraborg",
+  "cat": "bus",
+  "kind": "hub",
+  "stops": "ABCD",
+  "lines": [
+   "1",
+   "2",
+   "4",
+   "28",
+   "35",
+   "36",
+   "101"
+  ],
+  "ll": [
+   -21.908667,
+   64.111516
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "200"
+  ]
+ },
+ {
+  "name": "Mjódd",
+  "cat": "bus",
+  "kind": "hub",
+  "stops": "ABCDE",
+  "lines": [
+   "2",
+   "3",
+   "4",
+   "11",
+   "12",
+   "17",
+   "21",
+   "24",
+   "50",
+   "51",
+   "52",
+   "57",
+   "103"
+  ],
+  "ll": [
+   -21.842263,
+   64.109719
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "109"
+  ]
+ },
+ {
+  "name": "Ártún",
+  "cat": "bus",
+  "kind": "hub",
+  "stops": "ABCD",
+  "lines": [
+   "5",
+   "6",
+   "12",
+   "15",
+   "16",
+   "18",
+   "24",
+   "50",
+   "57",
+   "104",
+   "105",
+   "106"
+  ],
+  "ll": [
+   -21.822805,
+   64.124034
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "110"
+  ]
+ },
+ {
+  "name": "Spöngin",
+  "cat": "bus",
+  "kind": "hub",
+  "stops": "",
+  "lines": [
+   "6",
+   "7",
+   "18",
+   "24",
+   "25"
+  ],
+  "ll": [
+   -21.791089,
+   64.150111
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Háholt",
+  "cat": "bus",
+  "kind": "hub",
+  "stops": "",
+  "lines": [
+   "7",
+   "15",
+   "27",
+   "29"
+  ],
+  "ll": [
+   -21.694363,
+   64.167132
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Hlemmur",
+  "cat": "bus",
+  "kind": "centre",
+  "stops": "",
+  "lines": [],
+  "ll": [
+   -21.9147,
+   64.14318
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Lækjartorg",
+  "cat": "bus",
+  "kind": "centre",
+  "stops": "ABC",
+  "lines": [
+   "1",
+   "2",
+   "3",
+   "6",
+   "8",
+   "11",
+   "12",
+   "13",
+   "14",
+   "101",
+   "103",
+   "104",
+   "105",
+   "106"
+  ],
+  "ll": [
+   -21.935237,
+   64.147672
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "BSÍ",
+  "cat": "bus",
+  "kind": "terminal",
+  "stops": "",
+  "lines": [
+   "55"
+  ],
+  "ll": [
+   -21.934599,
+   64.137546
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Egilshöll",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "ABC",
+  "lines": [
+   "6",
+   "7",
+   "18",
+   "31"
+  ],
+  "ll": [
+   -21.772412,
+   64.147109
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Háskóli Íslands",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "ABC",
+  "lines": [
+   "1",
+   "2",
+   "3",
+   "6",
+   "8",
+   "55",
+   "103"
+  ],
+  "ll": [
+   -21.94695,
+   64.142023
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Skúlagata",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "ABCDEF",
+  "lines": [
+   "1",
+   "4",
+   "8",
+   "16",
+   "17",
+   "18"
+  ],
+  "ll": [
+   -21.927042,
+   64.148273
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Ásvallalaug",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "ABCD",
+  "lines": [
+   "1",
+   "19a",
+   "19b",
+   "26",
+   "101"
+  ],
+  "ll": [
+   -21.974902,
+   64.052484
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Barónsstígur",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "6",
+   "11",
+   "12",
+   "13",
+   "14",
+   "101",
+   "103",
+   "104",
+   "105",
+   "106"
+  ],
+  "ll": [
+   -21.919338,
+   64.144511
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Bíó Paradís",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "6",
+   "11",
+   "12",
+   "13",
+   "14",
+   "101",
+   "103",
+   "104",
+   "105",
+   "106"
+  ],
+  "ll": [
+   -21.925288,
+   64.145686
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Þjóðleikhúsið",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "6",
+   "11",
+   "12",
+   "13",
+   "14",
+   "101",
+   "103",
+   "104",
+   "105",
+   "106"
+  ],
+  "ll": [
+   -21.931141,
+   64.146837
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Höfðatorg",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "4",
+   "5",
+   "12",
+   "14",
+   "15",
+   "16",
+   "17",
+   "104",
+   "105"
+  ],
+  "ll": [
+   -21.907898,
+   64.145395
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Ráðhúsið",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "1",
+   "2",
+   "3",
+   "6",
+   "8",
+   "11",
+   "12",
+   "13",
+   "55",
+   "103"
+  ],
+  "ll": [
+   -21.94151,
+   64.146294
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Rúgbrauðsgerðin",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "4",
+   "5",
+   "12",
+   "14",
+   "15",
+   "16",
+   "17",
+   "104",
+   "105"
+  ],
+  "ll": [
+   -21.913351,
+   64.145058
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Laugavegur",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "5",
+   "6",
+   "11",
+   "13",
+   "15",
+   "18",
+   "101",
+   "103",
+   "106"
+  ],
+  "ll": [
+   -21.916416,
+   64.143206
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Hallargarðurinn",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "1",
+   "2",
+   "3",
+   "6",
+   "8",
+   "11",
+   "12",
+   "55"
+  ],
+  "ll": [
+   -21.940151,
+   64.1431
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Sogamýri",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "3",
+   "5",
+   "6",
+   "15",
+   "18",
+   "104",
+   "106"
+  ],
+  "ll": [
+   -21.857642,
+   64.126527
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "MR",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "1",
+   "3",
+   "6",
+   "8",
+   "11",
+   "12",
+   "13"
+  ],
+  "ll": [
+   -21.937313,
+   64.146471
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Þjóðskjalasafnið",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "5",
+   "14",
+   "15",
+   "17",
+   "104"
+  ],
+  "ll": [
+   -21.906413,
+   64.142755
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Gamla Hringbraut",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "1",
+   "3",
+   "5",
+   "8",
+   "15",
+   "103"
+  ],
+  "ll": [
+   -21.93305,
+   64.138316
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Hátún",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "5",
+   "14",
+   "15",
+   "17",
+   "104"
+  ],
+  "ll": [
+   -21.897435,
+   64.140925
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Hlíðar",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "1",
+   "3",
+   "6",
+   "55",
+   "101",
+   "106"
+  ],
+  "ll": [
+   -21.903794,
+   64.133975
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Klambratún",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "1",
+   "3",
+   "6",
+   "55",
+   "101",
+   "106"
+  ],
+  "ll": [
+   -21.914802,
+   64.135737
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Stekkjarbakki",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "3",
+   "4",
+   "12",
+   "21",
+   "24"
+  ],
+  "ll": [
+   -21.840842,
+   64.107962
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "109"
+  ]
+ },
+ {
+  "name": "Aðalland",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "11",
+   "14",
+   "18",
+   "103"
+  ],
+  "ll": [
+   -21.882544,
+   64.123221
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Leiknisvöllur",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "3",
+   "4",
+   "12",
+   "17",
+   "103"
+  ],
+  "ll": [
+   -21.817324,
+   64.101987
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "111"
+  ]
+ },
+ {
+  "name": "Elliðaárdalur",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "3",
+   "11",
+   "12",
+   "17",
+   "103"
+  ],
+  "ll": [
+   -21.845217,
+   64.118145
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Borgarspítalinn",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "11",
+   "14",
+   "18",
+   "103"
+  ],
+  "ll": [
+   -21.8875,
+   64.123993
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Borgavegur",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "6",
+   "7",
+   "18",
+   "24",
+   "106"
+  ],
+  "ll": [
+   -21.788174,
+   64.149458
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Fellaskóli",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "3",
+   "4",
+   "12",
+   "17",
+   "103"
+  ],
+  "ll": [
+   -21.822798,
+   64.101728
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "111"
+  ]
+ },
+ {
+  "name": "Laugardalur",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "5",
+   "15",
+   "17",
+   "104"
+  ],
+  "ll": [
+   -21.873738,
+   64.135993
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "FB",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "3",
+   "4",
+   "12",
+   "17",
+   "103"
+  ],
+  "ll": [
+   -21.816919,
+   64.104844
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "111"
+  ]
+ },
+ {
+  "name": "Laugardalshöll",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "5",
+   "15",
+   "17",
+   "104"
+  ],
+  "ll": [
+   -21.878544,
+   64.13859
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Lækjargata",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "1",
+   "19a",
+   "19b",
+   "21",
+   "101"
+  ],
+  "ll": [
+   -21.947584,
+   64.067329
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "220"
+  ]
+ },
+ {
+  "name": "Engjateigur",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "5",
+   "15",
+   "17",
+   "104"
+  ],
+  "ll": [
+   -21.888919,
+   64.14023
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Skeifan",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "3",
+   "6",
+   "15",
+   "18",
+   "106"
+  ],
+  "ll": [
+   -21.870741,
+   64.128731
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Fjölnisvöllur",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "6",
+   "24",
+   "31",
+   "106"
+  ],
+  "ll": [
+   -21.789412,
+   64.139165
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Hverafold",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "6",
+   "24",
+   "31",
+   "106"
+  ],
+  "ll": [
+   -21.802041,
+   64.13568
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Ármúli",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "14",
+   "15",
+   "17"
+  ],
+  "ll": [
+   -21.873012,
+   64.132926
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Bæjarás",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "27",
+   "29",
+   "50",
+   "57"
+  ],
+  "ll": [
+   -21.678807,
+   64.17092
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Dvergabakki",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "3",
+   "4",
+   "17",
+   "103"
+  ],
+  "ll": [
+   -21.83456,
+   64.110269
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "109"
+  ]
+ },
+ {
+  "name": "Eyjabakki",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "3",
+   "4",
+   "17",
+   "103"
+  ],
+  "ll": [
+   -21.828484,
+   64.110227
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "109"
+  ]
+ },
+ {
+  "name": "Foldatorg",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "6",
+   "24",
+   "31",
+   "106"
+  ],
+  "ll": [
+   -21.797903,
+   64.134743
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Funafold",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "6",
+   "24",
+   "31",
+   "106"
+  ],
+  "ll": [
+   -21.806888,
+   64.136466
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Grensás",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "14",
+   "15",
+   "17"
+  ],
+  "ll": [
+   -21.874863,
+   64.130317
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Haukahús",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "1",
+   "19a",
+   "19b",
+   "101"
+  ],
+  "ll": [
+   -21.971329,
+   64.053315
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "221"
+  ]
+ },
+ {
+  "name": "Hálsar",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "15",
+   "50",
+   "57",
+   "104"
+  ],
+  "ll": [
+   -21.7967,
+   64.124342
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "110"
+  ]
+ },
+ {
+  "name": "Sóltún",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "4",
+   "12",
+   "16",
+   "105"
+  ],
+  "ll": [
+   -21.896247,
+   64.146151
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Logafold",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "6",
+   "24",
+   "31",
+   "106"
+  ],
+  "ll": [
+   -21.793214,
+   64.135633
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "Kringlumýrarbraut",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "1",
+   "4",
+   "55",
+   "101"
+  ],
+  "ll": [
+   -21.900145,
+   64.129806
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Reykjafold",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "6",
+   "24",
+   "31",
+   "106"
+  ],
+  "ll": [
+   -21.79094,
+   64.137761
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "112"
+  ]
+ },
+ {
+  "name": "RÚV",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "11",
+   "13",
+   "14"
+  ],
+  "ll": [
+   -21.888169,
+   64.125837
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "103"
+  ]
+ },
+ {
+  "name": "Smáralind",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "2",
+   "21",
+   "24",
+   "28"
+  ],
+  "ll": [
+   -21.886324,
+   64.102619
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Snorrabraut",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "6",
+   "18",
+   "101",
+   "106"
+  ],
+  "ll": [
+   -21.92135,
+   64.138617
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Suðurfell",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "3",
+   "4",
+   "12",
+   "103"
+  ],
+  "ll": [
+   -21.828152,
+   64.099592
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "111"
+  ]
+ },
+ {
+  "name": "Æsufell",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "3",
+   "4",
+   "12",
+   "103"
+  ],
+  "ll": [
+   -21.830165,
+   64.101743
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "111"
+  ]
+ },
+ {
+  "name": "FMOS",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "7",
+   "50",
+   "57",
+   "106"
+  ],
+  "ll": [
+   -21.705034,
+   64.165658
+  ],
+  "muni": "Mosfellsbær",
+  "postal": [
+   "270"
+  ]
+ },
+ {
+  "name": "Sólfarið",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "4",
+   "16",
+   "17",
+   "18"
+  ],
+  "ll": [
+   -21.921342,
+   64.146824
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Borgartún",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "4",
+   "12",
+   "16",
+   "105"
+  ],
+  "ll": [
+   -21.902582,
+   64.145728
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Skeggjagata",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "6",
+   "11",
+   "13",
+   "18"
+  ],
+  "ll": [
+   -21.919792,
+   64.140073
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ }
+]

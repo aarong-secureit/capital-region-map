@@ -1,0 +1,317 @@
+{
+ "munis|Reykjavík": {
+  "poi": "Ráðhús Reykjavíkur (City Hall)",
+  "ll": [
+   64.14613,
+   -21.94238
+  ]
+ },
+ "munis|Kópavogur": {
+  "poi": "Ráðhús Kópavogs (town hall)",
+  "ll": [
+   64.11125,
+   -21.90805
+  ]
+ },
+ "munis|Hafnarfjörður": {
+  "poi": "Ráðhús Hafnarfjarðar (town hall)",
+  "ll": [
+   64.0696,
+   -21.95767
+  ]
+ },
+ "munis|Garðabær": {
+  "poi": "Ráðhús Garðabæjar (town hall)",
+  "ll": [
+   64.08805,
+   -21.91945
+  ]
+ },
+ "munis|Mosfellsbær": {
+  "poi": "Bæjarskrifstofur Mosfellsbæjar (town hall)",
+  "ll": [
+   64.16729,
+   -21.69706
+  ]
+ },
+ "munis|Seltjarnarnes": {
+  "poi": "Grótta lighthouse",
+  "ll": [
+   64.16458,
+   -22.02119
+  ]
+ },
+ "munis|Kjósarhreppur": {
+  "poi": "Ásgarður (municipal office)",
+  "ll": [
+   64.34172,
+   -21.59338
+  ]
+ },
+ "districts|Miðborg|Reykjavík": {
+  "poi": "Hallgrímskirkja",
+  "ll": [
+   64.14177,
+   -21.92667
+  ]
+ },
+ "districts|Vesturbær|Reykjavík": {
+  "poi": "Vesturbæjarlaug (swimming pool)",
+  "ll": [
+   64.14446,
+   -21.9631
+  ]
+ },
+ "districts|Hlíðar|Reykjavík": {
+  "poi": "Kjarvalsstaðir (Klambratún)",
+  "ll": [
+   64.13787,
+   -21.91395
+  ]
+ },
+ "districts|Laugardalur|Reykjavík": {
+  "poi": "Laugardalslaug (swimming pool)",
+  "ll": [
+   64.14616,
+   -21.87968
+  ]
+ },
+ "districts|Háaleiti og Bústaðir|Reykjavík": {
+  "poi": "Kringlan (shopping centre)",
+  "ll": [
+   64.13023,
+   -21.89483
+  ]
+ },
+ "districts|Breiðholt|Reykjavík": {
+  "poi": "Mjódd",
+  "ll": [
+   64.1097,
+   -21.84152
+  ]
+ },
+ "districts|Árbær|Reykjavík": {
+  "poi": "Árbæjarsafn (open-air museum)",
+  "ll": [
+   64.11876,
+   -21.81853
+  ]
+ },
+ "districts|Grafarvogur|Reykjavík": {
+  "poi": "Spöngin",
+  "ll": [
+   64.15011,
+   -21.79109
+  ]
+ },
+ "districts|Grafarholt og Úlfarsárdalur|Reykjavík": {
+  "poi": "Guðríðarkirkja",
+  "ll": [
+   64.12538,
+   -21.75643
+  ]
+ },
+ "districts|Kjalarnes|Reykjavík": {
+  "poi": "Klébergsskóli (Grundarhverfi)",
+  "ll": [
+   64.23764,
+   -21.82592
+  ]
+ },
+ "districts|Smárinn|Kópavogur": {
+  "poi": "Smáralind (shopping centre)",
+  "ll": [
+   64.10097,
+   -21.88391
+  ]
+ },
+ "districts|Vatnsendi|Kópavogur": {
+  "poi": "Kórinn",
+  "ll": [
+   64.0826,
+   -21.82506
+  ]
+ },
+ "districts|Álftanes|Garðabær": {
+  "poi": "Bessastaðir (President's residence)",
+  "ll": [
+   64.10601,
+   -21.99504
+  ]
+ },
+ "postal|101": {
+  "poi": "Hallgrímskirkja",
+  "ll": [
+   64.14177,
+   -21.92667
+  ]
+ },
+ "postal|103": {
+  "poi": "Kringlan (shopping centre)",
+  "ll": [
+   64.13023,
+   -21.89483
+  ]
+ },
+ "postal|104": {
+  "poi": "Laugardalshöll (sports hall)",
+  "ll": [
+   64.14035,
+   -21.87727
+  ]
+ },
+ "postal|105": {
+  "poi": "Kjarvalsstaðir (Klambratún)",
+  "ll": [
+   64.13787,
+   -21.91395
+  ]
+ },
+ "postal|107": {
+  "poi": "Vesturbæjarlaug (swimming pool)",
+  "ll": [
+   64.14446,
+   -21.9631
+  ]
+ },
+ "postal|109": {
+  "poi": "Mjódd",
+  "ll": [
+   64.1097,
+   -21.84152
+  ]
+ },
+ "postal|110": {
+  "poi": "Árbæjarsafn (open-air museum)",
+  "ll": [
+   64.11876,
+   -21.81853
+  ]
+ },
+ "postal|112": {
+  "poi": "Spöngin",
+  "ll": [
+   64.15011,
+   -21.79109
+  ]
+ },
+ "postal|113": {
+  "poi": "Guðríðarkirkja",
+  "ll": [
+   64.12538,
+   -21.75643
+  ]
+ },
+ "postal|116": {
+  "poi": "Klébergsskóli (Grundarhverfi)",
+  "ll": [
+   64.23764,
+   -21.82592
+  ]
+ },
+ "postal|170": {
+  "poi": "Grótta lighthouse",
+  "ll": [
+   64.16458,
+   -22.02119
+  ]
+ },
+ "postal|200": {
+  "poi": "Ráðhús Kópavogs (town hall)",
+  "ll": [
+   64.11125,
+   -21.90805
+  ]
+ },
+ "postal|201": {
+  "poi": "Smáralind (shopping centre)",
+  "ll": [
+   64.10097,
+   -21.88391
+  ]
+ },
+ "postal|203": {
+  "poi": "Kórinn",
+  "ll": [
+   64.0826,
+   -21.82506
+  ]
+ },
+ "postal|210": {
+  "poi": "Ráðhús Garðabæjar (town hall)",
+  "ll": [
+   64.08805,
+   -21.91945
+  ]
+ },
+ "postal|220": {
+  "poi": "Ráðhús Hafnarfjarðar (town hall)",
+  "ll": [
+   64.0696,
+   -21.95767
+  ]
+ },
+ "postal|225": {
+  "poi": "Bessastaðir (President's residence)",
+  "ll": [
+   64.10601,
+   -21.99504
+  ]
+ },
+ "postal|270": {
+  "poi": "Bæjarskrifstofur Mosfellsbæjar (town hall)",
+  "ll": [
+   64.16729,
+   -21.69706
+  ]
+ },
+ "nbh|Skólavörðuholt|Reykjavík": {
+  "poi": "Hallgrímskirkja",
+  "ll": [
+   64.14177,
+   -21.92667
+  ]
+ },
+ "nbh|Öskjuhlíð|Reykjavík": {
+  "poi": "Perlan",
+  "ll": [
+   64.12925,
+   -21.91901
+  ]
+ },
+ "nbh|Kringla|Reykjavík": {
+  "poi": "Kringlan (shopping centre)",
+  "ll": [
+   64.13023,
+   -21.89483
+  ]
+ },
+ "nbh|Háskóli|Reykjavík": {
+  "poi": "Háskóli Íslands (University of Iceland)",
+  "ll": [
+   64.14178,
+   -21.94654
+  ]
+ },
+ "nbh|Klambratún|Reykjavík": {
+  "poi": "Kjarvalsstaðir",
+  "ll": [
+   64.13787,
+   -21.91395
+  ]
+ },
+ "nbh|Laugardalur|Reykjavík": {
+  "poi": "Laugardalslaug (swimming pool)",
+  "ll": [
+   64.14616,
+   -21.87968
+  ]
+ },
+ "nbh|Austurhöfn|Reykjavík": {
+  "poi": "Harpa (concert hall)",
+  "ll": [
+   64.15037,
+   -21.93281
+  ]
+ }
+}

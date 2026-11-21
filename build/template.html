@@ -1,0 +1,1723 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2D3E52">
+<meta name="description" content="Find neighbourhoods, districts and postal codes in the Reykjavík capital region. Search names the way you hear them.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Reykjavík Capital Region Map">
+<meta property="og:description" content="Where is Holtin, Árbær or 105? Neighbourhoods, districts and postal codes on one map.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232D3E52'/%3E%3Cpath d='M32 9a15 15 0 0 0-15 15c0 11 15 30 15 30s15-19 15-30A15 15 0 0 0 32 9z' fill='%23D5A754'/%3E%3Ccircle cx='32' cy='24' r='6' fill='%232D3E52'/%3E%3C/svg%3E">
+<title>Capital Region Map</title>
+<script>try{var t=(JSON.parse(localStorage.getItem("capitalRegionMap.v1"))||{}).theme||"auto";if(t==="dark"||(t==="auto"&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.dataset.theme="dark";}catch(e){}</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<style>
+:root{
+  --navy:#2D3E52; --gold:#D5A754; --gold-dark:#B8893C; --ink:#1A1A1A;
+  --gray-mid:#4A5568; --gray-light:#D1D5DB; --gray-bg:#F5F5F5; --white:#fff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--gray-bg)}
+#app{display:grid;grid-template-columns:380px 1fr;grid-template-rows:auto minmax(0,1fr);height:100%}
+#top{grid-column:1;grid-row:1;background:var(--white);border-right:1px solid var(--gray-light);position:relative;z-index:1001}
+#side{grid-column:1;grid-row:2;display:flex;flex-direction:column;min-height:0;background:var(--white);border-right:1px solid var(--gray-light);z-index:1000}
+#map{grid-column:2;grid-row:1 / 3;height:100%}
+#grab,#layersBtn{display:none}
+.srow{display:flex;gap:8px;align-items:center}
+button{-webkit-tap-highlight-color:transparent}
+header{background:var(--navy);color:#fff;padding:16px 18px 14px;border-bottom:3px solid var(--gold)}
+.eyebrow{font-size:11px;font-weight:bold;letter-spacing:.18em;color:var(--gold);text-transform:uppercase}
+header h1{margin:4px 0 0;font-size:20px;line-height:1.2}
+.searchbox{padding:14px 18px 10px;border-bottom:1px solid var(--gray-light);position:relative}
+.searchbox input{width:100%;padding:11px 12px;font-size:15px;border:2px solid var(--gray-light);border-radius:6px;font-family:inherit;outline:none}
+.searchbox input:focus{border-color:var(--gold)}
+.hint{font-size:12px;color:var(--gray-mid);margin-top:6px}
+.gsearch{display:block;margin-top:8px;font-size:13px;color:var(--navy);text-decoration:underline;text-underline-offset:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gsearch:hover{color:var(--gold-dark)}
+#results{list-style:none;margin:8px 0 0;padding:0;max-height:300px;overflow:auto}
+#results li button{display:flex;width:100%;text-align:left;gap:8px;align-items:baseline;padding:8px 8px;border:0;background:none;font:inherit;cursor:pointer;border-radius:4px}
+#results li button:hover,#results li button.active{background:#FBF5EA}
+#results .nm{font-weight:bold;color:var(--navy)}
+#results .sub{font-size:12px;color:var(--gray-mid);margin-left:auto;white-space:nowrap;text-align:right}
+#results .sl{font-size:11px;color:var(--gold-dark);white-space:nowrap}
+.badge{display:inline-block;font-size:10px;font-weight:bold;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:3px;background:var(--gray-bg);color:var(--gray-mid);white-space:nowrap}
+.b-nbh{background:var(--navy);color:#fff}.b-small{background:#E7EBF0;color:var(--navy)}
+.b-postal{background:var(--gold);color:var(--navy)}.b-district{background:#3E546E;color:#fff}
+.b-hverfi{background:#F3E6CC;color:#7A5A22}.b-street{background:#EEF0F2;color:var(--gray-mid)}
+.b-point{background:#EEF0F2;color:var(--navy)}.b-poi{background:#FFF4D6;color:#7A5A22}.b-muni{background:#1F2B3A;color:var(--gold)}
+#scroll{flex:1;overflow:auto}
+section.card{padding:14px 18px;border-bottom:1px solid var(--gray-light)}
+section.card h2{margin:0 0 8px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dark)}
+.fold{display:flex;align-items:center;justify-content:space-between;width:100%;padding:4px 0;margin:-4px 0;border:0;background:none;cursor:pointer;
+      font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;text-align:left}
+.fold svg{width:18px;height:18px;transition:transform .2s}
+.fold[aria-expanded="false"] svg{transform:rotate(-90deg)}
+.layers.folded h2{margin-bottom:0}
+.layers.folded #layersBody{display:none}
+#info .title{font-size:20px;font-weight:bold;color:var(--navy);margin:2px 0 8px}
+#info table{border-collapse:collapse;width:100%;font-size:14px}
+#info td{padding:5px 0;vertical-align:top;border-bottom:1px solid var(--gray-bg)}
+#info td:first-child{color:var(--gray-mid);width:120px;font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{border:1px solid var(--gray-light);background:#fff;border-radius:14px;padding:3px 9px;font:inherit;font-size:13px;cursor:pointer;color:var(--navy)}
+.chip:hover{border-color:var(--gold);background:#FBF5EA}
+.chip.pc{font-weight:bold}
+.say{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin-left:6px;padding:0;border:1px solid var(--gray-light);border-radius:50%;background:#fff;color:var(--navy);cursor:pointer;vertical-align:middle}
+.say svg{width:16px;height:16px}
+.say.sm{width:26px;height:26px;margin-left:4px}.say.sm svg{width:13px;height:13px}
+.say:hover{border-color:var(--gold);background:#FBF5EA}
+.say.playing{background:var(--gold);border-color:var(--gold)}
+.say.playing svg{display:none}
+.say.playing::after{content:"";width:9px;height:9px;border-radius:2px;background:var(--navy)}   /* stop square */
+.say.loading{animation:saypulse .9s ease-in-out infinite}
+@keyframes saypulse{50%{opacity:.45}}
+.say-row{font-size:12px;color:var(--gray-mid);margin:-4px 0 8px}
+.aka{font-size:13px;color:var(--gray-mid);margin:-2px 0 8px;line-height:2}.aka b{color:var(--ink)}
+.say-row a{color:var(--gray-mid)}
+td .say.sm{vertical-align:-8px}
+.say.share svg{width:15px;height:15px}.say.share.sm svg{width:12px;height:12px}
+.share-menu{position:fixed;z-index:3000;min-width:230px;max-width:min(300px,calc(100vw - 16px));background:#fff;border:1px solid var(--gray-light);border-top:3px solid var(--gold);border-radius:8px;box-shadow:0 8px 28px rgba(0,0,0,.22);padding:6px 0;font-size:14px}
+.share-menu[hidden]{display:none}
+.share-menu .sm-title{font-weight:bold;color:var(--navy);padding:6px 14px 8px;border-bottom:1px solid var(--gray-light);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.share-menu button,.share-menu a{display:block;width:100%;text-align:left;background:none;border:0;padding:10px 14px;font:inherit;color:var(--ink);text-decoration:none;cursor:pointer}
+.share-menu button:hover,.share-menu a:hover,.share-menu button:focus-visible,.share-menu a:focus-visible{background:#FBF5EA;outline:none}
+.share-menu .sm-note{font-size:12px;color:var(--gray-mid);padding:8px 14px 4px;border-top:1px solid var(--gray-light);margin-top:4px;line-height:1.35}
+.muted{color:var(--gray-mid);font-size:13px}
+/* switches as pills: the whole row is the button; flat when off, raised and mild orange when on */
+.layers label:has(> input[type=checkbox]){display:flex;align-items:center;gap:8px;margin:6px 0 0;padding:8px 16px;font-size:14px;cursor:pointer;
+  border:1px solid var(--gray-light);border-radius:999px;background:var(--gray-bg);color:var(--gray-mid);
+  transition:background .15s,box-shadow .15s,transform .15s,border-color .15s;-webkit-user-select:none;user-select:none}
+.layers label:has(> input[type=checkbox]):hover{border-color:var(--gold)}
+.layers label:has(> input:checked){background:linear-gradient(#FFEBD0,#FAD9A8);border-color:#E3A857;color:#3B2A12;
+  box-shadow:0 2px 0 #D49A4A,0 4px 8px rgba(213,140,40,.22);transform:translateY(-1px)}
+.layers label:has(> input:checked) .lt small{color:#7A5A22}
+.layers label:has(> input[type=checkbox]):active{transform:translateY(0);box-shadow:0 1px 0 #D49A4A}
+.layers label:has(> input:focus-visible){outline:2px solid var(--navy);outline-offset:2px}
+.layers label > input[type=checkbox]{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.layers label .sw{display:none}
+.sw{width:22px;height:12px;border-radius:2px;display:inline-block;flex:none}
+.layers .lt{display:flex;flex-direction:column;line-height:1.25}
+.layers .lt small{font-size:12px;color:var(--gray-mid)}
+.layers .lt{font-weight:bold}.layers .lt small{font-weight:normal}
+.hint b{color:var(--navy)}
+details p{margin:8px 0}
+select{font:inherit;padding:6px;border:1px solid var(--gray-light);border-radius:4px;width:100%}
+details{font-size:13px;color:var(--gray-mid);line-height:1.45}
+details summary{cursor:pointer;color:var(--navy);font-weight:bold}
+/* labels */
+.lbl{background:none;border:0;white-space:nowrap;pointer-events:none;text-align:center;font-family:Arial,Helvetica,sans-serif}
+.lbl span{display:inline-block;transform:translate(-50%,-50%);text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 2px #fff,0 0 1px #fff}
+.lbl-nbh span{font-size:12px;font-weight:bold;color:var(--navy)}
+.lbl-small span{font-size:11px;font-style:italic;color:#3E546E}
+.lbl-district span{font-size:13px;font-weight:bold;letter-spacing:.12em;text-transform:uppercase;color:#1F2B3A}
+.lbl-hverfi span{font-size:12px;font-weight:bold;color:#7A5A22}
+.lbl-muni span{font-size:15px;font-weight:bold;letter-spacing:.16em;text-transform:uppercase;color:var(--gray-mid)}
+.lbl-point span{font-size:11px;color:var(--gray-mid);margin-top:14px}
+.lbl-postal span{font-size:22px;font-weight:bold;color:var(--navy);text-shadow:0 0 4px #fff,0 0 4px #fff,0 0 3px #fff,0 0 2px #fff}
+.lbl-postal small{display:block;font-size:10px;font-weight:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-mid)}
+#map:not(.show-nbh) .lbl-nbh, #map:not(.show-small) .lbl-small, #map:not(.show-district) .lbl-district,
+#map:not(.show-muni) .lbl-muni, #map:not(.show-point) .lbl-point, #map:not(.show-hverfi) .lbl-hverfi,
+#map:not(.show-nbh-big) .lbl-nbh.big{display:none}
+#map.show-nbh-big .lbl-nbh.big{display:block}
+#map:not(.show-postal-small) .lbl-postal small{display:none}
+#map.postal-on .leaflet-nbh-pane, #map.postal-on .leaflet-small-pane, #map.postal-on .leaflet-hverfi-pane{pointer-events:none}
+#map.postal-on .leaflet-nbh-pane path{stroke-opacity:.35;fill-opacity:0}
+#map.postal-on .leaflet-small-pane path{stroke-opacity:.25;fill-opacity:0}
+#map.postal-on .lbl-muni{display:none}
+#map:not(.show-pt-major) .pt-major, #map:not(.show-pt-minor) .pt-minor{display:none}
+/* shops, Perlan, bus hubs */
+.poi{display:flex;align-items:center;justify-content:center;cursor:pointer}
+.poi i{display:flex;align-items:center;justify-content:center;width:100%;height:100%;box-sizing:border-box;border:2px solid #fff;border-radius:50%;font:bold 12px/1 Arial,Helvetica,sans-serif;font-style:normal;box-shadow:0 1px 4px rgba(0,0,0,.45)}
+.poi i svg{width:72%;height:72%}
+.poi b{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:2px;white-space:nowrap;font-size:11px;font-weight:bold;color:#1A1A1A;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 2px #fff;pointer-events:none}
+.poi-bonus i{background:#FFD500;color:#E5007D}
+.poi-kronan i{background:#D7261E;color:#fff}
+.poi-netto i{background:#F28C00;color:#1A1A1A}
+.poi-hagkaup i{background:#B0306A;color:#fff}
+.poi-store i{background:#00798C;color:#fff}
+.poi-mall i{background:#6B3FA0;color:#fff}
+.poi-second i{background:#2E7D4F;color:#fff}
+.poi-pool i{background:#00A3C4;color:#fff}
+.lbl-park span{font-size:12px;font-weight:bold;font-style:italic;color:#2E7D32}
+.lbl-park.park-l span{font-size:13px}
+#map:not(.show-park-l) .park-l, #map:not(.show-park-m) .park-m, #map:not(.show-park-s) .park-s, #map:not(.show-park-xs) .park-xs{display:none}
+.poi-costco i{background:#005DAA;color:#fff}
+.poi-ikea i{background:#0058A3;color:#FFDB00}
+.poi-sight i{background:var(--navy);color:var(--gold)}
+.poi-bus i{background:#FFD100;color:#1F2B3A;border-radius:5px;border-color:#1F2B3A}
+#map:not(.show-poi) .poi:not(.poi-bus):not(.poi-mall), #map:not(.show-bus) .poi-bus, #map:not(.show-bus) .poi-mall, #map:not(.show-busstop) .poi.bus-stop, #map:not(.show-poi-name) .poi b{display:none}
+.poi.bus-stop i{transform:scale(.82)}
+.sw.sw-poi{display:inline-flex;gap:1px;border:0;align-items:center}.sw-poi i{width:6px;height:10px;border-radius:50%}
+.leaflet-tooltip.tt{font-family:Arial,Helvetica,sans-serif;font-size:13px;border:1px solid var(--navy);color:var(--navy);font-weight:bold;padding:4px 8px}
+.leaflet-container{font-family:Arial,Helvetica,sans-serif;background:#dfe6ea}
+.locbtn{pointer-events:auto;background:#fff;border:2px solid rgba(0,0,0,.2);border-radius:4px;width:34px;height:34px;cursor:pointer;font-size:18px;line-height:28px;color:var(--navy);padding:0}
+.locbtn.seeking{color:#2A7DE1;animation:saypulse .9s ease-in-out infinite}
+.locbtn.on{color:#2A7DE1}
+.locbtn.follow{background:#2A7DE1;color:#fff;border-color:#2A7DE1}
+.toast{position:absolute;left:50%;bottom:28px;transform:translate(-50%,20px);max-width:min(420px,calc(100% - 32px));z-index:1200;
+       background:var(--navy);color:#fff;font-size:14px;line-height:1.35;padding:10px 14px;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.3);
+       opacity:0;pointer-events:none;transition:opacity .2s, transform .2s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.layers .me-sw{width:14px;height:14px;margin:0 4px;border-radius:50%;background:#2A7DE1;border:2px solid #fff;box-shadow:0 0 0 1px #2A7DE1}
+/* your location: big blue dot, pulsing halo, "You" label (named places are small navy dots) */
+.me-icon{background:none;border:0}
+.me-dot{position:absolute;left:2px;top:2px;width:18px;height:18px;box-sizing:border-box;border-radius:50%;background:#2A7DE1;border:3px solid #fff;
+        box-shadow:0 0 0 1px rgba(0,0,0,.2),0 2px 6px rgba(0,0,0,.4)}
+.me-pulse{position:absolute;left:-11px;top:-11px;width:44px;height:44px;border-radius:50%;background:rgba(42,125,225,.35);animation:mepulse 2s ease-out infinite}
+@keyframes mepulse{0%{transform:scale(.35);opacity:.9}100%{transform:scale(1.3);opacity:0}}
+.me-label{position:absolute;left:50%;top:-21px;transform:translateX(-50%);background:#2A7DE1;color:#fff;font:bold 11px Arial,Helvetica,sans-serif;
+          padding:1px 7px;border-radius:9px;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+@media (prefers-reduced-motion: reduce){ .me-pulse{animation:none;opacity:.35;transform:scale(.8)} }
+/* settings: gear button + dialog */
+#gearBtn{display:flex;align-items:center;justify-content:center;flex:none;width:42px;height:42px;border:0;border-radius:8px;background:var(--navy);color:var(--gold);cursor:pointer;padding:0}
+#gearBtn svg{width:22px;height:22px}
+#settings{width:min(440px,calc(100vw - 24px));max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);padding:0;border:0;border-radius:12px;
+          background:var(--white);color:var(--ink);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+#settings::backdrop{background:rgba(0,0,0,.45)}
+.set-in{display:flex;flex-direction:column;max-height:inherit}
+.set-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--navy);color:#fff;border-bottom:3px solid var(--gold)}
+.set-head h2{margin:0;font-size:17px}
+.set-x{width:36px;height:36px;border:0;border-radius:8px;background:transparent;color:#fff;font-size:20px;cursor:pointer}
+.set-body{padding:6px 16px 16px;overflow:auto}
+.set-body h3{margin:14px 0 6px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dark);display:flex;align-items:center;gap:6px}
+.set-body h3 svg{width:16px;height:21px}
+.seg{display:flex;border:1px solid var(--gray-light);border-radius:8px;overflow:hidden}
+.seg label{flex:1;position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:block;text-align:center;padding:9px 0;font-size:14px}
+.seg label + label span{border-left:1px solid var(--gray-light)}
+.seg input:checked + span{background:linear-gradient(#FFEBD0,#FAD9A8);color:#3B2A12;font-weight:bold;box-shadow:inset 0 -2px 0 #D49A4A}
+.seg input:focus-visible + span{outline:2px solid var(--gold);outline-offset:-2px}
+.pl{display:grid;grid-template-columns:18px 1fr;column-gap:8px;align-items:center;margin:6px 0}
+.pl > label{font-size:13px;font-weight:bold;color:var(--gray-mid);text-align:center}
+.pl input{width:100%;padding:9px 10px;font:inherit;font-size:15px;border:2px solid var(--gray-light);border-radius:6px;outline:none;background:var(--white);color:var(--ink)}
+.pl input:focus{border-color:var(--gold)}
+.pl input.bad{border-color:#D7261E;box-shadow:0 0 0 1px #D7261E}
+.pl-st{grid-column:2;font-size:12px;color:var(--gray-mid);min-height:0;margin-top:3px}
+.pl-st:empty{display:none}
+.pl-st.ok{color:#2E7D4F}
+.pl-st.bad{color:#C62828}
+.b-mine{background:#C62828;color:#fff}
+/* home / work pins: teardrops, unlike every round or square marker */
+.mypin{background:none;border:0;cursor:pointer}
+.mypin svg{width:30px;height:40px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.45))}
+.mypin b{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:1px;white-space:nowrap;font-size:11px;font-weight:bold;color:#1A1A1A;
+         text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 2px #fff;pointer-events:none}
+/* ---------- dark theme ---------- */
+:root[data-theme="dark"]{color-scheme:dark;--ink:#E6E9ED;--gray-mid:#A9B3BF;--gray-light:#3A4552;--gray-bg:#1E252D;--white:#151B22}
+:root[data-theme="dark"] header, :root[data-theme="dark"] .set-head{background:#1E2A38}
+:root[data-theme="dark"] #info .title, :root[data-theme="dark"] #results .nm, :root[data-theme="dark"] .chip, :root[data-theme="dark"] .say,
+:root[data-theme="dark"] .share-menu .sm-title, :root[data-theme="dark"] .hint b, :root[data-theme="dark"] details summary,
+:root[data-theme="dark"] .gsearch, :root[data-theme="dark"] #peek, :root[data-theme="dark"] .locbtn{color:#CFE0F5}
+:root[data-theme="dark"] .chip, :root[data-theme="dark"] .say, :root[data-theme="dark"] .share-menu, :root[data-theme="dark"] .locbtn,
+:root[data-theme="dark"] .searchbox input, :root[data-theme="dark"] select{background:var(--white);color:var(--ink)}
+:root[data-theme="dark"] .chip, :root[data-theme="dark"] .say, :root[data-theme="dark"] .locbtn{color:#CFE0F5}
+:root[data-theme="dark"] .locbtn{border-color:#3A4552}
+:root[data-theme="dark"] .locbtn.follow{background:#2A7DE1;color:#fff;border-color:#2A7DE1}
+:root[data-theme="dark"] #results li button:hover, :root[data-theme="dark"] #results li button.active, :root[data-theme="dark"] .chip:hover,
+:root[data-theme="dark"] .say:hover, :root[data-theme="dark"] .share-menu button:hover, :root[data-theme="dark"] .share-menu a:hover{background:#2C2A24}
+:root[data-theme="dark"] .say.playing{background:var(--gold);color:#1A1A1A}
+:root[data-theme="dark"] .b-small{background:#2A3644;color:#CFE0F5}
+:root[data-theme="dark"] .b-street, :root[data-theme="dark"] .b-point{background:#2A313A;color:#CFD6DE}
+:root[data-theme="dark"] .b-hverfi{background:#4A3A1E;color:#E8CF9C}
+:root[data-theme="dark"] .b-poi{background:#4A3F22;color:#EBD49A}
+:root[data-theme="dark"] .handle{background:#4A5562}
+:root[data-theme="dark"] .seg input:checked + span{background:linear-gradient(#6A4C25,#57391A);color:#FBE3BF;box-shadow:inset 0 -2px 0 #2A1D0C}
+:root[data-theme="dark"] .layers label:has(> input:checked){background:linear-gradient(#6A4C25,#57391A);border-color:#C98D3E;color:#FBE3BF;box-shadow:0 2px 0 #2A1D0C,0 4px 8px rgba(0,0,0,.35)}
+:root[data-theme="dark"] .layers label:has(> input:checked) .lt small{color:#E8C996}
+:root[data-theme="dark"] .layers label:has(> input:focus-visible){outline-color:#8DB4E2}
+:root[data-theme="dark"] .pl-st.ok{color:#7BD3A0}
+:root[data-theme="dark"] .pl-st.bad{color:#FF8A80}
+:root[data-theme="dark"] .pl input.bad{border-color:#FF5A4E;box-shadow:0 0 0 1px #FF5A4E}
+/* the map: street tiles inverted to a dark map (the satellite photo is left as it is) */
+:root[data-theme="dark"] .leaflet-container{background:#1B2128}
+:root[data-theme="dark"] #map:not(.base-sat) .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.55)}
+:root[data-theme="dark"] .leaflet-muni-pane path{stroke:#9AA5B1}
+:root[data-theme="dark"] .leaflet-district-pane path{stroke:#C9D3DD}
+:root[data-theme="dark"] .leaflet-nbh-pane path{stroke:#8DB4E2;fill:#8DB4E2}
+:root[data-theme="dark"] .leaflet-small-pane path{stroke:#7E97B3;fill:#7E97B3}
+:root[data-theme="dark"] .leaflet-sel-pane path[stroke="#2D3E52"]{stroke:#E6E9ED}
+:root[data-theme="dark"] .leaflet-pts-pane path.pt-major{fill:#9DC1EA;stroke:#151B22}
+:root[data-theme="dark"] .leaflet-pts-pane path.pt-minor{fill:#A9B3BF;stroke:#151B22}
+:root[data-theme="dark"] .lbl span, :root[data-theme="dark"] .poi b, :root[data-theme="dark"] .mypin b{text-shadow:0 0 3px #151B22,0 0 3px #151B22,0 0 2px #151B22,0 0 1px #151B22}
+:root[data-theme="dark"] .lbl-nbh span{color:#CFE0F5}
+:root[data-theme="dark"] .lbl-small span{color:#A8BDD4}
+:root[data-theme="dark"] .lbl-district span{color:#DDE5EE}
+:root[data-theme="dark"] .lbl-hverfi span{color:#E2C48A}
+:root[data-theme="dark"] .lbl-park span{color:#8FD19E}
+:root[data-theme="dark"] .lbl-muni span, :root[data-theme="dark"] .lbl-point span, :root[data-theme="dark"] .lbl-postal small{color:#A9B3BF}
+:root[data-theme="dark"] .lbl-postal span{color:#F0F3F6;text-shadow:0 0 4px #151B22,0 0 4px #151B22,0 0 3px #151B22}
+:root[data-theme="dark"] .poi b, :root[data-theme="dark"] .mypin b{color:#E6E9ED}
+:root[data-theme="dark"] .leaflet-tooltip.tt{background:#1E252D;color:#E6E9ED;border-color:#8DB4E2}
+:root[data-theme="dark"] .leaflet-tooltip-top.tt:before{border-top-color:#8DB4E2}
+:root[data-theme="dark"] .leaflet-bar a{background:#1E252D;color:#E6E9ED;border-bottom-color:#3A4552}
+:root[data-theme="dark"] .leaflet-control-attribution{background:rgba(21,27,34,.85);color:#A9B3BF}
+:root[data-theme="dark"] .leaflet-control-attribution a{color:#8DB4E2}
+:root[data-theme="dark"] .leaflet-control-scale-line{background:rgba(21,27,34,.8);color:#E6E9ED;border-color:#A9B3BF}
+/* ---------- phones (portrait, and landscape with little height) ---------- */
+@media (max-width:760px), (max-height:500px) and (max-width:1000px){
+  :root{--peekvis:76px}
+  html,body{overflow:hidden;overscroll-behavior:none}
+  #app{display:block;position:fixed;inset:0;height:auto}
+  #map{position:absolute;inset:0;height:auto;z-index:0}   /* own stacking context so map controls stay under the sheet */
+  .leaflet-control-attribution{font-size:9px;max-width:70vw;line-height:1.3}
+  #top{position:absolute;top:0;left:0;right:0;border:0;background:transparent;padding:calc(8px + env(safe-area-inset-top)) 10px 0;pointer-events:none}
+  #top header{display:none}
+  .searchbox{pointer-events:auto;background:var(--white);border:0;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.28);padding:6px;max-width:560px}
+  .searchbox input{font-size:16px;padding:10px 10px;border:0;border-radius:8px;background:var(--gray-bg)}
+  .searchbox input:focus{box-shadow:inset 0 0 0 2px var(--gold)}
+  .hint{display:none}
+  .gsearch{display:none;margin:2px 0 0;padding:8px 6px 4px;font-size:14px}
+  .searchbox:focus-within .gsearch, .searchbox.has-q .gsearch{display:block}
+  #results{max-height:52vh;max-height:52dvh;margin:4px 0 0}
+  #results:empty{display:none}
+  #results li button{padding:12px 8px;flex-wrap:wrap;row-gap:2px}
+  #results .sub{white-space:normal}
+  #layersBtn{display:flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;border:0;border-radius:8px;background:var(--navy);color:var(--gold);cursor:pointer}
+  #side{position:absolute;left:0;right:0;bottom:0;height:calc(100vh - 66px);height:calc(100dvh - 66px - env(safe-area-inset-top));
+        border:0;border-radius:16px 16px 0 0;box-shadow:0 -2px 14px rgba(0,0,0,.25);padding-bottom:env(safe-area-inset-bottom);
+        transform:translateY(calc(100% - var(--peekvis)));transition:transform .25s ease;will-change:transform;max-width:760px;margin:0 auto}
+  #side.dragging{transition:none}
+  #grab{display:block;padding:8px 16px 12px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;border-bottom:1px solid var(--gray-light);flex:none}
+  .handle{display:block;width:40px;height:5px;border-radius:3px;background:#C4C9D0;margin:0 auto 9px}
+  #peek{font-weight:bold;color:var(--navy);font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #peek small{font-weight:normal;color:var(--gray-mid);font-size:13px}
+  #scroll{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+  section.card{padding:14px 16px}
+  #info > h2{display:none}
+  .layers label:has(> input[type=checkbox]){padding:10px 18px;font-size:15px;margin-top:8px}
+  .chip{padding:7px 12px;font-size:14px}
+  .say{width:38px;height:38px}.say svg{width:19px;height:19px}
+  .say.sm{width:34px;height:34px}.say.sm svg{width:16px;height:16px}
+  select{padding:10px;font-size:16px}
+  details summary{padding:6px 0;font-size:14px}
+  .leaflet-control-zoom{display:none}
+  .leaflet-top{top:calc(64px + env(safe-area-inset-top))}
+  .leaflet-bottom{bottom:var(--peekvis)}
+  .locbtn{width:44px;height:44px;font-size:22px;line-height:38px}
+  #gearBtn{width:44px;height:44px}
+  .pl input{font-size:16px;padding:11px 10px}
+  .seg span{padding:11px 0;font-size:15px}
+  .searchbox{background:var(--white)}
+  .toast{bottom:calc(var(--peekvis) + 16px)}
+}
+/* phone held sideways: the sheet becomes a right-hand panel so the map keeps the left side */
+@media (max-height:500px) and (orientation:landscape) and (max-width:1000px){
+  #top{right:min(360px,48vw)}
+  #side{left:auto;right:0;width:min(360px,48vw);max-width:none;margin:0;border-radius:16px 0 0 0;
+        height:calc(100vh - 8px);height:calc(100dvh - 8px - env(safe-area-inset-top))}
+  .leaflet-bottom.leaflet-left{bottom:0}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="top">
+    <header>
+      <div class="eyebrow" title="Höfuðborgarsvæðið">Reykjavík capital region</div>
+      <h1>Neighbourhoods &amp; postal codes</h1>
+    </header>
+    <div class="searchbox">
+      <div class="srow">
+        <input id="q" type="search" maxlength="100" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Try: Holtin, arbaer, west Lindir, 105" aria-label="Search a neighbourhood, postal code or street">
+        <button id="layersBtn" type="button" aria-label="Layers and map options" title="Layers and map options">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5Zm-7.6 8.9L2 13l10 5 10-5-2.4-1.1L12 15.7 4.4 11.9Zm0 4L2 17l10 5 10-5-2.4-1.1L12 19.7l-7.6-3.8Z" fill="currentColor"/></svg>
+        </button>
+        <button id="gearBtn" type="button" aria-label="Settings" title="Settings">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.48.48 0 0 0-.48-.41h-3.84a.48.48 0 0 0-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.48.48 0 0 0-.59.22L2.74 8.87a.48.48 0 0 0 .12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.48.48 0 0 0-.12-.61l-2.01-1.58zM12 15.6a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2z"/></svg>
+        </button>
+      </div>
+      <div class="hint">Spell it the way it sounded to you: “owrbyer” finds Árbær, “kvassalayti” finds Hvassaleiti. Accents and endings are optional. No Icelandic keyboard? Type <b>þ</b> as th, <b>ð</b> as d, <b>æ</b> as ae, <b>ö</b> as o.</div>
+      <ul id="results" role="listbox"></ul>
+      <a id="gsearch" class="gsearch" href="https://www.google.com/maps" target="_blank" rel="noopener">Looking for something else? Search Google Maps ↗</a>
+    </div>
+  </div>
+  <aside id="side">
+    <div id="grab" role="button" tabindex="0" aria-label="Show more or less" aria-expanded="false">
+      <span class="handle"></span>
+      <div id="peek">Tap the map, or search a name <small>· Reykjavík capital region</small></div>
+    </div>
+    <div id="scroll">
+      <section class="card" id="info">
+        <h2>What's here</h2>
+        <div class="muted">Search a name you heard, or click the map. Areas fit inside each other, biggest to smallest: <b>town › district › sub-district › neighbourhood › small area</b>. Reykjavík has every level; the other towns mostly have neighbourhoods only.</div>
+      </section>
+      <section class="card layers">
+        <h2><button type="button" id="layersToggle" class="fold" aria-expanded="true" aria-controls="layersBody">Show on map<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h2>
+        <div id="layersBody">
+        <div class="muted" style="margin-bottom:4px">Biggest to smallest. Grey text is the Icelandic word you may hear.</div>
+        <label><input type="checkbox" id="L-muni" checked><span class="sw" style="border-top:3px solid #4A5568"></span><span class="lt">Towns<small>sveitarfélög · Reykjavík, Kópavogur, Hafnarfjörður…</small></span></label>
+        <label><input type="checkbox" id="L-district" checked><span class="sw" style="border-top:4px solid #1F2B3A"></span><span class="lt">Districts<small>borgarhlutar · Breiðholt, Vesturbær, Kársnes…</small></span></label>
+        <label><input type="checkbox" id="L-hverfi"><span class="sw" style="border:2px dashed #B8893C"></span><span class="lt">Sub-districts (Reykjavík only)<small>hverfi · Seljahverfi, Háteigshverfi…</small></span></label>
+        <label><input type="checkbox" id="L-nbh" checked><span class="sw" style="border:2px solid #2D3E52"></span><span class="lt">Neighbourhoods<small>hverfi · Holt, Lindir, Vellir, Árbær…</small></span></label>
+        <label><input type="checkbox" id="L-small" checked><span class="sw" style="border:2px dotted #3E546E"></span><span class="lt">Small areas &amp; named places<small>Kvosin, Grjótaþorp, Hjallar…</small></span></label>
+        <label style="margin-top:14px"><input type="checkbox" id="L-groc" checked><span class="sw sw-poi"><i style="background:#FFD500"></i><i style="background:#D7261E"></i><i style="background:#F28C00"></i><i style="background:#B0306A"></i></span><span class="lt">Groceries<small>matvöruverslanir · Bónus, Krónan, Nettó, Hagkaup</small></span></label>
+        <label><input type="checkbox" id="L-shop" checked><span class="sw sw-poi"><i style="background:#6B3FA0"></i><i style="background:#00798C"></i><i style="background:#2E7D4F"></i><i style="background:#B0306A"></i></span><span class="lt">Shopping<small>verslanir · Kringlan, Smáralind, IKEA, Elko, Hagkaup, Góði hirðirinn, Kolaportið</small></span></label>
+        <label><input type="checkbox" id="L-pool" checked><span class="sw sw-poi"><i style="background:#00A3C4"></i></span><span class="lt">Swimming pools<small>sundlaugar · Laugardalslaug, Vesturbæjarlaug, Nauthólsvík…</small></span></label>
+        <label><input type="checkbox" id="L-park" checked><span class="sw" style="background:#CFE8D0;border:1px solid #2E7D32"></span><span class="lt">Parks<small>almenningsgarðar · Klambratún, Heiðmörk, Elliðaárdalur, Perlan…</small></span></label>
+        <label><input type="checkbox" id="L-bus" checked><span class="sw sw-poi"><i style="background:#FFD100;border-radius:2px"></i></span><span class="lt">Bus hubs &amp; big stops<small>skiptistöðvar · Mjódd, Hlemmur, Hamraborg, BSÍ · stops with 4+ lines</small></span></label>
+        <label style="margin-top:14px"><input type="checkbox" id="L-postal"><span class="sw" style="background:linear-gradient(90deg,#4E79A7 33%,#F28E2B 33% 66%,#59A14F 66%);opacity:.7"></span><span class="lt">Postal codes<small>póstnúmer · 101, 105, 201…</small></span></label>
+        <label style="margin-top:14px"><input type="checkbox" id="L-loc"><span class="sw me-sw"></span><span class="lt">Show my location</span></label>
+        <div style="margin-top:12px"><label for="base" style="padding:0 0 4px;font-size:13px;color:var(--gray-mid);cursor:default">Background map</label><select id="base">
+          <option value="osmde">Street map (default)</option>
+          <option value="osmfr">Street map, most detail</option>
+          <option value="hot">Street map, soft colours</option>
+          <option value="esri">Street map, simple</option>
+          <option value="gray">Plain gray (outlines stand out most)</option>
+          <option value="sat">Satellite photo</option>
+        </select><div id="basenote" class="muted" style="margin-top:6px;color:#B8893C" role="status"></div></div>
+        </div>
+      </section>
+      <section class="card">
+        <details>
+          <summary>Icelandic words you'll hear</summary>
+          <p><b>Place words:</b> hverfi = neighbourhood or area · borgarhluti = city district · bær = town (also farm) · sveitarfélag = municipality · póstnúmer = postal code</p>
+          <p><b>Street words:</b> gata = street · vegur = road · braut = big road · stígur = path or lane · stræti = street (mostly downtown) · torg = square</p>
+          <p><b>Name parts:</b> holt = hill · hlíð = slope · tún = field · nes = headland · vogur, vík = bay · dalur = valley · fell = mountain · höfn = harbour · mýri = marsh · ás = ridge · melur = gravel flat</p>
+          <p><b>Directions:</b> vestur = west · austur = east · norður = north · suður = south · efra = upper · neðra = lower · gamli = old · nýi = new</p>
+          <p><b>Why names change:</b> Icelandic adds endings. “Holtin” means “the hills”, i.e. the Holt area, and “í Holtunum” means “in Holt”. Likewise Hlíðarnar, “á Völlunum” (Vellir), “í Vesturbænum” (Vesturbær). Search understands these forms.</p>
+        </details>
+      </section>
+      <section class="card">
+        <details>
+          <summary>About the data</summary>
+          <p><b>Reykjavík districts, sub-districts and neighbourhoods:</b> official boundaries from Reykjavíkurborg open data (lukrgatt.reykjavik.is).</p>
+          <p><b>Kópavogur, Garðabær, Hafnarfjörður, Mosfellsbær:</b> OpenStreetMap neighbourhood boundaries. Coverage varies; some areas show as named points only.</p>
+          <p><b>Postal codes:</b> approximate. Built from about 47,000 OpenStreetMap address points, each tagged with its postal code, then turned into areas and clipped to land and to municipality borders. Edges can be off by about one street.</p>
+          <p><b>Pronunciations:</b> computer-generated Icelandic speech for every place, postal code and street (Piper TTS, “Ugla” voice trained on the Talrómur corpus, CC BY 4.0), slowed slightly. Close, but not a native speaker; Forvo has real recordings for many names. The sound files live in the <code>_assets/audio</code> folder next to this page.</p>
+          <p>Background maps need no API key. Map data © OpenStreetMap contributors (ODbL). Data built __BUILT__.</p>
+        </details>
+      </section>
+    </div>
+  </aside>
+  <div id="map"></div>
+</div>
+<dialog id="settings" aria-labelledby="set-title">
+  <div class="set-in">
+    <div class="set-head"><h2 id="set-title">Settings</h2><button type="button" class="set-x" aria-label="Close settings">✕</button></div>
+    <div class="set-body">
+    <h3>Appearance</h3>
+    <div class="seg" role="radiogroup" aria-label="Appearance">
+      <label><input type="radio" name="theme" value="auto"><span>Auto</span></label>
+      <label><input type="radio" name="theme" value="light"><span>Light</span></label>
+      <label><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+    </div>
+    <h3><span class="pin-ic" data-kind="home"></span>Home</h3>
+    <div class="pl"><label for="pl-home1">1</label><input id="pl-home1" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-home1" class="pl-st" role="status"></div></div>
+    <div class="pl"><label for="pl-home2">2</label><input id="pl-home2" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-home2" class="pl-st" role="status"></div></div>
+    <div class="pl"><label for="pl-home3">3</label><input id="pl-home3" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-home3" class="pl-st" role="status"></div></div>
+    <h3><span class="pin-ic" data-kind="work"></span>Work</h3>
+    <div class="pl"><label for="pl-work1">1</label><input id="pl-work1" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work1" class="pl-st" role="status"></div></div>
+    <div class="pl"><label for="pl-work2">2</label><input id="pl-work2" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work2" class="pl-st" role="status"></div></div>
+    <div class="pl"><label for="pl-work3">3</label><input id="pl-work3" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work3" class="pl-st" role="status"></div></div>
+    </div>
+  </div>
+</dialog>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+const DATA = /*__DATA__*/null;
+</script>
+<script>
+// Where each pronunciation lives inside the audio packs in _assets/audio/ (made by build/make_audio.py):
+// {"files": ["pack-00.mp3", ...], "clips": {"Holt": [file, start_seconds, duration_seconds], "postal:105": [...]}}
+const AUDIO = /*__AUDIO__*/null;
+</script>
+<script>
+(function(){
+"use strict";
+const PALETTE = ["#4E79A7","#F28E2B","#59A14F","#E15759","#B07AA1","#EDC948","#76B7B2","#FF9DA7","#9C755F","#86BCB6"];
+const NAVY="#2D3E52", GOLD="#D5A754";
+
+// ---------- remembered settings (this browser only) ----------
+// Layers, background map, location switch and map position are kept in localStorage so the page
+// reopens the way it was left. Storage can be blocked (private mode, some local-file setups); then
+// everything still works, it just isn't remembered.
+const STORE_KEY = "capitalRegionMap.v1";
+const store = (() => { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch(e) { return {}; } })();
+function saveStore(patch){ Object.assign(store, patch); try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch(e) {} }
+
+// ---------- map + base layers ----------
+const map = L.map("map",{zoomControl:true, minZoom:9, maxZoom:19, preferCanvas:false}).setView([64.115,-21.86],12);
+const attrOSM='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const ESRI = "https://server.arcgisonline.com/ArcGIS/rest/services/";
+// MAXZ = deepest zoom each provider really serves; the map is capped there instead of showing blurry or blank tiles.
+// All except "osm" work when the page is opened straight from a file. openstreetmap.org needs a Referer
+// header, which only a page served from a web address sends, so that option appears only on the website,
+// where it is the default (it zooms closest). Opened from a file, OSM Germany is the default.
+const ON_WEB = /^https?:$/.test(location.protocol);
+const MAXZ = {osmde:18, osm:19, osmfr:19, hot:18, esri:19, gray:16, sat:19};
+const bases = {
+  osmde: L.tileLayer("https://tile.openstreetmap.de/{z}/{x}/{y}.png",{maxZoom:MAXZ.osmde,attribution:attrOSM+', tiles OSM Germany (FOSSGIS)'}),
+  osm: L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:MAXZ.osm,attribution:attrOSM}),
+  osmfr: L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png",{subdomains:"abc",maxZoom:MAXZ.osmfr,attribution:attrOSM+', tiles OSM France'}),
+  hot: L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",{subdomains:"abc",maxZoom:MAXZ.hot,attribution:attrOSM+', tiles HOT / OSM France'}),
+  esri: L.tileLayer(ESRI+"World_Street_Map/MapServer/tile/{z}/{y}/{x}",{maxZoom:MAXZ.esri,attribution:"Powered by Esri · Tiles &copy; Esri, HERE, Garmin, &copy; OpenStreetMap contributors"}),
+  gray: L.layerGroup([L.tileLayer(ESRI+"Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",{maxZoom:MAXZ.gray,attribution:"Powered by Esri · Tiles &copy; Esri, HERE, Garmin, &copy; OpenStreetMap contributors"}),
+                      L.tileLayer(ESRI+"Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}",{maxZoom:MAXZ.gray})]),
+  sat: L.tileLayer(ESRI+"World_Imagery/MapServer/tile/{z}/{y}/{x}",{maxZoom:MAXZ.sat,attribution:"Powered by Esri · Imagery &copy; Esri, Maxar, Earthstar Geographics"})
+};
+const baseSel = document.getElementById("base"), baseNote = document.getElementById("basenote");
+const BASE_LABEL = {osmde:"Street map", osm:"Street map, OpenStreetMap", osmfr:"Street map, most detail", hot:"Street map, soft colours",
+                    esri:"Street map, simple", gray:"Plain gray", sat:"Satellite photo"};
+if(ON_WEB){
+  const o = document.createElement("option"); o.value = "osm"; o.textContent = "Street map, OpenStreetMap (default)";
+  baseSel.insertBefore(o, baseSel.options[0]);
+  baseSel.options[1].textContent = "Street map, OSM Germany"; BASE_LABEL.osmde = "Street map, OSM Germany";
+} else delete bases.osm;
+// OSM Germany draws tiles the first time anyone asks, and that first request fails while it draws.
+// So retry a failed tile a few times instead of leaving a grey square.
+const RETRY_MS = [1200, 3500, 8000];
+function retryTile(e){
+  const img = e.tile, n = +(img.dataset.retry || 0);
+  if(n >= RETRY_MS.length) return;
+  img.dataset.retry = n + 1;
+  setTimeout(() => {
+    if(!img.isConnected) return;                 // panned or zoomed away meanwhile
+    const base = img.src.replace(/[?&]_r=\d+$/, "");
+    img.src = base + (base.includes("?") ? "&" : "?") + "_r=" + (n + 1);
+  }, RETRY_MS[n]);
+}
+const FALLBACK = ["osmde","osmfr","esri"];
+let curKey = store.base && bases[store.base] ? store.base : (bases.osm ? "osm" : "osmde");   // last background map chosen here
+let curBase = bases[curKey].addTo(map), userPicked = !!(store.base && bases[store.base]), noteFor = null;
+map.setMaxZoom(MAXZ[curKey]); map.getContainer().classList.toggle("base-sat", curKey === "sat");
+const stats = {};
+function setBase(k, auto){
+  map.removeLayer(curBase); curKey = k; curBase = bases[k].addTo(map);
+  map.getContainer().classList.toggle("base-sat", k === "sat");   // dark mode leaves the photo alone
+  if(curBase.bringToBack) curBase.bringToBack();
+  map.setMaxZoom(MAXZ[k]);   // zooms out automatically if currently deeper than this map goes
+  baseSel.value = k; stats[k] = {ok:0, err:0};
+  if(!auto){ userPicked = true; baseNote.textContent = ""; }
+}
+function checkBase(k){
+  const s = stats[k]; if(k !== curKey || s.ok > 0 || s.err < 4) return;
+  const nxt = FALLBACK[FALLBACK.indexOf(k)+1];
+  if(!userPicked && nxt){
+    setBase(nxt, true);
+    baseNote.textContent = `"${BASE_LABEL[k]}" did not load, switched to "${BASE_LABEL[nxt]}".`; noteFor = null;
+  } else {
+    noteFor = k;
+    baseNote.textContent = `"${BASE_LABEL[k]}" is not loading right now. Try another background map.`;
+  }
+}
+for(const [k,lyr] of Object.entries(bases)){
+  stats[k] = {ok:0, err:0};
+  const tls = lyr instanceof L.TileLayer ? [lyr] : lyr.getLayers();
+  tls.forEach(t=>{ t.on("tileload",()=>{ stats[k].ok++; if(k===curKey && noteFor===k){ baseNote.textContent=""; noteFor=null; } });
+                   t.on("tileerror",e=>{ stats[k].err++; if(k==="osmde") retryTile(e); checkBase(k); }); });
+}
+baseSel.value = curKey;
+baseSel.addEventListener("change", e=>{ setBase(e.target.value, false); saveStore({base: e.target.value}); });
+
+["muni","postal","district","hverfi","nbh","small","sel","pts","labels","poi"].forEach((p,i)=>{
+  const pane = map.createPane(p); pane.style.zIndex = 400 + i*10;
+});
+map.getPane("labels").style.pointerEvents="none";
+map.getPane("muni").style.pointerEvents="none";
+map.getPane("sel").style.pointerEvents="none";
+
+// ---------- phone layout: floating search + bottom sheet ----------
+// Same query as the CSS phone block. Desktop ignores all of this.
+const MOBILE = window.matchMedia("(max-width:760px), (max-height:500px) and (max-width:1000px)");
+const LAND = window.matchMedia("(max-height:500px) and (orientation:landscape) and (max-width:1000px)");  // sideways phone: panel on the right
+const TOUCH = window.matchMedia("(hover: none)").matches;   // no mouse: skip hover tooltips
+const sideEl=document.getElementById("side"), grabEl=document.getElementById("grab"), scrollEl=document.getElementById("scroll"),
+      peekEl=document.getElementById("peek"), topEl=document.getElementById("top");
+let sheet="peek", sheetY=0;
+const padB = () => parseFloat(getComputedStyle(sideEl).paddingBottom)||0;
+function sheetStops(){
+  const h=sideEl.offsetHeight, peekVis=grabEl.offsetHeight+padB();
+  const halfVis=Math.min(h, Math.max(peekVis+140, Math.round(window.innerHeight*0.46)));
+  return {full:0, half:h-halfVis, peek:Math.max(0,h-peekVis), peekVis};
+}
+function placeSheet(y, animate){
+  sheetY=y; sideEl.classList.toggle("dragging",!animate);
+  sideEl.style.transform=`translateY(${y}px)`;
+  scrollEl.style.maxHeight=Math.max(0, sideEl.offsetHeight-y-grabEl.offsetHeight-padB())+"px";
+}
+// Android Back button: an open sheet adds one history step, so Back closes the sheet instead of leaving the map.
+let sheetHist=false;
+function setSheet(state, fromBack){
+  if(!MOBILE.matches) return;
+  if(LAND.matches && state==="half") state="full";   // sideways: just open or closed
+  sheet=state; const s=sheetStops();
+  document.documentElement.style.setProperty("--peekvis", s.peekVis+"px");
+  placeSheet(s[state], true);
+  grabEl.setAttribute("aria-expanded", String(state!=="peek"));
+  if(fromBack) return;
+  try{
+    if(state!=="peek" && !sheetHist){ history.pushState({sheet:1}, ""); sheetHist=true; }
+    else if(state==="peek" && sheetHist){ sheetHist=false; history.back(); }
+  }catch(e){ /* history may be unavailable for some local-file viewers */ }
+}
+// Android Back: closes the settings dialog first, then the sheet
+let dlgHist = false, skipPop = false;
+window.addEventListener("popstate", ()=>{
+  if(skipPop){ skipPop = false; return; }
+  if(dlgHist){ dlgHist = false; document.getElementById("settings").close(); return; }
+  if(sheetHist){ sheetHist=false; setSheet("peek", true); }
+});
+const sheetVisiblePx = () => MOBILE.matches ? sideEl.offsetHeight - sheetStops()[sheet] : 0;
+function setPeek(title, sub){ peekEl.innerHTML = esc(title) + (sub ? ` <small>· ${esc(sub)}</small>` : ""); }
+// drag the handle row; a tap steps peek → half → full → peek
+let drag=null;
+grabEl.addEventListener("pointerdown",e=>{ if(!MOBILE.matches) return; drag={y0:e.clientY, s0:sheetY, t0:performance.now(), moved:false}; grabEl.setPointerCapture(e.pointerId); });
+grabEl.addEventListener("pointermove",e=>{
+  if(!drag) return; const dy=e.clientY-drag.y0;
+  if(Math.abs(dy)>6) drag.moved=true;
+  if(drag.moved) placeSheet(Math.min(sheetStops().peek, Math.max(0, drag.s0+dy)), false);
+});
+grabEl.addEventListener("pointerup",e=>{
+  if(!drag) return; const d=drag; drag=null;
+  if(!d.moved){ setSheet(sheet==="peek"?"half":sheet==="half"?"full":"peek"); return; }
+  const s=sheetStops(), v=(e.clientY-d.y0)/Math.max(1,performance.now()-d.t0);
+  let target;
+  if(v>0.45) target = sheetY < s.half ? "half" : "peek";          // flick down
+  else if(v<-0.45) target = sheetY > s.half ? "half" : "full";    // flick up
+  else target = ["full","half","peek"].reduce((a,b)=>Math.abs(s[b]-sheetY)<Math.abs(s[a]-sheetY)?b:a);
+  setSheet(target);
+});
+grabEl.addEventListener("pointercancel",()=>{ if(drag){ drag=null; setSheet(sheet); } });
+grabEl.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); setSheet(sheet==="peek"?"half":sheet==="half"?"full":"peek"); } });
+// "Show on map" folds away (with the background map); the choice is remembered
+const layersCard = document.querySelector(".layers"), layersToggle = document.getElementById("layersToggle");
+function setLayersOpen(open, save){
+  layersCard.classList.toggle("folded", !open); layersToggle.setAttribute("aria-expanded", String(open));
+  if(save) saveStore({layersOpen: open});
+}
+setLayersOpen(store.layersOpen !== false, false);
+layersToggle.addEventListener("click", () => setLayersOpen(layersCard.classList.contains("folded"), true));
+document.getElementById("layersBtn").addEventListener("click",()=>{
+  if(layersCard.classList.contains("folded")) setLayersOpen(true, true);      // the layers button is a way in: open it
+  const card=document.querySelector(".layers"), y=card.offsetTop-scrollEl.offsetTop;
+  if(sheet==="full" && Math.abs(scrollEl.scrollTop-y)<10){ setSheet("peek"); return; }
+  setSheet("full"); scrollEl.scrollTo({top:y, behavior:"smooth"});
+});
+function layoutChanged(){
+  if(MOBILE.matches) setSheet(sheet);
+  else { sideEl.style.transform=""; scrollEl.style.maxHeight=""; sideEl.classList.remove("dragging"); }
+  map.invalidateSize();
+}
+MOBILE.addEventListener("change", layoutChanged);
+window.addEventListener("resize", ()=>{ if(MOBILE.matches) setSheet(sheet); });
+// keep selections out from under the floating search bar and the sheet
+function viewPad(){
+  if(!MOBILE.matches) return {tl:[40,40], br:[40,40]};
+  if(LAND.matches) return {tl:[16, topEl.offsetHeight+12], br:[sheet==="peek" ? 16 : sideEl.offsetWidth+16, sheet==="peek" ? sheetVisiblePx()+12 : 16]};
+  return {tl:[24, topEl.offsetHeight+12], br:[24, sheetVisiblePx()+12]};
+}
+function fitTo(bb){ const p=viewPad(); map.fitBounds([[bb[1],bb[0]],[bb[3],bb[2]]],{paddingTopLeft:p.tl, paddingBottomRight:p.br, maxZoom:16}); }
+function centerOn(lat,lng,z){
+  z=Math.min(z, map.getMaxZoom());
+  if(!MOBILE.matches){ map.setView([lat,lng],z); return; }
+  const p=viewPad(), dx=(p.br[0]-p.tl[0])/2, dy=(p.br[1]-p.tl[1])/2;
+  map.setView(map.unproject(map.project([lat,lng],z).add([dx,dy]),z), z);
+}
+function keepVisible(lat,lng){
+  if(!MOBILE.matches) return;
+  const p=viewPad(), cp=map.latLngToContainerPoint([lat,lng]), sz=map.getSize();
+  const bottom=sz.y-p.br[1]-20, top=p.tl[1]+8, right=sz.x-p.br[0]-20;
+  let dx=0, dy=0;
+  if(cp.y>bottom) dy=cp.y-bottom+20; else if(cp.y<top) dy=cp.y-top-20;
+  if(cp.x>right) dx=cp.x-right+20;
+  if(dx||dy) map.panBy([dx,dy]);
+}
+
+// ---------- helpers ----------
+const norm = s => (s||"").toLowerCase().replace(/þ/g,"th").replace(/ð/g,"d").replace(/æ/g,"ae").replace(/ö/g,"o")
+  .normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9 ]+/g," ").replace(/\s+/g," ").trim();
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function bboxOf(geom){
+  let a=[180,90,-180,-90];
+  const polys = geom.type==="Polygon"?[geom.coordinates]:geom.coordinates;
+  for(const poly of polys) for(const [x,y] of poly[0]){ if(x<a[0])a[0]=x; if(y<a[1])a[1]=y; if(x>a[2])a[2]=x; if(y>a[3])a[3]=y; }
+  return a;
+}
+function inRing(x,y,ring){
+  let ins=false;
+  for(let i=0,j=ring.length-1;i<ring.length;j=i++){
+    const xi=ring[i][0], yi=ring[i][1], xj=ring[j][0], yj=ring[j][1];
+    if(((yi>y)!==(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) ins=!ins;
+  }
+  return ins;
+}
+function inGeom(x,y,f){
+  const b=f._bb; if(x<b[0]||x>b[2]||y<b[1]||y>b[3]) return false;
+  const g=f.geometry, polys = g.type==="Polygon"?[g.coordinates]:g.coordinates;
+  for(const poly of polys){ if(inRing(x,y,poly[0])){ let hole=false; for(let k=1;k<poly.length;k++) if(inRing(x,y,poly[k])){hole=true;break;} if(!hole) return true; } }
+  return false;
+}
+const ALL = {};  // kind -> features
+for(const k of ["munis","districts","hverfi","nbh","small","postal"]){
+  ALL[k] = DATA[k].features;
+  ALL[k].forEach((f,i)=>{ f._bb=bboxOf(f.geometry); f._kind=k; f._id=k+":"+i; });
+}
+const postalByCode = {}; ALL.postal.forEach(f=>postalByCode[f.properties.code]=f);
+const hitAll = (k,lng,lat) => ALL[k].filter(f=>inGeom(lng,lat,f));
+const smallestHit = (k,lng,lat) => hitAll(k,lng,lat).sort((a,b)=>a.properties.km2-b.properties.km2)[0];
+
+function label(latlng, html, cls){
+  return L.marker([latlng[1],latlng[0]],{pane:"labels",interactive:false,keyboard:false,
+    icon:L.divIcon({className:"lbl "+cls, html:"<span>"+html+"</span>", iconSize:[0,0]})});
+}
+
+// ---------- layers ----------
+const groups = {};
+function makeLayer(kind, style, hover, labelCls, labelFn, pane){
+  const g = L.layerGroup();
+  const gj = L.geoJSON(DATA[kind], {pane, style, onEachFeature:(f,lyr)=>{
+    lyr.feature = f;
+    if(hover && !TOUCH){
+      lyr.bindTooltip(()=>hover(f),{sticky:true,className:"tt",direction:"top",offset:[0,-6]});
+      lyr.on("mouseover",()=>{ lyr.setStyle({fillOpacity: (style(f).fillOpacity||0)+0.18, fillColor: f._kind==="postal"?style(f).fillColor:GOLD}); });
+      lyr.on("mouseout",()=>{ gj.resetStyle(lyr); });
+    }
+  }});
+  g.addLayer(gj);
+  if(labelCls){ for(const f of DATA[kind].features){ const m=label(f.properties.label, labelFn(f), labelCls(f)); g.addLayer(m); } }
+  groups[kind]=g; return g;
+}
+const sub = p => p.muni && p.muni!=="Reykjavík" ? p.muni : (p.district||p.muni||"");
+makeLayer("munis", ()=>({color:"#4A5568",weight:2.5,opacity:.8,fill:false,dashArray:"8 5"}), null,
+  ()=>"lbl-muni", f=>esc(f.properties.name), "muni");
+makeLayer("postal", f=>{const c=PALETTE[f.properties.ci%PALETTE.length]; return {color:c,weight:2.5,opacity:.95,fillColor:c,fillOpacity:.30};},
+  f=>esc(f.properties.code+" "+f.properties.town), ()=>"lbl-postal",
+  f=>esc(f.properties.code)+"<small>"+esc(f.properties.town)+"</small>", "postal");
+makeLayer("districts", ()=>({color:"#1F2B3A",weight:3.5,opacity:.75,fill:false,interactive:false}), null,
+  ()=>"lbl-district", f=>esc(f.properties.name), "district");
+makeLayer("hverfi", ()=>({color:"#B8893C",weight:2.5,opacity:.9,dashArray:"6 4",fillColor:"#B8893C",fillOpacity:.04}),
+  f=>esc(f.properties.name)+' <span style="font-weight:normal;color:#4A5568">· sub-district</span>', ()=>"lbl-hverfi", f=>esc(f.properties.name), "hverfi");
+makeLayer("nbh", ()=>({color:NAVY,weight:1.6,opacity:.9,fillColor:NAVY,fillOpacity:.05}),
+  f=>esc(f.properties.name)+' <span style="font-weight:normal;color:#4A5568">· '+esc(sub(f.properties))+'</span>',
+  f=>"lbl-nbh"+(f.properties.km2>1.2?" big":""), f=>esc(f.properties.name), "nbh");
+makeLayer("small", ()=>({color:"#3E546E",weight:1.3,opacity:.85,dashArray:"2 4",fillColor:"#3E546E",fillOpacity:.04}),
+  f=>esc(f.properties.name)+' <span style="font-weight:normal;color:#4A5568">· '+esc(f.properties.muni)+'</span>',
+  ()=>"lbl-small", f=>esc(f.properties.name), "small");
+// points
+const ptsGroup = L.layerGroup();
+DATA.points.forEach((p,i)=>{
+  p._kind="point"; p._id="point:"+i;
+  const minor = p.place==="locality";
+  const m = L.circleMarker([p.ll[1],p.ll[0]],{pane:"pts",radius:(minor?3:4.5)*(TOUCH?1.5:1),color:"#fff",weight:1.5,fillColor:minor?"#4A5568":NAVY,fillOpacity:1,className:minor?"pt-minor":"pt-major"});
+  if(!TOUCH) m.bindTooltip(esc(p.name)+' <span style="font-weight:normal;color:#4A5568">· '+esc(p.muni||"")+'</span>',{className:"tt",direction:"top",offset:[0,-4]});
+  m.on("click",ev=>{ L.DomEvent.stopPropagation(ev); select(p); });
+  ptsGroup.addLayer(m);
+  ptsGroup.addLayer(label(p.ll, esc(p.name), "lbl-point"+(minor?" minor":"")));
+});
+groups.points = ptsGroup;
+// shops, Perlan and bus hubs: coloured badges (not the companies' logos), name shown when zoomed in
+const POIS = DATA.pois || [];
+const POI_CAT = {grocery:"Supermarket", store:"Big store", mall:"Shopping centre", second:"Second-hand", sight:"Landmark", bus:"Bus hub", pool:"Swimming pool", park:"Park"};
+const POI_IS = {grocery:"matvöruverslun", store:"verslun", mall:"verslunarmiðstöð", second:"nytjamarkaður", sight:"kennileiti", bus:"skiptistöð", pool:"sundlaug", park:"almenningsgarður"};
+const PARK_KIND = {park:["Park","almenningsgarður"], garden:["Garden","garður"], botanical:["Botanical garden","grasagarður"],
+                   reserve:["Nature area","friðland / fólkvangur"], wood:["Woodland","skógræktarsvæði"]};
+const POOL_KIND = {pool:["Swimming pool","sundlaug"], beach:["Geothermal beach","ylströnd"], spa:["Geothermal spa, tickets needed","baðlón"]};
+const WAVE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9c2 0 2-1.5 4-1.5S8 9 10 9s2-1.5 4-1.5S16 9 18 9s2-1.5 4-1.5M2 14c2 0 2-1.5 4-1.5S8 14 10 14s2-1.5 4-1.5S16 14 18 14s2-1.5 4-1.5M2 19c2 0 2-1.5 4-1.5S8 19 10 19s2-1.5 4-1.5S16 19 18 19s2-1.5 4-1.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
+const BUS_KIND = {hub:"Strætó transfer hub (skiptistöð)", centre:"City-centre bus hub (skiptistöð)",
+  terminal:"Bus terminal (umferðarmiðstöð) · airport and long-distance buses", stop:"Big bus stop"};
+const BAG_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 13H6L5 8z" fill="currentColor"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const TAG_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12.6V4.5A1.5 1.5 0 0 1 4.5 3h8.1l8.4 8.4-9.6 9.6L3 12.6z" fill="currentColor"/><circle cx="7.7" cy="7.7" r="1.7" fill="#2E7D4F"/></svg>';
+const BUS_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.5" width="14" height="15.5" rx="2.5" fill="currentColor"/><rect x="7" y="5" width="10" height="6" rx="1" fill="#FFD100"/><circle cx="8.6" cy="14.6" r="1.3" fill="#FFD100"/><circle cx="15.4" cy="14.6" r="1.3" fill="#FFD100"/><rect x="6.3" y="17.5" width="3.2" height="3.5" rx="1" fill="currentColor"/><rect x="14.5" y="17.5" width="3.2" height="3.5" rx="1" fill="currentColor"/></svg>';
+const STAR_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.6L12 17.5l-5.9 3.2 1.2-6.6-4.8-4.6 6.6-.9z" fill="currentColor"/></svg>';
+const poiCls = p => "poi-" + (p.brand ? norm(p.brand).replace(/\W/g,"") : p.cat);
+const poiGlyph = p => ({bus:BUS_ICON, sight:STAR_ICON, mall:BAG_ICON, second:TAG_ICON, pool:WAVE_ICON})[p.cat] || esc(p.brand[0]);
+const poiLabel = p => p.cat==="bus" ? (p.kind==="stop" ? "Bus stop" : p.kind==="terminal" ? "Bus terminal" : "Bus hub")
+  : p.cat==="park" ? (PARK_KIND[p.kind]||PARK_KIND.park)[0] : p.cat==="pool" ? (p.kind==="pool" ? "Swimming pool" : p.kind==="beach" ? "Beach" : "Spa")
+  : p.kind==="flea" ? "Flea market" : p.kind==="department" ? "Department store" : POI_CAT[p.cat];
+const poiDesc = p => p.cat==="bus"
+  ? `${BUS_KIND[p.kind]||BUS_KIND.hub}${p.lines && p.lines.length ? " · lines " + esc(p.lines.join(", ")) : ""}${p.stops ? " · stops " + p.stops.split("").join(", ") : ""}${p.kind==="terminal" ? "" : " · Strætó"}`
+  : p.kind==="flea" ? `Flea market (flóamarkaður), open weekends${p.addr ? " · " + esc(p.addr) : ""}`
+  : p.kind==="department" ? `Supermarket and department store (stórmarkaður)${p.addr ? " · " + esc(p.addr) : ""}`
+  : p.cat==="park" ? `${(PARK_KIND[p.kind]||PARK_KIND.park)[0]} (${(PARK_KIND[p.kind]||PARK_KIND.park)[1]}) · ${p.km2 >= 0.1 ? p.km2.toFixed(1) + " km²" : Math.round(p.km2 * 100) + " hectares"}`
+  : p.cat==="pool" ? `${POOL_KIND[p.kind][0]} (${POOL_KIND[p.kind][1]})`
+  : `${POI_CAT[p.cat]}${p.cat==="second" ? " shop" : ""} (${POI_IS[p.cat]})${p.addr ? " · " + esc(p.addr) : ""}`;
+const poiSpec = p => `poi|${p.name}|${p.muni}|${p.cat}`;
+const POI_GROUP = {grocery:"groceries", store:"shops", mall:"shops", second:"shops", pool:"pools", bus:"bus", sight:"parks", park:"parks"};
+const POI_TOGGLE = {groceries:"L-groc", shops:"L-shop", pools:"L-pool", bus:"L-bus", parks:"L-park", hagkaup:"L-groc"};
+for(const g of ["groceries","shops","pools","bus","parks","hagkaup"]) groups[g] = L.layerGroup();
+const poiGroupOf = p => p.brand === "Hagkaup" ? "hagkaup" : POI_GROUP[p.cat];
+POIS.forEach((p,i)=>{
+  p._kind="poi"; p._id="poi:"+i;
+  if(p.cat==="park"){
+    const size = p.km2 >= 1 ? "l" : p.km2 >= 0.1 ? "m" : p.km2 >= 0.01 ? "s" : "xs";
+    groups.parks.addLayer(label(p.ll, esc(p.name), "lbl-park park-" + size));
+    return;
+  }
+  const sz = TOUCH ? 26 : 22;
+  const m = L.marker([p.ll[1],p.ll[0]],{pane:"poi",keyboard:false,title:TOUCH?"":p.name,
+    icon:L.divIcon({className:`poi poi-${p.cat} ${poiCls(p)}${p.cat==="bus" && p.kind==="stop" ? " bus-stop" : ""}`, iconSize:[sz,sz], iconAnchor:[sz/2,sz/2],
+      html:`<i>${poiGlyph(p)}</i><b>${esc(p.name)}</b>`})});
+  m.on("click",ev=>{ L.DomEvent.stopPropagation(ev); select(p); });
+  p._group = groups[poiGroupOf(p)]; p._group.addLayer(m); p._marker = m;
+});
+
+
+const order = ["munis","postal","districts","hverfi","nbh","small"];
+const toggles = {"L-muni":["munis"],"L-postal":["postal"],"L-district":["districts"],"L-hverfi":["hverfi"],"L-nbh":["nbh"],"L-small":["small","points"],
+  "L-groc":["groceries"],"L-shop":["shops"],"L-pool":["pools"],"L-park":["parks"],"L-bus":["bus"]};
+function applyToggles(){
+  const saved = {};
+  for(const [id,ks] of Object.entries(toggles)){
+    const on=document.getElementById(id).checked; saved[id] = on;
+    ks.forEach(k=>{ if(on) groups[k].addTo(map); else map.removeLayer(groups[k]); });
+  }
+  if(document.getElementById("L-groc").checked || document.getElementById("L-shop").checked) groups.hagkaup.addTo(map);
+  else map.removeLayer(groups.hagkaup);
+  updateLabelClasses();
+  saveStore({layers: saved});
+}
+// restore the layer checkboxes from the last visit
+if(store.layers) for(const [id,on] of Object.entries(store.layers)){ const el=document.getElementById(id); if(el && id in toggles) el.checked = !!on; }
+Object.keys(toggles).forEach(id=>document.getElementById(id).addEventListener("change",applyToggles));
+
+function updateLabelClasses(){
+  const z = map.getZoom(), el = map.getContainer(), postalOn = document.getElementById("L-postal").checked;
+  const set=(c,on)=>el.classList.toggle(c,on);
+  set("show-muni", z<=11);
+  set("show-district", z>=11 && z<=13 && !postalOn);
+  set("show-hverfi", z>=13 && z<=14);
+  set("show-nbh-big", z>=13);
+  set("show-nbh", z>=14);
+  set("show-small", z>=15);
+  set("show-point", z>=14);
+  set("show-postal-small", z>=12);
+  set("postal-on", postalOn);
+  set("show-pt-major", z>=12);
+  set("show-pt-minor", z>=14);
+  set("show-poi", z>=12);
+  set("show-bus", z>=11);
+  set("show-busstop", z>=13);
+  set("show-poi-name", z>=15);
+  set("show-park-l", z>=11); set("show-park-m", z>=13); set("show-park-s", z>=15); set("show-park-xs", z>=16);
+  el.querySelectorAll(".lbl-point.minor").forEach(n=>n.style.display = z>=15?"":"none");
+  el.querySelectorAll(".lbl-postal span").forEach(n=>n.style.fontSize = (z<=10?13:z<=11?17:z<=13?22:26)+"px");
+}
+map.on("zoomend",updateLabelClasses);
+applyToggles();
+
+// ---------- selection + info ----------
+const selLayer = L.layerGroup().addTo(map);
+let pin=null;
+function highlight(f){
+  selLayer.clearLayers();
+  if(!f || !f.geometry) return;
+  L.geoJSON(f,{pane:"sel",style:{color:GOLD,weight:5,opacity:1,fill:true,fillColor:GOLD,fillOpacity:.15}}).addTo(selLayer);
+  L.geoJSON(f,{pane:"sel",style:{color:NAVY,weight:1.5,opacity:1,fill:false}}).addTo(selLayer);
+}
+const KIND_LABEL = {nbh:"Neighbourhood",small:"Small area",districts:"District",hverfi:"Sub-district",postal:"Postal code",munis:"Town",point:"Named place",street:"Street",poi:"Place",mine:"My place"};
+const BADGE = {nbh:"b-nbh",small:"b-small",districts:"b-district",hverfi:"b-hverfi",postal:"b-postal",munis:"b-muni",point:"b-point",street:"b-street",poi:"b-poi",mine:"b-mine"};
+const infoEl = document.getElementById("info");
+// the details panel as the page opens, to go back to when "You are here" no longer applies
+const INFO_START = infoEl.innerHTML, PEEK_START = document.getElementById("peek").innerHTML;
+let infoIsMe = false;                               // true while the details show "You are here"
+function resetInfo(){
+  infoEl.innerHTML = INFO_START; document.getElementById("peek").innerHTML = PEEK_START;
+  infoIsMe = false; highlight(null); if(pin){ map.removeLayer(pin); pin = null; }
+}
+const chipPC = codes => (codes&&codes.length)? '<div class="chips">'+codes.map(c=>`<button class="chip pc" data-go="postal:${esc(c)}">${esc(c)} ${esc(postalByCode[c]?postalByCode[c].properties.town:"")}</button>`).join("")+"</div>" : '<span class="muted">n/a</span>';
+const chipName = (kind,name) => name? `<button class="chip" data-go="${kind}:${esc(name)}">${esc(name)}</button>` : '<span class="muted">n/a</span>';
+const akaNote = f => (f && f._aka && f._aka.length) ? ` <span class="muted">also ${f._aka.map(esc).join(", ")}</span>` : "";
+function row(k,v){ return v? `<tr><td>${k}</td><td>${v}</td></tr>`:""; }
+// ---------- pronunciation ----------
+const SPEAKER = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const AUDIO_DIR = "_assets/audio/";
+const hasClip = key => !!(AUDIO && AUDIO.clips && AUDIO.clips[key]);
+const sayBtn = (key, small) => hasClip(key)
+  ? `<button type="button" class="say${small?" sm":""}" data-say="${esc(key)}" aria-label="Hear “${esc(key.replace(/^postal:/,""))}” in Icelandic" title="Hear it in Icelandic">${SPEAKER}</button>` : "";
+const forvo = name => `<div class="say-row">Computer voice · <a href="https://forvo.com/word/${encodeURIComponent(name)}/#is" target="_blank" rel="noopener">real speakers on Forvo ↗</a></div>`;
+// ---------- sharing ----------
+// A share "spec" names one place: kind|name|town (postal|code, munis|name, street|name|postcode).
+// Links to this map open that place (#show=spec). Google Maps links go to a well-known spot for big
+// areas (town hall, main church, shopping centre: DATA.landmarks), to the street for streets,
+// and to the middle of the area otherwise.
+const SHARE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.7" fill="currentColor"/><circle cx="6" cy="12" r="2.7" fill="currentColor"/><circle cx="18" cy="19" r="2.7" fill="currentColor"/><path d="M8.4 10.7l7.2-4.3M8.4 13.3l7.2 4.3" stroke="currentColor" stroke-width="1.9"/></svg>';
+const LANDMARKS = DATA.landmarks || {};
+// A copy opened as a local file has no address to link back to, so it offers Google Maps links only.
+const SHARE_BASE = ON_WEB ? location.origin + location.pathname : "";
+const shareBtn = (spec, small) => spec
+  ? `<button type="button" class="say share${small?" sm":""}" data-share="${esc(spec)}" aria-label="Share this place" title="Share">${SHARE_ICON}</button>` : "";
+function findBySpec(spec){
+  const [kind, name, q] = String(spec).split("|");
+  if(kind==="postal") return postalByCode[name] ? {kind, f:postalByCode[name]} : null;
+  if(kind==="street"){ const s = DATA.streets.find(s=>s[0]===name && (!q || s[1]===q)) || DATA.streets.find(s=>s[0]===name); return s ? {kind, s} : null; }
+  if(kind==="point"){ const p = DATA.points.find(p=>p.name===name && (!q || p.muni===q)) || DATA.points.find(p=>p.name===name); return p ? {kind, p} : null; }
+  if(kind==="poi"){ const cat = String(spec).split("|")[3], P = DATA.pois||[];
+    const p = P.find(p=>p.name===name && (!q || p.muni===q) && (!cat || p.cat===cat)) || P.find(p=>p.name===name && (!cat || p.cat===cat)) || P.find(p=>p.name===name);
+    return p ? {kind, p} : null; }
+  const list = ALL[kind]; if(!list) return null;
+  const f = list.find(x=>x.properties.name===name && (!q || kind==="munis" || x.properties.muni===q)) || list.find(x=>x.properties.name===name);
+  return f ? {kind, f} : null;
+}
+function resolveShare(spec){
+  const r = findBySpec(spec); if(!r) return null;
+  const lm = LANDMARKS[spec];
+  let title, ll, town = "", gq = "", what;
+  if(r.s){                                   // street: Google finds streets by name and postcode
+    const pc = postalByCode[r.s[1]]; town = pc ? pc.properties.town : "";
+    title = r.s[0]; ll = [r.s[3], r.s[2]]; gq = `${r.s[0]}, ${r.s[1]} ${town}`; what = `the street ${r.s[0]}`;
+  } else if(r.p){                            // named place / shop / bus stop: exact spot
+    title = r.p.name; ll = [r.p.ll[1], r.p.ll[0]]; town = r.p.muni || "";
+    if(r.kind==="poi" && r.p.g){ gq = r.p.g; what = r.p.name; } else what = "the exact spot";
+  } else {
+    const p = r.f.properties;
+    title = r.kind==="postal" ? `${p.code} ${p.town}` : p.name;
+    town = r.kind==="munis" ? p.name : r.kind==="postal" ? p.town : (p.muni || "Reykjavík");
+    ll = [p.label[1], p.label[0]]; what = "the middle of the area";
+  }
+  if(lm){ ll = lm.ll; gq = lm.poi.replace(/\s*\([^)]*\)/g, "") + (lm.poi.includes(town) ? "" : ", " + town); what = `${lm.poi}, a well-known spot in ${title}`; }
+  const g = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(gq ? gq + ", Iceland" : ll[0].toFixed(6) + "," + ll[1].toFixed(6));
+  return {title, ll, g, what, map: SHARE_BASE + "#show=" + encodeURIComponent(spec), text: title + (town && town!==title ? ", " + town : "")};
+}
+async function copyText(s){
+  try { await navigator.clipboard.writeText(s); return true; } catch(e) {}
+  const t = document.createElement("textarea"); t.value = s; t.setAttribute("readonly",""); t.style.cssText = "position:fixed;left:-9999px;top:0";
+  document.body.appendChild(t); t.select(); let ok = false; try { ok = document.execCommand("copy"); } catch(e) {} t.remove(); return ok;
+}
+const shareMenu = document.createElement("div"); shareMenu.className = "share-menu"; shareMenu.setAttribute("role","menu"); shareMenu.hidden = true;
+document.body.appendChild(shareMenu);
+let shareFor = null, shareInfo = null;
+function closeShareMenu(){ shareMenu.hidden = true; shareFor = null; }
+function openShareMenu(btn, spec){
+  if(shareFor === btn && !shareMenu.hidden){ closeShareMenu(); return; }
+  const s = resolveShare(spec); if(!s){ toast("Could not make a link for this place"); return; }
+  shareInfo = s; shareFor = btn;
+  const canSend = !!navigator.share;
+  shareMenu.innerHTML = `<div class="sm-title">Share ${esc(s.title)}</div>
+    ${SHARE_BASE&&canSend?'<button type="button" role="menuitem" data-act="send">Send link to this map…</button>':""}
+    ${SHARE_BASE?'<button type="button" role="menuitem" data-act="copy">Copy link to this map</button>':""}
+    <a role="menuitem" href="${esc(s.g)}" target="_blank" rel="noopener" data-act="gopen">Open in Google Maps ↗</a>
+    ${canSend?'<button type="button" role="menuitem" data-act="gsend">Send Google Maps link…</button>':""}
+    <button type="button" role="menuitem" data-act="gcopy">Copy Google Maps link</button>
+    <div class="sm-note">Google Maps will show ${esc(s.what)}.</div>`;
+  shareMenu.hidden = false;
+  const b = btn.getBoundingClientRect(), m = shareMenu.getBoundingClientRect(), vw = innerWidth, vh = innerHeight;
+  let x = Math.min(Math.max(8, b.right - m.width), vw - m.width - 8);
+  let y = b.bottom + 6; if(y + m.height > vh - 8) y = Math.max(8, b.top - m.height - 6);
+  shareMenu.style.left = x + "px"; shareMenu.style.top = y + "px";
+  const first = shareMenu.querySelector("[data-act]"); if(first) first.focus({preventScroll:true});
+}
+shareMenu.addEventListener("click", async e => {
+  const a = e.target.closest("[data-act]"); if(!a || !shareInfo) return;
+  const s = shareInfo, act = a.dataset.act;
+  if(act==="gopen"){ closeShareMenu(); return; }                 // the link opens Google Maps itself
+  e.preventDefault(); closeShareMenu();
+  if(act==="send" || act==="gsend"){
+    try { await navigator.share({title: s.title, text: s.text, url: act==="send" ? s.map : s.g}); } catch(err) {}
+  } else toast((await copyText(act==="copy" ? s.map : s.g)) ? "Link copied" : "Could not copy the link", 2500);
+});
+document.addEventListener("pointerdown", e => { if(!shareMenu.hidden && !shareMenu.contains(e.target) && !e.target.closest("[data-share]")) closeShareMenu(); }, true);
+document.addEventListener("keydown", e => { if(e.key==="Escape" && !shareMenu.hidden){ closeShareMenu(); if(shareFor) shareFor.focus(); } });
+window.addEventListener("resize", closeShareMenu);
+map.on("movestart", closeShareMenu);
+// Playing one name out of a pack.
+// On the web: download the pack once, decode it, and play exactly the slice with the Web Audio API.
+//   (Seeking an <audio> element needs the server to honour HTTP Range requests; Cloudflare Pages
+//   answers them with the whole file, so a seek fails and the pack plays from the start.)
+// Opened from disk (file://): fetch() is blocked there, so seek an <audio> element instead; local files
+//   are always seekable. A guard stops playback if the seek did not happen.
+// Tapping the playing button again stops it.
+let actx = null, curSrc = null, curEl = null, playingBtn = null, stopTimer = null, playToken = 0;
+const packBuf = {}, packLoading = {}, packEls = {};
+function audioCtx(){
+  if(!actx){ const C = window.AudioContext || window.webkitAudioContext; actx = C ? new C() : null; }
+  if(actx && actx.state === "suspended") actx.resume();   // must happen inside the tap on phones
+  return actx;
+}
+function loadPack(fi){
+  if(packBuf[fi]) return Promise.resolve(packBuf[fi]);
+  return packLoading[fi] || (packLoading[fi] = fetch(AUDIO_DIR + AUDIO.files[fi])
+    .then(r => { if(!r.ok) throw new Error("HTTP " + r.status); return r.arrayBuffer(); })
+    .then(b => new Promise((ok, fail) => actx.decodeAudioData(b, ok, fail)))
+    .then(buf => (packBuf[fi] = buf))
+    .catch(e => { delete packLoading[fi]; throw e; }));
+}
+function stopClip(){
+  playToken++;
+  clearTimeout(stopTimer); stopTimer = null;
+  if(curSrc){ curSrc.onended = null; try{ curSrc.stop(); }catch(e){} curSrc = null; }
+  if(curEl){ curEl.pause(); curEl = null; }
+  if(playingBtn) playingBtn.classList.remove("playing", "loading");
+  playingBtn = null;
+}
+function playClip(key, btn){
+  if(!hasClip(key)) return;
+  if(btn && btn === playingBtn){ stopClip(); return; }    // tap again = stop
+  stopClip();
+  const [fi, start, dur] = AUDIO.clips[key];
+  playingBtn = btn; if(btn) btn.classList.add("playing");
+  const ctx = location.protocol === "file:" || !window.fetch ? null : audioCtx();
+  if(!ctx){ playWithElement(fi, start, dur); return; }
+  const token = playToken;
+  if(!packBuf[fi] && btn) btn.classList.add("loading");
+  loadPack(fi).then(buf => {
+    if(token !== playToken) return;                         // stopped, or another name tapped meanwhile
+    if(btn) btn.classList.remove("loading");
+    const src = ctx.createBufferSource();
+    src.buffer = buf; src.connect(ctx.destination);
+    src.onended = () => { if(curSrc === src){ curSrc = null; stopClip(); } };
+    curSrc = src;
+    src.start(0, Math.max(0, start - 0.02), dur + 0.12);   // exact slice; stops by itself
+  }).catch(() => { if(token === playToken) playWithElement(fi, start, dur); });
+}
+function playWithElement(fi, start, dur){
+  let el = packEls[fi];
+  if(!el){
+    el = packEls[fi] = new Audio(AUDIO_DIR + AUDIO.files[fi]);
+    el.preload = "auto";
+    el.addEventListener("timeupdate", () => {
+      if(el !== curEl) return;
+      const t = el.currentTime, s = +el.dataset.start, e = +el.dataset.end;
+      if(t >= e || t < s - 0.5) stopClip();                 // finished, or the seek failed: never play other names
+    });
+    el.addEventListener("playing", () => { if(el === curEl){ clearTimeout(stopTimer); stopTimer = setTimeout(stopClip, (+el.dataset.end - +el.dataset.start) * 1000 + 150); } });
+    el.addEventListener("error", () => { if(el === curEl) stopClip(); });
+  }
+  curEl = el;
+  el.dataset.start = Math.max(0, start - 0.03); el.dataset.end = start + dur + 0.15;
+  try { el.currentTime = +el.dataset.start; } catch(e) {}
+  el.play().catch(stopClip);
+}
+
+function whatsHereRows(lng,lat){
+  const n = smallestHit("nbh",lng,lat), s = smallestHit("small",lng,lat), h = smallestHit("hverfi",lng,lat),
+        d = smallestHit("districts",lng,lat), m = smallestHit("munis",lng,lat), p = smallestHit("postal",lng,lat);
+  const st = nearestStreet(lng,lat);
+  return { n,s,h,d,m,p,st, html:
+    row("Neighbourhood", n?chipName("nbh",n.properties.name)+sayBtn(n.properties.name,1)+shareBtn(`nbh|${n.properties.name}|${n.properties.muni}`,1)+akaNote(n):'<span class="muted">none mapped here</span>')+
+    row("Small area", s?chipName("small",s.properties.name)+sayBtn(s.properties.name,1)+shareBtn(`small|${s.properties.name}|${s.properties.muni}`,1):"")+
+    row("Sub-district", h?chipName("hverfi",h.properties.name)+sayBtn(h.properties.name,1)+shareBtn(`hverfi|${h.properties.name}|Reykjavík`,1)+akaNote(h):"")+
+    row("District", d?chipName("districts",d.properties.name)+sayBtn(d.properties.name,1)+shareBtn(`districts|${d.properties.name}|${d.properties.muni}`,1)+akaNote(d):"")+
+    row("Town", m?esc(m.properties.name)+sayBtn(m.properties.name,1)+shareBtn(`munis|${m.properties.name}`,1)+akaNote(m):'<span class="muted">outside capital region</span>')+
+    row("Postal code", p?chipPC([p.properties.code])+sayBtn("postal:"+p.properties.code,1)+shareBtn(`postal|${p.properties.code}`,1):"")+
+    row("Nearest street", st?`${esc(st[0])}${sayBtn(st[0],1)}${STREET_NAMES.has(st[0]) ? shareBtn(`street|${st[0]}|${st[1]}`,1) : ""} <span class="muted">(${st[1] ? esc(st[1]) + ", " : ""}~${st.d<1000?Math.round(st.d)+" m":(st.d/1000).toFixed(1)+" km"})</span>`:"")
+  };
+}
+// Road lines of every named street (_assets/streets.js, built by build/streets_geo.py), loaded in the
+// background after the map opens. "Nearest street" measures to the road itself; until the lines arrive
+// (or far from any road) it falls back to each street's middle point, which on a long street like
+// Brautarholt can pick a short cross street instead.
+let roadGrid = null;
+const ROAD_CELL = 0.004;                            // grid squares, about 450 m by 200 m
+function loadRoads(){
+  const sc = document.createElement("script"); sc.src = "_assets/streets.js"; sc.async = true;
+  sc.onload = () => {
+    const grid = new Map();
+    for(const [name, enc] of Object.entries(window.STREET_LINES || {})){
+      for(const line of enc.split("|")){
+        let la = 0, lo = 0, prev = null;
+        line.split(";").forEach((pt, i) => {
+          const [a, b] = pt.split(",").map(Number);
+          if(i === 0){ la = a; lo = b; } else { la += a; lo += b; }
+          const cur = [lo / 1e5, la / 1e5];
+          if(prev){
+            const seg = [prev[0], prev[1], cur[0], cur[1], name];
+            const x0 = Math.floor(Math.min(prev[0], cur[0]) / ROAD_CELL), x1 = Math.floor(Math.max(prev[0], cur[0]) / ROAD_CELL);
+            const y0 = Math.floor(Math.min(prev[1], cur[1]) / ROAD_CELL), y1 = Math.floor(Math.max(prev[1], cur[1]) / ROAD_CELL);
+            for(let x = x0; x <= x1; x++) for(let y = y0; y <= y1; y++){
+              const k = x + ":" + y; if(!grid.has(k)) grid.set(k, []); grid.get(k).push(seg);
+            }
+          }
+          prev = cur;
+        });
+      }
+    }
+    roadGrid = grid; delete window.STREET_LINES;
+  };
+  document.head.appendChild(sc);
+}
+const STREET_NAMES = new Set(DATA.streets.map(s => s[0]));
+function nearestStreet(lng,lat){
+  const kx=Math.cos(lat*Math.PI/180);
+  if(roadGrid){
+    let best = null, bd = Infinity, nx = 0, ny = 0;
+    const cx = Math.floor(lng / ROAD_CELL), cy = Math.floor(lat / ROAD_CELL);
+    for(let x = cx - 2; x <= cx + 2; x++) for(let y = cy - 2; y <= cy + 2; y++){
+      for(const g of roadGrid.get(x + ":" + y) || []){
+        const ax = (g[0]-lng)*kx, ay = g[1]-lat, dx = (g[2]-g[0])*kx, dy = g[3]-g[1], L = dx*dx + dy*dy;
+        const t = L ? Math.max(0, Math.min(1, -(ax*dx + ay*dy) / L)) : 0;
+        const px = ax + t*dx, py = ay + t*dy, d = px*px + py*py;
+        if(d < bd){ bd = d; best = g; nx = lng + px/kx; ny = lat + py; }
+      }
+    }
+    if(best){
+      const p = smallestHit("postal", nx, ny), own = DATA.streets.find(s => s[0] === best[4]);
+      const r = [best[4], p ? p.properties.code : (own ? own[1] : "")]; r.d = Math.sqrt(bd) * 111200; return r;
+    }
+  }
+  let best=null, bd=1e18;
+  for(const s of DATA.streets){ const dx=(s[2]-lng)*kx, dy=s[3]-lat, d=dx*dx+dy*dy; if(d<bd){bd=d;best=s;} }
+  if(!best) return null; const r=[...best]; r.d=Math.sqrt(bd)*111200; return r;
+}
+function showPin(lat,lng){
+  if(pin) map.removeLayer(pin);
+  pin = L.circleMarker([lat,lng],{pane:"pts",radius:7,color:NAVY,weight:3,fillColor:GOLD,fillOpacity:1}).addTo(map);
+}
+function infoAt(lat,lng,title,extra,isMe,shareSpec){
+  infoIsMe = !!isMe;
+  const w = whatsHereRows(lng,lat);
+  highlight(w.n || w.s || w.p);
+  if(isMe){ if(pin){ map.removeLayer(pin); pin=null; } }   // your own position already has the blue dot
+  else showPin(lat,lng);
+  const t = title || (w.n ? w.n.properties.name : (w.s ? w.s.properties.name : "Map point"));
+  if(!title && !shareSpec) shareSpec = w.n ? `nbh|${w.n.properties.name}|${w.n.properties.muni}` : w.s ? `small|${w.s.properties.name}|${w.s.properties.muni}` : null;
+  infoEl.innerHTML = `<h2>${isMe?"Your location":"What's here"}</h2><div class="title">${esc(t)}${sayBtn(t)}${isMe?"":shareBtn(shareSpec)}</div>${hasClip(t)?forvo(t):""}
+    ${extra||""}<table>${w.html}</table>
+    <div class="muted" style="margin-top:8px">${lat.toFixed(5)}, ${lng.toFixed(5)}</div>`;
+  const where = [w.p ? w.p.properties.code+" "+w.p.properties.town : (w.m ? w.m.properties.name : ""), w.d && w.d.properties.name!==t ? w.d.properties.name : ""].filter(Boolean).join(" · ");
+  if(isMe) setPeek(w.n ? "You're in " + w.n.properties.name : "You are here", where);
+  else setPeek(t, where);
+  scrollEl.scrollTop = 0;
+}
+map.on("click", e=>{
+  if(cur.length || document.activeElement===qEl){ cur=[]; act=-1; resEl.innerHTML=""; qEl.blur(); }
+  infoAt(e.latlng.lat,e.latlng.lng);
+  if(MOBILE.matches){ if(sheet!=="half") setSheet("half"); setTimeout(()=>keepVisible(e.latlng.lat,e.latlng.lng), 260); }
+});
+
+function featureInfo(f){
+  infoIsMe = false;
+  const p=f.properties, k=f._kind;
+  let rows="";
+  if(k==="postal"){
+    rows += row("Town", esc(p.town));
+    rows += row("Neighbourhoods", p.contains.length? '<div class="chips">'+p.contains.map(n=>chipName("nbh",n)).join("")+"</div>" : '<span class="muted">no neighbourhood polygons mapped here</span>');
+    rows += row("Addresses", p.addresses.toLocaleString("en"));
+    rows += row("Size", p.km2+" km²");
+  } else if(k==="munis"){
+    rows += row("Size (land)", p.km2+" km²");
+  } else {
+    rows += row("Town", esc(p.muni)+sayBtn(p.muni,1)+shareBtn(`munis|${p.muni}`,1));
+    if(p.district && p.district!==p.name) rows += row("District", chipName("districts",p.district)+sayBtn(p.district,1)+shareBtn(`districts|${p.district}|${p.muni}`,1));
+    if(p.hverfi) rows += row("Sub-district", chipName("hverfi",p.hverfi)+sayBtn(p.hverfi,1)+shareBtn(`hverfi|${p.hverfi}|Reykjavík`,1));
+    if(p.parent) rows += row("Part of", chipName("nbh",p.parent)+sayBtn(p.parent,1)+shareBtn(`nbh|${p.parent}|${p.muni}`,1));
+    rows += row("Postal code", chipPC(p.postal)+((p.postal||[]).length===1 ? sayBtn("postal:"+p.postal[0],1)+shareBtn(`postal|${p.postal[0]}`,1) : ""));
+    rows += row("Size", p.km2+" km²");
+    if(p.src) rows += row("Boundary from", esc(p.src));
+  }
+  const kind = KIND_LABEL[k];
+  const title = k==="postal" ? p.code+" "+p.town : p.name;
+  const clipKey = k==="postal" ? "postal:"+p.code : p.name;
+  const spec = k==="postal" ? `postal|${p.code}` : k==="munis" ? `munis|${p.name}` : `${k}|${p.name}|${p.muni}`;
+  const aka = (f._aka||[]).length ? `<div class="aka">Also called ${f._aka.map(a=>`<b>${esc(a)}</b>${sayBtn(a,1)}`).join(", ")}</div>` : "";
+  infoEl.innerHTML = `<h2>${esc(kind)}</h2><div class="title">${esc(title)}${sayBtn(clipKey)}${shareBtn(spec)}</div>${aka}${k!=="postal"&&hasClip(clipKey)?forvo(p.name):""}<table>${rows}</table>`;
+  setPeek(title, [kind, k==="postal"||k==="munis" ? "" : p.muni, (p.postal||[])[0]].filter(Boolean).join(" · "));
+  scrollEl.scrollTop = 0;
+}
+function select(item){
+  if(pin){ map.removeLayer(pin); pin=null; }
+  cur=[]; act=-1; resEl.innerHTML="";
+  if(MOBILE.matches){ qEl.blur(); setSheet("half"); }
+  if(item._kind==="point"){
+    centerOn(item.ll[1],item.ll[0], Math.max(map.getZoom(),15));
+    infoAt(item.ll[1],item.ll[0], item.name, `<div class="muted" style="margin-bottom:6px">Named place (${esc(item.place)}), no boundary mapped</div>`, false, `point|${item.name}|${item.muni||""}`);
+    return;
+  }
+  if(item._kind==="mine"){
+    const r = item.res, lat = r.poi ? r.poi.ll[1] : r.lat, lng = r.poi ? r.poi.ll[0] : r.lng;
+    centerOn(lat, lng, Math.max(map.getZoom(), 16));
+    infoAt(lat, lng, item.name, `<div class="muted" style="margin-bottom:6px">${esc(r.label)}</div>${r.poi ? `<div class="chips" style="margin-bottom:8px"><button class="chip" data-go="poi:${POIS.indexOf(r.poi)}">${esc(r.poi.name)} · ${esc(poiLabel(r.poi))}</button></div>` : ""}`);
+    return;
+  }
+  if(item._kind==="poi"){
+    const tg = document.getElementById(POI_TOGGLE[poiGroupOf(item)]);
+    if(tg && !tg.checked){ tg.checked = true; applyToggles(); }
+    if(item.bb) fitTo(item.bb); else centerOn(item.ll[1],item.ll[0], Math.max(map.getZoom(),16));
+    infoAt(item.ll[1],item.ll[0], item.name, `<div class="muted" style="margin-bottom:6px">${poiDesc(item)}</div>`, false, poiSpec(item));
+    return;
+  }
+  if(item._kind==="street"){
+    const s=item.s;
+    centerOn(s[3],s[2], 16);
+    infoAt(s[3],s[2], s[0], `<div class="muted" style="margin-bottom:6px">Street, ${s[4]} addresses in ${esc(s[1])}</div>`, false, `street|${s[0]}|${s[1]}`);
+    return;
+  }
+  const f=item;
+  if(f._kind==="postal" && !document.getElementById("L-postal").checked){ document.getElementById("L-postal").checked=true; applyToggles(); }
+  if(f._kind==="hverfi" && !document.getElementById("L-hverfi").checked){ document.getElementById("L-hverfi").checked=true; applyToggles(); }
+  highlight(f);
+  fitTo(f._bb);
+  featureInfo(f);
+}
+// clickable polygons show their own info (smallest wins via map click instead); we use map click for everything
+infoEl.addEventListener("click", e=>{
+  const sb=e.target.closest("[data-say]"); if(sb){ playClip(sb.dataset.say, sb); return; }
+  const shb=e.target.closest("[data-share]"); if(shb){ openShareMenu(shb, shb.dataset.share); return; }
+  const b=e.target.closest("[data-go]"); if(!b) return;
+  const [kind,...rest]=b.dataset.go.split(":"); const name=rest.join(":");
+  let f;
+  if(kind==="poi"){ if(POIS[+name]) select(POIS[+name]); return; }
+  if(kind==="postal") f=postalByCode[name];
+  else {
+    const cands = ALL[kind].filter(x=>x.properties.name===name);
+    // prefer the one closest to current selection / view centre
+    const c = map.getCenter();
+    f = cands.sort((a,b)=>dist(a,c)-dist(b,c))[0];
+  }
+  if(f) select(f);
+});
+const dist=(f,c)=>{const l=f.properties.label; return (l[0]-c.lng)**2+(l[1]-c.lat)**2;};
+
+// ---------- search ----------
+const index = [];
+const addIdx = (name, kind, ref, sub, boost=0, alias) => index.push({name, n:norm(name), kind, ref, sub, boost, alias});
+ALL.nbh.forEach(f=>addIdx(f.properties.name,"nbh",f,[f.properties.muni==="Reykjavík"?f.properties.district:null, f.properties.muni, (f.properties.postal||[])[0]].filter(Boolean).join(" · "),8));
+ALL.small.forEach(f=>addIdx(f.properties.name,"small",f,[f.properties.muni,(f.properties.postal||[])[0]].filter(Boolean).join(" · "),2));
+ALL.districts.forEach(f=>addIdx(f.properties.name,"districts",f,f.properties.muni,6));
+ALL.hverfi.forEach(f=>addIdx(f.properties.name,"hverfi",f,"Reykjavík · "+(f.properties.postal||[]).join(", "),4));
+ALL.munis.forEach(f=>addIdx(f.properties.name,"munis",f,"Town in the capital region",5));
+ALL.postal.forEach(f=>addIdx(f.properties.code+" "+f.properties.town,"postal",f,(f.properties.contains||[]).slice(0,3).join(", "),10));
+DATA.points.forEach(p=>addIdx(p.name,"point",p,[p.muni,(p.postal||[])[0]].filter(Boolean).join(" · "),p.place==="locality"?-4:1));
+DATA.streets.forEach(s=>addIdx(s[0],"street",{_kind:"street",s},s[1]+" "+(postalByCode[s[1]]?postalByCode[s[1]].properties.town:""),-2));
+// places: by full name ("Bónus Skeifan"), by brand alone ("Bónus" lists every Bónus, nearest first),
+// and by a plain word ("supermarket", "bus")
+const POI_WORDS = {grocery:["supermarket","grocery","matvoruverslun"], store:["store","big store"], sight:[],
+  mall:["mall","shopping centre","shopping center","shopping","verslunarmidstod"],
+  second:["second hand","secondhand","thrift","thrift shop","charity shop","used","nytjamarkadur"],
+  bus:["bus","bus hub","bus station","bus stop","straeto","skiptistod","stoppistod"],
+  pool:["pool","swimming pool","swimming","swim","sundlaug","sund"], park:[]};
+const PARK_WORDS = {park:["park","gardur"], garden:["garden","gardur","park"], botanical:["botanical garden","garden","grasagardur","park"],
+                    reserve:["nature area","nature reserve","hiking"], wood:["woodland","forest","woods","skogur","park","hiking"]};
+POIS.forEach(p=>{
+  const lineList = p.lines && p.lines.length ? (p.lines.length > 8 ? p.lines.slice(0, 8).join(", ") + "…" : p.lines.join(", ")) : "";
+  const sub = p.cat==="bus" ? `${lineList ? "Lines " + lineList + " · " : p.stops ? "Stops " + p.stops.split("").join(", ") + " · " : ""}${p.muni}` : [p.addr, p.postal[0], p.muni].filter(Boolean).join(" · ");
+  const lab = poiLabel(p);
+  const add = (n, boost) => index.push({name:p.name, n, kind:"poi", ref:p, sub, boost, lab});
+  add(norm(p.name), p.cat==="grocery" ? 3 : 9);
+  if(p.brand && p.brand!==p.name) add(norm(p.brand), 3);
+  const wb = p.kind==="stop" ? -2 : p.cat==="park" ? (p.km2 >= 1 ? 3 : p.km2 >= 0.1 ? 2 : p.km2 >= 0.01 ? 1 : 0) : 0;   // real hubs before big stops; big parks first
+  for(const w of [...POI_WORDS[p.cat], ...(p.cat==="park" ? PARK_WORDS[p.kind]||[] : []), ...(p.words||[])]) add(norm(w), wb);
+});
+// aliases: other names people use (build/aliases.json): alias -> [kind, map name, town, "en" if English]
+const ALIASES = Object.fromEntries(Object.entries(DATA.aliases || {}).filter(([k]) => !k.startsWith("_")));
+for(const [alias,[kind,name,muni]] of Object.entries(ALIASES)){
+  const f = ALL[kind].find(x=>x.properties.name===name && (!muni || x.properties.muni===muni || kind==="munis"));
+  if(!f) continue;
+  addIdx(alias,kind,f,`→ ${name}${muni?" · "+muni:""}`,7,true);
+  if(alias !== name && !ALIASES[alias].includes("case")) (f._aka = f._aka || []).push(alias);   // shown as "Also called"
+}
+const FILLER = /\b(west|east|north|south|upper|lower|old|new|the|vestur|austur|nordur|sudur|efri|efra|nedri|nedra|gamli|nyi|nyja|hverfi|hverfid|neighbourhood|neighborhood|area|in|i|a|vid|uti|ut|reykjavik)\b/g;
+function variants(q){
+  const out = new Set([q]);
+  const stripped = q.replace(FILLER," ").replace(/\s+/g," ").trim();
+  if(stripped && stripped!==q) out.add(stripped);
+  for(const v of [...out]){
+    for(const suf of ["unum","inum","arnir","urnar","irnir","irnar","inu","inn","in","id","nir","nar","num"]){
+      if(v.length>suf.length+2 && v.endsWith(suf)) out.add(v.slice(0,-suf.length));
+    }
+    const h=v.match(/^(.*?)(a|s|ar)?hverfi(d)?$/); if(h && h[1].length>=3) out.add(h[1]);
+  }
+  return [...out].filter(v=>v.length>=2);
+}
+function lev(a,b){
+  if(Math.abs(a.length-b.length)>2) return 9;
+  const dp=Array.from({length:a.length+1},(_,i)=>[i]);
+  for(let j=1;j<=b.length;j++) dp[0][j]=j;
+  for(let i=1;i<=a.length;i++) for(let j=1;j<=b.length;j++)
+    dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+  return dp[a.length][b.length];
+}
+// ---------- "sounds like" matching, for names heard rather than read ----------
+// Both sides become rough sound tokens: place names by Icelandic pronunciation rules, the search text by
+// English spelling habits. They are then compared with an edit distance in which the sounds English
+// speakers mix up cost little: vowels for each other, f/v, p/b, t/d, k/g, th/ð/d, a missing g, h or ð,
+// á as "ow", æ as "eye", au as "oy/ui/öi", ei as "ay", ll as "tl", hv as "kv", fn as "pn", j as "y".
+// Consonant tokens: P(p b) T(t d) K(k g c q) F(f v w) D(þ ð th) S H M N L R Y(j, consonant y).
+// Vowel tokens: a e i o u, au("ow"), ai("eye"), ei("ay"), oy(Icelandic au), ou(ó), oe(ö).
+const IS_VOWEL = "aáeéiíoóuúyýæö", FRONT = "eéiíyýæj", LONG_V = "áéíóúýæ";
+function icelandicSounds(name){
+  const out = [];
+  for(const w of name.toLowerCase().split(/[^a-záéíóúýþðæöü]+/).filter(Boolean)) icelandicWord(w, out);
+  return out.filter((t,i)=>t!==out[i-1]);
+}
+function icelandicWord(s, out){
+  const V = c => IS_VOWEL.includes(c);
+  for(let i=0; i<s.length; ){
+    const c=s[i], n1=s[i+1]||"", n2=s[i+2]||"", prev=s[i-1]||"", start=i===0;
+    if(c==="a" && n1==="u"){ out.push("oy"); i+=2; continue; }                       // au  -> "oy / öi"
+    if(c==="e" && (n1==="i"||n1==="y")){ out.push("ei"); i+=2; continue; }           // ei, ey -> "ay"
+    if("aeiuö".includes(c) && n1==="n" && (n2==="g"||n2==="k")){                      // vowel before ng/nk
+      out.push({a:"au",e:"ei",i:"i",u:"u","ö":"oy"}[c]); i++; continue; }
+    if(V(c)){
+      if(c==="é") out.push("Y");                                                       // é -> "ye"
+      out.push({a:"a",á:"au",e:"e",é:"e",i:"i",í:"i",y:"i",ý:"i",o:"o",ó:"ou",u:"u",ú:"u",æ:"ai",ö:"oe"}[c]);
+      i++; continue;
+    }
+    switch(c){
+      case "h":
+        if(start && n1==="v"){ out.push("K","F"); i+=2; continue; }                  // hv -> "kv"
+        if(start && "lnr".includes(n1)){ i++; continue; }                              // hl hn hr: breathy l/n/r
+        out.push("H"); i++; continue;
+      case "l": if(n1==="l"){ out.push("T","L"); i+=2; } else { out.push("L"); i++; } continue;   // ll -> "tl"
+      case "n":
+        if(n1==="n"){ const longBefore = LONG_V.includes(prev) || (prev==="u" && s[i-2]==="a") || ("iy".includes(prev) && s[i-2]==="e");
+          out.push(...(longBefore ? ["T","N"] : ["N"])); i+=2; } else { out.push("N"); i++; }    // nn after long vowel -> "tn"
+        continue;
+      case "r":
+        if(n1==="n"){ out.push("R","T","N"); i+=2; } else if(n1==="l"){ out.push("R","T","L"); i+=2; }
+        else { out.push("R"); i += n1==="r" ? 2 : 1; }
+        continue;
+      case "p": case "t": case "k":
+        if(n1===c){ out.push("H", c==="p"?"P":c==="t"?"T":"K"); i+=2; continue; }     // pp tt kk: breath first
+        if(c==="k" && FRONT.includes(n1)){ out.push("K","Y"); i++; continue; }          // k before e/i -> "ky"
+        out.push(c==="p"?"P":c==="t"?"T":"K"); i++; continue;
+      case "b": out.push("P"); i++; continue;
+      case "d": out.push("T"); i++; continue;
+      case "ð": case "þ": out.push("D"); i++; continue;
+      case "f": out.push(!start && (n1==="n"||n1==="l") ? "P" : "F"); i++; continue;   // fn, fl -> "pn", "pl"
+      case "v": case "w": out.push("F"); i++; continue;
+      case "g":
+        if(n1==="g"){ out.push("K"); i+=2; continue; }
+        if(start){ out.push(...(FRONT.includes(n1) ? ["K","Y"] : ["K"])); i++; continue; }
+        if(V(prev) && (V(n1) || n1==="" || n1==="j")){                                  // between vowels / at the end: fades
+          if("ijíy".includes(n1)) out.push("Y");
+          i++; continue; }
+        out.push("K"); i++; continue;
+      case "j": out.push("Y"); i++; continue;
+      case "s": case "z": out.push("S"); i++; continue;
+      case "x": out.push("K","S"); i++; continue;
+      case "c": case "q": out.push("K"); i++; continue;
+      case "m": out.push("M"); i++; continue;
+      default: i++;
+    }
+  }
+}
+// English spelling habits -> the same tokens. Longest patterns first.
+const EN_RULES = [
+  ["eigh","ei"],["igh","ai"],["eye","ai"],["aye","ai"],
+  ["th","D"],["dh","D"],["ph","F"],["gh",""],["sh","S Y"],["ch","K Y"],["ck","K"],["qu","K F"],["wh","F"],
+  ["ow","au"],["ou","au"],["au","au"],["aw","au"],
+  ["oy","oy"],["oi","oy"],["ui","oy"],["oe","oy"],["eu","oy"],["uy","oy"],
+  ["ay","ei"],["ai","ei"],["ei","ei"],["ey","ei"],["ae","ai"],
+  ["ee","i"],["ea","i"],["ie","i"],["oo","u"],["ue","u"],["ew","u"],["oa","ou"],["oh","ou"],
+  ["x","K S"],["z","S"],["j","Y"],["w","F"],["v","F"],["f","F"],["b","P"],["p","P"],["d","T"],["t","T"],
+  ["g","K"],["k","K"],["q","K"],["s","S"],["h","H"],["l","L"],["m","M"],["n","N"],["r","R"],
+  ["a","a"],["e","e"],["i","i"],["o","o"],["u","u"]
+];
+function englishSounds(q){
+  const s = norm(q).replace(/[^a-z]/g, ""), out = [];
+  for(let i=0; i<s.length; ){
+    const c = s[i];
+    if(c==="c"){ out.push("eiy".includes(s[i+1]||"") ? "S" : "K"); i++; continue; }
+    if(c==="y"){ const nextV = "aeiou".includes(s[i+1]||""), prevV = "aeiouy".includes(s[i-1]||"");
+      out.push(nextV && !prevV ? "Y" : "i"); i++; continue; }                          // consonant or vowel y
+    const r = EN_RULES.find(([p]) => s.startsWith(p, i));
+    if(r){ if(r[1]) out.push(...r[1].split(" ")); i += r[0].length; } else i++;
+  }
+  return out.filter((t,i)=>t!==out[i-1]);
+}
+const SOUND_VOWELS = new Set(["a","e","i","o","u","au","ai","ei","oy","ou","oe"]);
+const SOUND_SUB = {};
+[["a","au",.3],["a","e",.3],["a","o",.3],["au","ou",.2],["au","o",.25],["ou","o",.15],["ou","u",.25],["o","u",.25],
+ ["u","i",.3],["u","oe",.15],["oe","o",.2],["oe","e",.25],["e","i",.2],["ei","e",.2],["ei","ai",.2],["ai","a",.3],
+ ["ai","i",.25],["oy","ei",.25],["oy","ai",.25],["oy","au",.3],["oy","u",.3],["oy","oe",.2],["oy","o",.3],["oy","i",.35],
+ ["P","F",.35],["T","D",.2],["D","F",.4],["N","M",.4],["K","Y",.5],["S","D",.5],["L","R",.6],["H","K",.5]
+].forEach(([a,b,c]) => { SOUND_SUB[a+"|"+b] = SOUND_SUB[b+"|"+a] = c; });
+const SOUND_INDEL = {H:.25, D:.35, Y:.3, K:.35, R:.5, T:.5};   // easy to miss: h, ð, y-glide, a faded g, r, the t in "tl/tn"
+const subCost = (a,b) => a===b ? 0 : (SOUND_SUB[a+"|"+b] ?? (SOUND_VOWELS.has(a) && SOUND_VOWELS.has(b) ? .45 : 1));
+const indelCost = t => SOUND_VOWELS.has(t) ? .35 : (SOUND_INDEL[t] ?? .9);
+// Weighted edit distance; returns the cost of matching the whole name, and of matching just its beginning.
+function soundDist(q, w){
+  let row = [0]; for(let j=1; j<=w.length; j++) row[j] = row[j-1] + indelCost(w[j-1]);
+  for(let i=1; i<=q.length; i++){
+    const nxt = [row[0] + indelCost(q[i-1])];
+    for(let j=1; j<=w.length; j++)
+      nxt[j] = Math.min(row[j] + indelCost(q[i-1]), nxt[j-1] + indelCost(w[j-1]), row[j-1] + subCost(q[i-1], w[j-1]));
+    row = nxt;
+  }
+  return [row[w.length], Math.min(...row)];
+}
+// Quick filter: the first consonant sound (skipping a leading h) rarely changes when a name is misheard,
+// so only names whose first one matches, or is a close confusion, get the full comparison.
+const leadKey = t => { const k = t.findIndex(x => !SOUND_VOWELS.has(x) && x !== "H"); return k < 0 ? "" : t[k]; };
+const leadOk = (a, b) => a === b || !a || !b || subCost(a, b) <= .4;
+function soundScore(qSets, it){
+  if(it.kind==="postal") return -1;
+  if(!it.snd){ it.snd = [icelandicSounds(it.name), englishSounds(it.name)]; it.lead = it.snd.map(leadKey); }  // first search only
+  let bestR = Infinity, bestD = 0, bestN = 0;
+  for(const q of qSets){
+    if(q.length < 3) continue;
+    const ql = q.lead || (q.lead = leadKey(q));
+    for(let wi = 0; wi < it.snd.length; wi++){
+      const w = it.snd[wi];
+      if(!leadOk(ql, it.lead[wi])) continue;
+      const [full, pre] = soundDist(q, w), d = Math.min(full, pre + .4);    // whole name, or its beginning while typing
+      if(d / q.length < bestR){ bestR = d / q.length; bestD = d; bestN = q.length; }
+    }
+  }
+  if(!bestN || bestD > Math.max(.7, .3*bestN)) return -1;
+  return 72 - 80 * bestR;   // a perfect sound match ranks just below a typed prefix match
+}
+
+function search(raw){
+  const q = norm(raw); if(!q) return [];
+  const vs = variants(q);
+  const pc = q.match(/\b(1\d\d|2\d\d)\b/);
+  // sound tokens of what was typed: English reading, plus Icelandic reading if Icelandic letters were used
+  const qSets = vs.slice(0, 3).map(englishSounds);
+  if(/[áéíóúýþðæö]/i.test(raw)) qSets.push(icelandicSounds(raw));
+  const scored = [];
+  for(const it of myIndex.concat(index)){
+    let s=-1;
+    if(pc && it.kind==="postal" && it.n.startsWith(pc[1])) s=120;
+    vs.forEach((v,vi)=>{
+      const pen = vi===0?0:6;
+      let t=-1;
+      if(it.n===v) t=100;
+      else if(it.n.startsWith(v)) t=78 - Math.min(10,(it.n.length-v.length));
+      else if(v.length>=3 && it.n.split(" ").some(w=>w.startsWith(v))) t=62;
+      else if(v.length>=4 && it.n.includes(v)) t=50;
+      else if(v.length>=4){ const d=lev(v,it.n); if(d===1) t=58; else if(d===2 && v.length>=6) t=42; }
+      if(t>=0) s=Math.max(s,t-pen);
+    });
+    let sound = false;
+    if(!pc && q.length >= 3){
+      const ss = soundScore(qSets, it);
+      if(ss > s){ s = ss; sound = true; }
+    }
+    if(s>=0) scored.push({it, score: s + (sound ? it.boost*.3 : it.boost), sound});   // for sound matches, closeness matters most
+  }
+  const c0 = map.getCenter(), near = it => it.kind==="poi" ? (it.ref.ll[0]-c0.lng)**2*.19 + (it.ref.ll[1]-c0.lat)**2 : 0;
+  scored.sort((a,b)=>b.score-a.score || near(a.it)-near(b.it) || a.it.n.length-b.it.n.length);
+  // keep only sound guesses that are nearly as good as the best one (no long tail of weak look-alikes)
+  const bestSound = Math.max(-1, ...scored.filter(x=>x.sound).map(x=>x.score));
+  const seen=new Set(), res=[];
+  for(const x of scored){
+    if(x.sound && x.score < bestSound - 10) continue;
+    const key = x.it.kind+"|"+(x.it.ref._id||x.it.name+x.it.sub);
+    if(seen.has(key)) continue; seen.add(key); res.push(x.sound ? {...x.it, sound:true} : x.it);
+    if(res.length>=14) break;
+  }
+  return res;
+}
+const qEl=document.getElementById("q"), resEl=document.getElementById("results");
+let cur=[], act=-1;
+function render(){
+  resEl.innerHTML = cur.map((it,i)=>`<li><button type="button" data-i="${i}" class="${i===act?"active":""}">
+    <span class="badge ${BADGE[it.kind]}">${esc(it.lab||KIND_LABEL[it.kind])}</span>
+    <span class="nm">${esc(it.name)}</span>${it.sound?'<span class="sl" title="Matched by how it sounds">≈ sounds like</span>':""}<span class="sub">${esc(it.sub||"")}</span></button></li>`).join("")
+    || (qEl.value.trim()? '<li class="muted" style="padding:8px">No match. Try fewer letters, or click the map.</li>':"");
+}
+// Anything this map does not have: hand the search to Google Maps, around the area on screen
+const gEl = document.getElementById("gsearch");
+function updateGLink(){
+  const q = qEl.value.trim(), c = map.getCenter(), at = `@${c.lat.toFixed(5)},${c.lng.toFixed(5)},${Math.min(map.getZoom(),17)}z`;
+  gEl.href = q ? `https://www.google.com/maps/search/${encodeURIComponent(q)}/${at}` : `https://www.google.com/maps/${at}`;
+  gEl.textContent = q ? `Search Google Maps for “${q}” ↗` : "Looking for something else? Search Google Maps ↗";
+  gEl.parentNode.classList.toggle("has-q", !!q);
+}
+map.on("moveend", updateGLink);
+let searchTimer = null;
+qEl.addEventListener("input",()=>{ updateGLink(); clearTimeout(searchTimer); searchTimer = setTimeout(()=>{ cur=search(qEl.value); act=cur.length?0:-1; render(); }, 60); });
+qEl.addEventListener("focus",()=>{ if(MOBILE.matches && sheet!=="peek") setSheet("peek"); });
+qEl.addEventListener("keydown",e=>{
+  if(e.key==="ArrowDown"){ act=Math.min(cur.length-1,act+1); render(); e.preventDefault(); }
+  else if(e.key==="ArrowUp"){ act=Math.max(0,act-1); render(); e.preventDefault(); }
+  else if(e.key==="Enter" && cur[act]){ select(cur[act].ref); }
+  else if(e.key==="Escape"){ qEl.value=""; cur=[]; render(); updateGLink(); }
+});
+resEl.addEventListener("click",e=>{ const b=e.target.closest("button[data-i]"); if(b) select(cur[+b.dataset.i].ref); });
+
+// ---------- settings: appearance ----------
+const setEl = document.getElementById("settings");
+const darkMQ = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : {matches:false, addEventListener(){}};
+function applyTheme(){
+  const t = store.theme || "auto", dark = t === "dark" || (t === "auto" && darkMQ.matches);
+  document.documentElement.dataset.theme = dark ? "dark" : "light";
+  const mc = document.querySelector('meta[name="theme-color"]'); if(mc) mc.content = dark ? "#1E2A38" : "#2D3E52";
+}
+darkMQ.addEventListener("change", applyTheme);
+applyTheme();
+setEl.querySelectorAll('input[name="theme"]').forEach(r => {
+  r.checked = r.value === (store.theme || "auto");
+  r.addEventListener("change", () => { if(r.checked){ saveStore({theme: r.value}); applyTheme(); } });
+});
+function openSettings(){
+  if(setEl.open) return;
+  setEl.showModal();
+  try { if(!dlgHist){ history.pushState({dlg:1}, ""); dlgHist = true; } } catch(e) {}
+  loadAddresses().catch(() => {});                 // ready by the time an address is typed
+}
+document.getElementById("gearBtn").addEventListener("click", openSettings);
+setEl.querySelector(".set-x").addEventListener("click", () => setEl.close());
+setEl.addEventListener("click", e => { if(e.target === setEl) setEl.close(); });       // tap outside the box
+setEl.addEventListener("close", () => { if(dlgHist){ dlgHist = false; skipPop = true; try { history.back(); } catch(e) { skipPop = false; } } });
+
+// ---------- settings: Home 1–3, Work 1–3 ----------
+// Addresses are looked up in a list of every street address in the region (_assets/addresses.js, built by
+// build/addresses.py), loaded the first time it is needed, so nothing typed here is sent anywhere.
+// Found: a teardrop pin (Home red, Work navy). Not found: a red box round the field and a short reason.
+// An address (or name) that is already a place on the map, e.g. IKEA, gets one pin there with the
+// home/work symbol instead of two pins on top of each other.
+const SLOTS = ["home1","home2","home3","work1","work2","work3"];
+const slotName = k => (k.startsWith("home") ? "Home " : "Work ") + k.slice(-1);
+const HOME_GLYPH = '<path d="M12 3 2 12h3v8h5v-6h4v6h5v-8h3z"/>';
+const WORK_GLYPH = '<path d="M10 4h4a2 2 0 0 1 2 2v1h4a1 1 0 0 1 1 1v4H3V8a1 1 0 0 1 1-1h4V6a2 2 0 0 1 2-2zm0 2v1h4V6h-4zM3 13h7v1.5h4V13h7v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>';
+const pinSvg = home => `<svg viewBox="0 0 30 40" aria-hidden="true"><path d="M15 1.5C7.6 1.5 1.5 7.4 1.5 14.6 1.5 24.6 15 38.5 15 38.5s13.5-13.9 13.5-23.9C28.5 7.4 22.4 1.5 15 1.5z" fill="${home ? "#C62828" : "#2D3E52"}" stroke="#fff" stroke-width="2"/><g transform="translate(8 7.6) scale(.58)" fill="${home ? "#fff" : "#D5A754"}">${home ? HOME_GLYPH : WORK_GLYPH}</g></svg>`;
+setEl.querySelectorAll(".pin-ic").forEach(el => el.innerHTML = pinSvg(el.dataset.kind === "home"));
+
+let addrIdx = null, addrLoading = null;
+function loadAddresses(){
+  if(addrIdx) return Promise.resolve(addrIdx);
+  if(addrLoading) return addrLoading;
+  addrLoading = new Promise((resolve, reject) => {
+    const sc = document.createElement("script"); sc.src = "_assets/addresses.js"; sc.async = true;
+    sc.onload = () => {
+      const by = {};
+      for(const key of Object.keys(window.ADDRESSES || {})){ const [st, pc] = key.split("|"), n = norm(st); (by[n] = by[n] || []).push({st, pc, key}); }
+      addrIdx = {by, names: Object.keys(by)}; resolve(addrIdx);
+    };
+    sc.onerror = () => { addrLoading = null; reject(new Error("addresses")); };
+    document.head.appendChild(sc);
+  });
+  return addrLoading;
+}
+const numsCache = {};
+function streetNums(key){                         // decode "base;num,dlat,dlng;..." (1e-5 degrees, running sums)
+  if(numsCache[key]) return numsCache[key];
+  const parts = window.ADDRESSES[key].split(";"), base = parts[0].split(",").map(Number), out = [];
+  let la = base[0], lo = base[1];
+  for(let i = 1; i < parts.length; i++){ const [num, dl, dn] = parts[i].split(","); la += +dl; lo += +dn; out.push({num, lat: la / 1e5, lng: lo / 1e5}); }
+  return numsCache[key] = out;
+}
+function findNum(list, q){
+  let h = list.find(x => x.num === q); if(h) return h;
+  const n = parseInt(q, 10);
+  h = list.find(x => { const m = x.num.match(/^(\d+)[a-z]?-(\d+)/); return m && n >= +m[1] && n <= +m[2]; });   // "2-4" holds 3
+  if(!h && /^\d+$/.test(q)) h = list.find(x => x.num.replace(/[a-z]+$/, "") === q);                          // 11 → 11a
+  return h || null;
+}
+function parseAddr(raw){                           // "Laugavegi 59, 101 Reykjavík" → street, number, postcode
+  const s = raw.trim().replace(/\s+/g, " ").replace(/,?\s*(ísland|iceland)$/i, "");
+  let pc = null, rest = s, m = s.match(/(?:,\s*|\s)([12]\d\d)(?:\s+[^\d,]+)?$/);
+  if(m){ pc = m[1]; rest = s.slice(0, m.index).replace(/,\s*$/, ""); }
+  m = rest.match(/^(.+?)[\s,]+(\d+\s?[a-zA-Z]?)(?:\s*[-–]\s*\d+\s?[a-zA-Z]?)?$/);
+  if(m) return {street: m[1].trim(), num: m[2].replace(/\s/g, "").toLowerCase(), pc};
+  if(pc) return {street: rest.trim(), num: pc, pc: null};      // "Laugavegur 105": a house number, not a postcode
+  return {street: rest.trim(), num: null, pc: null};
+}
+function streetCands(q){                           // exact name, or the same street in another case (Laugavegi, Hraunbæ)
+  const n = norm(q); if(!n) return [];
+  if(addrIdx.by[n]) return addrIdx.by[n];
+  let best = [], bd = 9;
+  for(const name of addrIdx.names){
+    if(name[0] !== n[0] || Math.abs(name.length - n.length) > 3) continue;
+    const k = Math.min(name.length, n.length) - 3;
+    if(k >= 3 && name.slice(0, k) !== n.slice(0, k)) continue;
+    const d = lev(n, name);
+    if(d < bd){ bd = d; best = addrIdx.by[name].slice(); } else if(d === bd) best = best.concat(addrIdx.by[name]);
+  }
+  return bd <= 3 ? best : [];
+}
+const townOf = pc => postalByCode[pc] ? postalByCode[pc].properties.town : "";
+function poiAt(street, num){                       // same street address only (a bus stop next door is not "there")
+  const a = norm(street + " " + num);
+  return POIS.find(p => p.addr && norm(p.addr) === a) || null;
+}
+function resolvePlace(raw){
+  const nt = norm(raw);
+  const named = POIS.find(p => norm(p.name) === nt);                 // "IKEA", "Kringlan"
+  if(named) return {ok: true, lat: named.ll[1], lng: named.ll[0], poi: named,
+    label: [named.name, named.addr !== named.name && named.addr, named.postal[0] && named.postal[0] + " " + townOf(named.postal[0])].filter(Boolean).join(", ")};
+  const a = parseAddr(raw);
+  const all = streetCands(a.street), cands = all.filter(c => !a.pc || c.pc === a.pc);
+  if(!cands.length) return {ok: false, why: all.length ? `No ${all[0].st} in ${a.pc} on the map.` : `No street called “${a.street}” on the map. Check the spelling.`};
+  if(!a.num){                                                        // street only: its middle
+    const c = cands[0], s = DATA.streets.find(s => s[0] === c.st && s[1] === c.pc);
+    if(s) return {ok: true, lat: s[3], lng: s[2], label: `${c.st}, ${c.pc} ${townOf(c.pc)} (add a house number for the exact spot)`};
+  }
+  const hits = [];
+  for(const c of cands){ const h = findNum(streetNums(c.key), a.num); if(h) hits.push({c, h}); }
+  if(!hits.length) return {ok: false, why: `${cands[0].st} has no number ${a.num} on the map.`};
+  const {c, h} = hits[0], poi = poiAt(c.st, h.num);
+  const others = [...new Set(hits.slice(1).map(x => x.c.pc + " " + townOf(x.c.pc)))];
+  return {ok: true, lat: h.lat, lng: h.lng, label: `${c.st} ${h.num}, ${c.pc} ${townOf(c.pc)}`, poi,
+          note: others.length ? `Also in ${others.join(", ")}: add the postcode to pick that one.` : ""};
+}
+
+const mine = {}, myIndex = [], mineGroup = L.layerGroup().addTo(map);
+function hidePoi(p, slot){ (p._mine = p._mine || new Set()).add(slot); if(p._marker) p._group.removeLayer(p._marker); }
+function showPoi(p, slot){ if(!p._mine) return; p._mine.delete(slot); if(!p._mine.size && p._marker) p._group.addLayer(p._marker); }
+function setPin(slot, res){
+  const old = mine[slot];
+  if(old){ mineGroup.removeLayer(old.marker); if(old.res.poi) showPoi(old.res.poi, slot); delete mine[slot]; }
+  if(res && res.ok){
+    const home = slot.startsWith("home"), name = slotName(slot);
+    const ll = res.poi ? [res.poi.ll[1], res.poi.ll[0]] : [res.lat, res.lng];
+    const m = L.marker(ll, {pane: "poi", zIndexOffset: 1500, keyboard: false, title: TOUCH ? "" : name + " · " + res.label,
+      icon: L.divIcon({className: "mypin", iconSize: [30, 40], iconAnchor: [15, 39],
+        html: pinSvg(home) + `<b>${esc(name)}${res.poi ? " · " + esc(res.poi.name) : ""}</b>`})});
+    const item = {_kind: "mine", _id: "mine:" + slot, slot, name, res};
+    m.on("click", ev => { L.DomEvent.stopPropagation(ev); select(item); });
+    mineGroup.addLayer(m);
+    if(res.poi) hidePoi(res.poi, slot);
+    mine[slot] = {res, marker: m, item};
+  }
+  // search: "home", "work", "home 2" list the saved places first
+  myIndex.length = 0;
+  for(const k of SLOTS) if(mine[k]){
+    const it = mine[k].item, r = mine[k].res, sub = r.poi && !r.label.startsWith(r.poi.name) ? r.poi.name + " · " + r.label : r.label;
+    myIndex.push({name: it.name, n: norm(it.name), kind: "mine", ref: it, sub, boost: 25, lab: it.name.replace(/ \d$/, "")});
+    myIndex.push({name: it.name, n: k.startsWith("home") ? "home" : "work", kind: "mine", ref: it, sub, boost: 25, lab: it.name.replace(/ \d$/, "")});
+  }
+}
+async function checkSlot(slot, save){
+  const inp = document.getElementById("pl-" + slot), st = document.getElementById("st-" + slot), raw = inp.value.trim();
+  if(save){ const places = Object.assign({}, store.places); if(raw) places[slot] = raw; else delete places[slot]; saveStore({places}); }
+  if(!raw){ inp.classList.remove("bad"); st.className = "pl-st"; st.textContent = ""; setPin(slot, null); return; }
+  st.className = "pl-st"; st.textContent = "Looking it up…";
+  try { await loadAddresses(); } catch(e) { st.textContent = "Couldn't load the address list. Try again later."; return; }
+  if(inp.value.trim() !== raw) return;                               // still typing
+  const r = resolvePlace(raw);
+  inp.classList.toggle("bad", !r.ok);
+  inp.setAttribute("aria-invalid", String(!r.ok));
+  st.className = "pl-st " + (r.ok ? "ok" : "bad");
+  st.innerHTML = r.ok ? `✓ ${esc(r.poi && !r.label.startsWith(r.poi.name) ? r.poi.name + " · " + r.label : r.label)}${r.note ? `<br><span class="muted">${esc(r.note)}</span>` : ""}` : esc(r.why);
+  setPin(slot, r.ok ? r : null);
+}
+for(const slot of SLOTS){
+  const inp = document.getElementById("pl-" + slot);
+  inp.value = (store.places || {})[slot] || "";
+  let t = null;
+  inp.addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => checkSlot(slot, true), 600); });
+  inp.addEventListener("change", () => { clearTimeout(t); checkSlot(slot, true); });
+  inp.addEventListener("keydown", e => { if(e.key === "Enter"){ clearTimeout(t); checkSlot(slot, true); } });
+}
+if(SLOTS.some(k => (store.places || {})[k])) SLOTS.forEach(k => { if((store.places || {})[k]) checkSlot(k, false); });
+
+// ---------- your location (only with the browser's permission) ----------
+// "Show my location" switch in the settings panel turns it on/off, and is remembered.
+// ⌖ button only ever turns it ON: off → start and follow you; dot shown → re-centre and follow again.
+// Dragging the map stops following (the dot stays). On a later visit the dot comes back by itself if the
+// switch was left on, or if nothing was saved yet and the browser already has permission.
+const REGION = L.latLngBounds([63.95,-22.15],[64.35,-21.30]);
+const toastEl = document.createElement("div"); toastEl.className = "toast"; toastEl.setAttribute("role","status");
+map.getContainer().appendChild(toastEl);
+let toastTimer = null;
+function toast(msg, ms=5000){ toastEl.textContent = msg; toastEl.classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(()=>toastEl.classList.remove("show"), ms); }
+let watchId = null, follow = false, meDot = null, meRing = null, lastFix = null, lastAreaKey = "", locBtn = null, warnedOutside = false;
+const locToggle = document.getElementById("L-loc");
+function setLocState(s){        // "", "seeking", "on", "follow"
+  // change only the state classes: Leaflet's own "leaflet-control" class is what makes the button clickable
+  locBtn.classList.remove("seeking", "on", "follow"); if(s) locBtn.classList.add(s);
+  locBtn.title = s==="follow" ? "Following you" : s==="on" ? "Centre on me" : s==="seeking" ? "Finding you…" : "Show where I am";
+  locBtn.setAttribute("aria-pressed", String(!!s));
+  locToggle.checked = !!s;
+}
+function areaKey(lat,lng){ const n = smallestHit("nbh",lng,lat), p = smallestHit("postal",lng,lat); return (n?n._id:"") + "|" + (p?p._id:""); }
+let lastAcc = 0;
+function showWhereIAm(){
+  if(!lastFix) return;
+  infoAt(lastFix.lat, lastFix.lng, "You are here",
+    `<div class="muted" style="margin:-4px 0 8px">Accurate to about ${lastAcc < 1000 ? Math.round(lastAcc) + " m" : (lastAcc/1000).toFixed(1) + " km"}${follow ? " · following you" : ""}</div>`, true);
+  lastAreaKey = areaKey(lastFix.lat, lastFix.lng);
+}
+function onFix(p){
+  const {latitude:la, longitude:lo, accuracy} = p.coords, ll = L.latLng(la, lo), first = !lastFix;
+  lastFix = ll; lastAcc = accuracy;
+  if(!meDot){
+    meRing = L.circle(ll, {radius:accuracy, pane:"pts", color:"#2A7DE1", weight:1, opacity:.5, fillColor:"#2A7DE1", fillOpacity:.12, interactive:false}).addTo(map);
+    // Deliberately unlike the navy named-place dots: bigger, bright blue, pulsing halo, "You" label, on top of everything.
+    meDot = L.marker(ll, {zIndexOffset:2000, keyboard:false, title:"Your location",
+      icon: L.divIcon({className:"me-icon", iconSize:[22,22], iconAnchor:[11,11],
+        html:'<span class="me-pulse"></span><span class="me-dot"></span><span class="me-label">You</span>'})}).addTo(map);
+    meDot.on("click", ev => { L.DomEvent.stopPropagation(ev); if(MOBILE.matches) setSheet("half"); showWhereIAm(); });
+  } else { meDot.setLatLng(ll); meRing.setLatLng(ll).setRadius(accuracy); }
+  if(!REGION.contains(ll)){
+    if(!warnedOutside){ toast("You seem to be outside the Reykjavík capital region, so the map stays put."); warnedOutside = true; }
+    if(follow){ follow = false; } setLocState("on"); return;
+  }
+  if(follow){
+    if(first){ if(MOBILE.matches) setSheet("half"); centerOn(la, lo, Math.max(map.getZoom(), 15)); showWhereIAm(); }
+    else {
+      centerOn(la, lo, map.getZoom());
+      if(areaKey(la, lo) !== lastAreaKey) showWhereIAm();      // walked into a new neighbourhood or postal code
+    }
+    setLocState("follow");
+  } else if(locBtn.classList.contains("seeking")) setLocState("on");
+}
+let warnedNoFix = false;
+function onLocError(err){
+  if(err.code === 1){                                   // permission refused: switch off and remember that
+    stopLocation();
+    toast("Location is blocked for this page. Allow it in your browser's site settings to see where you are.");
+  } else if(!warnedNoFix){                              // no signal or too slow: keep trying quietly
+    warnedNoFix = true;
+    toast("Couldn't get your location yet. It will appear when your device finds it.");
+  }
+}
+function startLocation(followNow){
+  if(!navigator.geolocation){ toast("This browser can't share its location."); setLocState(""); return; }
+  follow = followNow;
+  saveStore({loc: true});
+  if(watchId === null){
+    warnedNoFix = false;
+    setLocState(followNow ? "seeking" : "on");
+    watchId = navigator.geolocation.watchPosition(onFix, onLocError, {enableHighAccuracy:true, maximumAge:5000, timeout:20000});
+  }
+}
+function stopLocation(){
+  if(watchId !== null) navigator.geolocation.clearWatch(watchId);
+  watchId = null; follow = false; lastFix = null; lastAreaKey = "";
+  if(meDot){ map.removeLayer(meDot); map.removeLayer(meRing); meDot = meRing = null; }
+  setLocState("");
+  saveStore({loc: false});
+  if(infoIsMe) resetInfo();                         // "You are here · following you" no longer true
+}
+const Loc = L.Control.extend({options:{position:"topleft"}, onAdd(){
+  const b = locBtn = L.DomUtil.create("button","locbtn"); b.type = "button"; b.innerHTML = "&#8982;";
+  b.setAttribute("aria-label", "My location");
+  L.DomEvent.on(b, "click", ev => {
+    L.DomEvent.stop(ev);
+    if(watchId === null){ startLocation(true); return; }                 // off → turn back on and follow
+    if(lastFix && REGION.contains(lastFix)){                             // on → centre and follow again
+      follow = true; setLocState("follow");
+      if(MOBILE.matches) setSheet("half");
+      centerOn(lastFix.lat, lastFix.lng, Math.max(map.getZoom(), 15)); showWhereIAm();
+    } else if(lastFix) toast("You seem to be outside the Reykjavík capital region, so the map stays put.");
+    else { follow = true; setLocState("seeking"); }                      // still waiting for a first fix
+  });
+  return b;
+}});
+new Loc().addTo(map);
+setLocState("");
+locToggle.addEventListener("change", () => { if(locToggle.checked) startLocation(true); else stopLocation(); });
+map.on("dragstart", () => {                       // looking around: stop following
+  if(!follow) return;
+  follow = false; setLocState("on");
+  if(infoIsMe){ const top = scrollEl.scrollTop; showWhereIAm(); scrollEl.scrollTop = top; }   // drop "· following you"
+});
+// On load: if the switch was left on (or nothing saved yet) and location is allowed, centre on you;
+// the last view shows until the first position arrives. A switch left off is respected even when the
+// browser has permission. A shared link (#q=...) keeps its place; the dot still appears.
+const deepLinked = /[#&](q|show)=/.test(location.hash);
+if(navigator.geolocation && store.loc !== false){
+  const q = navigator.permissions ? navigator.permissions.query({name:"geolocation"}) : Promise.reject();
+  q.then(st => {
+    if(st.state === "granted" || (store.loc === true && st.state === "prompt")) startLocation(!deepLinked);
+    else if(st.state === "denied" && store.loc) saveStore({loc: false});
+  }).catch(() => { if(store.loc === true) startLocation(!deepLinked); });
+}
+L.control.scale({imperial:false}).addTo(map);
+
+// deep link (#q=Holtin) wins; otherwise reopen where the map was left
+const hashVal = k => { const m = location.hash.match(new RegExp("[#&]"+k+"=([^&]+)")); try { return m ? decodeURIComponent(m[1]) : ""; } catch(e) { return ""; } };
+const hq = hashVal("q"), hshow = hashVal("show"), shown = hshow && findBySpec(hshow);
+map.invalidateSize({pan:false});   // the map must know its size before fitting a shared area
+if(shown){ select(shown.f || (shown.s ? {_kind:"street", s:shown.s} : shown.p)); }
+else if(hq){ qEl.value=hq; cur=search(hq); act=0; render(); if(cur[0]) select(cur[0].ref); }
+else if(store.view && isFinite(store.view[0]) && isFinite(store.view[1]) && isFinite(store.view[2]))
+  map.setView([store.view[0], store.view[1]], Math.min(store.view[2], map.getMaxZoom()), {animate:false});
+let viewTimer = null;
+map.on("moveend", () => { clearTimeout(viewTimer); viewTimer = setTimeout(() => {
+  const c = map.getCenter(); saveStore({view: [+c.lat.toFixed(5), +c.lng.toFixed(5), map.getZoom()]}); }, 400); });
+layoutChanged();
+updateGLink();
+setTimeout(loadRoads, 500);                         // road lines for "Nearest street", once the map is up
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname) || /[?&]debug\b/.test(location.search))   // test handle, not on the live site
+  window.__app = {search, select, map, infoAt, bases, stats, setSheet, get sheet(){ return sheet; }};
+})();
+</script>
+</body>
+</html>

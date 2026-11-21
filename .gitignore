@@ -1,0 +1,23 @@
+# Build output (made by build/make_site.py)
+site/
+site.zip
+
+# Downloaded inputs and voices used by the build scripts (large, re-downloadable)
+build/data/
+build/osm/
+build/voices/
+build/out/
+*.osm.pbf
+*.onnx
+*.onnx.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
