@@ -315,6 +315,13 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
   .leaflet-bottom{bottom:var(--peekvis)}
   .locbtn{width:44px;height:44px;font-size:22px;line-height:38px}
   #gearBtn, #micBtn{width:44px;height:44px}
+  /* phones: layers and settings float on the map's right edge (level with ⌖), leaving the search row to the
+     search box and 🎤; hidden while typing so they never cover the results */
+  #layersBtn, #gearBtn{position:absolute;right:10px;width:44px;height:44px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.3);pointer-events:auto;z-index:5}
+  #layersBtn{top:calc(64px + env(safe-area-inset-top))}
+  #gearBtn{top:calc(116px + env(safe-area-inset-top))}
+  .searchbox:focus-within #layersBtn, .searchbox:focus-within #gearBtn, .searchbox.has-q #layersBtn, .searchbox.has-q #gearBtn,
+  html[data-sheet="full"] #layersBtn, html[data-sheet="full"] #gearBtn{display:none}
   .pl input{font-size:16px;padding:11px 10px}
   .seg span{padding:11px 0;font-size:15px}
   .searchbox{background:var(--white)}
@@ -322,6 +329,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 }
 /* phone held sideways: the sheet becomes a right-hand panel so the map keeps the left side */
 @media (max-height:500px) and (orientation:landscape) and (max-width:1000px){
+  html[data-sheet="full"] #layersBtn, html[data-sheet="full"] #gearBtn{display:flex}   /* panel sits beside the map */
   #top{right:min(360px,48vw)}
   #side{left:auto;right:0;width:min(360px,48vw);max-width:none;margin:0;border-radius:16px 0 0 0;
         height:calc(100vh - 8px);height:calc(100dvh - 8px - env(safe-area-inset-top))}
@@ -567,7 +575,7 @@ let sheetHist=false;
 function setSheet(state, fromBack){
   if(!MOBILE.matches) return;
   if(LAND.matches && state==="half") state="full";   // sideways: just open or closed
-  sheet=state; const s=sheetStops();
+  sheet=state; document.documentElement.dataset.sheet = state; const s=sheetStops();
   document.documentElement.style.setProperty("--peekvis", s.peekVis+"px");
   placeSheet(s[state], true);
   grabEl.setAttribute("aria-expanded", String(state!=="peek"));
