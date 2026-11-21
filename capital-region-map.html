@@ -164,10 +164,13 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 .sw.sw-poi{display:inline-flex;gap:1px;border:0;align-items:center}.sw-poi i{width:6px;height:10px;border-radius:50%}
 .leaflet-tooltip.tt{font-family:Arial,Helvetica,sans-serif;font-size:13px;border:1px solid var(--navy);color:var(--navy);font-weight:bold;padding:4px 8px}
 .leaflet-container{font-family:Arial,Helvetica,sans-serif;background:#dfe6ea}
-.locbtn{pointer-events:auto;background:#fff;border:2px solid rgba(0,0,0,.2);border-radius:4px;width:34px;height:34px;cursor:pointer;font-size:18px;line-height:28px;color:var(--navy);padding:0}
-.locbtn.seeking{color:#2A7DE1;animation:saypulse .9s ease-in-out infinite}
-.locbtn.on{color:#2A7DE1}
-.locbtn.follow{background:#2A7DE1;color:#fff;border-color:#2A7DE1}
+/* location button: same look as the settings and 🎤 buttons (gold on navy); blue when on, solid blue when following */
+.locbtn{pointer-events:auto;background:var(--navy);border:0;border-radius:8px;width:36px;height:36px;cursor:pointer;font-size:20px;line-height:36px;color:var(--gold);padding:0;box-shadow:0 1px 5px rgba(0,0,0,.35)}
+.locbtn:hover{filter:brightness(1.15)}
+.locbtn.seeking{color:#8EC2FF;animation:saypulse .9s ease-in-out infinite}
+.locbtn.on{color:#8EC2FF}
+.locbtn.follow{background:#2A7DE1;color:#fff}
+.locbtn[hidden]{display:none !important}
 .toast{position:absolute;left:50%;bottom:28px;transform:translate(-50%,20px);max-width:min(420px,calc(100% - 32px));z-index:1200;
        background:var(--navy);color:#fff;font-size:14px;line-height:1.35;padding:10px 14px;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.3);
        opacity:0;pointer-events:none;transition:opacity .2s, transform .2s}
@@ -227,12 +230,11 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 :root[data-theme="dark"] header, :root[data-theme="dark"] .set-head{background:#1E2A38}
 :root[data-theme="dark"] #info .title, :root[data-theme="dark"] #results .nm, :root[data-theme="dark"] .chip, :root[data-theme="dark"] .say,
 :root[data-theme="dark"] .share-menu .sm-title, :root[data-theme="dark"] .hint b, :root[data-theme="dark"] details summary,
-:root[data-theme="dark"] .gsearch, :root[data-theme="dark"] #peek, :root[data-theme="dark"] .locbtn{color:#CFE0F5}
-:root[data-theme="dark"] .chip, :root[data-theme="dark"] .say, :root[data-theme="dark"] .share-menu, :root[data-theme="dark"] .locbtn,
+:root[data-theme="dark"] .gsearch, :root[data-theme="dark"] #peek{color:#CFE0F5}
+:root[data-theme="dark"] .chip, :root[data-theme="dark"] .say, :root[data-theme="dark"] .share-menu,
 :root[data-theme="dark"] .searchbox input, :root[data-theme="dark"] select{background:var(--white);color:var(--ink)}
-:root[data-theme="dark"] .chip, :root[data-theme="dark"] .say, :root[data-theme="dark"] .locbtn{color:#CFE0F5}
-:root[data-theme="dark"] .locbtn{border-color:#3A4552}
-:root[data-theme="dark"] .locbtn.follow{background:#2A7DE1;color:#fff;border-color:#2A7DE1}
+:root[data-theme="dark"] .chip, :root[data-theme="dark"] .say{color:#CFE0F5}
+:root[data-theme="dark"] .locbtn{box-shadow:0 0 0 1px #3A4552}
 :root[data-theme="dark"] #results li button:hover, :root[data-theme="dark"] #results li button.active, :root[data-theme="dark"] .chip:hover,
 :root[data-theme="dark"] .say:hover, :root[data-theme="dark"] .share-menu button:hover, :root[data-theme="dark"] .share-menu a:hover{background:#2C2A24}
 :root[data-theme="dark"] .say.playing{background:var(--gold);color:#1A1A1A}
@@ -313,15 +315,17 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
   .leaflet-control-zoom{display:none}
   .leaflet-top{top:calc(64px + env(safe-area-inset-top))}
   .leaflet-bottom{bottom:var(--peekvis)}
-  .locbtn{width:44px;height:44px;font-size:22px;line-height:38px}
+  .locbtn{width:44px;height:44px;font-size:24px;line-height:44px}
   #gearBtn, #micBtn{width:44px;height:44px}
-  /* phones: layers and settings float on the map's right edge (level with ⌖), leaving the search row to the
-     search box and 🎤; hidden while typing so they never cover the results */
-  #layersBtn, #gearBtn{position:absolute;right:10px;width:44px;height:44px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.3);pointer-events:auto;z-index:5}
-  #layersBtn{top:calc(64px + env(safe-area-inset-top))}
-  #gearBtn{top:calc(116px + env(safe-area-inset-top))}
-  .searchbox:focus-within #layersBtn, .searchbox:focus-within #gearBtn, .searchbox.has-q #layersBtn, .searchbox.has-q #gearBtn,
-  html[data-sheet="full"] #layersBtn, html[data-sheet="full"] #gearBtn{display:none}
+  /* phones: location, layers and settings float in a column on the map's right edge under 🎤 (positions are
+     from the top of the search box); the column hides while typing, so it never covers the results, and
+     while the panel is fully open */
+  #layersBtn, #gearBtn, #top .srow .locbtn{position:absolute;right:10px;width:44px;height:44px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.3);pointer-events:auto;z-index:5}
+  #top .srow .locbtn{top:56px;margin:0;font-size:24px;line-height:44px}
+  #layersBtn{top:108px}
+  #gearBtn{top:160px}
+  .searchbox.typing :is(#layersBtn, #gearBtn, .locbtn), .searchbox.has-q :is(#layersBtn, #gearBtn, .locbtn),
+  html[data-sheet="full"] :is(#layersBtn, #gearBtn, .locbtn){display:none}
   .pl input{font-size:16px;padding:11px 10px}
   .seg span{padding:11px 0;font-size:15px}
   .searchbox{background:var(--white)}
@@ -329,7 +333,8 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 }
 /* phone held sideways: the sheet becomes a right-hand panel so the map keeps the left side */
 @media (max-height:500px) and (orientation:landscape) and (max-width:1000px){
-  html[data-sheet="full"] #layersBtn, html[data-sheet="full"] #gearBtn{display:flex}   /* panel sits beside the map */
+  html[data-sheet="full"] :is(#layersBtn, #gearBtn){display:flex}   /* panel sits beside the map */
+  html[data-sheet="full"] .locbtn{display:block}
   #top{right:min(360px,48vw)}
   #side{left:auto;right:0;width:min(360px,48vw);max-width:none;margin:0;border-radius:16px 0 0 0;
         height:calc(100vh - 8px);height:calc(100dvh - 8px - env(safe-area-inset-top))}
@@ -442,7 +447,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
     <div class="pl"><label for="pl-work1">1</label><input id="pl-work1" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work1" class="pl-st" role="status"></div></div>
     <div class="pl"><label for="pl-work2">2</label><input id="pl-work2" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work2" class="pl-st" role="status"></div></div>
     <div class="pl"><label for="pl-work3">3</label><input id="pl-work3" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work3" class="pl-st" role="status"></div></div>
-    <p class="set-ver">Version <span id="buildStamp">2026-11-21 19:02 · 4969e73</span> <span class="muted">(built, Iceland time)</span></p>
+    <p class="set-ver">Version <span id="buildStamp">2026-11-21 19:06 · a76df13</span> <span class="muted">(built, Iceland time)</span></p>
     </div>
   </div>
 </dialog>
@@ -1491,6 +1496,9 @@ function search(raw){
   return res;
 }
 const qEl=document.getElementById("q"), resEl=document.getElementById("results"), PLACEHOLDER=qEl.placeholder;
+// while the search box has focus (phones: the button column on the map steps aside for the results)
+qEl.addEventListener("focus", () => qEl.closest(".searchbox").classList.add("typing"));
+qEl.addEventListener("blur", () => qEl.closest(".searchbox").classList.remove("typing"));
 let cur=[], act=-1;
 function render(){
   resEl.innerHTML = cur.map((it,i)=>`<li><button type="button" data-i="${i}" class="${i===act?"active":""}">
@@ -1824,6 +1832,15 @@ const Loc = L.Control.extend({options:{position:"topleft"}, onAdd(){
 }});
 new Loc().addTo(map);
 setLocState("");
+// phones: the location button joins the column of buttons under 🎤 (same look); desktop: the map's corner
+const locHome = locBtn.parentNode;
+function placeLocBtn(){
+  if(MOBILE.matches) document.querySelector(".srow").insertBefore(locBtn, document.getElementById("layersBtn"));
+  else if(locBtn.parentNode !== locHome) locHome.appendChild(locBtn);
+}
+placeLocBtn();
+MOBILE.addEventListener("change", placeLocBtn);
+if(!navigator.geolocation) locBtn.hidden = true;
 locToggle.addEventListener("change", () => { if(locToggle.checked) startLocation(true); else stopLocation(); });
 map.on("dragstart", () => {                       // looking around: stop following
   if(!follow) return;
