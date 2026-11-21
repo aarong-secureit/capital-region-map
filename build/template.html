@@ -1786,10 +1786,17 @@ L.control.scale({imperial:false}).addTo(map);
 
 // deep link (#q=Holtin) wins; otherwise reopen where the map was left
 const hashVal = k => { const m = location.hash.match(new RegExp("[#&]"+k+"=([^&]+)")); try { return m ? decodeURIComponent(m[1]) : ""; } catch(e) { return ""; } };
-const hq = hashVal("q"), hshow = hashVal("show"), shown = hshow && findBySpec(hshow);
+// open what the address after # names (#show=kind|name|town or #q=search); true if it did
+function openFromHash(){
+  const hq = hashVal("q"), hshow = hashVal("show"), shown = hshow && findBySpec(hshow);
+  if(shown){ select(shown.f || (shown.s ? {_kind:"street", s:shown.s} : shown.p)); return true; }
+  if(hq){ qEl.value=hq; updateGLink(); cur=search(hq); act=0; render(); if(cur[0]) select(cur[0].ref); return true; }
+  return false;
+}
 map.invalidateSize({pan:false});   // the map must know its size before fitting a shared area
-if(shown){ select(shown.f || (shown.s ? {_kind:"street", s:shown.s} : shown.p)); }
-else if(hq){ qEl.value=hq; cur=search(hq); act=0; render(); if(cur[0]) select(cur[0].ref); }
+// a shared link opened in a tab that already shows the map changes only the part after #: follow it too
+window.addEventListener("hashchange", openFromHash);
+if(openFromHash()){}
 else if(store.view && isFinite(store.view[0]) && isFinite(store.view[1]) && isFinite(store.view[2]))
   map.setView([store.view[0], store.view[1]], Math.min(store.view[2], map.getMaxZoom()), {animate:false});
 let viewTimer = null;
