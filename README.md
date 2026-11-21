@@ -47,3 +47,9 @@ pronunciation pipeline.
 - Base maps: tiles from OpenStreetMap, OpenStreetMap Germany, OpenStreetMap France / HOT and Esri, credited
   on the map itself.
 - [Leaflet](https://leafletjs.com) 1.9.4.
+
+## Licence
+
+The code (the page, its scripts and the build tools) is under the [MIT License](LICENSE). The map data
+embedded in the page and in `_assets/` stays under its own terms above: OpenStreetMap data is ODbL, so
+reuse of that data needs the OpenStreetMap credit and share-alike.
