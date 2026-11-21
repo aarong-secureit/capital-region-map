@@ -8,6 +8,7 @@ from shapely.geometry import shape, mapping, box, LineString, MultiPoint, Point,
 from shapely.ops import linemerge, polygonize, unary_union, polylabel
 from scipy.spatial import cKDTree
 import region as R
+from land import land_mask
 
 D = sys.argv[1]
 OUT = sys.argv[2]
@@ -416,7 +417,7 @@ for p in points:
 fc = lambda fs: {"type": "FeatureCollection", "features": [f for f in fs if f]}
 data = {"zones": fc(zone_feats), "towns": towns, "munis": fc(muni_feats), "districts": fc(dist_feats), "hverfi": fc(hv_feats), "nbh": fc(nbh_feats),
         "small": fc(small_feats), "postal": fc(postal_feats), "points": points, "streets": street_list,
-        "built": "2026-11-21"}
+        "land": mapping(land_mask(coast)), "built": "2026-11-21"}
 s = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
 open(OUT, "w").write(s)
 print("sizes KB", {k: len(json.dumps(v, ensure_ascii=False, separators=(",", ":"))) // 1024 for k, v in data.items()})

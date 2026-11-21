@@ -359,7 +359,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
         <h2><button type="button" id="layersToggle" class="fold" aria-expanded="true" aria-controls="layersBody">Show on map<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h2>
         <div id="layersBody">
         <div class="muted" style="margin-bottom:4px">Biggest to smallest. Grey text is the Icelandic word you may hear.</div>
-        <label><input type="checkbox" id="L-zone" checked><span class="sw" style="border-top:4px dotted #2F6F73"></span><span class="lt">Regions<small>spásvæði · Höfuðborgarsvæðið, Faxaflói, Breiðafjörður, Suðurland (the weather forecast zones)</small></span></label>
+        <label><input type="checkbox" id="L-zone" checked><span class="sw" style="border-top:4px dotted #2F6F73"></span><span class="lt">Regions<small>spásvæði · Höfuðborgarsvæðið, Faxaflói, Breiðafjörður, Suðurland</small></span></label>
         <label><input type="checkbox" id="L-muni" checked><span class="sw" style="border-top:3px solid #4A5568"></span><span class="lt">Towns &amp; villages<small>sveitarfélög, bæir · Reykjavík, Kópavogur, Selfoss, Akranes, Vík…</small></span></label>
         <label><input type="checkbox" id="L-district" checked><span class="sw" style="border-top:4px solid #1F2B3A"></span><span class="lt">Districts<small>borgarhlutar · Breiðholt, Vesturbær, Kársnes…</small></span></label>
         <label><input type="checkbox" id="L-hverfi"><span class="sw" style="border:2px dashed #B8893C"></span><span class="lt">Sub-districts (Reykjavík only)<small>hverfi · Seljahverfi, Háteigshverfi…</small></span></label>
@@ -370,7 +370,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
         <label><input type="checkbox" id="L-pool" checked><span class="sw sw-poi"><i style="background:#00A3C4"></i></span><span class="lt">Swimming pools<small>sundlaugar · Laugardalslaug, Vesturbæjarlaug, Nauthólsvík…</small></span></label>
         <label><input type="checkbox" id="L-park" checked><span class="sw" style="background:#CFE8D0;border:1px solid #2E7D32"></span><span class="lt">Parks<small>almenningsgarðar · Klambratún, Heiðmörk, Elliðaárdalur…</small></span></label>
         <label><input type="checkbox" id="L-sight" checked><span class="sw sw-poi"><i style="background:#2D3E52"></i></span><span class="lt">Sights<small>ferðamannastaðir · Hallgrímskirkja, Gullfoss, Geysir, Bláa lónið, Kirkjufell…</small></span></label>
-        <label><input type="checkbox" id="L-bus" checked><span class="sw sw-poi"><i style="background:#FFD100;border-radius:2px"></i></span><span class="lt">Bus hubs &amp; big stops<small>skiptistöðvar · Mjódd, Hlemmur, Hamraborg, BSÍ · stops with 4+ lines</small></span></label>
+        <label><input type="checkbox" id="L-bus" checked><span class="sw sw-poi"><i style="background:#FFD100;border-radius:2px"></i></span><span class="lt">Bus hubs &amp; big stops<small>skiptistöðvar · Mjódd, Hlemmur, Hamraborg, BSÍ</small></span></label>
         <label style="margin-top:14px"><input type="checkbox" id="L-postal"><span class="sw" style="background:linear-gradient(90deg,#4E79A7 33%,#F28E2B 33% 66%,#59A14F 66%);opacity:.7"></span><span class="lt">Postal codes<small>póstnúmer · 101, 105, 201…</small></span></label>
         <label style="margin-top:14px"><input type="checkbox" id="L-loc"><span class="sw me-sw"></span><span class="lt">Show my location</span></label>
         <div style="margin-top:12px"><label for="base" style="padding:0 0 4px;font-size:13px;color:var(--gray-mid);cursor:default">Background map</label><select id="base">
@@ -670,6 +670,9 @@ for(const k of ["zones","munis","districts","hverfi","nbh","small","postal"]){
   ALL[k].forEach((f,i)=>{ f._bb=bboxOf(f.geometry); f._kind=k; f._id=k+":"+i; });
 }
 const postalByCode = {}; ALL.postal.forEach(f=>postalByCode[f.properties.code]=f);
+// rough land outline (build/land.py, ~200 m margin): a tap outside it is open sea
+const LAND_MASK = DATA.land ? {geometry: DATA.land, _bb: bboxOf(DATA.land)} : null;
+const onLand = (lng,lat) => !LAND_MASK || inGeom(lng,lat,LAND_MASK);
 const hitAll = (k,lng,lat) => ALL[k].filter(f=>inGeom(lng,lat,f));
 const smallestHit = (k,lng,lat) => hitAll(k,lng,lat).sort((a,b)=>a.properties.km2-b.properties.km2)[0];
 
@@ -1020,6 +1023,7 @@ function whatsHereRows(lng,lat){
   const n = smallestHit("nbh",lng,lat), s = smallestHit("small",lng,lat), h = smallestHit("hverfi",lng,lat),
         d = smallestHit("districts",lng,lat), m = smallestHit("munis",lng,lat), p = smallestHit("postal",lng,lat),
         z = smallestHit("zones",lng,lat);
+  if(!m && !onLand(lng,lat)) return {ocean:true, html:""};
   const outer = m && isOuter(m.properties), nt = outer ? nearestTown(lng,lat) : null;
   const inTown = nt && nt.km <= TOWN_NEAR_KM[nt.t.place] ? nt.t : null;
   const st = nearestStreet(lng,lat);
@@ -1030,7 +1034,7 @@ function whatsHereRows(lng,lat){
     row("Small area", s?chipName("small",s.properties.name)+sayBtn(s.properties.name,1)+shareBtn(`small|${s.properties.name}|${s.properties.muni}`,1):"")+
     row("Sub-district", h?chipName("hverfi",h.properties.name)+sayBtn(h.properties.name,1)+shareBtn(`hverfi|${h.properties.name}|Reykjavík`,1)+akaNote(h):"")+
     row("District", d?chipName("districts",d.properties.name)+sayBtn(d.properties.name,1)+shareBtn(`districts|${d.properties.name}|${d.properties.muni}`,1)+akaNote(d):"")+
-    row(outer ? "Municipality" : "Town", m?esc(m.properties.name)+sayBtn(m.properties.name,1)+shareBtn(`munis|${m.properties.name}`,1)+akaNote(m):'<span class="muted">outside the map’s area</span>')+
+    row(outer ? "Municipality" : m ? "Town" : "Area", m?esc(m.properties.name)+sayBtn(m.properties.name,1)+shareBtn(`munis|${m.properties.name}`,1)+akaNote(m):'<span class="muted">outside the map’s area</span>')+
     row("Region", z?chipName("zones",z.properties.name)+sayBtn(z.properties.name,1)+` <span class="muted">${esc(z.properties.en)}</span>`:"")+
     row("Postal code", p?chipPC([p.properties.code])+sayBtn("postal:"+p.properties.code,1)+shareBtn(`postal|${p.properties.code}`,1):"")+
     row(outer && !inTown ? "Nearest road" : "Nearest street", st && st.d < 3000 ?`${esc(st[0])}${sayBtn(st[0],1)}${STREET_NAMES.has(st[0]) ? shareBtn(`street|${st[0]}|${st[1]}`,1) : ""} <span class="muted">(${st[1] ? esc(st[1]) + ", " : ""}~${st.d<1000?Math.round(st.d)+" m":(st.d/1000).toFixed(1)+" km"})</span>`:"")
@@ -1102,7 +1106,8 @@ function infoAt(lat,lng,title,extra,isMe,shareSpec){
   highlight(w.n || w.s || w.p);
   if(isMe){ if(pin){ map.removeLayer(pin); pin=null; } }   // your own position already has the blue dot
   else showPin(lat,lng);
-  const t = title || (w.n ? w.n.properties.name : (w.s ? w.s.properties.name : w.t ? w.t.name : "Map point"));
+  const t = title || (w.ocean ? "Ocean" : w.n ? w.n.properties.name : (w.s ? w.s.properties.name : w.t ? w.t.name : "Map point"));
+  if(w.ocean && !title) extra = '<div class="muted" style="margin-bottom:6px">Open sea (haf)</div>' + (extra||"");
   if(!title && !shareSpec) shareSpec = w.n ? `nbh|${w.n.properties.name}|${w.n.properties.muni}` : w.s ? `small|${w.s.properties.name}|${w.s.properties.muni}` : w.t ? `town|${w.t.name}|${w.t.muni}` : null;
   infoEl.innerHTML = `<h2>${isMe?"Your location":"What's here"}</h2><div class="title">${esc(t)}${sayBtn(t)}${isMe?"":shareBtn(shareSpec)}</div>${hasClip(t)?forvo(t):""}
     ${extra||""}<table>${w.html}</table>

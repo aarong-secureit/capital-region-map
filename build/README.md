@@ -52,6 +52,9 @@ python inject.py data/mapdata.json template.html ../capital-region-map.html ../_
   only names without a clip and deletes clips of names that left the map; `--redo` voices everything again.
   Postal codes are read as numbers (`postal_words()`: 262 = "tvö hundruð sextíu og tveir").
 - `roads.json` (from `streets_geo.py`): the big roads, so the search finds Suðurlandsvegur or "Route 35".
+- `land.py`: a rough land outline (grown ~200 m, simplified) embedded in the page, so a tap on the open sea
+  says "Ocean". `build_data.py` adds it; `python land.py data/coast.json data/mapdata.json` updates an
+  existing map data file.
 
 The page embeds only `_assets/audio/index.json` (name → clip id). The clips stay in `_assets/audio/c/`, which
 must sit next to the HTML file, locally and on the web.
