@@ -33,8 +33,18 @@ header h1{margin:4px 0 0;font-size:20px;line-height:1.2}
 .searchbox input{width:100%;padding:11px 12px;font-size:15px;border:2px solid var(--gray-light);border-radius:6px;font-family:inherit;outline:none}
 .searchbox input:focus{border-color:var(--gold)}
 .hint{font-size:12px;color:var(--gray-mid);margin-top:6px}
-.gsearch{display:block;margin-top:8px;font-size:13px;color:var(--navy);text-decoration:underline;text-underline-offset:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.gsearch:hover{color:var(--gold-dark)}
+/* inside the end of the search box: ✕ clears (only with text), G hands the search to Google Maps */
+.qwrap{position:relative;flex:1;min-width:0}
+.searchbox .qwrap input{padding-right:40px}
+.searchbox .qwrap.has-text input{padding-right:72px}
+.qwrap input::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+#qClear, .gbtn{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:0;background:none;border-radius:50%;cursor:pointer;padding:0;color:var(--gray-mid)}
+.gbtn{right:6px}
+#qClear{right:38px}
+#qClear[hidden]{display:none}
+#qClear:hover, .gbtn:hover{background:rgba(127,127,127,.15)}
+#qClear svg{width:15px;height:15px}
+.gbtn svg{width:19px;height:19px}
 #results{list-style:none;margin:8px 0 0;padding:0;max-height:300px;overflow:auto}
 #results li button{display:flex;width:100%;text-align:left;gap:8px;align-items:baseline;padding:8px 8px;border:0;background:none;font:inherit;cursor:pointer;border-radius:4px}
 #results li button:hover,#results li button.active{background:#FBF5EA}
@@ -230,7 +240,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 :root[data-theme="dark"] header, :root[data-theme="dark"] .set-head{background:#1E2A38}
 :root[data-theme="dark"] #info .title, :root[data-theme="dark"] #results .nm, :root[data-theme="dark"] .chip, :root[data-theme="dark"] .say,
 :root[data-theme="dark"] .share-menu .sm-title, :root[data-theme="dark"] .hint b, :root[data-theme="dark"] details summary,
-:root[data-theme="dark"] .gsearch, :root[data-theme="dark"] #peek{color:#CFE0F5}
+:root[data-theme="dark"] #peek{color:#CFE0F5}
 :root[data-theme="dark"] .chip, :root[data-theme="dark"] .say, :root[data-theme="dark"] .share-menu,
 :root[data-theme="dark"] .searchbox input, :root[data-theme="dark"] select{background:var(--white);color:var(--ink)}
 :root[data-theme="dark"] .chip, :root[data-theme="dark"] .say{color:#CFE0F5}
@@ -288,8 +298,6 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
   .searchbox input{font-size:16px;padding:10px 10px;border:0;border-radius:8px;background:var(--gray-bg)}
   .searchbox input:focus{box-shadow:inset 0 0 0 2px var(--gold)}
   .hint{display:none}
-  .gsearch{display:none;margin:2px 0 0;padding:8px 6px 4px;font-size:14px}
-  .searchbox:focus-within .gsearch, .searchbox.has-q .gsearch{display:block}
   #results{max-height:52vh;max-height:52dvh;margin:4px 0 0}
   #results:empty{display:none}
   #results li button{padding:12px 8px;flex-wrap:wrap;row-gap:2px}
@@ -324,7 +332,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
   #top .srow .locbtn{top:56px;margin:0;font-size:24px;line-height:44px}
   #layersBtn{top:108px}
   #gearBtn{top:160px}
-  .searchbox.typing :is(#layersBtn, #gearBtn, .locbtn), .searchbox.has-q :is(#layersBtn, #gearBtn, .locbtn),
+  .searchbox.typing :is(#layersBtn, #gearBtn, .locbtn), .searchbox.has-results :is(#layersBtn, #gearBtn, .locbtn),
   html[data-sheet="full"] :is(#layersBtn, #gearBtn, .locbtn){display:none}
   .pl input{font-size:16px;padding:11px 10px}
   .seg span{padding:11px 0;font-size:15px}
@@ -351,7 +359,11 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
     </header>
     <div class="searchbox">
       <div class="srow">
-        <input id="q" type="search" maxlength="100" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Try: Holtin, arbaer, west Lindir, 105" aria-label="Search a neighbourhood, postal code or street">
+        <div class="qwrap">
+          <input id="q" type="search" maxlength="100" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Try: Holtin, arbaer, west Lindir, 105" aria-label="Search a neighbourhood, postal code or street">
+          <button id="qClear" type="button" hidden aria-label="Clear the search" title="Clear"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+          <a id="gsearch" class="gbtn" href="https://www.google.com/maps" target="_blank" rel="noopener" aria-label="Open Google Maps" title="Open Google Maps"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></a>
+        </div>
         <button id="micBtn" type="button" hidden aria-label="Say the name you heard" title="Say the name you heard (in Icelandic)">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11.5" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
@@ -364,7 +376,6 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
       </div>
       <div class="hint">Spell it the way it sounded to you: “owrbyer” finds Árbær, “kvassalayti” finds Hvassaleiti. Accents and endings are optional. No Icelandic keyboard? Type <b>þ</b> as th, <b>ð</b> as d, <b>æ</b> as ae, <b>ö</b> as o.</div>
       <ul id="results" role="listbox"></ul>
-      <a id="gsearch" class="gsearch" href="https://www.google.com/maps" target="_blank" rel="noopener">Looking for something else? Search Google Maps ↗</a>
     </div>
   </div>
   <aside id="side">
@@ -447,7 +458,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
     <div class="pl"><label for="pl-work1">1</label><input id="pl-work1" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work1" class="pl-st" role="status"></div></div>
     <div class="pl"><label for="pl-work2">2</label><input id="pl-work2" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work2" class="pl-st" role="status"></div></div>
     <div class="pl"><label for="pl-work3">3</label><input id="pl-work3" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work3" class="pl-st" role="status"></div></div>
-    <p class="set-ver">Version <span id="buildStamp">2026-11-21 19:06 · a76df13</span> <span class="muted">(built, Iceland time)</span></p>
+    <p class="set-ver">Version <span id="buildStamp">2026-11-21 19:19 · 7aa8e00</span> <span class="muted">(built, Iceland time)</span></p>
     </div>
   </div>
 </dialog>
@@ -1142,7 +1153,7 @@ function infoAt(lat,lng,title,extra,isMe,shareSpec){
   scrollEl.scrollTop = 0;
 }
 map.on("click", e=>{
-  if(cur.length || document.activeElement===qEl){ cur=[]; act=-1; resEl.innerHTML=""; qEl.blur(); }
+  if(cur.length || document.activeElement===qEl){ cur=[]; act=-1; clearResults(); qEl.blur(); }
   infoAt(e.latlng.lat,e.latlng.lng);
   if(MOBILE.matches){ if(sheet!=="half") setSheet("half"); setTimeout(()=>keepVisible(e.latlng.lat,e.latlng.lng), 260); }
 });
@@ -1191,7 +1202,7 @@ function featureInfo(f){
 }
 function select(item){
   if(pin){ map.removeLayer(pin); pin=null; }
-  cur=[]; act=-1; resEl.innerHTML="";
+  cur=[]; act=-1; clearResults();
   if(MOBILE.matches){ qEl.blur(); setSheet("half"); }
   if(item._kind==="point"){
     centerOn(item.ll[1],item.ll[0], Math.max(map.getZoom(),15));
@@ -1496,6 +1507,7 @@ function search(raw){
   return res;
 }
 const qEl=document.getElementById("q"), resEl=document.getElementById("results"), PLACEHOLDER=qEl.placeholder;
+function clearResults(){ resEl.innerHTML = ""; qEl.closest(".searchbox").classList.remove("has-results"); }
 // while the search box has focus (phones: the button column on the map steps aside for the results)
 qEl.addEventListener("focus", () => qEl.closest(".searchbox").classList.add("typing"));
 qEl.addEventListener("blur", () => qEl.closest(".searchbox").classList.remove("typing"));
@@ -1505,14 +1517,16 @@ function render(){
     <span class="badge ${BADGE[it.kind]}">${esc(it.lab||KIND_LABEL[it.kind])}</span>
     <span class="nm">${esc(it.name)}</span>${it.sound?'<span class="sl" title="Matched by how it sounds">≈ sounds like</span>':""}<span class="sub">${esc(it.sub||"")}</span></button></li>`).join("")
     || (qEl.value.trim()? '<li class="muted" style="padding:8px">No match. Try fewer letters, or click the map.</li>':"");
+  qEl.closest(".searchbox").classList.toggle("has-results", resEl.children.length > 0);
 }
 // Anything this map does not have: hand the search to Google Maps, around the area on screen
-const gEl = document.getElementById("gsearch");
+const gEl = document.getElementById("gsearch"), clrEl = document.getElementById("qClear");
 function updateGLink(){
   const q = qEl.value.trim(), c = map.getCenter(), at = `@${c.lat.toFixed(5)},${c.lng.toFixed(5)},${Math.min(map.getZoom(),17)}z`;
   gEl.href = q ? `https://www.google.com/maps/search/${encodeURIComponent(q)}/${at}` : `https://www.google.com/maps/${at}`;
-  gEl.textContent = q ? `Search Google Maps for “${q}” ↗` : "Looking for something else? Search Google Maps ↗";
-  gEl.parentNode.classList.toggle("has-q", !!q);
+  const lab = q ? `Search Google Maps for “${q}”` : "Open Google Maps here";
+  gEl.title = lab; gEl.setAttribute("aria-label", lab);
+  clrEl.hidden = !q; qEl.parentNode.classList.toggle("has-text", !!q);
 }
 map.on("moveend", updateGLink);
 let searchTimer = null;
@@ -1561,13 +1575,24 @@ if(SpeechRec && ON_WEB){
   });
 }
 qEl.addEventListener("focus",()=>{ if(MOBILE.matches && sheet!=="peek") setSheet("peek"); });
+// the name to show in the search box once a result is picked: the place's own name ("City Center" -> Lækjartorg)
+function chosenName(it){
+  const r = it.ref;
+  if(it.kind === "mine") return it.name;
+  if(r._kind === "postal") return r.properties.code + " " + r.properties.town;
+  if(r.properties) return r.properties.name;
+  if(r.s) return r.s[0];
+  return r.name || it.name;
+}
+function pick(i){ const it = cur[i]; if(!it) return; qEl.value = chosenName(it); updateGLink(); select(it.ref); }
 qEl.addEventListener("keydown",e=>{
   if(e.key==="ArrowDown"){ act=Math.min(cur.length-1,act+1); render(); e.preventDefault(); }
   else if(e.key==="ArrowUp"){ act=Math.max(0,act-1); render(); e.preventDefault(); }
-  else if(e.key==="Enter" && cur[act]){ select(cur[act].ref); }
+  else if(e.key==="Enter" && cur[act]){ pick(act); }
   else if(e.key==="Escape"){ qEl.value=""; cur=[]; render(); updateGLink(); }
 });
-resEl.addEventListener("click",e=>{ const b=e.target.closest("button[data-i]"); if(b) select(cur[+b.dataset.i].ref); });
+resEl.addEventListener("click",e=>{ const b=e.target.closest("button[data-i]"); if(b) pick(+b.dataset.i); });
+clrEl.addEventListener("click",()=>{ qEl.value=""; cur=[]; act=-1; render(); updateGLink(); qEl.focus(); });
 
 // ---------- settings: appearance ----------
 const setEl = document.getElementById("settings");
