@@ -1197,7 +1197,8 @@ function select(item){
     const tg = document.getElementById(POI_TOGGLE[poiGroupOf(item)]);
     if(tg && !tg.checked){ tg.checked = true; applyToggles(); }
     if(item.bb) fitTo(item.bb); else centerOn(item.ll[1],item.ll[0], Math.max(map.getZoom(),16));
-    infoAt(item.ll[1],item.ll[0], item.name, `<div class="muted" style="margin-bottom:6px">${poiDesc(item)}</div>`, false, poiSpec(item));
+    const aka = (item._aka||[]).length ? `<div class="aka">Also called ${item._aka.map(a=>`<b>${esc(a)}</b>${sayBtn(a,1)}`).join(", ")}</div>` : "";
+    infoAt(item.ll[1],item.ll[0], item.name, `${aka}<div class="muted" style="margin-bottom:6px">${poiDesc(item)}</div>`, false, poiSpec(item));
     return;
   }
   if(item._kind==="street"){
@@ -1271,7 +1272,8 @@ POIS.forEach(p=>{
 // aliases: other names people use (build/aliases.json): alias -> [kind, map name, town, "en" if English]
 const ALIASES = Object.fromEntries(Object.entries(DATA.aliases || {}).filter(([k]) => !k.startsWith("_")));
 for(const [alias,[kind,name,muni]] of Object.entries(ALIASES)){
-  const f = ALL[kind].find(x=>x.properties.name===name && (!muni || x.properties.muni===muni || kind==="munis"));
+  const f = kind==="poi" ? POIS.find(p=>p.name===name && (!muni || p.muni===muni))
+    : (ALL[kind]||[]).find(x=>x.properties.name===name && (!muni || x.properties.muni===muni || kind==="munis"));
   if(!f) continue;
   addIdx(alias,kind,f,`→ ${name}${muni?" · "+muni:""}`,7,true);
   if(alias !== name && !ALIASES[alias].includes("case")) (f._aka = f._aka || []).push(alias);   // shown as "Also called"

@@ -5,6 +5,7 @@
   "Miðbærinn": ["nbh", "Miðbær", "Reykjavík"],
   "Downtown": ["nbh", "Miðbær", "Reykjavík", "en"],
   "City centre": ["nbh", "Miðbær", "Reykjavík", "en"],
+  "City Center": ["poi", "Lækjartorg", "Reykjavík", "en"],
   "Vesturbærinn": ["districts", "Vesturbær", "Reykjavík"],
   "Breiðholtið": ["districts", "Breiðholt", "Reykjavík"],
   "Grafarvogurinn": ["districts", "Grafarvogur", "Reykjavík"],
