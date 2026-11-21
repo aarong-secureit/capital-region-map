@@ -11,7 +11,7 @@ Usage (from the project root):  python build/make_site.py
 Icons are drawn with Pillow if it is installed; otherwise the copies in build/icons/ are used (Cloudflare's
 build machines have no Pillow). After changing draw_icon(), copy the new site/*.png into build/icons/.
 """
-import base64, hashlib, json, re, shutil, zipfile
+import base64, hashlib, json, re, shutil, sys, zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -95,6 +95,10 @@ def draw_icon(size):
 def main():
     SITE.mkdir(exist_ok=True)
     html = SRC.read_text(encoding="utf-8")
+    # the version in Settings: when this site build ran (on Cloudflare: the deploy), not when the page was made
+    sys.path.insert(0, str(ROOT / "build"))
+    from stamp import build_stamp
+    html = re.sub(r'(<span id="buildStamp">)[^<]*(</span>)', lambda m: m.group(1) + build_stamp() + m.group(2), html, count=1)
     if 'rel="manifest"' not in html:
         html = html.replace("</title>", "</title>\n" + HEAD_EXTRA, 1)
     (SITE / "index.html").write_text(html, encoding="utf-8")

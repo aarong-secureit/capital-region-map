@@ -10,6 +10,8 @@ ROADS_JSON from streets_geo.py (big roads, found by the search).
 import json, sys
 from shapely.geometry import shape
 
+from stamp import build_stamp
+
 data_fn, tpl_fn, out_fn = sys.argv[1:4]
 audio_fn = sys.argv[4] if len(sys.argv) > 4 else None
 landmarks_fn = sys.argv[5] if len(sys.argv) > 5 else None
@@ -41,7 +43,7 @@ for i in sorted(adj, key=lambda i: -len(adj[i])):
     tally[c] += 1
 print("colours used", max(f["properties"]["ci"] for f in fs) + 1)
 s = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-html = open(tpl_fn).read().replace("/*__DATA__*/null", s).replace("__BUILT__", d["built"])
+html = open(tpl_fn).read().replace("/*__DATA__*/null", s).replace("__BUILT__", d["built"]).replace("__BUILDSTAMP__", build_stamp())
 if audio_fn:
     a = open(audio_fn, encoding="utf-8").read()
     # escape "</" like the map data: a place name containing "</script>" must not end the script block

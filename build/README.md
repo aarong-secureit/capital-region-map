@@ -61,6 +61,9 @@ must sit next to the HTML file, locally and on the web.
 
 UI-only changes (labels, layout): edit `template.html`, then run only the `inject.py` line.
 
+The version in Settings (`stamp.py`) is the build time to the minute (UTC = Iceland time) and the git commit.
+`inject.py` stamps the page; `make_site.py` stamps it again, so the live site shows when Cloudflare built it.
+
 Links: `#q=Holtin` runs a search; `#show=kind|name|town` opens one place (what the share buttons copy),
 for example `#show=postal|105`, `#show=nbh|Holt|Reykjavík`, `#show=poi|Bónus Skeifan|Reykjavík`,
 `#show=town|Selfoss|Árborg`, `#show=zones|Suðurland`.
