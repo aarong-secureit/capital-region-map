@@ -28,7 +28,7 @@ HEAD_EXTRA = """<link rel="manifest" href="manifest.webmanifest">
 MANIFEST = {
     "name": "Reykjavík Capital Region Map",
     "short_name": "Capital Map",
-    "description": "Neighbourhoods, districts and postal codes in the Reykjavík capital region.",
+    "description": "Neighbourhoods, towns, sights and postal codes in Reykjavík and west and south Iceland, with Icelandic pronunciation.",
     "start_url": "./",
     "scope": "./",
     "display": "standalone",
@@ -109,14 +109,13 @@ def main():
         for name in ("icon-192.png", "icon-512.png", "apple-touch-icon.png"):
             shutil.copy2(ROOT / "build" / "icons" / name, SITE / name)
         print("Pillow not installed: using the icons in build/icons/")
-    # pronunciation packs (the page plays slices of these; index.json is already embedded in the page)
-    src_audio, dst_audio = ROOT / "_assets" / "audio", SITE / "_assets" / "audio"
-    if dst_audio.exists():
-        shutil.rmtree(dst_audio)
-    if src_audio.exists():
-        dst_audio.mkdir(parents=True)
-        for f in sorted(src_audio.glob("*.mp3")):
-            shutil.copy2(f, dst_audio / f.name)
+    # pronunciation clips, one mp3 per name (index.json is already embedded in the page)
+    src_audio, dst_audio = ROOT / "_assets" / "audio" / "c", SITE / "_assets" / "audio" / "c"
+    if dst_audio.parent.exists():
+        shutil.rmtree(dst_audio.parent)
+    dst_audio.mkdir(parents=True)
+    for f in sorted(src_audio.glob("*.mp3")):
+        shutil.copy2(f, dst_audio / f.name)
     # street addresses for Home / Work, road lines for "Nearest street" (both loaded by the page when needed)
     for extra in ("addresses.js", "streets.js"):
         if (ROOT / "_assets" / extra).exists():
@@ -130,9 +129,9 @@ def main():
     for f in files:
         if f.parent == SITE:
             print(f"  site/{f.name:24s} {f.stat().st_size/1024:8.1f} KB")
-    packs = [f for f in files if f.parent == dst_audio]
-    if packs:
-        print(f"  site/_assets/audio/          {len(packs)} packs, {sum(f.stat().st_size for f in packs)/1024/1024:.1f} MB")
+    clips = [f for f in files if f.parent == dst_audio]
+    if clips:
+        print(f"  site/_assets/audio/c/        {len(clips)} clips, {sum(f.stat().st_size for f in clips)/1024/1024:.1f} MB")
     print(f"  site.zip {zpath.stat().st_size/1024/1024:.1f} MB, {len(files)} files")
 
 

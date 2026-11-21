@@ -1,17 +1,20 @@
 # Capital Region Map
 
-A map for people learning their way around Iceland's capital region: where the neighbourhoods and districts
-are, how their names sound, and the everyday places around them, such as grocery stores, swimming pools and
-the main bus stops.
+A map for people learning their way around Iceland's capital region and the west and south: where the
+neighbourhoods, districts and towns are, how their names sound, and the everyday places around them, such as
+grocery stores, swimming pools, the main bus stops and the well-known sights.
 
 It isn't trying to be a full navigation map. It answers "where is Holtin?" or "which area is 108?", and hands
 anything else off to Google Maps with one click.
 
-Covers Reykjavík, Kópavogur, Hafnarfjörður, Garðabær, Mosfellsbær, Seltjarnarnes and Kjós.
+Covers four of the Icelandic Met Office's weather forecast zones, the region names you hear in every forecast:
+the capital region (Höfuðborgarsvæðið) in full detail, and Faxaflói (Reykjanes, Akranes, Borgarfjörður),
+Breiðafjörður (Snæfellsnes, Dalir) and South Iceland (Suðurland, out to Vík and Vestmannaeyjar) with their
+towns, villages, big roads and sights.
 
 ## What it does
 
-- **Where is Holtin, Árbær or 105?** Neighbourhoods, districts, towns and postal codes on one map.
+- **Where is Holtin, Árbær, Selfoss or 105?** Regions, towns, neighbourhoods, districts and postal codes on one map.
 - **Search the way you hear it.** Icelandic letters are optional, near-misses still match, and everyday names
   work too ("Holtin", "Grandi", "Downtown").
 - **Hear the name.** Every place, street and point of interest has a 🔊 button with Icelandic pronunciation
@@ -19,8 +22,9 @@ Covers Reykjavík, Kópavogur, Hafnarfjörður, Garðabær, Mosfellsbær, Seltja
 - **Share any place.** Big areas share their well-known landmark (town hall, main church, shopping centre)
   to Google Maps, or a link straight back to this map.
 - **Points of interest**, each switchable: groceries (Bónus, Krónan, Nettó, Hagkaup), shopping, swimming
-  pools, parks and the main bus stops and transfer hubs.
-- **What's here:** the area, postal code and nearest street wherever you tap.
+  pools, parks, the main bus stops and transfer hubs, and about 80 sights (Hallgrímskirkja, Gullfoss, Geysir,
+  Seljalandsfoss, Bláa lónið, Kirkjufell, Reynisfjara...).
+- **What's here:** the area, town, region, postal code and nearest street wherever you tap.
 - **Home and Work pins** (up to three each), light/dark theme and your layer choices, all kept in your
   browser's local storage. Addresses are looked up in the page; nothing you type is sent anywhere.
 - **Show my location**, on your device only.

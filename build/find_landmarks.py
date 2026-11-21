@@ -7,7 +7,7 @@ so landmarks.json can be filled in from real data.
 import sys
 import osmium
 
-W, S, E, N = -22.15, 63.95, -21.30, 64.35
+from region import W, S, E, N
 WANTED = ["Ráðhús", "Hallgrímskirkja", "Kringlan", "Laugardalslaug", "Laugardalshöll", "Kjarvalsstaðir", "Árbæjarsafn",
           "Spöngin", "Mjódd", "Vesturbæjarlaug", "Guðríðarkirkja", "Klébergsskóli", "Bessastaðir", "Smáralind",
           "Bæjarskrifstofur", "Hamraborg", "Garðatorg", "Grótta", "Harpa", "Perlan", "Háskóli Íslands", "Fífan",

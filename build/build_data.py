@@ -1,4 +1,5 @@
-"""Build capital-region map data: municipalities, districts, hverfi, neighbourhoods, postal areas, streets."""
+"""Build the map data: forecast zones, municipalities, towns, and (capital region) districts, hverfi,
+neighbourhoods; postal areas and streets everywhere (outside the capital region only in towns). Area: region.py."""
 import json, re, sys, unicodedata
 from collections import Counter, defaultdict
 import numpy as np
@@ -6,10 +7,11 @@ import shapely
 from shapely.geometry import shape, mapping, box, LineString, MultiPoint, Point, Polygon, MultiPolygon
 from shapely.ops import linemerge, polygonize, unary_union, polylabel
 from scipy.spatial import cKDTree
+import region as R
 
 D = sys.argv[1]
 OUT = sys.argv[2]
-BBOX = box(-22.15, 63.95, -21.30, 64.35)
+BBOX = R.BOX
 LAT0 = 64.12
 KX = np.cos(np.radians(LAT0))
 KM = 111.2  # km per scaled degree
@@ -40,7 +42,7 @@ def clean(g, tol=0.00012):
     g = polys_only(shapely.make_valid(g))
     g = g.simplify(tol, preserve_topology=True)
     g = polys_only(shapely.make_valid(g))
-    return shapely.set_precision(g, 0.00001)
+    return shapely.set_precision(g, 0.0001 if tol >= 0.0004 else 0.00001)   # rural areas: ~10 m is plenty
 
 def label_pt(g):
     big = max(g.geoms, key=lambda p: p.area) if isinstance(g, MultiPolygon) else g
@@ -50,8 +52,11 @@ def label_pt(g):
         p = big.representative_point()
     return [round(p.x, 5), round(p.y, 5)]
 
-def feat(g, **props):
-    g = clean(g)
+def feat(g, tol=0.00012, min_km2=0, **props):
+    g = clean(g, tol)
+    if min_km2 and isinstance(g, MultiPolygon):           # drop skerries and islets on the big rural areas
+        big = [p for p in g.geoms if km2(p) >= min_km2]
+        g = unary_union(big) if big else max(g.geoms, key=lambda p: p.area)
     if g.is_empty:
         return None
     props["label"] = label_pt(g)
@@ -67,9 +72,7 @@ land = unary_union(faces).intersection(BBOX)
 print("land km2", round(km2(land)), "faces", len(faces))
 
 # ---------------- municipalities ----------------
-CAP = {"Reykjavíkurborg": "Reykjavík", "Kópavogsbær": "Kópavogur", "Seltjarnarnesbær": "Seltjarnarnes",
-       "Garðabær": "Garðabær", "Hafnarfjarðarkaupstaður": "Hafnarfjörður", "Mosfellsbær": "Mosfellsbær",
-       "Kjósarhreppur": "Kjósarhreppur"}
+CAP = R.MUNI_SHORT
 munis = {}
 for rid, r in coast["rels"].items():
     if r["name"] not in CAP:
@@ -79,7 +82,11 @@ for rid, r in coast["rels"].items():
     og = unary_union(list(polygonize(linemerge(outer))))
     if inner:
         og = og.difference(unary_union(list(polygonize(linemerge(inner)))))
+    if CAP[r["name"]] not in R.CAP_MUNIS:
+        og = og.intersection(R.LOWLAND)
     munis[CAP[r["name"]]] = og
+missing = set(CAP.values()) - set(munis)
+assert not missing, missing
 for k, g in munis.items():
     print("muni", k, round(km2(g)), "land", round(km2(g.intersection(land))))
 region = unary_union(list(munis.values()))
@@ -134,7 +141,7 @@ inside = shapely.contains_xy(region_land, pts[:, 0], pts[:, 1])
 pts, codes = pts[inside], codes[inside]
 streets = [s for s, ok in zip(streets, inside) if ok]
 cnt = Counter(codes)
-valid = {c for c, n in cnt.items() if n >= 5 and re.fullmatch(r"[12]\d\d", c)}
+valid = {c for c, n in cnt.items() if n >= 5 and re.fullmatch(r"\d\d\d", c)}
 print("codes", sorted(cnt.items()))
 m = np.array([c in valid for c in codes])
 pts, codes = pts[m], codes[m]
@@ -165,7 +172,19 @@ print("voronoi cells", len(cells), "points", len(up))
 by = defaultdict(list)
 for c, cell in zip(uc, cells):
     by[c].append(cell)
+# which municipalities each code's addresses fall in (codes outside the capital region)
+pt_muni = np.array([None] * len(pts), dtype=object)
+for k, g in munis.items():
+    hit = shapely.contains_xy(g, pts[:, 0], pts[:, 1])
+    pt_muni[hit] = k
+GEN = {}
+for c in set(codes):
+    mc = Counter(pt_muni[codes == c])
+    tot = sum(mc.values())
+    GEN[c] = [k for k, n in mc.items() if k and n >= max(3, 0.03 * tot)]
+CAP_CODE = lambda c: c[0] == "1" and c != "190" or c[:2] in ("20", "21", "22", "27")
 def code_munis(c):
+    if not CAP_CODE(c): return GEN.get(c) or list(muni_land)
     if c == "170": return ["Seltjarnarnes"]
     if c[0] == "1": return ["Reykjavík"]
     if c.startswith("20"): return ["Kópavogur"]
@@ -198,7 +217,7 @@ for lp in lparts:
             best, bl = c, l
     if best and bl > 0:
         postal[best] = unary_union([postal[best], lp.buffer(1e-7)])
-TOWN = lambda c: ("Seltjarnarnes" if c == "170" else "Reykjavík" if c[0] == "1" else
+TOWN = lambda c: (R.POSTAL_TOWN.get(c, "") if not CAP_CODE(c) else "Seltjarnarnes" if c == "170" else "Reykjavík" if c[0] == "1" else
                   "Kópavogur" if c.startswith("20") else "Hafnarfjörður" if c.startswith("22") and c != "225" else
                   "Garðabær" if c in ("210", "212", "225") else "Mosfellsbær" if c.startswith("27") else "")
 
@@ -226,7 +245,7 @@ for f in areas:
     g = shapely.make_valid(shape(f["geometry"]))
     rp = g.representative_point()
     mu = muni_of(rp)
-    if not mu or not p.get("name"):
+    if not mu or not p.get("name") or mu not in R.CAP_MUNIS:
         continue
     if p["kind"] == "admin" and p.get("admin_level") in ("8", "9") and mu != "Reykjavík":
         districts.append({"name": p["name"], "muni": mu, "g": g.intersection(land.buffer(0.002))})
@@ -249,7 +268,7 @@ for f in areas:
     g = shapely.make_valid(shape(f["geometry"]))
     rp = g.representative_point()
     mu = muni_of(rp)
-    if not mu or (norm(p["name"]), mu) in have:
+    if not mu or mu not in R.CAP_MUNIS or (norm(p["name"]), mu) in have:
         continue
     have.add((norm(p["name"]), mu))
     parent = next((n["name"] for n in nbh if n["muni"] == mu and n["g"].contains(rp)), None)
@@ -261,7 +280,7 @@ allpolys = [(norm(x["name"]), x["g"]) for x in nbh + small + districts]
 points = []
 for n in ex["place_nodes"]:
     pt = Point(n["lon"], n["lat"])
-    if not region.contains(pt) or n["place"] in ("town", "city"):
+    if not region.contains(pt) or n["place"] in ("town", "city") or muni_of(pt) not in R.CAP_MUNIS:
         continue
     nn = norm(n["name"])
     if any(nm == nn and g.distance(pt) < 0.012 for nm, g in allpolys):
@@ -271,10 +290,41 @@ for n in ex["place_nodes"]:
     points.append({"name": n["name"], "place": n["place"], "muni": mu, "parent": parent,
                    "ll": [round(n["lon"], 5), round(n["lat"], 5)]})
 
+# ---------------- towns (outside the capital region) ----------------
+TOWN_CLASS = {"town": "town", "village": "village", "hamlet": "hamlet", "suburb": "hamlet"}
+towns = []
+seen_t = set()
+for n in ex["place_nodes"]:
+    cls = TOWN_CLASS.get(n["place"])
+    pt = Point(n["lon"], n["lat"])
+    mu = muni_of(pt) if cls else None
+    if not mu or mu in R.CAP_MUNIS or n["name"] in R.TOWN_DROP:
+        continue
+    name = R.TOWN_RENAME.get(n["name"], n["name"])
+    if (name, mu) in seen_t:
+        continue
+    seen_t.add((name, mu))
+    towns.append({"name": name, "place": cls, "muni": mu, "zone": R.ZONE_OF[mu],
+                  "ll": [round(n["lon"], 5), round(n["lat"], 5)]})
+towns.sort(key=lambda t: ({"town": 0, "village": 1, "hamlet": 2}[t["place"]], norm(t["name"])))
+print("towns", len(towns), Counter(t["place"] for t in towns))
+RAD = {"town": R.TOWN_RADIUS_KM["town"], "village": R.TOWN_RADIUS_KM["village"], "hamlet": 0.6}
+town_xy = np.array([[t["ll"][0] * KX, t["ll"][1]] for t in towns]) if towns else np.zeros((0, 2))
+town_r = np.array([RAD[t["place"]] / KM for t in towns])
+cap_union = shapely.prepared.prep(unary_union([munis[m] for m in R.CAP_MUNIS]))
+def in_town(x, y):
+    """inside the capital region, or within a town's radius elsewhere"""
+    if cap_union.contains(Point(x, y)):
+        return True
+    if not len(town_xy):
+        return False
+    d = np.hypot(town_xy[:, 0] - x * KX, town_xy[:, 1] - y)
+    return bool((d <= town_r).any())
+
 # ---------------- streets ----------------
 sacc = defaultdict(list)
 for (x, y), c, s in zip(pts, codes, streets):
-    if s:
+    if s and in_town(x, y):
         sacc[(s, c)].append((x, y))
 street_list = []
 for (s, c), ps in sacc.items():
@@ -295,7 +345,10 @@ for c in sorted(postal):
         ov = n["g"].intersection(g)
         if not ov.is_empty and km2(ov) > 0.5 * km2(n["g"]):
             inside_n.append(n["name"])
-    f = feat(g, code=c, town=TOWN(c), contains=sorted(set(inside_n), key=norm), addresses=int(cnt[c]))
+    in_towns = [t["name"] for t in towns if g.contains(Point(*t["ll"]))]
+    outer = not CAP_CODE(c)
+    f = feat(g, tol=0.0008 if outer else 0.00012, min_km2=0.1 if outer else 0, code=c, town=TOWN(c),
+             contains=sorted(set(inside_n), key=norm), towns=in_towns, addresses=int(cnt[c]))
     if f:
         postal_feats.append(f)
 
@@ -343,15 +396,27 @@ nbh_feats = [feat(n["g"], name=n["name"], muni=n["muni"], district=n["district"]
 small_feats = [feat(s["g"], name=s["name"], muni=s["muni"], parent=s["parent"], kind=s["kind"],
                     postal=postals_for(s["g"]), src=s["src"]) for s in small]
 dist_feats = [feat(d["g"], name=d["name"], muni=d["muni"], num=d.get("num"), postal=postals_for(d["g"])) for d in districts]
-muni_feats = [feat(g, name=k) for k, g in muni_land.items()]
+muni_feats = []
+for k, g in muni_land.items():
+    outer = k not in R.CAP_MUNIS
+    muni_feats.append(feat(g, tol=0.001 if outer else 0.00012, min_km2=0.2 if outer else 0, name=k,
+                           zone=R.ZONE_OF[k], towns=[t["name"] for t in towns if t["muni"] == k and t["place"] != "hamlet"]))
+zone_feats = []
+for z, ms in R.ZONES.items():
+    zg = unary_union([muni_land[m] for m in ms])
+    zone_feats.append(feat(zg, tol=0.002, min_km2=1.0, name=z, en=R.ZONE_EN[z], munis=ms,
+                           towns=[t["name"] for t in towns if t["zone"] == z and t["place"] == "town"]))
+for t in towns:
+    pt = Point(*t["ll"])
+    t["postal"] = [c for c, g in postal.items() if g.contains(pt)][:1]
 for p in points:
     pt = Point(*p["ll"])
     p["postal"] = [c for c, g in postal.items() if g.contains(pt)][:1]
 
 fc = lambda fs: {"type": "FeatureCollection", "features": [f for f in fs if f]}
-data = {"munis": fc(muni_feats), "districts": fc(dist_feats), "hverfi": fc(hv_feats), "nbh": fc(nbh_feats),
+data = {"zones": fc(zone_feats), "towns": towns, "munis": fc(muni_feats), "districts": fc(dist_feats), "hverfi": fc(hv_feats), "nbh": fc(nbh_feats),
         "small": fc(small_feats), "postal": fc(postal_feats), "points": points, "streets": street_list,
-        "built": "2026-11-19"}
+        "built": "2026-11-21"}
 s = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
 open(OUT, "w").write(s)
 print("sizes KB", {k: len(json.dumps(v, ensure_ascii=False, separators=(",", ":"))) // 1024 for k, v in data.items()})

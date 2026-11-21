@@ -6,14 +6,13 @@ Voices are trained on the Talrómur corpus (CC BY 4.0).
 
 Usage:
   python make_audio.py samples VOICE_DIR OUT_DIR              # one comparison clip per voice
-  python make_audio.py packs VOICE_ONNX MAPDATA_JSON OUT_DIR [POIS_JSON] [ALIASES_JSON]  # everything
-  python make_audio.py add VOICE_ONNX POIS_JSON OUT_DIR [ALIASES_JSON]   # only names not voiced yet, into extra packs
-  python make_audio.py all VOICE_ONNX MAPDATA_JSON OUT_JSON    # (older) places only, as base64 json
+  python make_audio.py clips VOICE_ONNX MAPDATA_JSON OUT_DIR [POIS_JSON] [ALIASES_JSON] [ROADS_JSON]
+  python make_audio.py split OUT_DIR                          # one-off: old pack-NN.mp3 files -> single clips
 
-"packs" writes OUT_DIR/pack-NN.mp3 (about 100 names each, separated by short silences) and
-OUT_DIR/index.json = {"files": [...], "clips": {name: [file, start_s, dur_s]}}. The map embeds the
-index and plays just that slice of the pack. Packing keeps the file count far below Cloudflare's
-1,000-file drag-and-drop limit, and plain <audio> playback also works when the page is opened from disk.
+"clips" keeps one small mp3 per name in OUT_DIR/c/<id>.mp3 and OUT_DIR/index.json =
+{"next": n, "clips": {name: id}} (ids are short base-36 numbers that never change, so a clip stays cached).
+It voices only the names that have no clip yet and deletes clips of names no longer on the map; add
+--redo to voice everything again (new ids). The map embeds the index and plays c/<id>.mp3.
 """
 import array, base64, io, json, os, re, subprocess, sys, wave
 from pathlib import Path
@@ -82,16 +81,24 @@ def load_voice(onnx):
     return v
 
 # How Icelanders say the postal codes ("hundrað og fimm" = 105)
-POSTAL_WORDS = {
-    "101": "hundrað og einn", "102": "hundrað og tveir", "103": "hundrað og þrír", "104": "hundrað og fjórir",
-    "105": "hundrað og fimm", "107": "hundrað og sjö", "108": "hundrað og átta", "109": "hundrað og níu",
-    "110": "hundrað og tíu", "111": "hundrað og ellefu", "112": "hundrað og tólf", "113": "hundrað og þrettán",
-    "116": "hundrað og sextán", "161": "hundrað sextíu og einn", "162": "hundrað sextíu og tveir",
-    "170": "hundrað og sjötíu", "200": "tvö hundruð", "201": "tvö hundruð og einn", "203": "tvö hundruð og þrír",
-    "206": "tvö hundruð og sex", "210": "tvö hundruð og tíu", "220": "tvö hundruð og tuttugu",
-    "221": "tvö hundruð tuttugu og einn", "225": "tvö hundruð tuttugu og fimm", "270": "tvö hundruð og sjötíu",
-    "271": "tvö hundruð sjötíu og einn", "276": "tvö hundruð sjötíu og sex",
-}
+ONES = ["", "einn", "tveir", "þrír", "fjórir", "fimm", "sex", "sjö", "átta", "níu", "tíu", "ellefu", "tólf", "þrettán",
+        "fjórtán", "fimmtán", "sextán", "sautján", "átján", "nítján"]
+TENS = {2: "tuttugu", 3: "þrjátíu", 4: "fjörutíu", 5: "fimmtíu", 6: "sextíu", 7: "sjötíu", 8: "áttatíu", 9: "níutíu"}
+HUNDREDS = ["", "hundrað", "tvö hundruð", "þrjú hundruð", "fjögur hundruð", "fimm hundruð", "sex hundruð",
+            "sjö hundruð", "átta hundruð", "níu hundruð"]
+
+
+def postal_words(code):
+    """A postal code as Icelanders say it: 101 "hundrað og einn", 262 "tvö hundruð sextíu og tveir"."""
+    n = int(code)
+    h, r = divmod(n, 100)
+    if r == 0:
+        return HUNDREDS[h]
+    if r < 20 or r % 10 == 0:
+        return f"{HUNDREDS[h]} og {ONES[r] if r < 20 else TENS[r // 10]}"
+    return f"{HUNDREDS[h]} {TENS[r // 10]} og {ONES[r % 10]}"
+
+
 
 
 # names an Icelandic voice would otherwise spell out or misread: say them the way Icelanders do
@@ -146,37 +153,12 @@ def samples(voice_dir, out_dir):
         print("wrote", out / f"voice-sample-{name}.mp3")
 
 
-def all_names(voice_onnx, mapdata, out_json):
-    out_json = Path(out_json).resolve()
-    d = json.load(open(Path(mapdata).resolve(), encoding="utf-8"))
-    names = set()
-    for k in ("munis", "districts", "hverfi", "nbh", "small"):
-        names.update(f["properties"]["name"] for f in d[k]["features"])
-    names.update(p["name"] for p in d["points"])
-    voice = load_voice(voice_onnx)
-    clips, total = {}, 0
-    for n in sorted(names):
-        b = to_mp3(wav_bytes(voice, spoken(n)))
-        clips[n] = base64.b64encode(b).decode()
-        total += len(b)
-    for f in d["postal"]["features"]:
-        c, town = f["properties"]["code"], f["properties"]["town"]
-        if c in POSTAL_WORDS:
-            b = to_mp3(wav_bytes(voice, f"{POSTAL_WORDS[c]}, {town}"))
-            clips["postal:" + c] = base64.b64encode(b).decode()
-            total += len(b)
-    json.dump(clips, open(out_json, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-    print(f"{len(clips)} clips, {total/1024:.0f} KB mp3, {Path(out_json).stat().st_size/1024:.0f} KB as base64 json")
-
-
 RATE = 22050
-GAP = 0.3          # seconds of silence before every clip (and at the end of a pack)
-PER_PACK = 100
 
 
 def trim(pcm, thr=400, win=0.01, pad_start=0.03, pad_end=0.08):
     """Cut silence off both ends. The voice sometimes waits up to ~0.6 s before speaking (it varies run to
-    run), which feels like the play button did nothing; the packs add their own fixed gap between clips."""
+    run), which feels like the play button did nothing."""
     a = array.array("h", pcm)
     n = max(1, int(RATE * win))
     loud = [i for i in range(0, len(a), n) if max(abs(x) for x in a[i:i + n]) > thr]
@@ -204,91 +186,111 @@ def extra_names(path):
     return [k for k, v in d.items() if not k.startswith("_") and not {"en", "case"} & set(v[3:])]
 
 
-def packs(voice_onnx, mapdata, out_dir, pois_json=None, aliases_json=None):
-    out = Path(out_dir).resolve()
+def b36(n):
+    d = "0123456789abcdefghijklmnopqrstuvwxyz"
+    o = ""
+    while True:
+        n, r = divmod(n, 36)
+        o = d[r] + o
+        if not n:
+            return o
+
+
+def encode_clip(pcm, path):
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "s16le", "-ar", str(RATE), "-ac", "1", "-i", "pipe:0",
+                    "-codec:a", "libmp3lame", "-b:a", "32k", str(path)], input=bytes(pcm), check=True)
+
+
+def name_texts(mapdata, pois_json=None, aliases_json=None, roads_json=None):
+    """Every name the map can play: key -> what the voice says."""
     d = json.load(open(Path(mapdata).resolve(), encoding="utf-8"))
-    texts = {}                                   # key -> what to say
-    for k in ("munis", "districts", "hverfi", "nbh", "small"):
-        for f in d[k]["features"]:
+    texts = {}
+    for k in ("zones", "munis", "districts", "hverfi", "nbh", "small"):
+        for f in d.get(k, {"features": []})["features"]:
             texts[f["properties"]["name"]] = spoken(f["properties"]["name"])
-    for p in d["points"]:
-        texts[p["name"]] = spoken(p["name"])
+    for p in d["points"] + d.get("towns", []):
+        texts.setdefault(p["name"], spoken(p["name"]))
     for s in d["streets"]:
         texts.setdefault(s[0], spoken(s[0]))     # a street sharing a place's name reuses its clip
     for name in extra_names(pois_json) + extra_names(aliases_json):
         texts.setdefault(name, spoken(name))
+    if roads_json:
+        for r in json.load(open(Path(roads_json).resolve(), encoding="utf-8")):
+            if not r["name"].startswith("Route "):
+                texts.setdefault(r["name"], spoken(r["name"]))
     for f in d["postal"]["features"]:
         c, town = f["properties"]["code"], f["properties"]["town"]
-        if c in POSTAL_WORDS:
-            texts["postal:" + c] = f"{POSTAL_WORDS[c]}, {town}"
-    voice = load_voice(voice_onnx)
-    out.mkdir(parents=True, exist_ok=True)
-    for old in out.glob("pack-*.mp3"):
-        old.unlink()
-    keys = sorted(texts, key=lambda k: (k.startswith("postal:"), k.lower()))
-    gap = b"\x00\x00" * int(GAP * RATE)
-    index = {"files": [], "clips": {}}
-    total = 0
-    for n, i in enumerate(range(0, len(keys), PER_PACK)):
-        buf, t = bytearray(), 0.0
-        for k in keys[i:i + PER_PACK]:
-            pcm = pcm16(voice, texts[k])
-            buf += gap; t += GAP
-            dur = len(pcm) / 2 / RATE
-            index["clips"][k] = [n, round(t, 3), round(dur, 3)]
-            buf += pcm; t += dur
-        buf += gap
-        name = f"pack-{n:02d}.mp3"
-        # constant bitrate keeps seeking accurate; -write_xing keeps the gapless header so offsets line up
-        p = subprocess.run(["ffmpeg", "-v", "error", "-f", "s16le", "-ar", str(RATE), "-ac", "1", "-i", "pipe:0",
-                            "-codec:a", "libmp3lame", "-b:a", "32k", str(out / name)], input=bytes(buf), check=True)
-        index["files"].append(name)
-        total += (out / name).stat().st_size
-        print(f"  {name}: {len(keys[i:i+PER_PACK])} clips, {(out / name).stat().st_size/1024:.0f} KB", flush=True)
-    (out / "index.json").write_text(json.dumps(index, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    print(f"{len(index['clips'])} clips in {len(index['files'])} packs, {total/1024/1024:.1f} MB; "
-          f"index {(out / 'index.json').stat().st_size/1024:.0f} KB")
+        if c.isdigit():
+            texts["postal:" + c] = f"{postal_words(c)}, {town}"
+    return texts
 
 
-def add(voice_onnx, pois_json, out_dir, aliases_json=None):
-    """Voice the names in POIS_JSON that index.json lacks, into new packs after the existing ones.
-    Existing packs and offsets are left alone, so only the new files need uploading."""
+def clips(voice_onnx, mapdata, out_dir, pois_json=None, aliases_json=None, roads_json=None, redo=False):
     out = Path(out_dir).resolve()
-    index = json.loads((out / "index.json").read_text(encoding="utf-8"))
-    texts = {}
-    for name in extra_names(pois_json) + extra_names(aliases_json):
-        if name not in index["clips"]:
-            texts[name] = spoken(name)
-    if not texts:
-        print("nothing new to voice"); return
-    voice = load_voice(voice_onnx)
-    keys = sorted(texts, key=str.lower)
-    gap = b"\x00\x00" * int(GAP * RATE)
-    for i in range(0, len(keys), PER_PACK):
-        n = len(index["files"])
-        buf, t = bytearray(), 0.0
-        for k in keys[i:i + PER_PACK]:
-            pcm = pcm16(voice, texts[k])
-            buf += gap; t += GAP
-            dur = len(pcm) / 2 / RATE
-            index["clips"][k] = [n, round(t, 3), round(dur, 3)]
-            buf += pcm; t += dur
-        buf += gap
-        name = f"pack-{n:02d}.mp3"
-        subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "s16le", "-ar", str(RATE), "-ac", "1", "-i", "pipe:0",
-                        "-codec:a", "libmp3lame", "-b:a", "32k", str(out / name)], input=bytes(buf), check=True)
-        index["files"].append(name)
-        print(f"  {name}: {len(keys[i:i+PER_PACK])} new clips, {(out / name).stat().st_size/1024:.0f} KB", flush=True)
+    cdir = out / "c"
+    cdir.mkdir(parents=True, exist_ok=True)
+    ip = out / "index.json"
+    index = json.loads(ip.read_text(encoding="utf-8")) if ip.exists() and not redo else {"next": 0, "clips": {}}
+    if "files" in index:
+        sys.exit("index.json still describes packs: run  make_audio.py split OUT_DIR  first")
+    texts = name_texts(mapdata, pois_json, aliases_json, roads_json)
+    gone = [k for k in index["clips"] if k not in texts]
+    for k in gone:                                           # names no longer on the map
+        (cdir / f"{index['clips'].pop(k)}.mp3").unlink(missing_ok=True)
+    todo = sorted((k for k in texts if k not in index["clips"]), key=lambda k: (k.startswith("postal:"), k.lower()))
+    print(f"{len(texts)} names: {len(texts) - len(todo)} already voiced, {len(todo)} to voice, {len(gone)} removed", flush=True)
+    voice = load_voice(voice_onnx) if todo else None
+    for n, k in enumerate(todo, 1):
+        cid = b36(index["next"]); index["next"] += 1
+        encode_clip(pcm16(voice, texts[k]), cdir / f"{cid}.mp3")
+        index["clips"][k] = cid
+        if n % 200 == 0:
+            print(f"  {n}/{len(todo)}", flush=True)
+            ip.write_text(json.dumps(index, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    used = set(index["clips"].values())
+    for f in cdir.glob("*.mp3"):                             # leftovers of an interrupted run
+        if f.stem not in used:
+            f.unlink()
+    ip.write_text(json.dumps(index, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    size = sum(f.stat().st_size for f in cdir.glob("*.mp3"))
+    print(f"{len(index['clips'])} clips, {size / 1024 / 1024:.1f} MB; index {ip.stat().st_size / 1024:.0f} KB")
+
+
+def split(out_dir, margin=0.04):
+    """Cut the old packs (pack-NN.mp3 + index.json with start/duration) into one file per name, without voicing
+    anything again, then delete the packs."""
+    out = Path(out_dir).resolve()
+    old = json.loads((out / "index.json").read_text(encoding="utf-8"))
+    cdir = out / "c"
+    cdir.mkdir(parents=True, exist_ok=True)
+    by_file = {}
+    for k, (fi, start, dur) in old["clips"].items():
+        by_file.setdefault(fi, []).append((start, k, dur))
+    index, n = {"next": 0, "clips": {}}, 0
+    for fi, items in sorted(by_file.items()):
+        pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", str(out / old["files"][fi]), "-f", "s16le", "-ar", str(RATE),
+                              "-ac", "1", "pipe:1"], capture_output=True, check=True).stdout
+        for start, k, dur in sorted(items):
+            a = max(0, int((start - margin) * RATE)) * 2
+            b = min(len(pcm), int((start + dur + margin) * RATE) * 2)
+            cid = b36(index["next"]); index["next"] += 1
+            encode_clip(pcm[a:b], cdir / f"{cid}.mp3")
+            index["clips"][k] = cid
+            n += 1
+        print(f"  {old['files'][fi]}: {len(items)} clips", flush=True)
     (out / "index.json").write_text(json.dumps(index, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    print(f"{len(index['clips'])} clips in {len(index['files'])} packs")
+    for f in old["files"]:
+        (out / f).unlink(missing_ok=True)
+    print(f"{n} clips written to {cdir}")
 
 
 if __name__ == "__main__":
-    if sys.argv[1] == "samples":
-        samples(sys.argv[2], sys.argv[3])
-    elif sys.argv[1] == "packs":
-        packs(sys.argv[2], sys.argv[3], sys.argv[4], *sys.argv[5:7])
-    elif sys.argv[1] == "add":
-        add(sys.argv[2], sys.argv[3], sys.argv[4], *sys.argv[5:6])
+    args = [a for a in sys.argv[1:] if a != "--redo"]
+    if args[0] == "samples":
+        samples(args[1], args[2])
+    elif args[0] == "clips":
+        clips(args[1], args[2], args[3], *args[4:7], redo="--redo" in sys.argv)
+    elif args[0] == "split":
+        split(args[1])
     else:
-        all_names(sys.argv[2], sys.argv[3], sys.argv[4])
+        sys.exit(__doc__)

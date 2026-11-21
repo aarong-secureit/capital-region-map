@@ -3,6 +3,7 @@
 Big areas (towns, districts, postal codes) share a well-known spot inside them, e.g. the town hall;
 everything else shares the middle of the area. Coordinates come from OpenStreetMap (find_landmarks.py).
 Each landmark is checked to lie inside the area it represents before it is written out.
+Outside the capital region, municipalities and postal codes without a landmark below share their biggest town.
 
 Usage: python landmarks.py MAPDATA_JSON OUT_JSON
 """
@@ -11,6 +12,11 @@ from shapely.geometry import shape, Point
 
 # (kind, area name, town or None, landmark name, lat, lng)
 LANDMARKS = [
+    # forecast zones: the main town
+    ("zones", "Höfuðborgarsvæðið", None, "Hallgrímskirkja (Reykjavík)", 64.14177, -21.92667),
+    ("zones", "Faxaflói", None, "Akranes", 64.32179, -22.07490),
+    ("zones", "Breiðafjörður", None, "Stykkishólmur", 65.07507, -22.72981),
+    ("zones", "Suðurland", None, "Selfoss", 63.93311, -20.99707),
     # towns: town hall, or the best-known spot
     ("munis", "Reykjavík", None, "Ráðhús Reykjavíkur (City Hall)", 64.14613, -21.94238),
     ("munis", "Kópavogur", None, "Ráðhús Kópavogs (town hall)", 64.11125, -21.90805),
@@ -81,6 +87,22 @@ def main(mapdata, out):
             problems.append(f"outside its area: {poi} not in {kind} {name}")
             continue
         out_map["|".join([kind, name] + ([town] if town else []))] = {"poi": poi, "ll": [lat, lng]}
+    # biggest town (by addresses within 2 km) for rural municipalities and postal codes without one
+    import math
+    def size(t):
+        kx = math.cos(math.radians(t["ll"][1]))
+        return sum(s[4] for s in d["streets"] if math.hypot((s[2] - t["ll"][0]) * kx, s[3] - t["ll"][1]) * 111.2 < 2)
+    towns = sorted(d.get("towns", []), key=lambda t: ({"town": 0, "village": 1}.get(t["place"], 2), -size(t)))
+    for kind in ("munis", "postal"):
+        for f in d[kind]["features"]:
+            p = f["properties"]
+            key = f"munis|{p['name']}" if kind == "munis" else f"postal|{p['code']}"
+            if key in out_map or (kind == "munis" and "towns" not in p) or (kind == "postal" and not p.get("towns")):
+                continue
+            g = shape(f["geometry"])
+            t = next((t for t in towns if g.contains(Point(*t["ll"]))), None)
+            if t:
+                out_map[key] = {"poi": t["name"], "ll": [t["ll"][1], t["ll"][0]]}
     json.dump(out_map, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"{len(out_map)} landmarks written")
     for p in problems:

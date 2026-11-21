@@ -19,6 +19,25 @@
   ]
  },
  {
+  "name": "BYKO Fitjabraut",
+  "cat": "store",
+  "brand": "BYKO",
+  "addr": "Fitjabraut 5",
+  "g": "BYKO, Fitjabraut 5, 260 Reykjanesbær",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -22.542859,
+   63.981093
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
+  ]
+ },
+ {
   "name": "BYKO Fiskislóð",
   "cat": "store",
   "brand": "BYKO",
@@ -35,6 +54,25 @@
   "muni": "Reykjavík",
   "postal": [
    "101"
+  ]
+ },
+ {
+  "name": "BYKO Langholt",
+  "cat": "store",
+  "brand": "BYKO",
+  "addr": "Langholt 1",
+  "g": "BYKO, Langholt 1, 800 Selfoss",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -20.977693,
+   63.937159
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
   ]
  },
  {
@@ -108,6 +146,54 @@
   ]
  },
  {
+  "name": "Bónus Digranesgata",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Digranesgata 6",
+  "g": "Bónus, Digranesgata 6, 310 Borgarnes",
+  "words": [],
+  "ll": [
+   -21.90933,
+   64.541234
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "310"
+  ]
+ },
+ {
+  "name": "Bónus Larsenstræti",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Larsenstræti 5",
+  "g": "Bónus, Larsenstræti 5, 800 Selfoss",
+  "words": [],
+  "ll": [
+   -20.973743,
+   63.938128
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
+  "name": "Bónus Smiðjuvellir",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Smiðjuvellir 32",
+  "g": "Bónus, Smiðjuvellir 32, 300 Akranes",
+  "words": [],
+  "ll": [
+   -22.055203,
+   64.32723
+  ],
+  "muni": "Akranes",
+  "postal": [
+   "300"
+  ]
+ },
+ {
   "name": "Bónus Bjarkarholt",
   "cat": "grocery",
   "brand": "Bónus",
@@ -121,6 +207,22 @@
   "muni": "Mosfellsbær",
   "postal": [
    "270"
+  ]
+ },
+ {
+  "name": "Bónus Borgarbraut",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Borgarbraut 1",
+  "g": "Bónus, Borgarbraut 1, 340 Stykkishólmur",
+  "words": [],
+  "ll": [
+   -22.728919,
+   65.073877
+  ],
+  "muni": "Stykkishólmur",
+  "postal": [
+   "340"
   ]
  },
  {
@@ -236,6 +338,22 @@
   ]
  },
  {
+  "name": "Bónus Miðstræti",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Miðstræti 20",
+  "g": "Bónus, Miðstræti 20, 900 Vestmannaeyjar",
+  "words": [],
+  "ll": [
+   -20.271752,
+   63.441857
+  ],
+  "muni": "Vestmannaeyjar",
+  "postal": [
+   "900"
+  ]
+ },
+ {
   "name": "Bónus Smáratorg",
   "cat": "grocery",
   "brand": "Bónus",
@@ -249,6 +367,22 @@
   "muni": "Kópavogur",
   "postal": [
    "201"
+  ]
+ },
+ {
+  "name": "Bónus Sunnumörk",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Sunnumörk 2",
+  "g": "Bónus, Sunnumörk 2, 810 Hveragerði",
+  "words": [],
+  "ll": [
+   -21.190165,
+   63.995661
+  ],
+  "muni": "Hveragerði",
+  "postal": [
+   "810"
   ]
  },
  {
@@ -396,6 +530,38 @@
   ]
  },
  {
+  "name": "Bónus Túngata",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Túngata 1",
+  "g": "Bónus, Túngata 1, 230 Reykjanesbær",
+  "words": [],
+  "ll": [
+   -22.556556,
+   64.003236
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "230"
+  ]
+ },
+ {
+  "name": "Bónus Fitjar",
+  "cat": "grocery",
+  "brand": "Bónus",
+  "addr": "Fitjar",
+  "g": "Bónus, Fitjar, 260 Reykjanesbær",
+  "words": [],
+  "ll": [
+   -22.543609,
+   63.972765
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
+  ]
+ },
+ {
   "name": "Costco",
   "cat": "store",
   "brand": "Costco",
@@ -483,6 +649,24 @@
   "muni": "Reykjavík",
   "postal": [
    "108"
+  ]
+ },
+ {
+  "name": "Elko Brautartorg",
+  "cat": "store",
+  "brand": "Elko",
+  "addr": "Brautartorg",
+  "g": "Elko, Brautartorg, 235 Reykjanesbær",
+  "words": [
+   "electronics"
+  ],
+  "ll": [
+   -22.622984,
+   63.996445
+  ],
+  "muni": "Suðurnesjabær",
+  "postal": [
+   "235"
   ]
  },
  {
@@ -600,6 +784,44 @@
   ]
  },
  {
+  "name": "Húsasmiðjan Larsenstræti",
+  "cat": "store",
+  "brand": "Húsasmiðjan",
+  "addr": "Larsenstræti 6",
+  "g": "Húsasmiðjan, Larsenstræti 6, 800 Selfoss",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -20.972755,
+   63.937411
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
+  "name": "Húsasmiðjan Græðisbraut",
+  "cat": "store",
+  "brand": "Húsasmiðjan",
+  "addr": "Græðisbraut 1",
+  "g": "Húsasmiðjan, Græðisbraut 1, 900 Vestmannaeyjar",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -20.276312,
+   63.441496
+  ],
+  "muni": "Vestmannaeyjar",
+  "postal": [
+   "900"
+  ]
+ },
+ {
   "name": "Húsasmiðjan Skútuvogur",
   "cat": "store",
   "brand": "Húsasmiðjan",
@@ -616,6 +838,25 @@
   "muni": "Reykjavík",
   "postal": [
    "104"
+  ]
+ },
+ {
+  "name": "Húsasmiðjan Egilsholt",
+  "cat": "store",
+  "brand": "Húsasmiðjan",
+  "addr": "Egilsholt 2",
+  "g": "Húsasmiðjan, Egilsholt 2, 310 Borgarnes",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -21.896383,
+   64.559433
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "310"
   ]
  },
  {
@@ -638,6 +879,25 @@
   ]
  },
  {
+  "name": "Húsasmiðjan Fitjar",
+  "cat": "store",
+  "brand": "Húsasmiðjan",
+  "addr": "Fitjar",
+  "g": "Húsasmiðjan, Fitjar, 260 Reykjanesbær",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -22.545816,
+   63.972932
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
+  ]
+ },
+ {
   "name": "Húsasmiðjan Dalshraun",
   "cat": "store",
   "brand": "Húsasmiðjan",
@@ -654,6 +914,25 @@
   "muni": "Hafnarfjörður",
   "postal": [
    "220"
+  ]
+ },
+ {
+  "name": "Húsasmiðjan Kalmansvellir",
+  "cat": "store",
+  "brand": "Húsasmiðjan",
+  "addr": "Kalmansvellir",
+  "g": "Húsasmiðjan, Kalmansvellir, 300 Akranes",
+  "words": [
+   "hardware",
+   "diy"
+  ],
+  "ll": [
+   -22.065107,
+   64.323792
+  ],
+  "muni": "Akranes",
+  "postal": [
+   "300"
   ]
  },
  {
@@ -690,6 +969,24 @@
   "muni": "Reykjavík",
   "postal": [
    "112"
+  ]
+ },
+ {
+  "name": "JYSK Austurvegur",
+  "cat": "store",
+  "brand": "JYSK",
+  "addr": "Austurvegur 3",
+  "g": "JYSK, Austurvegur 3, 800 Selfoss",
+  "words": [
+   "furniture"
+  ],
+  "ll": [
+   -21.001315,
+   63.937939
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
   ]
  },
  {
@@ -765,6 +1062,24 @@
   ]
  },
  {
+  "name": "JYSK Fitjar",
+  "cat": "store",
+  "brand": "JYSK",
+  "addr": "Fitjar 2",
+  "g": "JYSK, Fitjar 2, 260 Reykjanesbær",
+  "words": [
+   "furniture"
+  ],
+  "ll": [
+   -22.544064,
+   63.972701
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
+  ]
+ },
+ {
   "name": "Krónan Hallveigarstígur",
   "cat": "grocery",
   "brand": "Krónan",
@@ -829,6 +1144,70 @@
   ]
  },
  {
+  "name": "Krónan Selvogsbraut",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Selvogsbraut 12",
+  "g": "Krónan, Selvogsbraut 12, 815 Þorlákshöfn",
+  "words": [],
+  "ll": [
+   -21.381833,
+   63.857425
+  ],
+  "muni": "Ölfus",
+  "postal": [
+   "815"
+  ]
+ },
+ {
+  "name": "Krónan Austurvegur 3-5",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Austurvegur 3-5",
+  "g": "Krónan, Austurvegur 3-5, 800 Selfoss",
+  "words": [],
+  "ll": [
+   -21.001801,
+   63.937692
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
+  "name": "Krónan Austurvegur 20",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Austurvegur 20",
+  "g": "Krónan, Austurvegur 20, 870 Vík",
+  "words": [],
+  "ll": [
+   -18.99909,
+   63.417452
+  ],
+  "muni": "Mýrdalshreppur",
+  "postal": [
+   "870"
+  ]
+ },
+ {
+  "name": "Krónan Austurvegur 4",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Austurvegur 4",
+  "g": "Krónan, Austurvegur 4, 860 Hvolsvöllur",
+  "words": [],
+  "ll": [
+   -20.232649,
+   63.749937
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "860"
+  ]
+ },
+ {
   "name": "Krónan Bjarkarholt",
   "cat": "grocery",
   "brand": "Krónan",
@@ -861,6 +1240,22 @@
   ]
  },
  {
+  "name": "Krónan Strandvegur",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Strandvegur 48",
+  "g": "Krónan, Strandvegur 48, 900 Vestmannaeyjar",
+  "words": [],
+  "ll": [
+   -20.271438,
+   63.442493
+  ],
+  "muni": "Vestmannaeyjar",
+  "postal": [
+   "900"
+  ]
+ },
+ {
   "name": "Krónan Bíldshöfði",
   "cat": "grocery",
   "brand": "Krónan",
@@ -874,6 +1269,22 @@
   "muni": "Reykjavík",
   "postal": [
    "110"
+  ]
+ },
+ {
+  "name": "Krónan Fitjabraut",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Fitjabraut 5",
+  "g": "Krónan, Fitjabraut 5, 260 Reykjanesbær",
+  "words": [],
+  "ll": [
+   -22.544343,
+   63.98133
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
   ]
  },
  {
@@ -989,6 +1400,22 @@
   ]
  },
  {
+  "name": "Krónan Dalbraut",
+  "cat": "grocery",
+  "brand": "Krónan",
+  "addr": "Dalbraut 1",
+  "g": "Krónan, Dalbraut 1, 300 Akranes",
+  "words": [],
+  "ll": [
+   -22.069986,
+   64.321799
+  ],
+  "muni": "Akranes",
+  "postal": [
+   "300"
+  ]
+ },
+ {
   "name": "Krónan Vallakór",
   "cat": "grocery",
   "brand": "Krónan",
@@ -1034,6 +1461,38 @@
   "muni": "Reykjavík",
   "postal": [
    "108"
+  ]
+ },
+ {
+  "name": "Nettó Austurvegur",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Austurvegur 42",
+  "g": "Nettó, Austurvegur 42, 800 Selfoss",
+  "words": [],
+  "ll": [
+   -20.98985,
+   63.936754
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
+  "name": "Nettó Borgarbraut",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Borgarbraut 58-60",
+  "g": "Nettó, Borgarbraut 58-60, 310 Borgarnes",
+  "words": [],
+  "ll": [
+   -21.911829,
+   64.543145
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "310"
   ]
  },
  {
@@ -1101,6 +1560,22 @@
   ]
  },
  {
+  "name": "Nettó Eyravegur",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Eyravegur 42",
+  "g": "Nettó, Eyravegur 42, 800 Selfoss",
+  "words": [],
+  "ll": [
+   -21.015942,
+   63.932686
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
   "name": "Nettó Fiskislóð",
   "cat": "grocery",
   "brand": "Nettó",
@@ -1162,6 +1637,38 @@
   "muni": "Reykjavík",
   "postal": [
    "104"
+  ]
+ },
+ {
+  "name": "Nettó Aðalgata",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Aðalgata 64",
+  "g": "Nettó, Aðalgata 64, 230 Reykjanesbær",
+  "words": [],
+  "ll": [
+   -22.588706,
+   63.99871
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "230"
+  ]
+ },
+ {
+  "name": "Nettó Krossmói",
+  "cat": "grocery",
+  "brand": "Nettó",
+  "addr": "Krossmói 4",
+  "g": "Nettó, Krossmói 4, 260 Reykjanesbær",
+  "words": [],
+  "ll": [
+   -22.55058,
+   63.993341
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
   ]
  },
  {
@@ -1281,6 +1788,34 @@
   ]
  },
  {
+  "name": "Krossmói",
+  "cat": "mall",
+  "addr": "Krossmói 4",
+  "g": "Krossmói, 260 Reykjanesbær",
+  "ll": [
+   -22.550589,
+   63.99333
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
+  ]
+ },
+ {
+  "name": "Miðgarður",
+  "cat": "mall",
+  "addr": "Austurvegur 4",
+  "g": "Miðgarður, 800 Selfoss",
+  "ll": [
+   -21.00128,
+   63.93703
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
   "name": "Mjóddin",
   "cat": "mall",
   "addr": "",
@@ -1336,6 +1871,22 @@
   "muni": "Reykjavík",
   "postal": [
    "103"
+  ]
+ },
+ {
+  "name": "Búkolla nytjamarkaður",
+  "cat": "second",
+  "kind": "shop",
+  "addr": "Smiðjuvellir 9",
+  "g": "Búkolla nytjamarkaður, Smiðjuvellir 9, 300 Akranes",
+  "words": [],
+  "ll": [
+   -22.061226,
+   64.325949
+  ],
+  "muni": "Akranes",
+  "postal": [
+   "300"
   ]
  },
  {
@@ -1412,6 +1963,22 @@
   ]
  },
  {
+  "name": "Listhús",
+  "cat": "second",
+  "kind": "shop",
+  "addr": "Sólheimar",
+  "g": "Listhús, Sólheimar, 805 Selfoss",
+  "words": [],
+  "ll": [
+   -20.64516,
+   64.066038
+  ],
+  "muni": "Grímsnes- og Grafningshreppur",
+  "postal": [
+   "805"
+  ]
+ },
+ {
   "name": "Nytjamarkaður abc",
   "cat": "second",
   "kind": "shop",
@@ -1462,6 +2029,27 @@
   "muni": "Reykjavík",
   "postal": [
    "101"
+  ]
+ },
+ {
+  "name": "Aragerði",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.024,
+  "bb": [
+   -22.38629,
+   63.98444,
+   -22.38294,
+   63.98631
+  ],
+  "g": "Aragerði, 190 Vogar",
+  "ll": [
+   -22.384353,
+   63.985377
+  ],
+  "muni": "Vogar",
+  "postal": [
+   "190"
   ]
  },
  {
@@ -1696,27 +2284,6 @@
   ]
  },
  {
-  "name": "Eldborg",
-  "cat": "park",
-  "kind": "reserve",
-  "km2": 0.345,
-  "bb": [
-   -21.6465,
-   63.9952,
-   -21.63121,
-   64.00166
-  ],
-  "g": "Eldborg, 206 Kópavogur",
-  "ll": [
-   -21.638885,
-   63.99836
-  ],
-  "muni": "Kópavogur",
-  "postal": [
-   "206"
-  ]
- },
- {
   "name": "Elliðaárdalur",
   "cat": "park",
   "kind": "park",
@@ -1822,6 +2389,27 @@
   ]
  },
  {
+  "name": "Freyjulundur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.004,
+  "bb": [
+   -22.7328,
+   65.07319,
+   -22.73091,
+   65.0739
+  ],
+  "g": "Freyjulundur, 340 Stykkishólmur",
+  "ll": [
+   -22.731845,
+   65.073587
+  ],
+  "muni": "Stykkishólmur",
+  "postal": [
+   "340"
+  ]
+ },
+ {
   "name": "Fógetagarðurinn",
   "cat": "park",
   "kind": "park",
@@ -1906,6 +2494,27 @@
   ]
  },
  {
+  "name": "Gaujulundur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.002,
+  "bb": [
+   -20.24922,
+   63.44272,
+   -20.24807,
+   63.4431
+  ],
+  "g": "Gaujulundur, 900 Vestmannaeyjar",
+  "ll": [
+   -20.248638,
+   63.442909
+  ],
+  "muni": "Vestmannaeyjar",
+  "postal": [
+   "900"
+  ]
+ },
+ {
   "name": "Geislagarðurinn",
   "cat": "park",
   "kind": "park",
@@ -1987,6 +2596,27 @@
   "muni": "Seltjarnarnes",
   "postal": [
    "170"
+  ]
+ },
+ {
+  "name": "Guðlaugsblettur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.003,
+  "bb": [
+   -19.01154,
+   63.41783,
+   -19.01008,
+   63.41849
+  ],
+  "g": "Guðlaugsblettur, 870 Vík",
+  "ll": [
+   -19.010808,
+   63.418164
+  ],
+  "muni": "Mýrdalshreppur",
+  "postal": [
+   "870"
   ]
  },
  {
@@ -2137,6 +2767,27 @@
   ]
  },
  {
+  "name": "Hellisskógur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.493,
+  "bb": [
+   -20.9974,
+   63.94385,
+   -20.98515,
+   63.95677
+  ],
+  "g": "Hellisskógur, 800 Selfoss",
+  "ll": [
+   -20.991682,
+   63.950309
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
   "name": "Hermannsgarður í Guðmundarlundi",
   "cat": "park",
   "kind": "garden",
@@ -2239,6 +2890,27 @@
   "muni": "Kópavogur",
   "postal": [
    "200"
+  ]
+ },
+ {
+  "name": "Hveragarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.019,
+  "bb": [
+   -21.19032,
+   64.00015,
+   -21.18679,
+   64.00206
+  ],
+  "g": "Hveragarðurinn, 810 Hveragerði",
+  "ll": [
+   -21.188585,
+   64.001129
+  ],
+  "muni": "Hveragerði",
+  "postal": [
+   "810"
   ]
  },
  {
@@ -2365,6 +3037,27 @@
   "muni": "Reykjavík",
   "postal": [
    "105"
+  ]
+ },
+ {
+  "name": "Kveldúlfsvöllur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.003,
+  "bb": [
+   -21.9207,
+   64.53841,
+   -21.91926,
+   64.53935
+  ],
+  "g": "Kveldúlfsvöllur, 310 Borgarnes",
+  "ll": [
+   -21.919834,
+   64.539001
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "310"
   ]
  },
  {
@@ -2599,6 +3292,27 @@
   ]
  },
  {
+  "name": "Paimpol garður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.01,
+  "bb": [
+   -23.26325,
+   64.92145,
+   -23.25981,
+   64.92239
+  ],
+  "g": "Paimpol garður, 350 Grundarfjörður",
+  "ll": [
+   -23.261957,
+   64.921922
+  ],
+  "muni": "Grundarfjörður",
+  "postal": [
+   "350"
+  ]
+ },
+ {
   "name": "Rauðhólar",
   "cat": "park",
   "kind": "reserve",
@@ -2704,6 +3418,132 @@
   ]
  },
  {
+  "name": "Sigtúnsgarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.018,
+  "bb": [
+   -21.00411,
+   63.93479,
+   -21.00092,
+   63.93658
+  ],
+  "g": "Sigtúnsgarður, 800 Selfoss",
+  "ll": [
+   -21.002121,
+   63.935619
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
+  "name": "Sjómannagarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.004,
+  "bb": [
+   -23.70953,
+   64.89398,
+   -23.70798,
+   64.89485
+  ],
+  "g": "Sjómannagarðurinn, 355 Ólafsvík",
+  "ll": [
+   -23.708753,
+   64.894366
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "355"
+  ]
+ },
+ {
+  "name": "Skrúðgarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.009,
+  "bb": [
+   -22.55769,
+   64.0012,
+   -22.55454,
+   64.00235
+  ],
+  "g": "Skrúðgarður, 230 Reykjanesbær",
+  "ll": [
+   -22.556026,
+   64.001802
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "230"
+  ]
+ },
+ {
+  "name": "Skrúðgarður Njarðvíkur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.013,
+  "bb": [
+   -22.54828,
+   63.98728,
+   -22.54526,
+   63.98866
+  ],
+  "g": "Skrúðgarður Njarðvíkur, 260 Reykjanesbær",
+  "ll": [
+   -22.547487,
+   63.987963
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
+  ]
+ },
+ {
+  "name": "Skrúðgarðurinn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.016,
+  "bb": [
+   -21.18413,
+   64.00061,
+   -21.18126,
+   64.00269
+  ],
+  "g": "Skrúðgarðurinn, 810 Hveragerði",
+  "ll": [
+   -21.182988,
+   64.00152
+  ],
+  "muni": "Hveragerði",
+  "postal": [
+   "810"
+  ]
+ },
+ {
+  "name": "Skrúðgarðurinn Þorlákshöfn",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.011,
+  "bb": [
+   -21.3861,
+   63.85459,
+   -21.3832,
+   63.85584
+  ],
+  "g": "Skrúðgarðurinn Þorlákshöfn, 815 Þorlákshöfn",
+  "ll": [
+   -21.38465,
+   63.85517
+  ],
+  "muni": "Ölfus",
+  "postal": [
+   "815"
+  ]
+ },
+ {
   "name": "Skógræktarfélag Mosfellsbæjar Hamrahlíð",
   "cat": "park",
   "kind": "wood",
@@ -2746,6 +3586,27 @@
   ]
  },
  {
+  "name": "Stakkagerðistún",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.011,
+  "bb": [
+   -20.27034,
+   63.43919,
+   -20.26685,
+   63.44001
+  ],
+  "g": "Stakkagerðistún, 900 Vestmannaeyjar",
+  "ll": [
+   -20.268645,
+   63.439528
+  ],
+  "muni": "Vestmannaeyjar",
+  "postal": [
+   "900"
+  ]
+ },
+ {
   "name": "Stekkjarhraun",
   "cat": "park",
   "kind": "reserve",
@@ -2764,6 +3625,69 @@
   "muni": "Hafnarfjörður",
   "postal": [
    "221"
+  ]
+ },
+ {
+  "name": "Steðji (Staupasteinn)",
+  "cat": "park",
+  "kind": "reserve",
+  "km2": 0.032,
+  "bb": [
+   -21.54951,
+   64.3593,
+   -21.54251,
+   64.36078
+  ],
+  "g": "Steðji (Staupasteinn), 276 Mosfellsbær",
+  "ll": [
+   -21.546523,
+   64.360045
+  ],
+  "muni": "Kjósarhreppur",
+  "postal": [
+   "276"
+  ]
+ },
+ {
+  "name": "Thorkellinsgarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.007,
+  "bb": [
+   -22.51067,
+   63.97934,
+   -22.50744,
+   63.98012
+  ],
+  "g": "Thorkellinsgarður, 260 Reykjanesbær",
+  "ll": [
+   -22.509501,
+   63.979634
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
+  ]
+ },
+ {
+  "name": "Tryggvagarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.004,
+  "bb": [
+   -20.99877,
+   63.93666,
+   -20.99744,
+   63.9372
+  ],
+  "g": "Tryggvagarður, 800 Selfoss",
+  "ll": [
+   -20.998108,
+   63.936928
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
   ]
  },
  {
@@ -2788,6 +3712,27 @@
   ]
  },
  {
+  "name": "Tröð",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.015,
+  "bb": [
+   -23.88307,
+   64.91252,
+   -23.87981,
+   64.9139
+  ],
+  "g": "Tröð, 360 Hellissandur",
+  "ll": [
+   -23.881549,
+   64.91331
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "360"
+  ]
+ },
+ {
   "name": "Tungufoss",
   "cat": "park",
   "kind": "reserve",
@@ -2806,6 +3751,27 @@
   "muni": "Mosfellsbær",
   "postal": [
    "270"
+  ]
+ },
+ {
+  "name": "Ungmennafélagsgarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.009,
+  "bb": [
+   -20.31908,
+   64.12916,
+   -20.31651,
+   64.13018
+  ],
+  "g": "Ungmennafélagsgarður, 845 Flúðir",
+  "ll": [
+   -20.317801,
+   64.129672
+  ],
+  "muni": "Hrunamannahreppur",
+  "postal": [
+   "845"
   ]
  },
  {
@@ -2998,6 +3964,48 @@
   ]
  },
  {
+  "name": "Yndisgarðurinn á Hvanneyri",
+  "cat": "park",
+  "kind": "garden",
+  "km2": 0.004,
+  "bb": [
+   -21.76996,
+   64.56275,
+   -21.76836,
+   64.56349
+  ],
+  "g": "Yndisgarðurinn á Hvanneyri, 311 Borgarnes",
+  "ll": [
+   -21.769139,
+   64.56306
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "311"
+  ]
+ },
+ {
+  "name": "Yndisskógur",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.193,
+  "bb": [
+   -20.77192,
+   64.07754,
+   -20.76114,
+   64.08317
+  ],
+  "g": "Yndisskógur, 805 Selfoss",
+  "ll": [
+   -20.765278,
+   64.080515
+  ],
+  "muni": "Grímsnes- og Grafningshreppur",
+  "postal": [
+   "805"
+  ]
+ },
+ {
   "name": "Álafoss",
   "cat": "park",
   "kind": "reserve",
@@ -3145,6 +4153,57 @@
   ]
  },
  {
+  "name": "Þuríðargarður",
+  "cat": "park",
+  "kind": "park",
+  "km2": 0.008,
+  "bb": [
+   -21.0681,
+   63.83758,
+   -21.06526,
+   63.83864
+  ],
+  "g": "Þuríðargarður, 825 Stokkseyri",
+  "ll": [
+   -21.066779,
+   63.838113
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "825"
+  ]
+ },
+ {
+  "name": "Bjarnalaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Bjarnalaug, 300 Akranes",
+  "ll": [
+   -22.086058,
+   64.317436
+  ],
+  "muni": "Akranes",
+  "postal": [
+   "300"
+  ]
+ },
+ {
+  "name": "Brautarholtslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Brautarholtslaug, 804 Selfoss",
+  "ll": [
+   -20.520493,
+   64.021972
+  ],
+  "muni": "Skeiða- og Gnúpverjahreppur",
+  "postal": [
+   "804"
+  ]
+ },
+ {
   "name": "Breiðholtslaug",
   "cat": "pool",
   "kind": "pool",
@@ -3190,6 +4249,70 @@
   ]
  },
  {
+  "name": "Guðrúnarlaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [
+   "hot pot"
+  ],
+  "g": "Guðrúnarlaug, 371 Búðardalur",
+  "ll": [
+   -21.805565,
+   65.246403
+  ],
+  "muni": "Dalabyggð",
+  "postal": [
+   "371"
+  ]
+ },
+ {
+  "name": "Hreppslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Hreppslaug, 311 Borgarnes",
+  "ll": [
+   -21.702068,
+   64.53748
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "311"
+  ]
+ },
+ {
+  "name": "Hrunalaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [
+   "hot pot"
+  ],
+  "g": "Hrunalaug, 846 Flúðir",
+  "ll": [
+   -20.254961,
+   64.132868
+  ],
+  "muni": "Hrunamannahreppur",
+  "postal": [
+   "846"
+  ]
+ },
+ {
+  "name": "Jaðarsbakkalaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Jaðarsbakkalaug, 300 Akranes",
+  "ll": [
+   -22.059024,
+   64.318597
+  ],
+  "muni": "Akranes",
+  "postal": [
+   "300"
+  ]
+ },
+ {
   "name": "Klébergslaug",
   "cat": "pool",
   "kind": "pool",
@@ -3220,6 +4343,38 @@
   ]
  },
  {
+  "name": "Laugarvatnslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Laugarvatnslaug, 840 Laugarvatn",
+  "ll": [
+   -20.732041,
+   64.214226
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "840"
+  ]
+ },
+ {
+  "name": "Laugaskarð",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [
+   "hveragerdi pool"
+  ],
+  "g": "Laugaskarð, 810 Hveragerði",
+  "ll": [
+   -21.179732,
+   64.001834
+  ],
+  "muni": "Hveragerði",
+  "postal": [
+   "810"
+  ]
+ },
+ {
   "name": "Lágafellslaug",
   "cat": "pool",
   "kind": "pool",
@@ -3232,6 +4387,51 @@
   "muni": "Mosfellsbær",
   "postal": [
    "270"
+  ]
+ },
+ {
+  "name": "Lýsuhólslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Lýsuhólslaug, 356 Snæfellsbær",
+  "ll": [
+   -23.214498,
+   64.841511
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "356"
+  ]
+ },
+ {
+  "name": "Neslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Neslaug, 804 Selfoss",
+  "ll": [
+   -20.251408,
+   64.043245
+  ],
+  "muni": "Skeiða- og Gnúpverjahreppur",
+  "postal": [
+   "804"
+  ]
+ },
+ {
+  "name": "Reykholtslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Reykholtslaug, 806 Selfoss",
+  "ll": [
+   -20.445583,
+   64.174749
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "806"
   ]
  },
  {
@@ -3315,6 +4515,36 @@
   ]
  },
  {
+  "name": "Sundhöll Selfoss",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundhöll Selfoss, 800 Selfoss",
+  "ll": [
+   -20.998253,
+   63.935556
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
+  "name": "Sundlaug Grindavíkur",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaug Grindavíkur, 240 Grindavík",
+  "ll": [
+   -22.430931,
+   63.844433
+  ],
+  "muni": "Grindavík",
+  "postal": [
+   "240"
+  ]
+ },
+ {
   "name": "Sundlaug Kópavogs",
   "cat": "pool",
   "kind": "pool",
@@ -3332,6 +4562,220 @@
   ]
  },
  {
+  "name": "Sundlaug Njarðvíkur",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaug Njarðvíkur, 260 Reykjanesbær",
+  "ll": [
+   -22.54436,
+   63.98753
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
+  ]
+ },
+ {
+  "name": "Sundlaug Snæfellsbæjar",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [
+   "olafsvik pool"
+  ],
+  "g": "Sundlaug Snæfellsbæjar, 355 Ólafsvík",
+  "ll": [
+   -23.71294,
+   64.89677
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "355"
+  ]
+ },
+ {
+  "name": "Sundlaug Stokkseyrar",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaug Stokkseyrar, 825 Stokkseyri",
+  "ll": [
+   -21.063638,
+   63.837703
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "825"
+  ]
+ },
+ {
+  "name": "Sundlaug Stykkishólms",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaug Stykkishólms, 340 Stykkishólmur",
+  "ll": [
+   -22.729582,
+   65.07285
+  ],
+  "muni": "Stykkishólmur",
+  "postal": [
+   "340"
+  ]
+ },
+ {
+  "name": "Sundlaug Vestmannaeyja",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaug Vestmannaeyja, 900 Vestmannaeyjar",
+  "ll": [
+   -20.283768,
+   63.437115
+  ],
+  "muni": "Vestmannaeyjar",
+  "postal": [
+   "900"
+  ]
+ },
+ {
+  "name": "Sundlaug Þorlákshafnar",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaug Þorlákshafnar, 815 Þorlákshöfn",
+  "ll": [
+   -21.381699,
+   63.852434
+  ],
+  "muni": "Ölfus",
+  "postal": [
+   "815"
+  ]
+ },
+ {
+  "name": "Grettislaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [
+   "reykholar pool"
+  ],
+  "g": "Grettislaug, 380 Reykhólahreppur",
+  "ll": [
+   -22.200959,
+   65.445917
+  ],
+  "muni": "Reykhólahreppur",
+  "postal": [
+   "380"
+  ]
+ },
+ {
+  "name": "Sundlaugin á Hellu",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin á Hellu, 850 Hella",
+  "ll": [
+   -20.40016,
+   63.836777
+  ],
+  "muni": "Rangárþing ytra",
+  "postal": [
+   "850"
+  ]
+ },
+ {
+  "name": "Sundlaugin á Hvolsvelli",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin á Hvolsvelli, 860 Hvolsvöllur",
+  "ll": [
+   -20.229947,
+   63.753596
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "860"
+  ]
+ },
+ {
+  "name": "Sundlaugin á Húsafelli",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin á Húsafelli, 320 Reykholt í Borgarfirði",
+  "ll": [
+   -20.87115,
+   64.699272
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "320"
+  ]
+ },
+ {
+  "name": "Sundlaugin á Laugalandi",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin á Laugalandi, 851 Hella",
+  "ll": [
+   -20.416661,
+   63.915905
+  ],
+  "muni": "Rangárþing ytra",
+  "postal": [
+   "851"
+  ]
+ },
+ {
+  "name": "Sundlaugin í Vík",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin í Vík, 870 Vík",
+  "ll": [
+   -19.007943,
+   63.416883
+  ],
+  "muni": "Mýrdalshreppur",
+  "postal": [
+   "870"
+  ]
+ },
+ {
+  "name": "Sundlaugin að Hlöðum",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin að Hlöðum, 301 Akranes",
+  "ll": [
+   -21.6087,
+   64.410781
+  ],
+  "muni": "Hvalfjarðarsveit",
+  "postal": [
+   "301"
+  ]
+ },
+ {
+  "name": "Sundlaugin á Flúðum",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin á Flúðum, 845 Flúðir",
+  "ll": [
+   -20.324098,
+   64.12873
+  ],
+  "muni": "Hrunamannahreppur",
+  "postal": [
+   "845"
+  ]
+ },
+ {
   "name": "Suðurbæjarlaug",
   "cat": "pool",
   "kind": "pool",
@@ -3344,6 +4788,21 @@
   "muni": "Hafnarfjörður",
   "postal": [
    "220"
+  ]
+ },
+ {
+  "name": "Sælingsdalslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sælingsdalslaug, 371 Búðardalur",
+  "ll": [
+   -21.801508,
+   65.245859
+  ],
+  "muni": "Dalabyggð",
+  "postal": [
+   "371"
   ]
  },
  {
@@ -3374,6 +4833,24 @@
   "muni": "Mosfellsbær",
   "postal": [
    "270"
+  ]
+ },
+ {
+  "name": "Vatnaveröld",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [
+   "sundmidstod reykjanesbaejar",
+   "keflavik pool"
+  ],
+  "g": "Vatnaveröld, 230 Reykjanesbær",
+  "ll": [
+   -22.561065,
+   63.998591
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "230"
   ]
  },
  {
@@ -3472,16 +4949,1566 @@
   ]
  },
  {
+  "name": "Sundlaug Sandgerðis",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaug Sandgerðis, 245 Suðurnesjabær",
+  "ll": [
+   -22.700028,
+   64.033628
+  ],
+  "muni": "Suðurnesjabær",
+  "postal": [
+   "245"
+  ]
+ },
+ {
+  "name": "Sundlaugin á Borg",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin á Borg, 805 Selfoss",
+  "ll": [
+   -20.767449,
+   64.074491
+  ],
+  "muni": "Grímsnes- og Grafningshreppur",
+  "postal": [
+   "805"
+  ]
+ },
+ {
+  "name": "Sundlaugin í Borgarnesi",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin í Borgarnesi, 310 Borgarnes",
+  "ll": [
+   -21.922199,
+   64.54047
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "310"
+  ]
+ },
+ {
+  "name": "Sundlaugin í Garði",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin í Garði, 250 Suðurnesjabær",
+  "ll": [
+   -22.65442,
+   64.072341
+  ],
+  "muni": "Suðurnesjabær",
+  "postal": [
+   "250"
+  ]
+ },
+ {
+  "name": "Sundlaugin á Kleppjárnsreykjum",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin á Kleppjárnsreykjum, 320 Reykholt í Borgarfirði",
+  "ll": [
+   -21.401169,
+   64.655211
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "320"
+  ]
+ },
+ {
+  "name": "Sundlaugin á Varmalandi",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin á Varmalandi, 311 Borgarnes",
+  "ll": [
+   -21.593122,
+   64.690492
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "311"
+  ]
+ },
+ {
+  "name": "Sundlaugin í Vogum",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Sundlaugin í Vogum, 190 Vogar",
+  "ll": [
+   -22.382109,
+   63.984737
+  ],
+  "muni": "Vogar",
+  "postal": [
+   "190"
+  ]
+ },
+ {
+  "name": "Þjórsárdalslaug",
+  "cat": "pool",
+  "kind": "pool",
+  "words": [],
+  "g": "Þjórsárdalslaug, 804 Selfoss",
+  "ll": [
+   -19.811129,
+   64.160994
+  ],
+  "muni": "Skeiða- og Gnúpverjahreppur",
+  "postal": [
+   "804"
+  ]
+ },
+ {
+  "name": "Hallgrímskirkja",
+  "cat": "sight",
+  "kind": "church",
+  "en": "",
+  "words": [
+   "church"
+  ],
+  "g": "Hallgrímskirkja, Iceland",
+  "ll": [
+   -21.92667,
+   64.14177
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Harpa",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "concert hall",
+  "words": [
+   "concert hall"
+  ],
+  "g": "Harpa, Iceland",
+  "ll": [
+   -21.93253,
+   64.15035
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Sólfarið",
+  "cat": "sight",
+  "kind": "artwork",
+  "en": "Sun Voyager",
+  "words": [
+   "sun voyager",
+   "solfar"
+  ],
+  "g": "Sólfarið, Iceland",
+  "ll": [
+   -21.92226,
+   64.14761
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
   "name": "Perlan",
   "cat": "sight",
-  "g": "Perlan, Reykjavík",
+  "kind": "landmark",
+  "en": "",
+  "words": [
+   "pearl"
+  ],
+  "g": "Perlan, Iceland",
   "ll": [
-   -21.919006,
-   64.129246
+   -21.91901,
+   64.12925
   ],
   "muni": "Reykjavík",
   "postal": [
    "105"
+  ]
+ },
+ {
+  "name": "Alþingishúsið",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "Parliament House",
+  "words": [
+   "parliament",
+   "althingi"
+  ],
+  "g": "Alþingishúsið, Iceland",
+  "ll": [
+   -21.94026,
+   64.14667
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Tjörnin",
+  "cat": "sight",
+  "kind": "lake",
+  "en": "the Pond",
+  "words": [
+   "pond"
+  ],
+  "g": "Tjörnin, Iceland",
+  "ll": [
+   -21.94262,
+   64.14464
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Viðey",
+  "cat": "sight",
+  "kind": "island",
+  "en": "",
+  "words": [
+   "island",
+   "imagine peace tower"
+  ],
+  "g": "Viðey, Iceland",
+  "ll": [
+   -21.85404,
+   64.1644
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
+  ]
+ },
+ {
+  "name": "Árbæjarsafn",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "Open Air Museum",
+  "words": [
+   "open air museum"
+  ],
+  "g": "Árbæjarsafn, Iceland",
+  "ll": [
+   -21.8139,
+   64.11863
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "110"
+  ]
+ },
+ {
+  "name": "Gróttuviti",
+  "cat": "sight",
+  "kind": "lighthouse",
+  "en": "Grótta lighthouse",
+  "words": [
+   "grotta",
+   "lighthouse"
+  ],
+  "g": "Gróttuviti, Iceland",
+  "ll": [
+   -22.02196,
+   64.165
+  ],
+  "muni": "Seltjarnarnes",
+  "postal": [
+   "170"
+  ]
+ },
+ {
+  "name": "Esja",
+  "cat": "sight",
+  "kind": "mountain",
+  "en": "",
+  "words": [
+   "esjan",
+   "mountain"
+  ],
+  "g": "Esja, Iceland",
+  "ll": [
+   -21.65686,
+   64.24501
+  ],
+  "muni": "Kjósarhreppur",
+  "postal": [
+   "276"
+  ]
+ },
+ {
+  "name": "Þríhnúkagígur",
+  "cat": "sight",
+  "kind": "volcano",
+  "en": "",
+  "words": [
+   "inside the volcano",
+   "thrihnukagigur"
+  ],
+  "g": "Þríhnúkagígur, Iceland",
+  "ll": [
+   -21.69893,
+   63.99844
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "206"
+  ]
+ },
+ {
+  "name": "Reykjavíkurflugvöllur",
+  "cat": "sight",
+  "kind": "airport",
+  "en": "Reykjavík Airport",
+  "words": [
+   "domestic airport",
+   "airport"
+  ],
+  "g": "Reykjavíkurflugvöllur, Iceland",
+  "ll": [
+   -21.94,
+   64.13
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "102"
+  ]
+ },
+ {
+  "name": "Keflavíkurflugvöllur",
+  "cat": "sight",
+  "kind": "airport",
+  "en": "Keflavík Airport",
+  "words": [
+   "kef",
+   "international airport",
+   "airport"
+  ],
+  "g": "Keflavíkurflugvöllur, Iceland",
+  "ll": [
+   -22.6235,
+   63.985
+  ],
+  "muni": "Suðurnesjabær",
+  "postal": [
+   "235"
+  ]
+ },
+ {
+  "name": "Bláa lónið",
+  "cat": "sight",
+  "kind": "lagoon",
+  "en": "Blue Lagoon",
+  "words": [
+   "blue lagoon",
+   "lagoon"
+  ],
+  "g": "Bláa lónið, Iceland",
+  "ll": [
+   -22.44813,
+   63.87963
+  ],
+  "muni": "Grindavík",
+  "postal": [
+   "241"
+  ]
+ },
+ {
+  "name": "Brú milli heimsálfa",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "Bridge between Continents",
+  "words": [
+   "bridge between continents",
+   "leif the lucky bridge"
+  ],
+  "g": "Brú milli heimsálfa, Iceland",
+  "ll": [
+   -22.6754,
+   63.8684
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "233"
+  ]
+ },
+ {
+  "name": "Gunnuhver",
+  "cat": "sight",
+  "kind": "geothermal",
+  "en": "",
+  "words": [
+   "hot spring"
+  ],
+  "g": "Gunnuhver, Iceland",
+  "ll": [
+   -22.68418,
+   63.81944
+  ],
+  "muni": "Grindavík",
+  "postal": [
+   "241"
+  ]
+ },
+ {
+  "name": "Reykjanesviti",
+  "cat": "sight",
+  "kind": "lighthouse",
+  "en": "Reykjanes lighthouse",
+  "words": [
+   "lighthouse"
+  ],
+  "g": "Reykjanesviti, Iceland",
+  "ll": [
+   -22.70436,
+   63.81561
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "233"
+  ]
+ },
+ {
+  "name": "Seltún",
+  "cat": "sight",
+  "kind": "geothermal",
+  "en": "Krýsuvík geothermal area",
+  "words": [
+   "krysuvik"
+  ],
+  "g": "Seltún, Iceland",
+  "ll": [
+   -22.05552,
+   63.89525
+  ],
+  "muni": "Hafnarfjörður",
+  "postal": [
+   "241"
+  ]
+ },
+ {
+  "name": "Kleifarvatn",
+  "cat": "sight",
+  "kind": "lake",
+  "en": "",
+  "words": [
+   "lake"
+  ],
+  "g": "Kleifarvatn, Iceland",
+  "ll": [
+   -21.97539,
+   63.92713
+  ],
+  "muni": "Grindavík",
+  "postal": [
+   "241"
+  ]
+ },
+ {
+  "name": "Fagradalsfjall",
+  "cat": "sight",
+  "kind": "volcano",
+  "en": "",
+  "words": [
+   "geldingadalir",
+   "eruption",
+   "volcano"
+  ],
+  "g": "Fagradalsfjall, Iceland",
+  "ll": [
+   -22.2807,
+   63.89505
+  ],
+  "muni": "Grindavík",
+  "postal": [
+   "241"
+  ]
+ },
+ {
+  "name": "Glymur",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall"
+  ],
+  "g": "Glymur, Iceland",
+  "ll": [
+   -21.25146,
+   64.39081
+  ],
+  "muni": "Hvalfjarðarsveit",
+  "postal": [
+   "301"
+  ]
+ },
+ {
+  "name": "Deildartunguhver",
+  "cat": "sight",
+  "kind": "geothermal",
+  "en": "",
+  "words": [
+   "hot spring"
+  ],
+  "g": "Deildartunguhver, Iceland",
+  "ll": [
+   -21.41057,
+   64.66361
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "320"
+  ]
+ },
+ {
+  "name": "Krauma",
+  "cat": "sight",
+  "kind": "lagoon",
+  "en": "",
+  "words": [
+   "spa"
+  ],
+  "g": "Krauma, Iceland",
+  "ll": [
+   -21.4113,
+   64.66455
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "320"
+  ]
+ },
+ {
+  "name": "Snorrastofa",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "Snorri's Reykholt",
+  "words": [
+   "snorri sturluson",
+   "reykholt"
+  ],
+  "g": "Snorrastofa, Iceland",
+  "ll": [
+   -21.29339,
+   64.66471
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "320"
+  ]
+ },
+ {
+  "name": "Hraunfossar",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall",
+   "lava falls"
+  ],
+  "g": "Hraunfossar, Iceland",
+  "ll": [
+   -20.9806,
+   64.70256
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "320"
+  ]
+ },
+ {
+  "name": "Barnafoss",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall"
+  ],
+  "g": "Barnafoss, Iceland",
+  "ll": [
+   -20.97367,
+   64.70182
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "320"
+  ]
+ },
+ {
+  "name": "Víðgelmir",
+  "cat": "sight",
+  "kind": "cave",
+  "en": "",
+  "words": [
+   "lava cave"
+  ],
+  "g": "Víðgelmir, Iceland",
+  "ll": [
+   -20.8019,
+   64.75022
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "320"
+  ]
+ },
+ {
+  "name": "Grábrók",
+  "cat": "sight",
+  "kind": "volcano",
+  "en": "",
+  "words": [
+   "crater"
+  ],
+  "g": "Grábrók, Iceland",
+  "ll": [
+   -21.53121,
+   64.77146
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "311"
+  ]
+ },
+ {
+  "name": "Gerðuberg",
+  "cat": "sight",
+  "kind": "nature",
+  "en": "basalt columns",
+  "words": [
+   "basalt columns"
+  ],
+  "g": "Gerðuberg, Iceland",
+  "ll": [
+   -22.3594,
+   64.8606
+  ],
+  "muni": "Eyja- og Miklaholtshreppur",
+  "postal": [
+   "342"
+  ]
+ },
+ {
+  "name": "Ytri Tunga",
+  "cat": "sight",
+  "kind": "beach",
+  "en": "seal beach",
+  "words": [
+   "seals",
+   "seal beach"
+  ],
+  "g": "Ytri Tunga, Iceland",
+  "ll": [
+   -23.08055,
+   64.80397
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "356"
+  ]
+ },
+ {
+  "name": "Kirkjufell",
+  "cat": "sight",
+  "kind": "mountain",
+  "en": "",
+  "words": [
+   "church mountain",
+   "mountain"
+  ],
+  "g": "Kirkjufell, Iceland",
+  "ll": [
+   -23.30748,
+   64.93995
+  ],
+  "muni": "Grundarfjörður",
+  "postal": [
+   "351"
+  ]
+ },
+ {
+  "name": "Kirkjufellsfoss",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall"
+  ],
+  "g": "Kirkjufellsfoss, Iceland",
+  "ll": [
+   -23.31236,
+   64.92616
+  ],
+  "muni": "Grundarfjörður",
+  "postal": [
+   "351"
+  ]
+ },
+ {
+  "name": "Búðakirkja",
+  "cat": "sight",
+  "kind": "church",
+  "en": "Black Church at Búðir",
+  "words": [
+   "black church",
+   "budir"
+  ],
+  "g": "Búðakirkja, Iceland",
+  "ll": [
+   -23.38405,
+   64.82167
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "356"
+  ]
+ },
+ {
+  "name": "Rauðfeldsgjá",
+  "cat": "sight",
+  "kind": "nature",
+  "en": "",
+  "words": [
+   "gorge"
+  ],
+  "g": "Rauðfeldsgjá, Iceland",
+  "ll": [
+   -23.64785,
+   64.79912
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "356"
+  ]
+ },
+ {
+  "name": "Snæfellsjökull",
+  "cat": "sight",
+  "kind": "glacier",
+  "en": "",
+  "words": [
+   "glacier",
+   "volcano"
+  ],
+  "g": "Snæfellsjökull, Iceland",
+  "ll": [
+   -23.7919,
+   64.80699
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "356"
+  ]
+ },
+ {
+  "name": "Lóndrangar",
+  "cat": "sight",
+  "kind": "nature",
+  "en": "",
+  "words": [
+   "rock pillars"
+  ],
+  "g": "Lóndrangar, Iceland",
+  "ll": [
+   -23.7839,
+   64.73241
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "356"
+  ]
+ },
+ {
+  "name": "Djúpalónssandur",
+  "cat": "sight",
+  "kind": "beach",
+  "en": "",
+  "words": [
+   "black beach"
+  ],
+  "g": "Djúpalónssandur, Iceland",
+  "ll": [
+   -23.90157,
+   64.7524
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "356"
+  ]
+ },
+ {
+  "name": "Saxhóll",
+  "cat": "sight",
+  "kind": "volcano",
+  "en": "",
+  "words": [
+   "crater"
+  ],
+  "g": "Saxhóll, Iceland",
+  "ll": [
+   -23.92653,
+   64.85173
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "360"
+  ]
+ },
+ {
+  "name": "Bjarnarhöfn",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "shark museum",
+  "words": [
+   "shark museum"
+  ],
+  "g": "Bjarnarhöfn, Iceland",
+  "ll": [
+   -22.96325,
+   64.99743
+  ],
+  "muni": "Stykkishólmur",
+  "postal": [
+   "341"
+  ]
+ },
+ {
+  "name": "Eiríksstaðir",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "Erik the Red's farm",
+  "words": [
+   "erik the red",
+   "viking"
+  ],
+  "g": "Eiríksstaðir, Iceland",
+  "ll": [
+   -21.53843,
+   65.05863
+  ],
+  "muni": "Dalabyggð",
+  "postal": [
+   "371"
+  ]
+ },
+ {
+  "name": "Þingvellir",
+  "cat": "sight",
+  "kind": "nature",
+  "en": "national park",
+  "words": [
+   "thingvellir",
+   "national park",
+   "golden circle"
+  ],
+  "g": "Þingvellir, Iceland",
+  "ll": [
+   -21.12125,
+   64.2591
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "806"
+  ]
+ },
+ {
+  "name": "Silfra",
+  "cat": "sight",
+  "kind": "nature",
+  "en": "",
+  "words": [
+   "snorkeling",
+   "diving"
+  ],
+  "g": "Silfra, Iceland",
+  "ll": [
+   -21.11694,
+   64.25519
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "806"
+  ]
+ },
+ {
+  "name": "Geysir",
+  "cat": "sight",
+  "kind": "geothermal",
+  "en": "",
+  "words": [
+   "geyser",
+   "golden circle"
+  ],
+  "g": "Geysir, Iceland",
+  "ll": [
+   -20.29951,
+   64.31384
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "806"
+  ]
+ },
+ {
+  "name": "Strokkur",
+  "cat": "sight",
+  "kind": "geothermal",
+  "en": "",
+  "words": [
+   "geyser"
+  ],
+  "g": "Strokkur, Iceland",
+  "ll": [
+   -20.30077,
+   64.3127
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "806"
+  ]
+ },
+ {
+  "name": "Gullfoss",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall",
+   "golden circle"
+  ],
+  "g": "Gullfoss, Iceland",
+  "ll": [
+   -20.12168,
+   64.32661
+  ],
+  "muni": "Hrunamannahreppur",
+  "postal": [
+   "806"
+  ]
+ },
+ {
+  "name": "Kerið",
+  "cat": "sight",
+  "kind": "volcano",
+  "en": "",
+  "words": [
+   "crater",
+   "kerid"
+  ],
+  "g": "Kerið, Iceland",
+  "ll": [
+   -20.88452,
+   64.04096
+  ],
+  "muni": "Grímsnes- og Grafningshreppur",
+  "postal": [
+   "805"
+  ]
+ },
+ {
+  "name": "Faxi",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "vatnsleysufoss",
+   "waterfall"
+  ],
+  "g": "Faxi, Iceland",
+  "ll": [
+   -20.3365,
+   64.22511
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "806"
+  ]
+ },
+ {
+  "name": "Brúarfoss",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall"
+  ],
+  "g": "Brúarfoss, Iceland",
+  "ll": [
+   -20.51587,
+   64.26424
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "806"
+  ]
+ },
+ {
+  "name": "Fontana",
+  "cat": "sight",
+  "kind": "lagoon",
+  "en": "",
+  "words": [
+   "laugarvatn",
+   "spa"
+  ],
+  "g": "Fontana, Iceland",
+  "ll": [
+   -20.7296,
+   64.2147
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "840"
+  ]
+ },
+ {
+  "name": "Gamla laugin",
+  "cat": "sight",
+  "kind": "lagoon",
+  "en": "Secret Lagoon",
+  "words": [
+   "secret lagoon"
+  ],
+  "g": "Gamla laugin, Iceland",
+  "ll": [
+   -20.3091,
+   64.1376
+  ],
+  "muni": "Hrunamannahreppur",
+  "postal": [
+   "845"
+  ]
+ },
+ {
+  "name": "Friðheimar",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "tomato farm",
+  "words": [
+   "tomato"
+  ],
+  "g": "Friðheimar, Iceland",
+  "ll": [
+   -20.44485,
+   64.17743
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "806"
+  ]
+ },
+ {
+  "name": "Skálholtskirkja",
+  "cat": "sight",
+  "kind": "church",
+  "en": "Skálholt church",
+  "words": [
+   "skalholt",
+   "church"
+  ],
+  "g": "Skálholtskirkja, Iceland",
+  "ll": [
+   -20.52416,
+   64.12532
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "806"
+  ]
+ },
+ {
+  "name": "Hjálparfoss",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall"
+  ],
+  "g": "Hjálparfoss, Iceland",
+  "ll": [
+   -19.84978,
+   64.11587
+  ],
+  "muni": "Skeiða- og Gnúpverjahreppur",
+  "postal": [
+   "804"
+  ]
+ },
+ {
+  "name": "Gjáin",
+  "cat": "sight",
+  "kind": "nature",
+  "en": "",
+  "words": [
+   "gorge"
+  ],
+  "g": "Gjáin, Iceland",
+  "ll": [
+   -19.73626,
+   64.15018
+  ],
+  "muni": "Skeiða- og Gnúpverjahreppur",
+  "postal": [
+   "804"
+  ]
+ },
+ {
+  "name": "Þjóðveldisbærinn",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "Commonwealth Farm",
+  "words": [
+   "viking farm"
+  ],
+  "g": "Þjóðveldisbærinn, Iceland",
+  "ll": [
+   -19.82064,
+   64.11999
+  ],
+  "muni": "Skeiða- og Gnúpverjahreppur",
+  "postal": [
+   "804"
+  ]
+ },
+ {
+  "name": "Hekla",
+  "cat": "sight",
+  "kind": "volcano",
+  "en": "",
+  "words": [
+   "volcano"
+  ],
+  "g": "Hekla, Iceland",
+  "ll": [
+   -19.66582,
+   63.9927
+  ],
+  "muni": "Rangárþing ytra",
+  "postal": [
+   "851"
+  ]
+ },
+ {
+  "name": "Urriðafoss",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall"
+  ],
+  "g": "Urriðafoss, Iceland",
+  "ll": [
+   -20.67194,
+   63.9249
+  ],
+  "muni": "Flóahreppur",
+  "postal": [
+   "803"
+  ]
+ },
+ {
+  "name": "Raufarhólshellir",
+  "cat": "sight",
+  "kind": "cave",
+  "en": "",
+  "words": [
+   "lava tunnel",
+   "cave"
+  ],
+  "g": "Raufarhólshellir, Iceland",
+  "ll": [
+   -21.39718,
+   63.94024
+  ],
+  "muni": "Ölfus",
+  "postal": [
+   "816"
+  ]
+ },
+ {
+  "name": "Reykjadalur",
+  "cat": "sight",
+  "kind": "geothermal",
+  "en": "hot river",
+  "words": [
+   "hot river"
+  ],
+  "g": "Reykjadalur, Iceland",
+  "ll": [
+   -21.22219,
+   64.04797
+  ],
+  "muni": "Ölfus",
+  "postal": [
+   "816"
+  ]
+ },
+ {
+  "name": "Hellisheiðarvirkjun",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "geothermal power plant",
+  "words": [
+   "power plant",
+   "geothermal exhibition"
+  ],
+  "g": "Hellisheiðarvirkjun, Iceland",
+  "ll": [
+   -21.40006,
+   64.03679
+  ],
+  "muni": "Ölfus",
+  "postal": [
+   "816"
+  ]
+ },
+ {
+  "name": "Seljalandsfoss",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall"
+  ],
+  "g": "Seljalandsfoss, Iceland",
+  "ll": [
+   -19.98817,
+   63.61546
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "861"
+  ]
+ },
+ {
+  "name": "Gljúfrabúi",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall",
+   "hidden waterfall"
+  ],
+  "g": "Gljúfrabúi, Iceland",
+  "ll": [
+   -19.98634,
+   63.62076
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "861"
+  ]
+ },
+ {
+  "name": "Skógafoss",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall"
+  ],
+  "g": "Skógafoss, Iceland",
+  "ll": [
+   -19.51129,
+   63.5321
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "861"
+  ]
+ },
+ {
+  "name": "Kvernufoss",
+  "cat": "sight",
+  "kind": "waterfall",
+  "en": "",
+  "words": [
+   "waterfall"
+  ],
+  "g": "Kvernufoss, Iceland",
+  "ll": [
+   -19.48051,
+   63.52869
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "861"
+  ]
+ },
+ {
+  "name": "Skógasafn",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "Skógar Museum",
+  "words": [
+   "skogar museum"
+  ],
+  "g": "Skógasafn, Iceland",
+  "ll": [
+   -19.493,
+   63.52614
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "861"
+  ]
+ },
+ {
+  "name": "Seljavallalaug",
+  "cat": "sight",
+  "kind": "lagoon",
+  "en": "",
+  "words": [
+   "pool"
+  ],
+  "g": "Seljavallalaug, Iceland",
+  "ll": [
+   -19.60767,
+   63.56614
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "861"
+  ]
+ },
+ {
+  "name": "Eyjafjallajökull",
+  "cat": "sight",
+  "kind": "glacier",
+  "en": "",
+  "words": [
+   "volcano",
+   "glacier"
+  ],
+  "g": "Eyjafjallajökull, Iceland",
+  "ll": [
+   -19.62139,
+   63.62999
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "861"
+  ]
+ },
+ {
+  "name": "Sólheimajökull",
+  "cat": "sight",
+  "kind": "glacier",
+  "en": "",
+  "words": [
+   "glacier"
+  ],
+  "g": "Sólheimajökull, Iceland",
+  "ll": [
+   -19.37088,
+   63.53077
+  ],
+  "muni": "Mýrdalshreppur",
+  "postal": [
+   "871"
+  ]
+ },
+ {
+  "name": "Flugvélarflakið á Sólheimasandi",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "Sólheimasandur plane wreck",
+  "words": [
+   "plane wreck",
+   "dc-3"
+  ],
+  "g": "Sólheimasandur plane wreck, Iceland",
+  "ll": [
+   -19.3647,
+   63.4591
+  ],
+  "muni": "Mýrdalshreppur",
+  "postal": [
+   "871"
+  ]
+ },
+ {
+  "name": "Dyrhólaey",
+  "cat": "sight",
+  "kind": "nature",
+  "en": "",
+  "words": [
+   "arch",
+   "puffins"
+  ],
+  "g": "Dyrhólaey, Iceland",
+  "ll": [
+   -19.12663,
+   63.39883
+  ],
+  "muni": "Mýrdalshreppur",
+  "postal": [
+   "871"
+  ]
+ },
+ {
+  "name": "Reynisfjara",
+  "cat": "sight",
+  "kind": "beach",
+  "en": "black sand beach",
+  "words": [
+   "black beach",
+   "black sand beach"
+  ],
+  "g": "Reynisfjara, Iceland",
+  "ll": [
+   -19.06695,
+   63.40504
+  ],
+  "muni": "Mýrdalshreppur",
+  "postal": [
+   "871"
+  ]
+ },
+ {
+  "name": "Víkurkirkja",
+  "cat": "sight",
+  "kind": "church",
+  "en": "Vík church",
+  "words": [
+   "vik church"
+  ],
+  "g": "Víkurkirkja, Iceland",
+  "ll": [
+   -19.0029,
+   63.42052
+  ],
+  "muni": "Mýrdalshreppur",
+  "postal": [
+   "870"
+  ]
+ },
+ {
+  "name": "Mýrdalsjökull",
+  "cat": "sight",
+  "kind": "glacier",
+  "en": "",
+  "words": [
+   "katla",
+   "glacier"
+  ],
+  "g": "Mýrdalsjökull, Iceland",
+  "ll": [
+   -19.1335,
+   63.63006
+  ],
+  "muni": "Mýrdalshreppur",
+  "postal": [
+   "871"
+  ]
+ },
+ {
+  "name": "Þórsmörk",
+  "cat": "sight",
+  "kind": "nature",
+  "en": "",
+  "words": [
+   "thorsmork"
+  ],
+  "g": "Þórsmörk, Iceland",
+  "ll": [
+   -19.521,
+   63.68668
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "861"
+  ]
+ },
+ {
+  "name": "Lava Centre",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "",
+  "words": [
+   "lava center",
+   "hvolsvollur"
+  ],
+  "g": "Lava Centre, Iceland",
+  "ll": [
+   -20.23627,
+   63.75329
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "860"
+  ]
+ },
+ {
+  "name": "Landeyjahöfn",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "Vestmannaeyjar ferry port",
+  "words": [
+   "ferry",
+   "herjolfur"
+  ],
+  "g": "Landeyjahöfn, Iceland",
+  "ll": [
+   -20.11699,
+   63.5309
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "861"
+  ]
+ },
+ {
+  "name": "Eldfell",
+  "cat": "sight",
+  "kind": "volcano",
+  "en": "",
+  "words": [
+   "volcano"
+  ],
+  "g": "Eldfell, Iceland",
+  "ll": [
+   -20.24728,
+   63.43232
+  ],
+  "muni": "Vestmannaeyjar",
+  "postal": [
+   "900"
+  ]
+ },
+ {
+  "name": "Eldheimar",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "volcano museum",
+  "words": [
+   "pompeii of the north"
+  ],
+  "g": "Eldheimar, Iceland",
+  "ll": [
+   -20.26018,
+   63.43496
+  ],
+  "muni": "Vestmannaeyjar",
+  "postal": [
+   "900"
   ]
  },
  {
@@ -3628,26 +6655,6 @@
   "muni": "Reykjavík",
   "postal": [
    "112"
-  ]
- },
- {
-  "name": "Háholt",
-  "cat": "bus",
-  "kind": "hub",
-  "stops": "",
-  "lines": [
-   "7",
-   "15",
-   "27",
-   "29"
-  ],
-  "ll": [
-   -21.694363,
-   64.167132
-  ],
-  "muni": "Mosfellsbær",
-  "postal": [
-   "270"
   ]
  },
  {
@@ -4007,6 +7014,29 @@
   ]
  },
  {
+  "name": "Borgarnes",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "50",
+   "57",
+   "58",
+   "59",
+   "63",
+   "64",
+   "65"
+  ],
+  "ll": [
+   -21.91095,
+   64.543576
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "310"
+  ]
+ },
+ {
   "name": "Sogamýri",
   "cat": "bus",
   "kind": "stop",
@@ -4332,6 +7362,27 @@
   ]
  },
  {
+  "name": "Selfoss - N1",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "51",
+   "52",
+   "53",
+   "72",
+   "73"
+  ],
+  "ll": [
+   -20.987858,
+   63.936712
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
   "name": "FB",
   "cat": "bus",
   "kind": "stop",
@@ -4434,6 +7485,27 @@
   "muni": "Reykjavík",
   "postal": [
    "108"
+  ]
+ },
+ {
+  "name": "Selfoss - FSU",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "51",
+   "52",
+   "53",
+   "72",
+   "73"
+  ],
+  "ll": [
+   -20.999125,
+   63.932679
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
   ]
  },
  {
@@ -4757,6 +7829,26 @@
   ]
  },
  {
+  "name": "Selfoss - Ráðhúsið",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "51",
+   "52",
+   "72",
+   "73"
+  ],
+  "ll": [
+   -21.002319,
+   63.937359
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
   "name": "Smáralind",
   "cat": "bus",
   "kind": "stop",
@@ -4854,6 +7946,26 @@
   "muni": "Mosfellsbær",
   "postal": [
    "270"
+  ]
+ },
+ {
+  "name": "Baula",
+  "cat": "bus",
+  "kind": "stop",
+  "stops": "",
+  "lines": [
+   "57",
+   "59",
+   "63",
+   "65"
+  ],
+  "ll": [
+   -21.664953,
+   64.67497
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "311"
   ]
  },
  {

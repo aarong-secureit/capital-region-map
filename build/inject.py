@@ -1,10 +1,11 @@
 """Assign postal colours (greedy graph colouring) and inline data (and optional audio) into the HTML template.
 
-Usage: python inject.py MAPDATA_JSON TEMPLATE_HTML OUT_HTML [AUDIO_INDEX_JSON] [LANDMARKS_JSON] [POIS_JSON] [ALIASES_JSON]
+Usage: python inject.py MAPDATA_JSON TEMPLATE_HTML OUT_HTML [AUDIO_INDEX_JSON] [LANDMARKS_JSON] [POIS_JSON] [ALIASES_JSON] [ROADS_JSON]
 AUDIO_INDEX_JSON comes from make_audio.py (no listen buttons without it);
 LANDMARKS_JSON from landmarks.py (shares fall back to area middles without it);
 POIS_JSON from pois.py (shops, Perlan, bus hubs; none shown without it);
-ALIASES_JSON = aliases.json (other names people use, e.g. Holtin, Grandi).
+ALIASES_JSON = aliases.json (other names people use, e.g. Holtin, Grandi);
+ROADS_JSON from streets_geo.py (big roads, found by the search).
 """
 import json, sys
 from shapely.geometry import shape
@@ -14,6 +15,7 @@ audio_fn = sys.argv[4] if len(sys.argv) > 4 else None
 landmarks_fn = sys.argv[5] if len(sys.argv) > 5 else None
 pois_fn = sys.argv[6] if len(sys.argv) > 6 else None
 aliases_fn = sys.argv[7] if len(sys.argv) > 7 else None
+roads_fn = sys.argv[8] if len(sys.argv) > 8 else None
 d = json.load(open(data_fn))
 if landmarks_fn:
     d["landmarks"] = json.load(open(landmarks_fn, encoding="utf-8"))
@@ -22,6 +24,8 @@ d["pois"] = json.load(open(pois_fn, encoding="utf-8")) if pois_fn else []
 print("pois", len(d["pois"]))
 d["aliases"] = json.load(open(aliases_fn, encoding="utf-8")) if aliases_fn else {}
 print("aliases", len(d["aliases"]))
+d["roads"] = json.load(open(roads_fn, encoding="utf-8")) if roads_fn else []
+print("roads", len(d["roads"]))
 fs = d["postal"]["features"]
 geoms = [shape(f["geometry"]).buffer(0.0008) for f in fs]
 adj = {i: {j for j in range(len(fs)) if j != i and geoms[i].intersects(geoms[j])} for i in range(len(fs))}

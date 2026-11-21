@@ -19,6 +19,7 @@ build/out/
 __pycache__/
 *.pyc
 .venv/
+build/.venv-tts/
 venv/
 
 # OS / editors

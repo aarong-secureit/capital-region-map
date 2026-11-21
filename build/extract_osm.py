@@ -1,11 +1,10 @@
-"""Extract capital-region features from Iceland OSM extract."""
+"""Extract the map area's features from the Iceland OSM extract (area: region.py)."""
 import json, sys
 import osmium
+from region import W, S, E, N
 
 PBF = sys.argv[1]
 OUT = sys.argv[2]
-W, S, E, N = -22.15, 63.95, -21.30, 64.35
-
 def inb(lon, lat):
     return W <= lon <= E and S <= lat <= N
 
@@ -28,7 +27,7 @@ class H(osmium.SimpleHandler):
         t = n.tags
         pc = t.get("addr:postcode")
         if pc:
-            self.post_pts.append([round(lon, 6), round(lat, 6), pc, t.get("addr:street")])
+            self.post_pts.append([round(lon, 6), round(lat, 6), pc, t.get("addr:street"), t.get("addr:city") or t.get("addr:place")])
         if t.get("place") in PLACES and t.get("name"):
             self.place_nodes.append({"name": t["name"], "place": t["place"], "lon": lon, "lat": lat,
                                      "tags": {k.k: k.v for k in t}})
@@ -61,7 +60,7 @@ class H(osmium.SimpleHandler):
             lon = sum(p[0] for p in ring) / len(ring)
             lat = sum(p[1] for p in ring) / len(ring)
             if inb(lon, lat):
-                self.post_pts.append([round(lon, 6), round(lat, 6), pc, t.get("addr:street")])
+                self.post_pts.append([round(lon, 6), round(lat, 6), pc, t.get("addr:street"), t.get("addr:city") or t.get("addr:place")])
             return
         if keep == "admin":
             xs = [p[0] for p in g["coordinates"][0][0]]
@@ -73,7 +72,8 @@ class H(osmium.SimpleHandler):
         if pc:
             ring = g["coordinates"][0][0]
             self.post_pts.append([round(sum(p[0] for p in ring) / len(ring), 6),
-                                  round(sum(p[1] for p in ring) / len(ring), 6), pc, t.get("addr:street")])
+                                  round(sum(p[1] for p in ring) / len(ring), 6), pc, t.get("addr:street"),
+                                  t.get("addr:city") or t.get("addr:place")])
 
 h = H()
 h.apply_file(PBF, locations=True)

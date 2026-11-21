@@ -1,4 +1,5 @@
-"""Every street address (street + house number) in the capital region, for the Home / Work settings.
+"""Every street address (street + house number) on the map, for the Home / Work settings: the whole capital
+region, and the towns elsewhere (region.py).
 
 Reads OSM nodes and buildings tagged addr:street + addr:housenumber, keeps those inside the capital-region
 towns, takes the postcode from the map's postal areas, and writes a small JavaScript file the page loads
@@ -17,7 +18,7 @@ import osmium
 from shapely.geometry import shape, Point
 from shapely.strtree import STRtree
 
-W, S, E, N = -22.15, 63.95, -21.30, 64.35
+from region import W, S, E, N, town_filter
 
 
 class H(osmium.SimpleHandler):
@@ -53,8 +54,10 @@ def main(pbf, mapdata, out):
     d = json.load(open(mapdata, encoding="utf-8"))
     postal = [(f["properties"]["code"], shape(f["geometry"])) for f in d["postal"]["features"]]
     tree = STRtree([g for _, g in postal])
+    in_town = town_filter(d)
     h = H()
     h.apply_file(pbf, locations=True)
+    h.rows = [r for r in h.rows if in_town(r[2], r[3])]
     by = defaultdict(dict)                     # (street, postcode) -> {number: (lat, lon)}
     for st, num, lon, lat in h.rows:
         pt = Point(lon, lat)
