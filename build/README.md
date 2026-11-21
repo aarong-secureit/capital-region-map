@@ -74,3 +74,7 @@ Anything Cloudflare injects into the page (Web Analytics beacon, Rocket Loader, 
 blocked by the policy: keep those off, or add their sources to `csp_for()`.
 
 Upload `site.zip` in Cloudflare: Workers & Pages > your project > Create a new deployment > Production.
+
+Or let Cloudflare build from this GitHub repository on every push to `main`: create a Pages project with
+Connect to Git, framework preset None, build command `python build/make_site.py`, build output directory
+`site`. Cloudflare's build machines have no Pillow, so the icons come from `build/icons/`.

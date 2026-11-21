@@ -8,7 +8,8 @@ Adds what a hosted copy benefits from but the single local file doesn't need:
                       inline scripts (by hash, recomputed on every build), Leaflet from cdnjs and the tile servers
 
 Usage (from the project root):  python build/make_site.py
-Icons are drawn with Pillow if it is installed; otherwise existing icons in site/ are kept.
+Icons are drawn with Pillow if it is installed; otherwise the copies in build/icons/ are used (Cloudflare's
+build machines have no Pillow). After changing draw_icon(), copy the new site/*.png into build/icons/.
 """
 import base64, hashlib, json, re, shutil, zipfile
 from pathlib import Path
@@ -105,7 +106,9 @@ def main():
         for name, px in (("icon-192.png", 192), ("icon-512.png", 512), ("apple-touch-icon.png", 180)):
             draw_icon(px).save(SITE / name, optimize=True)
     except ImportError:
-        print("Pillow not installed: keeping existing icons in site/")
+        for name in ("icon-192.png", "icon-512.png", "apple-touch-icon.png"):
+            shutil.copy2(ROOT / "build" / "icons" / name, SITE / name)
+        print("Pillow not installed: using the icons in build/icons/")
     # pronunciation packs (the page plays slices of these; index.json is already embedded in the page)
     src_audio, dst_audio = ROOT / "_assets" / "audio", SITE / "_assets" / "audio"
     if dst_audio.exists():
