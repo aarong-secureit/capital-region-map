@@ -21,3 +21,6 @@ venv/
 .DS_Store
 .vscode/
 .idea/
+
+# Local Claude Code settings
+.claude/
