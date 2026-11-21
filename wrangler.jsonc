@@ -1,0 +1,12 @@
+// Cloudflare Workers static site. Cloudflare's Git build runs `python3 build/make_site.py` (writes site/),
+// then `npx wrangler deploy` uploads site/. No Worker script: every request is a static file, and
+// site/_headers (security headers, CSP) is applied by Cloudflare rather than served.
+// The Worker's name in the Cloudflare dashboard must match "name" below.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "capital-region-map",
+  "compatibility_date": "2026-11-21",
+  "assets": {
+    "directory": "./site"
+  }
+}

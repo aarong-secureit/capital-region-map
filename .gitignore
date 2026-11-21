@@ -2,6 +2,10 @@
 site/
 site.zip
 
+# Wrangler local state
+.wrangler/
+node_modules/
+
 # Downloaded inputs and voices used by the build scripts (large, re-downloadable)
 build/data/
 build/osm/
