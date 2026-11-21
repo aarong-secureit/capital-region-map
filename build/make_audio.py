@@ -104,7 +104,9 @@ def postal_words(code):
 # names an Icelandic voice would otherwise spell out or misread: say them the way Icelanders do
 SAY_AS = {"IKEA": "Íkea", "Costco": "Kostkó", "BYKO": "Býkó", "JYSK": "Jysk", "Bauhaus": "Báhás", "BSÍ": "bé ess í",
           "abc": "a bé sé", "KR": "ká err", "MR": "emm err", "FB": "eff bé", "FMOS": "eff emm o ess",
-          "RÚV": "Ríkisútvarpið, Rúv"}
+          "RÚV": "Ríkisútvarpið, Rúv", "N1": "enn einn", "FSU": "eff ess ú"}
+# names the Icelandic voice should not read: English names, and stray abbreviations in the street data
+NO_CLIP = {"Lava Centre", "DRE"}
 # "3.Gata" is "þriðja gata", not "three point street"; farm numbers like "Eyjar II" are read as "Eyjar tvö"
 ORDINAL = {1: "fyrsta", 2: "önnur", 3: "þriðja", 4: "fjórða", 5: "fimmta", 6: "sjötta", 7: "sjöunda", 8: "áttunda",
            9: "níunda", 10: "tíunda", 11: "ellefta", 12: "tólfta", 13: "þrettánda", 14: "fjórtánda", 15: "fimmtánda",
@@ -126,6 +128,9 @@ def spoken(name):
     t = re.sub(r"\(([^)]*)\)", r" \1 ", t)          # "Kjalarnes (dreifbýli)" -> "Kjalarnes dreifbýli"
     t = re.sub(r"\s+-\s+|-(?=[A-ZÁÐÉÍÓÚÝÞÆÖ])", " ", t)  # "Mjódd - norður", "Efra-Breiðholt"
     t = re.sub(r"\bN$", "norður", t)
+    # nn after a long vowel is a stopped "tn" (einn, steinn: espeak gets these). At the end of a word after
+    # á/é/í/ó/ú/ý/æ espeak drops it ("Grænn" -> "græn"); spelled "dn" it writes the stop, as it does for einn.
+    t = re.sub(r"([áéíóúýæÁÉÍÓÚÝÆ])nn\b", r"\1dn", t)
     return re.sub(r"\s+", " ", t).strip()
 
 
@@ -222,6 +227,8 @@ def name_texts(mapdata, pois_json=None, aliases_json=None, roads_json=None):
         c, town = f["properties"]["code"], f["properties"]["town"]
         if c.isdigit():
             texts["postal:" + c] = f"{postal_words(c)}, {town}"
+    for k in NO_CLIP:
+        texts.pop(k, None)
     return texts
 
 
