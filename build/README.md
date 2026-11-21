@@ -90,6 +90,7 @@ and `site.zip`. Cloudflare Workers allows 20,000 files per deploy on the free pl
 Security: `_headers` carries a Content-Security-Policy that lets only the page's own inline scripts run
 (pinned by SHA-256, recomputed by `make_site.py` on every build), plus Leaflet from cdnjs, which the page pins
 with an SRI `integrity` hash. Upgrading Leaflet means updating both URLs and both hashes in `template.html`.
+Permissions-Policy allows location and the microphone (🎤 search) for this site only.
 Anything Cloudflare injects into the page (Web Analytics beacon, Rocket Loader, email obfuscation) would be
 blocked by the policy: keep those off, or add their sources to `csp_for()`.
 

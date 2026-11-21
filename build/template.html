@@ -185,6 +185,11 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 /* settings: gear button + dialog */
 #gearBtn{display:flex;align-items:center;justify-content:center;flex:none;width:42px;height:42px;border:0;border-radius:8px;background:var(--navy);color:var(--gold);cursor:pointer;padding:0}
 #gearBtn svg{width:22px;height:22px}
+#micBtn{display:flex;align-items:center;justify-content:center;flex:none;width:42px;height:42px;border:0;border-radius:8px;background:var(--navy);color:var(--gold);cursor:pointer;padding:0}
+#micBtn[hidden]{display:none}
+#micBtn svg{width:22px;height:22px}
+#micBtn.listening{background:#C0392B;color:#fff;animation:micPulse 1.2s ease-in-out infinite}
+@keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,.55)}50%{box-shadow:0 0 0 7px rgba(192,57,43,0)}}
 #settings{width:min(440px,calc(100vw - 24px));max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);padding:0;border:0;border-radius:12px;
           background:var(--white);color:var(--ink);box-shadow:0 12px 40px rgba(0,0,0,.35)}
 #settings::backdrop{background:rgba(0,0,0,.45)}
@@ -309,7 +314,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
   .leaflet-top{top:calc(64px + env(safe-area-inset-top))}
   .leaflet-bottom{bottom:var(--peekvis)}
   .locbtn{width:44px;height:44px;font-size:22px;line-height:38px}
-  #gearBtn{width:44px;height:44px}
+  #gearBtn, #micBtn{width:44px;height:44px}
   .pl input{font-size:16px;padding:11px 10px}
   .seg span{padding:11px 0;font-size:15px}
   .searchbox{background:var(--white)}
@@ -334,6 +339,9 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
     <div class="searchbox">
       <div class="srow">
         <input id="q" type="search" maxlength="100" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Try: Holtin, arbaer, west Lindir, 105" aria-label="Search a neighbourhood, postal code or street">
+        <button id="micBtn" type="button" hidden aria-label="Say the name you heard" title="Say the name you heard (in Icelandic)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11.5" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
         <button id="layersBtn" type="button" aria-label="Layers and map options" title="Layers and map options">
           <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5Zm-7.6 8.9L2 13l10 5 10-5-2.4-1.1L12 15.7 4.4 11.9Zm0 4L2 17l10 5 10-5-2.4-1.1L12 19.7l-7.6-3.8Z" fill="currentColor"/></svg>
         </button>
@@ -1474,7 +1482,7 @@ function search(raw){
   }
   return res;
 }
-const qEl=document.getElementById("q"), resEl=document.getElementById("results");
+const qEl=document.getElementById("q"), resEl=document.getElementById("results"), PLACEHOLDER=qEl.placeholder;
 let cur=[], act=-1;
 function render(){
   resEl.innerHTML = cur.map((it,i)=>`<li><button type="button" data-i="${i}" class="${i===act?"active":""}">
@@ -1493,6 +1501,49 @@ function updateGLink(){
 map.on("moveend", updateGLink);
 let searchTimer = null;
 qEl.addEventListener("input",()=>{ updateGLink(); clearTimeout(searchTimer); searchTimer = setTimeout(()=>{ cur=search(qEl.value); act=cur.length?0:-1; render(); }, 60); });
+// ---------- say it: the browser's speech recognition, in Icelandic ----------
+// Chrome, Edge and Safari have it (the audio goes to their speech service: Google, Microsoft, Apple);
+// Firefox does not, so the button stays hidden there. Every guess the recogniser makes is searched.
+const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+const micBtn = document.getElementById("micBtn");
+let rec = null;
+function searchMany(qs){
+  const seen = new Set(), out = [];
+  for(const q of qs) for(const it of search(q)){
+    const key = it.kind + "|" + (it.ref._id || it.name + it.sub);
+    if(!seen.has(key)){ seen.add(key); out.push(it); }
+  }
+  return out.slice(0, 14);
+}
+if(SpeechRec && ON_WEB){
+  micBtn.hidden = false;
+  micBtn.addEventListener("click", () => {
+    if(rec){ rec.stop(); return; }
+    if(!store.micNote){ toast("Your browser’s speech service (Google in Chrome, Apple in Safari) turns what you say into text.", 7000); saveStore({micNote: true}); }
+    rec = new SpeechRec();
+    rec.lang = "is-IS"; rec.interimResults = true; rec.maxAlternatives = 5; rec.continuous = false;
+    micBtn.classList.add("listening"); micBtn.setAttribute("aria-pressed", "true");
+    qEl.placeholder = "Listening… say the name";
+    rec.onresult = e => {
+      const r = e.results[e.results.length - 1];
+      const alts = [...r].map(a => a.transcript.trim().replace(/[.!?,]+$/, "")).filter(Boolean);
+      if(!alts.length) return;
+      qEl.value = alts[0]; updateGLink();
+      if(r.isFinal){ cur = searchMany(alts); act = cur.length ? 0 : -1; render(); }
+    };
+    rec.onerror = e => {
+      const msg = {"not-allowed": "The microphone is blocked for this site. Allow it in your browser’s site settings, then try again.",
+                   "service-not-allowed": "Speech recognition is turned off in this browser.",
+                   "no-speech": "Didn’t hear anything. Tap the microphone and say the name.",
+                   "audio-capture": "No microphone found.",
+                   "network": "Speech recognition needs an internet connection.",
+                   "language-not-supported": "This browser can’t recognise Icelandic."}[e.error];
+      if(msg) toast(msg, 6000);
+    };
+    rec.onend = () => { rec = null; micBtn.classList.remove("listening"); micBtn.removeAttribute("aria-pressed"); qEl.placeholder = PLACEHOLDER; };
+    try { rec.start(); } catch(err) { rec.onend(); }
+  });
+}
 qEl.addEventListener("focus",()=>{ if(MOBILE.matches && sheet!=="peek") setSheet("peek"); });
 qEl.addEventListener("keydown",e=>{
   if(e.key==="ArrowDown"){ act=Math.min(cur.length-1,act+1); render(); e.preventDefault(); }

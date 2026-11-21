@@ -16,7 +16,8 @@ towns, villages, big roads and sights.
 
 - **Where is Holtin, Árbær, Selfoss or 105?** Regions, towns, neighbourhoods, districts and postal codes on one map.
 - **Search the way you hear it.** Icelandic letters are optional, near-misses still match, and everyday names
-  work too ("Holtin", "Grandi", "Downtown").
+  work too ("Holtin", "Grandi", "Downtown"). Or tap 🎤 and say the name (Chrome, Edge and Safari; the
+  browser's own speech service, Google or Apple, turns your voice into text).
 - **Hear the name.** Every place, street and point of interest has a 🔊 button with Icelandic pronunciation
   (generated offline with the Piper voice Ugla).
 - **Share any place.** Big areas share their well-known landmark (town hall, main church, shopping centre)
@@ -27,6 +28,7 @@ towns, villages, big roads and sights.
 - **What's here:** the area, town, region, postal code and nearest street wherever you tap.
 - **Home and Work pins** (up to three each), light/dark theme and your layer choices, all kept in your
   browser's local storage. Addresses are looked up in the page; nothing you type is sent anywhere.
+  (Only the 🎤 search leaves the page: your browser sends the audio to its speech service.)
 - **Show my location**, on your device only.
 - Works on phones, needs no API keys, and runs from a plain file.
 
