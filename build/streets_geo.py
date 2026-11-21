@@ -33,6 +33,8 @@ class H(osmium.SimpleHandler):
 
     def way(self, w):
         name, hw, ref = w.tags.get("name"), w.tags.get("highway"), w.tags.get("ref")
+        if name and not any(c.isalpha() for c in name):
+            name = None                                             # roads named just "4" (OSM slips)
         if hw not in KINDS or not (name or (hw in BIG_ROADS and ref)):
             return
         try:

@@ -206,8 +206,9 @@ def encode_clip(pcm, path):
                     "-codec:a", "libmp3lame", "-b:a", "32k", str(path)], input=bytes(pcm), check=True)
 
 
-def name_texts(mapdata, pois_json=None, aliases_json=None, roads_json=None):
-    """Every name the map can play: key -> what the voice says."""
+def name_texts(mapdata, pois_json=None, aliases_json=None, roads_json=None, streets_js=None):
+    """Every name the map can play: key -> what the voice says. streets_js (_assets/streets.js) adds the
+    roads "Nearest street" can name that have no addresses (Þormóðsdalsvegur)."""
     d = json.load(open(Path(mapdata).resolve(), encoding="utf-8"))
     texts = {}
     for k in ("zones", "munis", "districts", "hverfi", "nbh", "small"):
@@ -223,6 +224,11 @@ def name_texts(mapdata, pois_json=None, aliases_json=None, roads_json=None):
         for r in json.load(open(Path(roads_json).resolve(), encoding="utf-8")):
             if not r["name"].startswith("Route "):
                 texts.setdefault(r["name"], spoken(r["name"]))
+    if streets_js and Path(streets_js).exists():
+        js = Path(streets_js).read_text(encoding="utf-8")
+        for name in json.loads(js[js.index("=") + 1:].rstrip().rstrip(";").replace("<\\/", "</")):
+            if not name.startswith("Route ") and re.search(r"[^\W\d_]{2}", name):
+                texts.setdefault(name, spoken(name))
     for f in d["postal"]["features"]:
         c, town = f["properties"]["code"], f["properties"]["town"]
         if c.isdigit():
@@ -240,7 +246,7 @@ def clips(voice_onnx, mapdata, out_dir, pois_json=None, aliases_json=None, roads
     index = json.loads(ip.read_text(encoding="utf-8")) if ip.exists() and not redo else {"next": 0, "clips": {}}
     if "files" in index:
         sys.exit("index.json still describes packs: run  make_audio.py split OUT_DIR  first")
-    texts = name_texts(mapdata, pois_json, aliases_json, roads_json)
+    texts = name_texts(mapdata, pois_json, aliases_json, roads_json, streets_js=out.parent / "streets.js")
     gone = [k for k in index["clips"] if k not in texts]
     for k in gone:                                           # names no longer on the map
         (cdir / f"{index['clips'].pop(k)}.mp3").unlink(missing_ok=True)
