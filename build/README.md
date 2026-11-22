@@ -34,7 +34,10 @@ python inject.py data/mapdata.json template.html ../capital-region-map.html ../_
 - `pois.py`: every Bónus, Krónan, Nettó and Hagkaup, and in towns without one their own grocery store
   (`LOCAL_GROCERIES`: Kjörbúðin, Krambúðin, the kaupfélag...); shopping centres (Spöngin placed by hand in `MANUAL_MALLS`); second-hand shops and Kolaportið; big stores
   (Costco, IKEA, Elko, BYKO, Húsasmiðjan, Bauhaus, JYSK); sights (`SIGHTS`, about 150 hand-picked: Hallgrímskirkja,
-  Gullfoss, Geysir, Seljalandsfoss, Bláa lónið, Kirkjufell, the airports...); public swimming pools (`POOLS`, by name);
+  Gullfoss, Geysir, Seljalandsfoss, Bláa lónið, Kirkjufell, the airports...; an English name written as a name,
+  "Blue Lagoon", gets its own search row, a lower-case one, "canyon", only describes); public services in the
+  capital region and Akureyri (`CIVIC`: universities, hospitals, Skatturinn, Sýslumaður, Útlendingastofnun, Vinnumálastofnun,
+  Þjóðskrá, the National Archives and Library; own layer); public swimming pools (`POOLS`, by name);
   named parks, gardens, nature areas and big woods (green labels, sized by area; outside the capital region
   only parks in towns); and bus places: Strætó's transfer hubs
   (`HUBS`, from straeto.is), Hlemmur and Lækjartorg, the BSÍ terminal, and other big stops with lettered
@@ -54,7 +57,8 @@ python inject.py data/mapdata.json template.html ../capital-region-map.html ../_
   point (which picked short cross streets on long roads like Brautarholt).
 - `aliases.json`: other names people use for a place (Holtin → Holt, Grandi → Örfirisey, Downtown → Miðbær).
   Search finds the place by them and its details list them as "Also called". Mark English names `"en"`
-  (not voiced) and grammatical forms `"case"` (úti á Granda: search only, not listed or voiced).
+  (not voiced; search shows them as their own row, marked English) and forms that only differ by grammar `"case"` (Holtin = the Holt, úti á Granda: search
+  only, not listed or voiced). A form that is what everyone calls the place, like Kringlan, stays listed.
 - Pronunciation rules live in `make_audio.py` (`load_voice()`, `post()`, `spoken()`). They were tuned with an
   automatic listening check (Whisper large-v3-turbo transcribing every clip, scored by sound). The main lesson:
   feed the voice espeak's phonemes as espeak writes them; "correcting" them to IPA it never trained on drops sounds.

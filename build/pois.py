@@ -22,7 +22,10 @@ From the Iceland OSM extract:
     the stops at an airport, a ferry port (FERRY) or a sight on this map, and any where 4 or more lines meet
     (Baula). Stops come from OSM's route relations.
   - well-known sights and tourist attractions (SIGHTS, placed by hand from OSM: Hallgrímskirkja, Gullfoss,
-    Seljalandsfoss, Bláa lónið, Kirkjufell...)
+    Seljalandsfoss, Bláa lónið, Kirkjufell...). An English name that is a name (capitalised, "Blue Lagoon")
+    gets its own search row; a lower-case one ("canyon") only describes the place.
+  - public services people new to Iceland need (CIVIC: universities, hospitals, Skatturinn, Sýslumaður,
+    Útlendingastofnun, Vinnumálastofnun, Þjóðskrá, the National Archives and Library), in the capital region and Akureyri
 Only places inside the map's municipalities are kept (region.py). Outside the capital region, parks are kept
 only in towns; big nature areas show up as sights instead.
 
@@ -37,6 +40,34 @@ import region as R
 
 from region import W, S, E, N
 GROCERY = ("Bónus", "Krónan", "Nettó", "Hagkaup")
+# public services people new to Iceland need: (name shown, lat, lng, English name, kind, extra search words).
+# Coordinates from OSM (2026-11); addresses checked on the offices' own pages (island.is, skatturinn.is),
+# Skatturinn (OSM still has the old offices) placed at its address.
+CIVIC = [
+    ("Háskóli Íslands", 64.14052, -21.94945, "University of Iceland", "university", ["university"]),
+    ("Háskólinn í Reykjavík", 64.12441, -21.92777, "Reykjavík University", "university", ["university"]),
+    ("Listaháskóli Íslands", 64.13687, -21.90279, "Iceland University of the Arts", "university",
+     ["university", "art school", "arts university", "academy of the arts"]),
+    ("Háskólinn á Akureyri", 65.68545, -18.12135, "University of Akureyri", "university", ["university"]),
+    ("Landspítali", 64.13773, -21.92980, "National University Hospital", "hospital", ["hospital", "landspitali hringbraut"]),
+    ("Landspítali Fossvogi", 64.12141, -21.89049, "Fossvogur Hospital (emergency room)", "hospital",
+     ["hospital", "emergency", "emergency room", "accident and emergency", "bráðamóttaka", "slysadeild"]),
+    ("Sjúkrahúsið á Akureyri", 65.67322, -18.09345, "Akureyri Hospital", "hospital", ["hospital", "emergency", "emergency room", "bráðamóttaka"]),
+    ("Þjóðskrá Íslands", 64.14633, -21.90226, "Registers Iceland", "office", ["kennitala", "id number", "national registry", "registry"]),
+    ("Útlendingastofnun", 64.10555, -21.87077, "Directorate of Immigration", "office", ["immigration", "residence permit", "utl"]),
+    ("Vinnumálastofnun", 64.13162, -21.87341, "Directorate of Labour", "office",
+     ["labour", "labor", "directorate of labor", "unemployment", "unemployment benefits", "jobs", "work permit", "vmst"]),
+    ("Vinnumálastofnun Akureyri", 65.68162, -18.08942, "Directorate of Labour", "office",
+     ["labour", "labor", "directorate of labor", "unemployment", "unemployment benefits", "jobs", "work permit", "vmst"]),
+    ("Skatturinn", 64.14393, -21.90791, "Iceland Revenue and Customs", "office", ["tax office", "tax", "customs", "skattkort", "rsk"]),
+    ("Skatturinn Akureyri", 65.68130, -18.09025, "Iceland Revenue and Customs", "office", ["tax office", "tax", "customs", "skattkort", "rsk"]),
+    ("Sýslumaðurinn á höfuðborgarsvæðinu", 64.09793, -21.89011, "District Commissioner", "office",
+     ["district office", "syslumadur", "passport", "driving licence", "driver's license", "notary"]),
+    ("Sýslumaðurinn á Norðurlandi eystra", 65.68221, -18.09168, "District Commissioner", "office",
+     ["district office", "syslumadur", "passport", "driving licence", "driver's license", "notary"]),
+    ("Þjóðskjalasafn Íslands", 64.14225, -21.90669, "National Archives of Iceland", "archive", ["archives", "national archives"]),
+    ("Þjóðarbókhlaðan", 64.14279, -21.95083, "National and University Library", "library", ["national library", "library", "landsbokasafn"]),
+]
 # big stores: brand -> OSM shop values it may carry
 STORES = {"Costco": {"wholesale"}, "IKEA": {"furniture"}, "Elko": {"electronics"}, "BYKO": {"doityourself", "hardware"},
           "Húsasmiðjan": {"doityourself", "hardware"}, "Bauhaus": {"doityourself", "hardware"}, "JYSK": {"furniture"}}
@@ -46,28 +77,39 @@ STORE_SKIP = re.compile(r"Timbursala|Leigumarkað")          # BYKO's lumber yar
 # the Sólheimasandur plane wreck).
 SIGHTS = [
     # capital region
-    ("Hallgrímskirkja", 64.14177, -21.92667, "", "church", ["church"]),
-    ("Harpa", 64.15035, -21.93253, "concert hall", "landmark", ["concert hall"]),
+    ("Hallgrímskirkja", 64.14177, -21.92667, "Hallgrím's Church", "church", ["church"]),
+    ("Harpa", 64.15035, -21.93253, "Harpa Concert Hall", "landmark", ["concert hall"]),
     ("Sólfarið", 64.14761, -21.92226, "Sun Voyager", "artwork", ["sun voyager", "solfar"]),
-    ("Perlan", 64.12925, -21.91901, "", "landmark", ["pearl"]),
+    ("Perlan", 64.12925, -21.91901, "The Pearl", "landmark", ["pearl"]),
     ("Alþingishúsið", 64.14667, -21.94026, "Parliament House", "landmark", ["parliament", "althingi"]),
-    ("Tjörnin", 64.14464, -21.94262, "the Pond", "lake", ["pond"]),
-    ("Viðey", 64.16440, -21.85404, "", "island", ["island", "imagine peace tower"]),
+    ("Tjörnin", 64.14464, -21.94262, "The Pond", "lake", ["pond"]),
+    ("Viðey", 64.16440, -21.85404, "Viðey Island", "island", ["island", "imagine peace tower"]),
     ("Árbæjarsafn", 64.11863, -21.81390, "Open Air Museum", "museum", ["open air museum"]),
-    ("Gróttuviti", 64.16500, -22.02196, "Grótta lighthouse", "lighthouse", ["grotta", "lighthouse"]),
-    ("Esja", 64.24501, -21.65686, "", "mountain", ["esjan", "mountain"]),
+    ("Gróttuviti", 64.16500, -22.02196, "Grótta Lighthouse", "lighthouse", ["grotta", "lighthouse"]),
+    ("Esja", 64.24501, -21.65686, "Mount Esja", "mountain", ["esjan", "mountain"]),
     ("Þríhnúkagígur", 63.99844, -21.69893, "", "volcano", ["inside the volcano", "thrihnukagigur"]),
     ("Reykjavíkurflugvöllur", 64.13000, -21.94000, "Reykjavík Airport", "airport", ["domestic airport", "airport"]),
+    ("Ráðhús Reykjavíkur", 64.14613, -21.94238, "Reykjavík City Hall", "public", ["city hall", "town hall", "mayor", "mayor's office", "radhusid"]),
+    ("Stjórnarráðshúsið", 64.14730, -21.93524, "Prime Minister's Office", "public", ["government house", "prime minister", "stjornarradid"]),
+    ("Bessastaðir", 64.10593, -21.99585, "President's Residence", "public", ["president", "president's house", "presidential residence", "forseti"]),
+    ("Höfði", 64.14653, -21.90638, "Höfði House", "landmark", ["reagan gorbachev", "summit house", "hofdi"]),
+    ("Dómkirkjan", 64.14665, -21.93934, "Reykjavík Cathedral", "church", ["cathedral", "domkirkjan"]),
+    ("Landakotskirkja", 64.14744, -21.94855, "Landakot Cathedral", "church", ["catholic church", "catholic cathedral", "christ the king", "kristskirkja"]),
+    ("Þjóðminjasafn Íslands", 64.14200, -21.94813, "National Museum of Iceland", "museum", ["national museum", "thjodminjasafnid"]),
+    ("Listasafn Íslands", 64.14411, -21.93922, "National Gallery of Iceland", "museum", ["national gallery", "art museum"]),
+    ("Þjóðleikhúsið", 64.14727, -21.93108, "National Theatre", "landmark", ["theatre", "theater", "national theater"]),
+    ("Gamla höfnin", 64.15167, -21.94210, "Old Harbour", "landmark", ["old harbor", "harbour", "harbor", "whale watching"]),
+    ("Laugardalsvöllur", 64.14354, -21.87892, "National Stadium", "landmark", ["stadium", "football stadium"]),
     # Reykjanes and Faxaflói
     ("Keflavíkurflugvöllur", 63.98500, -22.62350, "Keflavík Airport", "airport", ["kef", "international airport", "airport"]),
     ("Bláa lónið", 63.87963, -22.44813, "Blue Lagoon", "lagoon", ["blue lagoon", "lagoon"]),
     ("Brú milli heimsálfa", 63.86840, -22.67540, "Bridge between Continents", "landmark", ["bridge between continents", "leif the lucky bridge"]),
     ("Gunnuhver", 63.81944, -22.68418, "", "geothermal", ["hot spring"]),
-    ("Reykjanesviti", 63.81561, -22.70436, "Reykjanes lighthouse", "lighthouse", ["lighthouse"]),
+    ("Reykjanesviti", 63.81561, -22.70436, "Reykjanes Lighthouse", "lighthouse", ["lighthouse"]),
     ("Seltún", 63.89525, -22.05552, "Krýsuvík geothermal area", "geothermal", ["krysuvik"]),
     ("Kleifarvatn", 63.92713, -21.97539, "", "lake", ["lake"]),
     ("Fagradalsfjall", 63.89505, -22.28070, "", "volcano", ["geldingadalir", "eruption", "volcano"]),
-    ("Akranesviti", 64.30882, -22.09495, "Akranes lighthouse", "lighthouse", ["lighthouse"]),
+    ("Akranesviti", 64.30882, -22.09495, "Akranes Lighthouse", "lighthouse", ["lighthouse"]),
     ("Glymur", 64.39081, -21.25146, "", "waterfall", ["waterfall"]),
     ("Deildartunguhver", 64.66361, -21.41057, "", "geothermal", ["hot spring"]),
     ("Krauma", 64.66455, -21.41130, "", "lagoon", ["spa"]),
@@ -90,7 +132,7 @@ SIGHTS = [
     ("Bjarnarhöfn", 64.99743, -22.96325, "shark museum", "museum", ["shark museum"]),
     ("Eiríksstaðir", 65.05863, -21.53843, "Erik the Red's farm", "museum", ["erik the red", "viking"]),
     # South Iceland
-    ("Þingvellir", 64.25910, -21.12125, "national park", "nature", ["thingvellir", "national park", "golden circle"]),
+    ("Þingvellir", 64.25910, -21.12125, "Þingvellir National Park", "nature", ["thingvellir", "national park", "golden circle"]),
     ("Silfra", 64.25519, -21.11694, "", "nature", ["snorkeling", "diving"]),
     ("Geysir", 64.31384, -20.29951, "", "geothermal", ["geyser", "golden circle"]),
     ("Strokkur", 64.31270, -20.30077, "", "geothermal", ["geyser"]),
@@ -101,7 +143,7 @@ SIGHTS = [
     ("Fontana", 64.21470, -20.72960, "", "lagoon", ["laugarvatn", "spa"]),
     ("Gamla laugin", 64.13760, -20.30910, "Secret Lagoon", "lagoon", ["secret lagoon"]),
     ("Friðheimar", 64.17743, -20.44485, "tomato farm", "landmark", ["tomato"]),
-    ("Skálholtskirkja", 64.12532, -20.52416, "Skálholt church", "church", ["skalholt", "church"]),
+    ("Skálholtskirkja", 64.12532, -20.52416, "Skálholt Cathedral", "church", ["skalholt", "church"]),
     ("Hjálparfoss", 64.11587, -19.84978, "", "waterfall", ["waterfall"]),
     ("Gjáin", 64.15018, -19.73626, "", "nature", ["gorge"]),
     ("Þjóðveldisbærinn", 64.11999, -19.82064, "Commonwealth Farm", "museum", ["viking farm"]),
@@ -122,7 +164,7 @@ SIGHTS = [
     ("Dyrhólaey", 63.39883, -19.12663, "", "nature", ["arch", "puffins"]),
     ("Reynisfjara", 63.40504, -19.06695, "black sand beach", "beach", ["black beach", "black sand beach"]),
     ("Reynisdrangar", 63.39894, -19.03379, "", "nature", ["sea stacks"]),
-    ("Víkurkirkja", 63.42052, -19.00290, "Vík church", "church", ["vik church"]),
+    ("Víkurkirkja", 63.42052, -19.00290, "Vík Church", "church", ["vik church"]),
     ("Mýrdalsjökull", 63.63006, -19.13350, "", "glacier", ["katla", "glacier"]),
     ("Þórsmörk", 63.68668, -19.52100, "", "nature", ["thorsmork"]),
     ("Lava Centre", 63.75329, -20.23627, "", "museum", ["lava center", "hvolsvollur"]),
@@ -136,11 +178,11 @@ SIGHTS = [
     ("Eldgjá", 63.96441, -18.61217, "fire canyon", "volcano", ["ofaerufoss", "canyon"]),
     ("Skaftafell", 64.01645, -16.96646, "", "nature", ["national park", "hiking"]),
     ("Svartifoss", 64.02772, -16.97529, "", "waterfall", ["waterfall", "black falls"]),
-    ("Hvannadalshnúkur", 64.01415, -16.67696, "Iceland's highest peak", "mountain", ["highest mountain"]),
+    ("Hvannadalshnúkur", 64.01415, -16.67696, "highest peak in Iceland", "mountain", ["highest mountain"]),
     ("Vatnajökull", 64.38297, -16.92576, "", "glacier", ["glacier", "national park"]),
     ("Hofskirkja", 63.90704, -16.70673, "turf church", "church", ["turf church", "church"]),
     ("Fjallsárlón", 64.02290, -16.39779, "glacier lagoon", "lake", ["glacier lagoon", "icebergs"]),
-    ("Jökulsárlón", 64.04800, -16.18000, "glacier lagoon", "lake", ["glacier lagoon", "icebergs"]),
+    ("Jökulsárlón", 64.04800, -16.18000, "Jökulsárlón Glacier Lagoon", "lake", ["glacier lagoon", "icebergs"]),
     ("Breiðamerkursandur", 64.04314, -16.17825, "Diamond Beach", "beach", ["diamond beach", "ice beach"]),
     ("Vestrahorn", 64.27605, -14.94975, "", "mountain", ["stokksnes", "mountain"]),
     # highlands
@@ -167,11 +209,16 @@ SIGHTS = [
     ("Borgarvirki", 65.47478, -20.59718, "fortress", "landmark", ["fortress"]),
     ("Glaumbær", 65.61103, -19.50470, "turf farm museum", "museum", ["turf houses", "turf farm"]),
     ("Víðimýrarkirkja", 65.53881, -19.47037, "turf church", "church", ["turf church", "church"]),
-    ("Hólar í Hjaltadal", 65.73319, -19.11160, "Hólar cathedral", "church", ["holar", "cathedral"]),
+    ("Hólar í Hjaltadal", 65.73319, -19.11160, "Hólar Cathedral", "church", ["holar", "cathedral"]),
     ("Grettislaug", 65.88223, -19.73654, "hot pool", "lagoon", ["hot pool", "reykir"]),
     # Norðurland eystra
-    ("Akureyrarkirkja", 65.67986, -18.09094, "Akureyri church", "church", ["church"]),
+    ("Akureyrarkirkja", 65.67986, -18.09094, "Akureyri Church", "church", ["church"]),
     ("Akureyrarflugvöllur", 65.65699, -18.07332, "Akureyri Airport", "airport", ["airport"]),
+    ("Ráðhús Akureyrar", 65.68490, -18.09186, "Akureyri Town Hall", "public", ["town hall", "city hall", "mayor"]),
+    ("Hof", 65.68336, -18.08744, "Hof Cultural Centre", "landmark", ["culture house", "cultural center", "concert hall", "menningarhusid hof"]),
+    ("Listasafnið á Akureyri", 65.68040, -18.09197, "Akureyri Art Museum", "museum", ["art museum"]),
+    ("Minjasafnið á Akureyri", 65.66647, -18.08625, "Akureyri Museum", "museum", ["museum"]),
+    ("Jólagarðurinn", 65.58011, -18.09150, "Christmas Garden", "landmark", ["christmas house", "christmas shop", "jolahusid"]),
     ("Skógarböðin", 65.66992, -18.04180, "Forest Lagoon", "lagoon", ["forest lagoon", "spa"]),
     ("Síldarminjasafnið", 66.14757, -18.91339, "Herring Era Museum", "museum", ["herring museum", "siglufjordur"]),
     ("Goðafoss", 65.68282, -17.55062, "", "waterfall", ["waterfall"]),
@@ -184,7 +231,7 @@ SIGHTS = [
     ("Jarðböðin við Mývatn", 65.63046, -16.84760, "Mývatn Nature Baths", "lagoon", ["nature baths", "spa"]),
     ("Hverir", 65.64114, -16.80918, "Námafjall geothermal area", "geothermal", ["namafjall", "mud pots"]),
     ("Krafla", 65.73775, -16.82762, "", "volcano", ["viti", "volcano"]),
-    ("Húsavíkurkirkja", 66.04583, -17.34216, "Húsavík church", "church", ["church"]),
+    ("Húsavíkurkirkja", 66.04583, -17.34216, "Húsavík Church", "church", ["church"]),
     ("Hvalasafnið á Húsavík", 66.04679, -17.34471, "Húsavík Whale Museum", "museum", ["whale museum"]),
     ("Ásbyrgi", 66.00159, -16.51223, "horseshoe canyon", "nature", ["canyon"]),
     ("Hljóðaklettar", 65.94441, -16.53302, "echo rocks", "nature", ["basalt"]),
@@ -193,7 +240,7 @@ SIGHTS = [
     # Austurland
     ("Stuðlagil", 65.16233, -15.30812, "basalt canyon", "nature", ["canyon", "basalt columns"]),
     ("Hengifoss", 65.09518, -14.88955, "", "waterfall", ["waterfall"]),
-    ("Hallormsstaðaskógur", 65.09537, -14.72071, "Iceland's largest forest", "nature", ["forest", "woods"]),
+    ("Hallormsstaðaskógur", 65.09537, -14.72071, "largest forest in Iceland", "nature", ["forest", "woods"]),
     ("Skriðuklaustur", 65.04094, -14.95309, "", "museum", ["gunnar gunnarsson"]),
     ("Vök Baths", 65.30307, -14.44748, "", "lagoon", ["vok", "spa"]),
     ("Egilsstaðaflugvöllur", 65.28288, -14.40199, "Egilsstaðir Airport", "airport", ["airport"]),
@@ -573,6 +620,8 @@ def main(pbf, mapdata, out):
         print("  pools not found in OSM:", ", ".join(missing))
     for name, lat, lon, en, kind, words in SIGHTS:
         add({"name": name, "cat": "sight", "kind": kind, "en": en, "words": words, "g": f"{en if name.startswith('Flugvél') else name}, Iceland"}, lon, lat)
+    for name, lat, lon, en, kind, words in CIVIC:
+        add({"name": name, "cat": "civic", "kind": kind, "en": en, "words": words, "g": f"{name}, Iceland"}, lon, lat)
 
     # bus: platforms inside the region only (a same-named stop in Akranes must not pull the middle away)
     def stop_group(name):

@@ -7909,7 +7909,7 @@
   "name": "Hallgrímskirkja",
   "cat": "sight",
   "kind": "church",
-  "en": "",
+  "en": "Hallgrím's Church",
   "words": [
    "church"
   ],
@@ -7927,7 +7927,7 @@
   "name": "Harpa",
   "cat": "sight",
   "kind": "landmark",
-  "en": "concert hall",
+  "en": "Harpa Concert Hall",
   "words": [
    "concert hall"
   ],
@@ -7964,7 +7964,7 @@
   "name": "Perlan",
   "cat": "sight",
   "kind": "landmark",
-  "en": "",
+  "en": "The Pearl",
   "words": [
    "pearl"
   ],
@@ -8001,7 +8001,7 @@
   "name": "Tjörnin",
   "cat": "sight",
   "kind": "lake",
-  "en": "the Pond",
+  "en": "The Pond",
   "words": [
    "pond"
   ],
@@ -8019,7 +8019,7 @@
   "name": "Viðey",
   "cat": "sight",
   "kind": "island",
-  "en": "",
+  "en": "Viðey Island",
   "words": [
    "island",
    "imagine peace tower"
@@ -8056,7 +8056,7 @@
   "name": "Gróttuviti",
   "cat": "sight",
   "kind": "lighthouse",
-  "en": "Grótta lighthouse",
+  "en": "Grótta Lighthouse",
   "words": [
    "grotta",
    "lighthouse"
@@ -8075,7 +8075,7 @@
   "name": "Esja",
   "cat": "sight",
   "kind": "mountain",
-  "en": "",
+  "en": "Mount Esja",
   "words": [
    "esjan",
    "mountain"
@@ -8126,6 +8126,227 @@
   "muni": "Reykjavík",
   "postal": [
    "102"
+  ]
+ },
+ {
+  "name": "Ráðhús Reykjavíkur",
+  "cat": "sight",
+  "kind": "public",
+  "en": "Reykjavík City Hall",
+  "words": [
+   "city hall",
+   "town hall",
+   "mayor",
+   "mayor's office",
+   "radhusid"
+  ],
+  "g": "Ráðhús Reykjavíkur, Iceland",
+  "ll": [
+   -21.94238,
+   64.14613
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Stjórnarráðshúsið",
+  "cat": "sight",
+  "kind": "public",
+  "en": "Prime Minister's Office",
+  "words": [
+   "government house",
+   "prime minister",
+   "stjornarradid"
+  ],
+  "g": "Stjórnarráðshúsið, Iceland",
+  "ll": [
+   -21.93524,
+   64.1473
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Bessastaðir",
+  "cat": "sight",
+  "kind": "public",
+  "en": "President's Residence",
+  "words": [
+   "president",
+   "president's house",
+   "presidential residence",
+   "forseti"
+  ],
+  "g": "Bessastaðir, Iceland",
+  "ll": [
+   -21.99585,
+   64.10593
+  ],
+  "muni": "Garðabær",
+  "postal": [
+   "225"
+  ]
+ },
+ {
+  "name": "Höfði",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "Höfði House",
+  "words": [
+   "reagan gorbachev",
+   "summit house",
+   "hofdi"
+  ],
+  "g": "Höfði, Iceland",
+  "ll": [
+   -21.90638,
+   64.14653
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Dómkirkjan",
+  "cat": "sight",
+  "kind": "church",
+  "en": "Reykjavík Cathedral",
+  "words": [
+   "cathedral",
+   "domkirkjan"
+  ],
+  "g": "Dómkirkjan, Iceland",
+  "ll": [
+   -21.93934,
+   64.14665
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Landakotskirkja",
+  "cat": "sight",
+  "kind": "church",
+  "en": "Landakot Cathedral",
+  "words": [
+   "catholic church",
+   "catholic cathedral",
+   "christ the king",
+   "kristskirkja"
+  ],
+  "g": "Landakotskirkja, Iceland",
+  "ll": [
+   -21.94855,
+   64.14744
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Þjóðminjasafn Íslands",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "National Museum of Iceland",
+  "words": [
+   "national museum",
+   "thjodminjasafnid"
+  ],
+  "g": "Þjóðminjasafn Íslands, Iceland",
+  "ll": [
+   -21.94813,
+   64.142
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "102"
+  ]
+ },
+ {
+  "name": "Listasafn Íslands",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "National Gallery of Iceland",
+  "words": [
+   "national gallery",
+   "art museum"
+  ],
+  "g": "Listasafn Íslands, Iceland",
+  "ll": [
+   -21.93922,
+   64.14411
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Þjóðleikhúsið",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "National Theatre",
+  "words": [
+   "theatre",
+   "theater",
+   "national theater"
+  ],
+  "g": "Þjóðleikhúsið, Iceland",
+  "ll": [
+   -21.93108,
+   64.14727
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Gamla höfnin",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "Old Harbour",
+  "words": [
+   "old harbor",
+   "harbour",
+   "harbor",
+   "whale watching"
+  ],
+  "g": "Gamla höfnin, Iceland",
+  "ll": [
+   -21.9421,
+   64.15167
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Laugardalsvöllur",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "National Stadium",
+  "words": [
+   "stadium",
+   "football stadium"
+  ],
+  "g": "Laugardalsvöllur, Iceland",
+  "ll": [
+   -21.87892,
+   64.14354
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "104"
   ]
  },
  {
@@ -8208,7 +8429,7 @@
   "name": "Reykjanesviti",
   "cat": "sight",
   "kind": "lighthouse",
-  "en": "Reykjanes lighthouse",
+  "en": "Reykjanes Lighthouse",
   "words": [
    "lighthouse"
   ],
@@ -8282,7 +8503,7 @@
   "name": "Akranesviti",
   "cat": "sight",
   "kind": "lighthouse",
-  "en": "Akranes lighthouse",
+  "en": "Akranes Lighthouse",
   "words": [
    "lighthouse"
   ],
@@ -8667,7 +8888,7 @@
   "name": "Þingvellir",
   "cat": "sight",
   "kind": "nature",
-  "en": "national park",
+  "en": "Þingvellir National Park",
   "words": [
    "thingvellir",
    "national park",
@@ -8873,7 +9094,7 @@
   "name": "Skálholtskirkja",
   "cat": "sight",
   "kind": "church",
-  "en": "Skálholt church",
+  "en": "Skálholt Cathedral",
   "words": [
    "skalholt",
    "church"
@@ -9259,7 +9480,7 @@
   "name": "Víkurkirkja",
   "cat": "sight",
   "kind": "church",
-  "en": "Vík church",
+  "en": "Vík Church",
   "words": [
    "vik church"
   ],
@@ -9500,7 +9721,7 @@
   "name": "Hvannadalshnúkur",
   "cat": "sight",
   "kind": "mountain",
-  "en": "Iceland's highest peak",
+  "en": "highest peak in Iceland",
   "words": [
    "highest mountain"
   ],
@@ -9575,7 +9796,7 @@
   "name": "Jökulsárlón",
   "cat": "sight",
   "kind": "lake",
-  "en": "glacier lagoon",
+  "en": "Jökulsárlón Glacier Lagoon",
   "words": [
    "glacier lagoon",
    "icebergs"
@@ -10026,7 +10247,7 @@
   "name": "Hólar í Hjaltadal",
   "cat": "sight",
   "kind": "church",
-  "en": "Hólar cathedral",
+  "en": "Hólar Cathedral",
   "words": [
    "holar",
    "cathedral"
@@ -10064,7 +10285,7 @@
   "name": "Akureyrarkirkja",
   "cat": "sight",
   "kind": "church",
-  "en": "Akureyri church",
+  "en": "Akureyri Church",
   "words": [
    "church"
   ],
@@ -10094,6 +10315,103 @@
   "muni": "Akureyri",
   "postal": [
    "600"
+  ]
+ },
+ {
+  "name": "Ráðhús Akureyrar",
+  "cat": "sight",
+  "kind": "public",
+  "en": "Akureyri Town Hall",
+  "words": [
+   "town hall",
+   "city hall",
+   "mayor"
+  ],
+  "g": "Ráðhús Akureyrar, Iceland",
+  "ll": [
+   -18.09186,
+   65.6849
+  ],
+  "muni": "Akureyri",
+  "postal": [
+   "600"
+  ]
+ },
+ {
+  "name": "Hof",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "Hof Cultural Centre",
+  "words": [
+   "culture house",
+   "cultural center",
+   "concert hall",
+   "menningarhusid hof"
+  ],
+  "g": "Hof, Iceland",
+  "ll": [
+   -18.08744,
+   65.68336
+  ],
+  "muni": "Akureyri",
+  "postal": [
+   "600"
+  ]
+ },
+ {
+  "name": "Listasafnið á Akureyri",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "Akureyri Art Museum",
+  "words": [
+   "art museum"
+  ],
+  "g": "Listasafnið á Akureyri, Iceland",
+  "ll": [
+   -18.09197,
+   65.6804
+  ],
+  "muni": "Akureyri",
+  "postal": [
+   "600"
+  ]
+ },
+ {
+  "name": "Minjasafnið á Akureyri",
+  "cat": "sight",
+  "kind": "museum",
+  "en": "Akureyri Museum",
+  "words": [
+   "museum"
+  ],
+  "g": "Minjasafnið á Akureyri, Iceland",
+  "ll": [
+   -18.08625,
+   65.66647
+  ],
+  "muni": "Akureyri",
+  "postal": [
+   "600"
+  ]
+ },
+ {
+  "name": "Jólagarðurinn",
+  "cat": "sight",
+  "kind": "landmark",
+  "en": "Christmas Garden",
+  "words": [
+   "christmas house",
+   "christmas shop",
+   "jolahusid"
+  ],
+  "g": "Jólagarðurinn, Iceland",
+  "ll": [
+   -18.0915,
+   65.58011
+  ],
+  "muni": "Eyjafjarðarsveit",
+  "postal": [
+   "605"
   ]
  },
  {
@@ -10324,7 +10642,7 @@
   "name": "Húsavíkurkirkja",
   "cat": "sight",
   "kind": "church",
-  "en": "Húsavík church",
+  "en": "Húsavík Church",
   "words": [
    "church"
   ],
@@ -10470,7 +10788,7 @@
   "name": "Hallormsstaðaskógur",
   "cat": "sight",
   "kind": "nature",
-  "en": "Iceland's largest forest",
+  "en": "largest forest in Iceland",
   "words": [
    "forest",
    "woods"
@@ -10631,6 +10949,364 @@
   "muni": "Múlaþing",
   "postal": [
    "765"
+  ]
+ },
+ {
+  "name": "Háskóli Íslands",
+  "cat": "civic",
+  "kind": "university",
+  "en": "University of Iceland",
+  "words": [
+   "university"
+  ],
+  "g": "Háskóli Íslands, Iceland",
+  "ll": [
+   -21.94945,
+   64.14052
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "102"
+  ]
+ },
+ {
+  "name": "Háskólinn í Reykjavík",
+  "cat": "civic",
+  "kind": "university",
+  "en": "Reykjavík University",
+  "words": [
+   "university"
+  ],
+  "g": "Háskólinn í Reykjavík, Iceland",
+  "ll": [
+   -21.92777,
+   64.12441
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "102"
+  ]
+ },
+ {
+  "name": "Listaháskóli Íslands",
+  "cat": "civic",
+  "kind": "university",
+  "en": "Iceland University of the Arts",
+  "words": [
+   "university",
+   "art school",
+   "arts university",
+   "academy of the arts"
+  ],
+  "g": "Listaháskóli Íslands, Iceland",
+  "ll": [
+   -21.90279,
+   64.13687
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Háskólinn á Akureyri",
+  "cat": "civic",
+  "kind": "university",
+  "en": "University of Akureyri",
+  "words": [
+   "university"
+  ],
+  "g": "Háskólinn á Akureyri, Iceland",
+  "ll": [
+   -18.12135,
+   65.68545
+  ],
+  "muni": "Akureyri",
+  "postal": [
+   "600"
+  ]
+ },
+ {
+  "name": "Landspítali",
+  "cat": "civic",
+  "kind": "hospital",
+  "en": "National University Hospital",
+  "words": [
+   "hospital",
+   "landspitali hringbraut"
+  ],
+  "g": "Landspítali, Iceland",
+  "ll": [
+   -21.9298,
+   64.13773
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "101"
+  ]
+ },
+ {
+  "name": "Landspítali Fossvogi",
+  "cat": "civic",
+  "kind": "hospital",
+  "en": "Fossvogur Hospital (emergency room)",
+  "words": [
+   "hospital",
+   "emergency",
+   "emergency room",
+   "accident and emergency",
+   "bráðamóttaka",
+   "slysadeild"
+  ],
+  "g": "Landspítali Fossvogi, Iceland",
+  "ll": [
+   -21.89049,
+   64.12141
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Sjúkrahúsið á Akureyri",
+  "cat": "civic",
+  "kind": "hospital",
+  "en": "Akureyri Hospital",
+  "words": [
+   "hospital",
+   "emergency",
+   "emergency room",
+   "bráðamóttaka"
+  ],
+  "g": "Sjúkrahúsið á Akureyri, Iceland",
+  "ll": [
+   -18.09345,
+   65.67322
+  ],
+  "muni": "Akureyri",
+  "postal": [
+   "600"
+  ]
+ },
+ {
+  "name": "Þjóðskrá Íslands",
+  "cat": "civic",
+  "kind": "office",
+  "en": "Registers Iceland",
+  "words": [
+   "kennitala",
+   "id number",
+   "national registry",
+   "registry"
+  ],
+  "g": "Þjóðskrá Íslands, Iceland",
+  "ll": [
+   -21.90226,
+   64.14633
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Útlendingastofnun",
+  "cat": "civic",
+  "kind": "office",
+  "en": "Directorate of Immigration",
+  "words": [
+   "immigration",
+   "residence permit",
+   "utl"
+  ],
+  "g": "Útlendingastofnun, Iceland",
+  "ll": [
+   -21.87077,
+   64.10555
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Vinnumálastofnun",
+  "cat": "civic",
+  "kind": "office",
+  "en": "Directorate of Labour",
+  "words": [
+   "labour",
+   "labor",
+   "directorate of labor",
+   "unemployment",
+   "unemployment benefits",
+   "jobs",
+   "work permit",
+   "vmst"
+  ],
+  "g": "Vinnumálastofnun, Iceland",
+  "ll": [
+   -21.87341,
+   64.13162
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "108"
+  ]
+ },
+ {
+  "name": "Vinnumálastofnun Akureyri",
+  "cat": "civic",
+  "kind": "office",
+  "en": "Directorate of Labour",
+  "words": [
+   "labour",
+   "labor",
+   "directorate of labor",
+   "unemployment",
+   "unemployment benefits",
+   "jobs",
+   "work permit",
+   "vmst"
+  ],
+  "g": "Vinnumálastofnun Akureyri, Iceland",
+  "ll": [
+   -18.08942,
+   65.68162
+  ],
+  "muni": "Akureyri",
+  "postal": [
+   "600"
+  ]
+ },
+ {
+  "name": "Skatturinn",
+  "cat": "civic",
+  "kind": "office",
+  "en": "Iceland Revenue and Customs",
+  "words": [
+   "tax office",
+   "tax",
+   "customs",
+   "skattkort",
+   "rsk"
+  ],
+  "g": "Skatturinn, Iceland",
+  "ll": [
+   -21.90791,
+   64.14393
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Skatturinn Akureyri",
+  "cat": "civic",
+  "kind": "office",
+  "en": "Iceland Revenue and Customs",
+  "words": [
+   "tax office",
+   "tax",
+   "customs",
+   "skattkort",
+   "rsk"
+  ],
+  "g": "Skatturinn Akureyri, Iceland",
+  "ll": [
+   -18.09025,
+   65.6813
+  ],
+  "muni": "Akureyri",
+  "postal": [
+   "600"
+  ]
+ },
+ {
+  "name": "Sýslumaðurinn á höfuðborgarsvæðinu",
+  "cat": "civic",
+  "kind": "office",
+  "en": "District Commissioner",
+  "words": [
+   "district office",
+   "syslumadur",
+   "passport",
+   "driving licence",
+   "driver's license",
+   "notary"
+  ],
+  "g": "Sýslumaðurinn á höfuðborgarsvæðinu, Iceland",
+  "ll": [
+   -21.89011,
+   64.09793
+  ],
+  "muni": "Kópavogur",
+  "postal": [
+   "201"
+  ]
+ },
+ {
+  "name": "Sýslumaðurinn á Norðurlandi eystra",
+  "cat": "civic",
+  "kind": "office",
+  "en": "District Commissioner",
+  "words": [
+   "district office",
+   "syslumadur",
+   "passport",
+   "driving licence",
+   "driver's license",
+   "notary"
+  ],
+  "g": "Sýslumaðurinn á Norðurlandi eystra, Iceland",
+  "ll": [
+   -18.09168,
+   65.68221
+  ],
+  "muni": "Akureyri",
+  "postal": [
+   "600"
+  ]
+ },
+ {
+  "name": "Þjóðskjalasafn Íslands",
+  "cat": "civic",
+  "kind": "archive",
+  "en": "National Archives of Iceland",
+  "words": [
+   "archives",
+   "national archives"
+  ],
+  "g": "Þjóðskjalasafn Íslands, Iceland",
+  "ll": [
+   -21.90669,
+   64.14225
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "105"
+  ]
+ },
+ {
+  "name": "Þjóðarbókhlaðan",
+  "cat": "civic",
+  "kind": "library",
+  "en": "National and University Library",
+  "words": [
+   "national library",
+   "library",
+   "landsbokasafn"
+  ],
+  "g": "Þjóðarbókhlaðan, Iceland",
+  "ll": [
+   -21.95083,
+   64.14279
+  ],
+  "muni": "Reykjavík",
+  "postal": [
+   "107"
   ]
  },
  {
@@ -14773,15 +15449,15 @@
    "intercity bus",
    "landsbyggdarvagn",
    "Jökulsárlón",
-   "glacier lagoon",
+   "Jökulsárlón Glacier Lagoon",
    "bus Jökulsárlón",
    "bus stop Jökulsárlón",
    "long distance bus Jökulsárlón",
    "coach Jökulsárlón",
-   "bus glacier lagoon",
-   "bus stop glacier lagoon",
-   "long distance bus glacier lagoon",
-   "coach glacier lagoon"
+   "bus Jökulsárlón Glacier Lagoon",
+   "bus stop Jökulsárlón Glacier Lagoon",
+   "long distance bus Jökulsárlón Glacier Lagoon",
+   "coach Jökulsárlón Glacier Lagoon"
   ],
   "ll": [
    -16.180209,

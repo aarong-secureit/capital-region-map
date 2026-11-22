@@ -15,7 +15,9 @@ every other town and village with its streets, plus the big roads, the sights an
 
 - **Where is Holtin, Árbær, Selfoss or 105?** Regions, towns, neighbourhoods, districts and postal codes on one map.
 - **Search the way you hear it.** Icelandic letters are optional, near-misses still match, and everyday names
-  work too ("Holtin", "Grandi", "Downtown"). Or tap 🎤 and say the name (Chrome, Edge and Safari; the
+  work too ("Holtin", "Grandi", "Downtown"). English names show as their own result, marked English
+  ("Parliament House", "Registers Iceland", "University of Iceland"), and so do the universities' initials
+  (HÍ, HR, LHÍ, HA, UNAK). Or tap 🎤 and say the name (Chrome, Edge and Safari; the
   browser's own speech service, Google or Apple, turns your voice into text).
 - **Hear the name.** Every place, street and point of interest has a 🔊 button with Icelandic pronunciation
   (generated offline with the Piper voice Ugla).
@@ -25,7 +27,11 @@ every other town and village with its streets, plus the big roads, the sights an
   them the local shop, such as Kjörbúðin or the kaupfélag), shopping, swimming
   pools, parks, the main bus stops and transfer hubs, the long-distance bus stops in every town they call at and
   at airports, ferry ports and sights such as Goðafoss and Jökulsárlón (with where each line goes), and about 150 sights (Hallgrímskirkja, Gullfoss, Geysir,
-  Seljalandsfoss, Bláa lónið, Kirkjufell, Dettifoss, Mývatn, Jökulsárlón, Dynjandi...).
+  Seljalandsfoss, Bláa lónið, Kirkjufell, Dettifoss, Mývatn, Jökulsárlón, Dynjandi...), plus in the capital
+  region and Akureyri the landmarks people ask for in English (City Hall, Government House, Bessastaðir,
+  the cathedrals, National Museum) and the public services newcomers need: universities, hospitals,
+  Skatturinn, Sýslumaður (District Commissioner), Útlendingastofnun, Vinnumálastofnun, Þjóðskrá, the
+  National Archives.
 - **Islands:** about 150 named islands, from Viðey and Engey off Reykjavík to Heimaey, Surtsey, the
   Breiðafjörður islands (Flatey, Brokey), Vigur, Drangey, Hrísey and Grímsey, labelled, searchable and with
   their own row when you tap one.

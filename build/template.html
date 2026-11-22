@@ -67,6 +67,13 @@ section.card h2{margin:0 0 8px;font-size:11px;letter-spacing:.18em;text-transfor
 .layers.folded h2{margin-bottom:0}
 .layers.folded #layersBody{display:none}
 #info .title{font-size:20px;font-weight:bold;color:var(--navy);margin:2px 0 8px}
+/* back to what you picked: shown once panning takes it out of view, its arrow points the way */
+.goback{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin:0 8px 0 0;padding:0;border:0;border-radius:50%;
+  background:var(--gold);color:var(--navy);cursor:pointer;vertical-align:middle;flex:none;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.goback svg{width:15px;height:15px;transition:transform .15s}
+.goback:hover{background:var(--gold-dark)}
+.goback[hidden]{display:none}
+.peekrow{display:flex;align-items:center;min-width:0}
 #info table{border-collapse:collapse;width:100%;font-size:14px}
 #info td{padding:5px 0;vertical-align:top;border-bottom:1px solid var(--gray-bg)}
 #info td:first-child{color:var(--gray-mid);width:120px;font-size:13px}
@@ -174,6 +181,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 .poi-costco i{background:#005DAA;color:#fff}
 .poi-ikea i{background:#0058A3;color:#FFDB00}
 .poi-sight i{background:var(--navy);color:var(--gold)}
+.poi-civic i{background:#4F5F78;color:#fff}
 .poi-bus i{background:#FFD100;color:#1F2B3A;border-radius:5px;border-color:#1F2B3A}
 #map:not(.show-poi) .poi:not(.poi-bus):not(.poi-mall):not(.poi-sight), #map:not(.show-sight) .poi-sight, #map:not(.show-bus) .poi-bus, #map:not(.show-bus) .poi-mall, #map:not(.show-busstop) .poi.bus-stop, #map:not(.show-poi-name) .poi b{display:none}
 .poi.bus-stop i{transform:scale(.82)}
@@ -313,7 +321,9 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
   #side.dragging{transition:none}
   #grab{display:block;padding:8px 16px 12px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;border-bottom:1px solid var(--gray-light);flex:none}
   .handle{display:block;width:40px;height:5px;border-radius:3px;background:#C4C9D0;margin:0 auto 9px}
-  #peek{font-weight:bold;color:var(--navy);font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #peek{font-weight:bold;color:var(--navy);font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+  #info .goback{display:none}         /* phones: the arrow is in the sheet's top row instead */
+  .peekrow .goback{width:30px;height:30px}.peekrow .goback svg{width:17px;height:17px}
   #peek small{font-weight:normal;color:var(--gray-mid);font-size:13px}
   #scroll{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
   section.card{padding:14px 16px}
@@ -384,7 +394,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
   <aside id="side">
     <div id="grab" role="button" tabindex="0" aria-label="Show more or less" aria-expanded="false">
       <span class="handle"></span>
-      <div id="peek">Tap the map, or search a name <small>· anywhere in Iceland</small></div>
+      <div class="peekrow"><button type="button" class="goback" data-goback hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l7 18-7-4-7 4z" fill="currentColor"/></svg></button><div id="peek">Tap the map, or search a name <small>· anywhere in Iceland</small></div></div>
     </div>
     <div id="scroll">
       <section class="card" id="info">
@@ -406,6 +416,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
         <label><input type="checkbox" id="L-pool" checked><span class="lt">Swimming pools<small>sundlaugar · Laugardalslaug, Vesturbæjarlaug, Nauthólsvík…</small></span></label>
         <label><input type="checkbox" id="L-park" checked><span class="lt">Parks<small>almenningsgarðar · Klambratún, Heiðmörk, Elliðaárdalur…</small></span></label>
         <label><input type="checkbox" id="L-sight" checked><span class="lt">Sights<small>ferðamannastaðir · Hallgrímskirkja, Gullfoss, Geysir, Bláa lónið, Kirkjufell…</small></span></label>
+        <label><input type="checkbox" id="L-civic" checked><span class="lt">Public services<small>stofnanir · universities, hospitals, Skatturinn, Sýslumaður, Útlendingastofnun, Þjóðskrá</small></span></label>
         <label><input type="checkbox" id="L-isle" checked><span class="lt">Islands<small>eyjar · Viðey, Engey, Heimaey, Surtsey, Flatey…</small></span></label>
         <label><input type="checkbox" id="L-bus" checked><span class="lt">Bus hubs, big stops &amp; long-distance buses<small>skiptistöðvar · Mjódd, Hlemmur, BSÍ · landsbyggðarvagnar</small></span></label>
         <label style="margin-top:14px"><input type="checkbox" id="L-postal"><span class="lt">Postal codes<small>póstnúmer · 101, 105, 201…</small></span></label>
@@ -462,7 +473,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
     <div class="pl"><label for="pl-work1">1</label><input id="pl-work1" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work1" class="pl-st" role="status"></div></div>
     <div class="pl"><label for="pl-work2">2</label><input id="pl-work2" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work2" class="pl-st" role="status"></div></div>
     <div class="pl"><label for="pl-work3">3</label><input id="pl-work3" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work3" class="pl-st" role="status"></div></div>
-    <p class="set-ver">Version <span id="buildStamp">__BUILDSTAMP__</span> <span class="muted">(built, Iceland time)</span></p>
+    <p class="set-ver">Version <span id="buildStamp">__BUILDSTAMP__</span></p>
     </div>
   </div>
 </dialog>
@@ -618,7 +629,7 @@ const sheetVisiblePx = () => MOBILE.matches ? sideEl.offsetHeight - sheetStops()
 function setPeek(title, sub){ peekEl.innerHTML = esc(title) + (sub ? ` <small>· ${esc(sub)}</small>` : ""); }
 // drag the handle row; a tap steps peek → half → full → peek
 let drag=null;
-grabEl.addEventListener("pointerdown",e=>{ if(!MOBILE.matches) return; drag={y0:e.clientY, s0:sheetY, t0:performance.now(), moved:false}; grabEl.setPointerCapture(e.pointerId); });
+grabEl.addEventListener("pointerdown",e=>{ if(!MOBILE.matches || e.target.closest("[data-goback]")) return; drag={y0:e.clientY, s0:sheetY, t0:performance.now(), moved:false}; grabEl.setPointerCapture(e.pointerId); });
 grabEl.addEventListener("pointermove",e=>{
   if(!drag) return; const dy=e.clientY-drag.y0;
   if(Math.abs(dy)>6) drag.moved=true;
@@ -635,7 +646,7 @@ grabEl.addEventListener("pointerup",e=>{
   setSheet(target);
 });
 grabEl.addEventListener("pointercancel",()=>{ if(drag){ drag=null; setSheet(sheet); } });
-grabEl.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); setSheet(sheet==="peek"?"half":sheet==="half"?"full":"peek"); } });
+grabEl.addEventListener("keydown",e=>{ if(e.target.closest("[data-goback]")) return; if(e.key==="Enter"||e.key===" "){ e.preventDefault(); setSheet(sheet==="peek"?"half":sheet==="half"?"full":"peek"); } });
 // "Show on map" folds away (with the background map); the choice is remembered
 const layersCard = document.querySelector(".layers"), layersToggle = document.getElementById("layersToggle");
 function setLayersOpen(open, save){
@@ -670,6 +681,40 @@ function centerOn(lat,lng,z){
   const p=viewPad(), dx=(p.br[0]-p.tl[0])/2, dy=(p.br[1]-p.tl[1])/2;
   map.setView(map.unproject(map.project([lat,lng],z).add([dx,dy]),z), z);
 }
+// Back to what you picked: select() moves the map through aim(), which remembers the place. Once panning or
+// zooming takes it out of view, a small arrow by its name points the way and brings the map back.
+let goal = null;
+const GO_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l7 18-7-4-7 4z" fill="currentColor"/></svg>';
+const goBtn = () => `<button type="button" class="goback" data-goback hidden>${GO_ICON}</button>`;
+function aim(name, lat, lng, z, bb){
+  goal = {name, lat, lng, z, bb, settling:true};
+  const g = goal, done = () => { g.settling = false; updateGoBack(); };
+  map.once("moveend", done); setTimeout(done, 600);          // no arrow while the map is still flying there
+  if(bb) fitTo(bb); else centerOn(lat, lng, z);
+}
+function updateGoBack(){
+  let show = false, deg = 0;
+  if(goal && !goal.settling){
+    const p = viewPad(), sz = map.getSize(), x0 = p.tl[0], y0 = p.tl[1], x1 = sz.x - p.br[0], y1 = sz.y - p.br[1];
+    const at = map.latLngToContainerPoint([goal.lat, goal.lng]);
+    if(goal.bb){
+      const a = map.latLngToContainerPoint([goal.bb[3], goal.bb[0]]), b = map.latLngToContainerPoint([goal.bb[1], goal.bb[2]]);
+      show = b.x < x0 || a.x > x1 || b.y < y0 || a.y > y1;     // none of the area left in view
+    } else show = at.x < x0 || at.x > x1 || at.y < y0 || at.y > y1;
+    deg = Math.atan2(at.y - (y0 + y1) / 2, at.x - (x0 + x1) / 2) * 180 / Math.PI + 90;
+  }
+  document.querySelectorAll("[data-goback]").forEach(b => {
+    b.hidden = !show;
+    if(!show) return;
+    b.firstElementChild.style.transform = `rotate(${Math.round(deg)}deg)`;
+    b.title = "Back to " + goal.name; b.setAttribute("aria-label", b.title);
+  });
+}
+map.on("move", updateGoBack);
+document.addEventListener("click", e => {
+  if(!e.target.closest("[data-goback]") || !goal) return;
+  if(goal.bb) fitTo(goal.bb); else centerOn(goal.lat, goal.lng, goal.z);
+});
 function keepVisible(lat,lng){
   if(!MOBILE.matches) return;
   const p=viewPad(), cp=map.latLngToContainerPoint([lat,lng]), sz=map.getSize();
@@ -802,7 +847,10 @@ const POI_CAT = {grocery:"Supermarket", store:"Big store", mall:"Shopping centre
 const SIGHT_KIND = {waterfall:["Waterfall","foss"], geothermal:["Geothermal area","hverasvæði"], volcano:["Volcano or crater","eldfjall, gígur"],
   glacier:["Glacier","jökull"], beach:["Beach","fjara"], church:["Church","kirkja"], museum:["Museum","safn"], lagoon:["Bathing spot","baðstaður"],
   landmark:["Landmark","kennileiti"], artwork:["Sculpture","listaverk"], lake:["Lake","vatn"], island:["Island","eyja"], lighthouse:["Lighthouse","viti"],
-  mountain:["Mountain","fjall"], nature:["Nature site","náttúruperla"], cave:["Cave","hellir"], airport:["Airport","flugvöllur"]};
+  mountain:["Mountain","fjall"], nature:["Nature site","náttúruperla"], cave:["Cave","hellir"], airport:["Airport","flugvöllur"],
+  public:["Public building","opinber bygging"]};
+const CIVIC_KIND = {university:["University","háskóli"], hospital:["Hospital","sjúkrahús"], office:["Government office","ríkisstofnun"],
+  archive:["Archive","skjalasafn"], library:["Library","bókasafn"]};
 const POI_IS = {grocery:"matvöruverslun", store:"verslun", mall:"verslunarmiðstöð", second:"nytjamarkaður"};
 const PARK_KIND = {park:["Park","almenningsgarður"], garden:["Garden","garður"], botanical:["Botanical garden","grasagarður"],
                    reserve:["Nature area","friðland / fólkvangur"], wood:["Woodland","skógræktarsvæði"]};
@@ -813,12 +861,13 @@ const BUS_KIND = {hub:"Strætó transfer hub (skiptistöð)", centre:"City-centr
 const BAG_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 13H6L5 8z" fill="currentColor"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const TAG_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12.6V4.5A1.5 1.5 0 0 1 4.5 3h8.1l8.4 8.4-9.6 9.6L3 12.6z" fill="currentColor"/><circle cx="7.7" cy="7.7" r="1.7" fill="#2E7D4F"/></svg>';
 const BUS_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.5" width="14" height="15.5" rx="2.5" fill="currentColor"/><rect x="7" y="5" width="10" height="6" rx="1" fill="#FFD100"/><circle cx="8.6" cy="14.6" r="1.3" fill="#FFD100"/><circle cx="15.4" cy="14.6" r="1.3" fill="#FFD100"/><rect x="6.3" y="17.5" width="3.2" height="3.5" rx="1" fill="currentColor"/><rect x="14.5" y="17.5" width="3.2" height="3.5" rx="1" fill="currentColor"/></svg>';
+const CIVIC_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5L2.5 7.5v2h19v-2z" fill="currentColor"/><path d="M5 11v7M9.7 11v7M14.3 11v7M19 11v7" stroke="currentColor" stroke-width="2.2"/><path d="M3 19.5h18v2H3z" fill="currentColor"/></svg>';
 const STAR_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.6L12 17.5l-5.9 3.2 1.2-6.6-4.8-4.6 6.6-.9z" fill="currentColor"/></svg>';
 const poiCls = p => "poi-" + (p.kind==="local" ? "local" : p.brand ? norm(p.brand).replace(/\W/g,"") : p.cat);
-const poiGlyph = p => ({bus:BUS_ICON, sight:STAR_ICON, mall:BAG_ICON, second:TAG_ICON, pool:WAVE_ICON})[p.cat] || esc(p.brand[0]);
+const poiGlyph = p => ({bus:BUS_ICON, sight:STAR_ICON, civic:CIVIC_ICON, mall:BAG_ICON, second:TAG_ICON, pool:WAVE_ICON})[p.cat] || esc(p.brand[0]);
 const poiLabel = p => p.cat==="bus" ? (p.kind==="stop" ? "Bus stop" : p.kind==="coach" ? "Long-distance bus" : p.kind==="terminal" ? "Bus terminal" : "Bus hub")
   : p.cat==="park" ? (PARK_KIND[p.kind]||PARK_KIND.park)[0] : p.cat==="pool" ? (p.kind==="pool" ? "Swimming pool" : p.kind==="beach" ? "Beach" : "Spa")
-  : p.cat==="sight" ? (SIGHT_KIND[p.kind]||SIGHT_KIND.landmark)[0]
+  : p.cat==="sight" ? (SIGHT_KIND[p.kind]||SIGHT_KIND.landmark)[0] : p.cat==="civic" ? CIVIC_KIND[p.kind][0]
   : p.kind==="flea" ? "Flea market" : p.kind==="department" ? "Department store" : p.kind==="local" ? "Grocery store" : POI_CAT[p.cat];
 const poiDesc = p => p.kind==="coach"
   ? `Long-distance bus stop ${p.town ? "in " + esc(p.town) : p.at ? "at " + esc(p.at) : "outside town, where lines meet"}${p.ferry ? ", " + esc(p.ferry) : ""} (landsbyggðarvagnar)${p.routes.map(r=>"<br>" + esc(r)).join("")}`
@@ -830,11 +879,12 @@ const poiDesc = p => p.kind==="coach"
   : p.cat==="park" ? `${(PARK_KIND[p.kind]||PARK_KIND.park)[0]} (${(PARK_KIND[p.kind]||PARK_KIND.park)[1]}) · ${p.km2 >= 0.1 ? p.km2.toFixed(1) + " km²" : Math.round(p.km2 * 100) + " hectares"}`
   : p.cat==="pool" ? `${POOL_KIND[p.kind][0]} (${POOL_KIND[p.kind][1]})`
   : p.cat==="sight" ? `${(SIGHT_KIND[p.kind]||SIGHT_KIND.landmark)[0]} (${(SIGHT_KIND[p.kind]||SIGHT_KIND.landmark)[1]})${p.en ? " · " + esc(p.en) : ""}`
+  : p.cat==="civic" ? `${CIVIC_KIND[p.kind][0]} (${CIVIC_KIND[p.kind][1]}) · ${esc(p.en)}`
   : `${POI_CAT[p.cat]}${p.cat==="second" ? " shop" : ""} (${POI_IS[p.cat]})${p.addr ? " · " + esc(p.addr) : ""}`;
 const poiSpec = p => `poi|${p.name}|${p.muni}|${p.cat}`;
-const POI_GROUP = {grocery:"groceries", store:"shops", mall:"shops", second:"shops", pool:"pools", bus:"bus", sight:"sights", park:"parks"};
-const POI_TOGGLE = {groceries:"L-groc", shops:"L-shop", pools:"L-pool", bus:"L-bus", parks:"L-park", sights:"L-sight", hagkaup:"L-groc"};
-for(const g of ["groceries","shops","pools","bus","parks","sights","hagkaup"]) groups[g] = L.layerGroup();
+const POI_GROUP = {grocery:"groceries", store:"shops", mall:"shops", second:"shops", pool:"pools", bus:"bus", sight:"sights", civic:"civic", park:"parks"};
+const POI_TOGGLE = {groceries:"L-groc", shops:"L-shop", pools:"L-pool", bus:"L-bus", parks:"L-park", sights:"L-sight", civic:"L-civic", hagkaup:"L-groc"};
+for(const g of ["groceries","shops","pools","bus","parks","sights","civic","hagkaup"]) groups[g] = L.layerGroup();
 const poiGroupOf = p => p.brand === "Hagkaup" ? "hagkaup" : POI_GROUP[p.cat];
 POIS.forEach((p,i)=>{
   p._kind="poi"; p._id="poi:"+i;
@@ -853,7 +903,7 @@ POIS.forEach((p,i)=>{
 
 
 const toggles = {"L-zone":["zones"],"L-muni":["munis","towns"],"L-postal":["postal"],"L-district":["districts"],"L-hverfi":["hverfi"],"L-nbh":["nbh"],"L-small":["small","points"],
-  "L-groc":["groceries"],"L-shop":["shops"],"L-pool":["pools"],"L-park":["parks"],"L-sight":["sights"],"L-isle":["islands"],"L-bus":["bus"]};
+  "L-groc":["groceries"],"L-shop":["shops"],"L-pool":["pools"],"L-park":["parks"],"L-sight":["sights"],"L-civic":["civic"],"L-isle":["islands"],"L-bus":["bus"]};
 function applyToggles(){
   const saved = {};
   for(const [id,ks] of Object.entries(toggles)){
@@ -945,6 +995,7 @@ const infoEl = document.getElementById("info");
 const INFO_START = infoEl.innerHTML, PEEK_START = peekEl.innerHTML;
 let infoIsMe = false;                               // true while the details show "You are here"
 function resetInfo(){
+  goal = null; updateGoBack();
   infoEl.innerHTML = INFO_START; peekEl.innerHTML = PEEK_START;
   infoIsMe = false; highlight(null); if(pin){ map.removeLayer(pin); pin = null; }
 }
@@ -1190,6 +1241,7 @@ let lastInfo = null;                                // the last "What's here": r
 function infoAt(lat,lng,title,extra,isMe,shareSpec){
   const args = [lat,lng,title,extra,isMe,shareSpec];
   infoIsMe = !!isMe;
+  if(isMe) goal = null;                             // your position has its own button
   const w = whatsHereRows(lng,lat);
   const wi = w.i || w.ig;
   highlight(w.n || w.s || wi || w.p);
@@ -1199,7 +1251,7 @@ function infoAt(lat,lng,title,extra,isMe,shareSpec){
   if(w.ocean && !title) extra = '<div class="muted" style="margin-bottom:6px">Open sea (haf)</div>' + (extra||"");
   if(!title && !shareSpec) shareSpec = w.n ? `nbh|${w.n.properties.name}|${w.n.properties.muni}` : w.s ? `small|${w.s.properties.name}|${w.s.properties.muni}` : w.t ? `town|${w.t.name}|${w.t.muni}`
     : wi ? `islands|${wi.properties.name}|${wi.properties.muni}` : null;
-  infoEl.innerHTML = `<h2>${isMe?"Your location":"What's here"}</h2><div class="title">${esc(t)}${sayBtn(t)}${isMe?"":shareBtn(shareSpec)}</div>${hasClip(t)?forvo(t):""}
+  infoEl.innerHTML = `<h2>${isMe?"Your location":"What's here"}</h2><div class="title">${isMe?"":goBtn()}${esc(t)}${sayBtn(t)}${isMe?"":shareBtn(shareSpec)}</div>${hasClip(t)?forvo(t):""}
     ${extra||""}<table>${w.html}</table>
     <div class="muted" style="margin-top:8px">${lat.toFixed(5)}, ${lng.toFixed(5)}</div>`;
   const where = [...new Set([w.p ? w.p.properties.code+" "+w.p.properties.town : (w.m ? w.m.properties.name : ""), w.d && w.d.properties.name!==t ? w.d.properties.name : "",
@@ -1208,9 +1260,11 @@ function infoAt(lat,lng,title,extra,isMe,shareSpec){
   else setPeek(t, where);
   scrollEl.scrollTop = 0;
   lastInfo = {args, html: infoEl.innerHTML};
+  updateGoBack();
 }
 map.on("click", e=>{
   if(cur.length || document.activeElement===qEl){ cur=[]; act=-1; clearResults(); qEl.blur(); }
+  goal = null;
   infoAt(e.latlng.lat,e.latlng.lng);
   if(MOBILE.matches){ if(sheet!=="half") setSheet("half"); setTimeout(()=>keepVisible(e.latlng.lat,e.latlng.lng), 260); }
 });
@@ -1264,48 +1318,49 @@ function featureInfo(f){
   const clipKey = k==="postal" ? "postal:"+p.code : p.name;
   const spec = k==="postal" ? `postal|${p.code}` : k==="munis" || k==="zones" ? `${k}|${p.name}` : `${k}|${p.name}|${p.muni}`;
   const aka = akaBlock(f);
-  infoEl.innerHTML = `<h2>${esc(kind)}</h2><div class="title">${esc(title)}${sayBtn(clipKey)}${shareBtn(spec)}</div>${aka}${k!=="postal"&&hasClip(clipKey)?forvo(p.name):""}<table>${rows}</table>`;
+  infoEl.innerHTML = `<h2>${esc(kind)}</h2><div class="title">${goBtn()}${esc(title)}${sayBtn(clipKey)}${shareBtn(spec)}</div>${aka}${k!=="postal"&&hasClip(clipKey)?forvo(p.name):""}<table>${rows}</table>`;
   setPeek(title, [kind, k==="postal"||k==="munis"||k==="zones" ? "" : p.muni, (p.postal||[])[0]].filter(Boolean).join(" · "));
   scrollEl.scrollTop = 0;
+  updateGoBack();
 }
 function select(item){
   if(pin){ map.removeLayer(pin); pin=null; }
   cur=[]; act=-1; clearResults();
   if(MOBILE.matches){ qEl.blur(); setSheet("half"); }
   if(item._kind==="point"){
-    centerOn(item.ll[1],item.ll[0], Math.max(map.getZoom(),15));
+    aim(item.name, item.ll[1],item.ll[0], Math.max(map.getZoom(),15));
     infoAt(item.ll[1],item.ll[0], item.name, `<div class="muted" style="margin-bottom:6px">Named place (${esc(item.place)}), no boundary mapped</div>`, false, `point|${item.name}|${item.muni||""}`);
     return;
   }
   if(item._kind==="town"){
     const t = item, w = TOWN_WORD[t.place];
-    centerOn(t.ll[1], t.ll[0], Math.max(map.getZoom(), {town:13, village:14, hamlet:15}[t.place]));
+    aim(t.name, t.ll[1], t.ll[0], Math.max(map.getZoom(), {town:13, village:14, hamlet:15}[t.place]));
     infoAt(t.ll[1], t.ll[0], t.name, `<div class="muted" style="margin-bottom:6px">${w[0]} (${w[1]}) in ${esc(t.muni)}</div>`, false, `town|${t.name}|${t.muni}`);
     return;
   }
   if(item._kind==="road"){
     const r = item;
-    fitTo(r.bb);
+    aim(r.name, r.ll[1], r.ll[0], 0, r.bb);
     infoAt(r.ll[1], r.ll[0], r.name, `<div class="muted" style="margin-bottom:6px">Main road${r.refs.length ? ", route " + esc(r.refs.join(", ")) : ""} (vegur)</div>`, false, `road|${r.name}`);
     return;
   }
   if(item._kind==="mine"){
     const r = item.res, lat = r.poi ? r.poi.ll[1] : r.lat, lng = r.poi ? r.poi.ll[0] : r.lng;
-    centerOn(lat, lng, Math.max(map.getZoom(), 16));
+    aim(item.name, lat, lng, Math.max(map.getZoom(), 16));
     infoAt(lat, lng, item.name, `<div class="muted" style="margin-bottom:6px">${esc(r.label)}</div>${r.poi ? `<div class="chips" style="margin-bottom:8px"><button class="chip" data-go="poi:${POIS.indexOf(r.poi)}">${esc(r.poi.name)} · ${esc(poiLabel(r.poi))}</button></div>` : ""}`);
     return;
   }
   if(item._kind==="poi"){
     const tg = document.getElementById(POI_TOGGLE[poiGroupOf(item)]);
     if(tg && !tg.checked){ tg.checked = true; applyToggles(); }
-    if(item.bb) fitTo(item.bb); else centerOn(item.ll[1],item.ll[0], Math.max(map.getZoom(),16));
+    aim(item.name, item.ll[1], item.ll[0], Math.max(map.getZoom(),16), item.bb);
     const aka = akaBlock(item);
     infoAt(item.ll[1],item.ll[0], item.name, `${aka}<div class="muted" style="margin-bottom:6px">${poiDesc(item)}</div>`, false, poiSpec(item));
     return;
   }
   if(item._kind==="street"){
     const s=item.s;
-    centerOn(s[3],s[2], 16);
+    aim(s[0], s[3], s[2], 16);
     infoAt(s[3],s[2], s[0], `<div class="muted" style="margin-bottom:6px">Street, ${s[4]} addresses in ${esc(s[1])}</div>`, false, `street|${s[0]}|${s[1]}`);
     return;
   }
@@ -1313,7 +1368,8 @@ function select(item){
   if(f._kind==="postal" && !document.getElementById("L-postal").checked){ document.getElementById("L-postal").checked=true; applyToggles(); }
   if(f._kind==="hverfi" && !document.getElementById("L-hverfi").checked){ document.getElementById("L-hverfi").checked=true; applyToggles(); }
   highlight(f);
-  fitTo(f._bb);
+  const fl = f.properties.label || [(f._bb[0]+f._bb[2])/2, (f._bb[1]+f._bb[3])/2];
+  aim(f._kind==="postal" ? f.properties.code+" "+f.properties.town : f.properties.name, fl[1], fl[0], 0, f._bb);
   featureInfo(f);
 }
 // clickable polygons show their own info (smallest wins via map click instead); we use map click for everything
@@ -1363,7 +1419,7 @@ DATA.streets.forEach(s=>addIdx(s[0],"street",{_kind:"street",s},s[1]+" "+(postal
 const POI_WORDS = {grocery:["supermarket","grocery","matvoruverslun"], store:["store","big store"], sight:[],
   mall:["mall","shopping centre","shopping center","shopping","verslunarmidstod"],
   second:["second hand","secondhand","thrift","thrift shop","charity shop","used","nytjamarkadur"],
-  bus:["bus","bus hub","bus station","bus stop","straeto","skiptistod","stoppistod"],
+  bus:["bus","bus hub","bus station","bus stop","straeto","skiptistod","stoppistod"], civic:[],
   pool:["pool","swimming pool","swimming","swim","sundlaug","sund"], park:[]};
 const PARK_WORDS = {park:["park","gardur"], garden:["garden","gardur","park"], botanical:["botanical garden","garden","grasagardur","park"],
                     reserve:["nature area","nature reserve","hiking"], wood:["woodland","forest","woods","skogur","park","hiking"]};
@@ -1372,10 +1428,12 @@ POIS.forEach(p=>{
   const sub = p.cat==="bus" ? `${lineList ? "Lines " + lineList + " · " : p.stops ? "Stops " + p.stops.split("").join(", ") + " · " : ""}${p.muni}` : [p.addr, p.postal[0], p.muni].filter(Boolean).join(" · ");
   const lab = poiLabel(p);
   const add = (n, boost) => index.push({name:p.name, n, kind:"poi", ref:p, sub, boost, lab});
-  add(norm(p.name), p.cat==="grocery" ? 3 : 9);
+  add(norm(p.name), p.cat==="grocery" ? 3 : p.cat==="sight" || p.cat==="civic" ? 10 : 9);     // a sight before a same-named bus stop
   if(p.brand && p.brand!==p.name) add(norm(p.brand), 3);
   const wb = p.kind==="stop" ? -2 : p.cat==="park" ? (p.km2 >= 1 ? 3 : p.km2 >= 0.1 ? 2 : p.km2 >= 0.01 ? 1 : 0) : 0;   // real hubs before big stops; big parks first
-  for(const w of [...POI_WORDS[p.cat], ...(p.cat==="park" ? PARK_WORDS[p.kind]||[] : []), ...(p.words||[])]) add(norm(w), wb);
+  for(const w of [...POI_WORDS[p.cat], ...(p.cat==="park" ? PARK_WORDS[p.kind]||[] : []), ...(p.words||[])]) index.push({name:p.name, n:norm(w), kind:"poi", ref:p, sub:p.en ? p.en + " · " + sub : sub, boost:wb, lab, w:true});
+  // an English name that is a name ("Blue Lagoon", not "canyon") is a row of its own, tagged English and not voiced
+  if(p.en && p.en[0] !== p.en[0].toLowerCase()) index.push({name:p.en, n:norm(p.en), kind:"poi", ref:p, sub:`→ ${p.name} · ${p.muni}`, boost:8, lab, en:true});
 });
 // aliases: other names people use (build/aliases.json): alias -> [kind, map name, town, "en" if English]
 const ALIASES = Object.fromEntries(Object.entries(DATA.aliases || {}).filter(([k]) => !k.startsWith("_")));
@@ -1384,6 +1442,8 @@ for(const [alias,[kind,name,muni]] of Object.entries(ALIASES)){
     : (ALL[kind]||[]).find(x=>x.properties.name===name && (!muni || x.properties.muni===muni || kind==="munis"));
   if(!f) continue;
   addIdx(alias,kind,f,`→ ${name}${muni?" · "+muni:""}`,7,true);
+  if(ALIASES[alias].includes("en")) index[index.length-1].en = true;
+  if(kind==="poi") index[index.length-1].lab = poiLabel(f);
   if(alias !== name && !ALIASES[alias].includes("case")) (f._aka = f._aka || []).push(alias);   // shown as "Also called"
 }
 const FILLER = /\b(west|east|north|south|upper|lower|old|new|the|vestur|austur|nordur|sudur|efri|efra|nedri|nedra|gamli|nyi|nyja|hverfi|hverfid|neighbourhood|neighborhood|area|island|islands|isle|eyja|eyjan|in|i|a|vid|uti|ut|reykjavik)\b/g;
@@ -1579,12 +1639,14 @@ function search(raw){
   for(const it of myIndex.concat(index)){
     let s=-1;
     if(pc && it.kind==="postal" && it.n.startsWith(pc[1])) s=120;
+    let literal = false;          // the typed letters start the name or one of its words
     vs.forEach((v,vi)=>{
       const pen = vi===0?0:6;
       let t=-1;
       if(it.n===v) t=100;
       else if(it.n.startsWith(v)) t=78 - Math.min(10,(it.n.length-v.length));
       else if(v.length>=3 && it.n.split(" ").some(w=>w.startsWith(v))) t=62;
+      if(t>=0) literal = true;
       else if(v.length>=4 && it.n.includes(v)) t=50;
       else if(v.length>=4){ const d=lev(v,it.n); if(d===1) t=58; else if(d===2 && v.length>=6) t=42; }
       if(t>=0) s=Math.max(s,t-pen);
@@ -1594,17 +1656,25 @@ function search(raw){
       const ss = soundScore(qSets, it);
       if(ss > s){ s = ss; sound = true; }
     }
-    if(s>=0) scored.push({it, score: s + (sound ? it.boost*.3 : it.boost), sound});   // for sound matches, closeness matters most
+    if(s>=0) scored.push({it, score: s + (sound ? it.boost*.3 : it.boost), sound, literal});   // for sound matches, closeness matters most
   }
   const c0 = map.getCenter(), near = it => it.kind==="poi"||it.kind==="town" ? (it.ref.ll[0]-c0.lng)**2*.19 + (it.ref.ll[1]-c0.lat)**2 : 0;
   scored.sort((a,b)=>b.score-a.score || near(a.it)-near(b.it) || a.it.n.length-b.it.n.length);
   // keep only sound guesses that are nearly as good as the best one (no long tail of weak look-alikes)
   const bestSound = Math.max(-1, ...scored.filter(x=>x.sound).map(x=>x.score));
-  const seen=new Set(), res=[];
+  const seen=new Set(), res=[], row=new Map();
   for(const x of scored){
     if(x.sound && x.score < bestSound - 10) continue;
-    const key = x.it.kind+"|"+(x.it.ref._id||x.it.name+x.it.sub);
-    if(seen.has(key)) continue; seen.add(key); res.push(x.sound ? {...x.it, sound:true} : x.it);
+    const it = x.sound && !x.literal ? {...x.it, sound:true} : x.it;    // "sounds like", unless the letters typed start the name ("university")
+    if(x.it.kind==="poi"){        // one row per place; its English name shows why an English word ("parliament") matched
+      const j = row.get(x.it.ref);
+      if(j !== undefined){ if(it.en && res[j].w) res[j] = it; continue; }
+      row.set(x.it.ref, res.length);
+    } else {
+      const key = x.it.kind+"|"+(x.it.ref._id||x.it.name+x.it.sub);
+      if(seen.has(key)) continue; seen.add(key);
+    }
+    res.push(it);
     if(res.length>=14) break;
   }
   return res;
@@ -1618,7 +1688,7 @@ let cur=[], act=-1;
 function render(){
   resEl.innerHTML = cur.map((it,i)=>`<li><button type="button" data-i="${i}" class="${i===act?"active":""}">
     <span class="badge ${BADGE[it.kind]}">${esc(it.lab||KIND_LABEL[it.kind])}</span>
-    <span class="nm">${esc(it.name)}</span>${it.sound?'<span class="sl" title="Matched by how it sounds">≈ sounds like</span>':""}<span class="sub">${esc(it.sub||"")}</span></button></li>`).join("")
+    <span class="nm">${esc(it.name)}</span>${it.en?'<span class="sl">English name</span>':""}${it.sound?'<span class="sl" title="Matched by how it sounds">≈ sounds like</span>':""}<span class="sub">${esc(it.sub||"")}</span></button></li>`).join("")
     || (qEl.value.trim()? '<li class="muted" style="padding:8px">No match. Try fewer letters, or click the map.</li>':"");
   qEl.closest(".searchbox").classList.toggle("has-results", resEl.children.length > 0);
 }

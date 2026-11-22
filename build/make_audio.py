@@ -103,7 +103,8 @@ def postal_words(code):
 # names an Icelandic voice would otherwise spell out or misread: say them the way Icelanders do
 SAY_AS = {"IKEA": "Íkea", "Costco": "Kostkó", "BYKO": "Býkó", "JYSK": "Jysk", "Bauhaus": "Báhás", "BSÍ": "bé ess í",
           "abc": "a bé sé", "KR": "ká err", "MR": "emm err", "FB": "eff bé", "FMOS": "eff emm o ess",
-          "RÚV": "Ríkisútvarpið, Rúv", "N1": "enn einn", "FSU": "eff ess ú"}
+          "RÚV": "Ríkisútvarpið, Rúv", "N1": "enn einn", "FSU": "eff ess ú",
+          "HÍ": "há í", "HR": "há err", "HA": "há a", "LHÍ": "ell há í", "UNAK": "Unak"}     # university initials; UNAK is said as a word
 # names the Icelandic voice should not read: English names, and stray abbreviations in the street data
 NO_CLIP = {"Lava Centre", "DRE"}
 # "3.Gata" is "þriðja gata", not "three point street"; farm numbers like "Eyjar II" are read as "Eyjar tvö"
