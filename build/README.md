@@ -39,6 +39,13 @@ python inject.py data/mapdata.json template.html ../capital-region-map.html ../_
   only parks in towns); and bus places: Strætó's transfer hubs
   (`HUBS`, from straeto.is), Hlemmur and Lækjartorg, the BSÍ terminal, and other big stops with lettered
   platforms. Hlemmur is placed by hand (`MANUAL_STOPS`) while its stops are out of OSM.
+  Long-distance bus stops: in each town or village outside the capital region that a long-distance bus calls
+  at (Strætó's countryside routes, `LONG_LINES`, and the village buses around Ísafjörður and in Múlaþing,
+  `REGIONAL`; not tourist coaches or airport shuttles): every stop where 4 or more of these lines call, then
+  the fewest more stops covering the rest of its lines. Outside towns: the stops at an airport, a ferry port
+  (`FERRY` says where the ferry goes) or a sight on the map, and any stop where 4 or more lines meet (Baula).
+  From OSM's route relations. A new Strætó route number 50-99 prints a warning until it is added to
+  `LONG_LINES`.
 - `addresses.py`: every street address (street + house number) for the Home / Work settings, as
   `_assets/addresses.js` (~380 KB, ~155 KB compressed). The page loads it only when Home / Work is used and
   looks addresses up in the browser, so typed addresses are not sent anywhere. Keep it next to the HTML.

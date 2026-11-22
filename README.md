@@ -23,7 +23,8 @@ every other town and village with its streets, plus the big roads, the sights an
   to Google Maps, or a link straight back to this map.
 - **Points of interest**, each switchable: groceries (Bónus, Krónan, Nettó, Hagkaup, and in towns without
   them the local shop, such as Kjörbúðin or the kaupfélag), shopping, swimming
-  pools, parks, the main bus stops and transfer hubs, and about 150 sights (Hallgrímskirkja, Gullfoss, Geysir,
+  pools, parks, the main bus stops and transfer hubs, the long-distance bus stops in every town they call at and
+  at airports, ferry ports and sights such as Goðafoss and Jökulsárlón (with where each line goes), and about 150 sights (Hallgrímskirkja, Gullfoss, Geysir,
   Seljalandsfoss, Bláa lónið, Kirkjufell, Dettifoss, Mývatn, Jökulsárlón, Dynjandi...).
 - **Islands:** about 150 named islands, from Viðey and Engey off Reykjavík to Heimaey, Surtsey, the
   Breiðafjörður islands (Flatey, Brokey), Vigur, Drangey, Hrísey and Grímsey, labelled, searchable and with
@@ -49,7 +50,7 @@ pronunciation pipeline.
 - Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors, available under the
   Open Database License (ODbL). Boundaries, places, streets, addresses and points of interest come from OSM.
 - Reykjavík neighbourhood and district boundaries: Reykjavík City open data (lukrgatt.reykjavik.is).
-- Bus transfer hubs: Strætó.
+- Bus transfer hubs: Strætó. Bus routes and stops: OpenStreetMap.
 - Pronunciation: [Piper](https://github.com/rhasspy/piper) with the Icelandic voice Ugla
   ([rhasspy/piper-voices](https://huggingface.co/rhasspy/piper-voices/tree/main/is/is_IS); see its model
   card for licence), phonemes from espeak-ng.

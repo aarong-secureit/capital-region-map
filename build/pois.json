@@ -11136,29 +11136,6 @@
   ]
  },
  {
-  "name": "Borgarnes",
-  "cat": "bus",
-  "kind": "stop",
-  "stops": "",
-  "lines": [
-   "50",
-   "57",
-   "58",
-   "59",
-   "63",
-   "64",
-   "65"
-  ],
-  "ll": [
-   -21.91095,
-   64.543576
-  ],
-  "muni": "Borgarbyggð",
-  "postal": [
-   "310"
-  ]
- },
- {
   "name": "Sogamýri",
   "cat": "bus",
   "kind": "stop",
@@ -11484,27 +11461,6 @@
   ]
  },
  {
-  "name": "Selfoss - N1",
-  "cat": "bus",
-  "kind": "stop",
-  "stops": "",
-  "lines": [
-   "51",
-   "52",
-   "53",
-   "72",
-   "73"
-  ],
-  "ll": [
-   -20.987858,
-   63.936712
-  ],
-  "muni": "Árborg",
-  "postal": [
-   "800"
-  ]
- },
- {
   "name": "FB",
   "cat": "bus",
   "kind": "stop",
@@ -11607,27 +11563,6 @@
   "muni": "Reykjavík",
   "postal": [
    "108"
-  ]
- },
- {
-  "name": "Selfoss - FSU",
-  "cat": "bus",
-  "kind": "stop",
-  "stops": "",
-  "lines": [
-   "51",
-   "52",
-   "53",
-   "72",
-   "73"
-  ],
-  "ll": [
-   -20.999125,
-   63.932679
-  ],
-  "muni": "Árborg",
-  "postal": [
-   "800"
   ]
  },
  {
@@ -11951,26 +11886,6 @@
   ]
  },
  {
-  "name": "Selfoss - Ráðhúsið",
-  "cat": "bus",
-  "kind": "stop",
-  "stops": "",
-  "lines": [
-   "51",
-   "52",
-   "72",
-   "73"
-  ],
-  "ll": [
-   -21.002319,
-   63.937359
-  ],
-  "muni": "Árborg",
-  "postal": [
-   "800"
-  ]
- },
- {
   "name": "Smáralind",
   "cat": "bus",
   "kind": "stop",
@@ -12071,26 +11986,6 @@
   ]
  },
  {
-  "name": "Baula",
-  "cat": "bus",
-  "kind": "stop",
-  "stops": "",
-  "lines": [
-   "57",
-   "59",
-   "63",
-   "65"
-  ],
-  "ll": [
-   -21.664953,
-   64.67497
-  ],
-  "muni": "Borgarbyggð",
-  "postal": [
-   "311"
-  ]
- },
- {
   "name": "Sólfarið",
   "cat": "bus",
   "kind": "stop",
@@ -12131,46 +12026,6 @@
   ]
  },
  {
-  "name": "Akureyri - Hof",
-  "cat": "bus",
-  "kind": "stop",
-  "stops": "",
-  "lines": [
-   "56",
-   "57",
-   "78",
-   "79"
-  ],
-  "ll": [
-   -18.087479,
-   65.684016
-  ],
-  "muni": "Akureyri",
-  "postal": [
-   "600"
-  ]
- },
- {
-  "name": "Akureyrarflugvöllur",
-  "cat": "bus",
-  "kind": "stop",
-  "stops": "",
-  "lines": [
-   "56",
-   "57",
-   "78",
-   "79"
-  ],
-  "ll": [
-   -18.075972,
-   65.654617
-  ],
-  "muni": "Akureyri",
-  "postal": [
-   "600"
-  ]
- },
- {
   "name": "Skeggjagata",
   "cat": "bus",
   "kind": "stop",
@@ -12188,6 +12043,2954 @@
   "muni": "Reykjavík",
   "postal": [
    "105"
+  ]
+ },
+ {
+  "name": "Bæjarskrifstofan",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "50"
+  ],
+  "routes": [
+   "Strætó 50: Reykjavík – Akranes – Borgarnes"
+  ],
+  "town": "Akranes",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Akranes",
+   "bus Akranes",
+   "bus stop Akranes",
+   "long distance bus Akranes",
+   "coach Akranes"
+  ],
+  "ll": [
+   -22.07026,
+   64.320454
+  ],
+  "muni": "Akranes",
+  "postal": [
+   "300"
+  ]
+ },
+ {
+  "name": "Akureyri - Hof",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "56",
+   "57",
+   "78",
+   "79"
+  ],
+  "routes": [
+   "Strætó 56: Akureyri – Egilsstaðir",
+   "Strætó 57: Reykjavík – Akureyri",
+   "Strætó 78: Akureyri – Siglufjörður",
+   "Strætó 79: Akureyri – Húsavík"
+  ],
+  "town": "Akureyri",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Akureyri",
+   "bus Akureyri",
+   "bus stop Akureyri",
+   "long distance bus Akureyri",
+   "coach Akureyri"
+  ],
+  "ll": [
+   -18.087479,
+   65.684016
+  ],
+  "muni": "Akureyri",
+  "postal": [
+   "600"
+  ]
+ },
+ {
+  "name": "Borgarfjörður - Fjarðarborg",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [],
+  "routes": [
+   "Múlaþing bus: Egilsstaðir – Borgarfjörður eystri"
+  ],
+  "town": "Bakkagerði",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Bakkagerði",
+   "bus Bakkagerði",
+   "bus stop Bakkagerði",
+   "long distance bus Bakkagerði",
+   "coach Bakkagerði"
+  ],
+  "ll": [
+   -13.817116,
+   65.52739
+  ],
+  "muni": "Múlaþing",
+  "postal": [
+   "720"
+  ]
+ },
+ {
+  "name": "Bifröst",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "57",
+   "59",
+   "65"
+  ],
+  "routes": [
+   "Strætó 57: Reykjavík – Akureyri",
+   "Strætó 59: Borgarnes – Hólmavík",
+   "Strætó 65: Borgarnes – Búðardalur"
+  ],
+  "town": "Bifröst",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Bifröst",
+   "bus Bifröst",
+   "bus stop Bifröst",
+   "long distance bus Bifröst",
+   "coach Bifröst"
+  ],
+  "ll": [
+   -21.552175,
+   64.766298
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "311"
+  ]
+ },
+ {
+  "name": "Blönduós",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "57",
+   "84"
+  ],
+  "routes": [
+   "Strætó 57: Reykjavík – Akureyri",
+   "Strætó 84: Blönduós – Skagaströnd"
+  ],
+  "town": "Blönduós",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Blönduós",
+   "bus Blönduós",
+   "bus stop Blönduós",
+   "long distance bus Blönduós",
+   "coach Blönduós"
+  ],
+  "ll": [
+   -20.276002,
+   65.659987
+  ],
+  "muni": "Húnabyggð",
+  "postal": [
+   "540"
+  ]
+ },
+ {
+  "name": "Hvíta húsið",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "F"
+  ],
+  "routes": [
+   "Ísafjörður bus F: Ísafjörður – Bolungarvík"
+  ],
+  "town": "Bolungarvík",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Bolungarvík",
+   "bus Bolungarvík",
+   "bus stop Bolungarvík",
+   "long distance bus Bolungarvík",
+   "coach Bolungarvík"
+  ],
+  "ll": [
+   -23.249727,
+   66.157953
+  ],
+  "muni": "Bolungarvík",
+  "postal": [
+   "415"
+  ]
+ },
+ {
+  "name": "Borg í Grímsnesi",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "72",
+   "73"
+  ],
+  "routes": [
+   "Strætó 72: Selfoss – Borg – Flúðir",
+   "Strætó 73: Selfoss – Flúðir – Borg"
+  ],
+  "town": "Borg í Grímsnesi",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Borg í Grímsnesi",
+   "bus Borg í Grímsnesi",
+   "bus stop Borg í Grímsnesi",
+   "long distance bus Borg í Grímsnesi",
+   "coach Borg í Grímsnesi"
+  ],
+  "ll": [
+   -20.767778,
+   64.07438
+  ],
+  "muni": "Grímsnes- og Grafningshreppur",
+  "postal": [
+   "805"
+  ]
+ },
+ {
+  "name": "Borgarnes",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "50",
+   "57",
+   "58",
+   "59",
+   "63",
+   "64",
+   "65"
+  ],
+  "routes": [
+   "Strætó 50: Reykjavík – Akranes – Borgarnes",
+   "Strætó 57: Reykjavík – Akureyri",
+   "Strætó 58: Borgarnes – Stykkishólmur",
+   "Strætó 59: Borgarnes – Hólmavík",
+   "Strætó 63: Borgarnes – Varmaland",
+   "Strætó 64: Borgarnes – Kleppjárnsreykir",
+   "Strætó 65: Borgarnes – Búðardalur"
+  ],
+  "town": "Borgarnes",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Borgarnes",
+   "bus Borgarnes",
+   "bus stop Borgarnes",
+   "long distance bus Borgarnes",
+   "coach Borgarnes"
+  ],
+  "ll": [
+   -21.91095,
+   64.543576
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "310"
+  ]
+ },
+ {
+  "name": "Brautarholt",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "72",
+   "73"
+  ],
+  "routes": [
+   "Strætó 72: Selfoss – Borg – Flúðir",
+   "Strætó 73: Selfoss – Flúðir – Borg"
+  ],
+  "town": "Brautarholt",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Brautarholt",
+   "bus Brautarholt",
+   "bus stop Brautarholt",
+   "long distance bus Brautarholt",
+   "coach Brautarholt"
+  ],
+  "ll": [
+   -20.521631,
+   64.023153
+  ],
+  "muni": "Skeiða- og Gnúpverjahreppur",
+  "postal": [
+   "804"
+  ]
+ },
+ {
+  "name": "Breiðdalsvík - Kaupfjelagið",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "92",
+   "94S"
+  ],
+  "routes": [
+   "Strætó 92: Fáskrúðsfjörður – Breiðdalsvík",
+   "Strætó 94S: Djúpivogur – Breiðdalsvík"
+  ],
+  "town": "Breiðdalsvík",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Breiðdalsvík",
+   "bus Breiðdalsvík",
+   "bus stop Breiðdalsvík",
+   "long distance bus Breiðdalsvík",
+   "coach Breiðdalsvík"
+  ],
+  "ll": [
+   -14.009316,
+   64.792175
+  ],
+  "muni": "Fjarðabyggð",
+  "postal": [
+   "760"
+  ]
+ },
+ {
+  "name": "Bíldudalur - Orkan",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "66"
+  ],
+  "routes": [
+   "Strætó 66: Patreksfjörður – Bíldudalur"
+  ],
+  "town": "Bíldudalur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Bíldudalur",
+   "bus Bíldudalur",
+   "bus stop Bíldudalur",
+   "long distance bus Bíldudalur",
+   "coach Bíldudalur"
+  ],
+  "ll": [
+   -23.601056,
+   65.685356
+  ],
+  "muni": "Vesturbyggð",
+  "postal": [
+   "465"
+  ]
+ },
+ {
+  "name": "Búðardalur",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "59",
+   "65"
+  ],
+  "routes": [
+   "Strætó 59: Borgarnes – Hólmavík",
+   "Strætó 65: Borgarnes – Búðardalur"
+  ],
+  "town": "Búðardalur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Búðardalur",
+   "bus Búðardalur",
+   "bus stop Búðardalur",
+   "long distance bus Búðardalur",
+   "coach Búðardalur"
+  ],
+  "ll": [
+   -21.763061,
+   65.108099
+  ],
+  "muni": "Dalabyggð",
+  "postal": [
+   "370"
+  ]
+ },
+ {
+  "name": "Dalvík",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "78"
+  ],
+  "routes": [
+   "Strætó 78: Akureyri – Siglufjörður"
+  ],
+  "town": "Dalvík",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Dalvík",
+   "bus Dalvík",
+   "bus stop Dalvík",
+   "long distance bus Dalvík",
+   "coach Dalvík"
+  ],
+  "ll": [
+   -18.529824,
+   65.966964
+  ],
+  "muni": "Dalvíkurbyggð",
+  "postal": [
+   "620"
+  ]
+ },
+ {
+  "name": "Djúpivogur - Hótel Framtíð",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "94",
+   "94S"
+  ],
+  "routes": [
+   "Strætó 94: Höfn – Djúpivogur",
+   "Strætó 94S: Djúpivogur – Breiðdalsvík"
+  ],
+  "town": "Djúpivogur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Djúpivogur",
+   "bus Djúpivogur",
+   "bus stop Djúpivogur",
+   "long distance bus Djúpivogur",
+   "coach Djúpivogur"
+  ],
+  "ll": [
+   -14.280822,
+   64.656311
+  ],
+  "muni": "Múlaþing",
+  "postal": [
+   "765"
+  ]
+ },
+ {
+  "name": "Djúpivogur - Bjargstún",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [],
+  "routes": [
+   "Múlaþing bus: Egilsstaðir – Djúpivogur"
+  ],
+  "town": "Djúpivogur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Djúpivogur",
+   "bus Djúpivogur",
+   "bus stop Djúpivogur",
+   "long distance bus Djúpivogur",
+   "coach Djúpivogur"
+  ],
+  "ll": [
+   -14.28188,
+   64.656312
+  ],
+  "muni": "Múlaþing",
+  "postal": [
+   "765"
+  ]
+ },
+ {
+  "name": "Egilsstaðir - Tjaldsvæðið",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "56",
+   "91",
+   "93"
+  ],
+  "routes": [
+   "Strætó 56: Akureyri – Egilsstaðir",
+   "Strætó 91: Egilsstaðir – Neskaupstaður",
+   "Strætó 93: Egilsstaðir – Seyðisfjörður",
+   "Múlaþing bus: Egilsstaðir – Borgarfjörður eystri",
+   "Múlaþing bus: Egilsstaðir – Hallormsstaður"
+  ],
+  "town": "Egilsstaðir",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Egilsstaðir",
+   "bus Egilsstaðir",
+   "bus stop Egilsstaðir",
+   "long distance bus Egilsstaðir",
+   "coach Egilsstaðir"
+  ],
+  "ll": [
+   -14.407701,
+   65.258498
+  ],
+  "muni": "Múlaþing",
+  "postal": [
+   "700"
+  ]
+ },
+ {
+  "name": "Menntaskólinn á Egilsstöðum",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [],
+  "routes": [
+   "Múlaþing bus: Egilsstaðir – Djúpivogur"
+  ],
+  "town": "Egilsstaðir",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Egilsstaðir",
+   "bus Egilsstaðir",
+   "bus stop Egilsstaðir",
+   "long distance bus Egilsstaðir",
+   "coach Egilsstaðir"
+  ],
+  "ll": [
+   -14.398545,
+   65.267143
+  ],
+  "muni": "Múlaþing",
+  "postal": [
+   "700"
+  ]
+ },
+ {
+  "name": "Eskifjörður - Valhöll",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "91",
+   "96"
+  ],
+  "routes": [
+   "Strætó 91: Egilsstaðir – Neskaupstaður",
+   "Strætó 96: Fáskrúðsfjörður – Neskaupstaður"
+  ],
+  "town": "Eskifjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Eskifjörður",
+   "bus Eskifjörður",
+   "bus stop Eskifjörður",
+   "long distance bus Eskifjörður",
+   "coach Eskifjörður"
+  ],
+  "ll": [
+   -14.013276,
+   65.070877
+  ],
+  "muni": "Fjarðabyggð",
+  "postal": [
+   "735"
+  ]
+ },
+ {
+  "name": "Egilsstaðir - Flugvöllur",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "91",
+   "93"
+  ],
+  "routes": [
+   "Strætó 91: Egilsstaðir – Neskaupstaður",
+   "Strætó 93: Egilsstaðir – Seyðisfjörður",
+   "Múlaþing bus: Egilsstaðir – Djúpivogur"
+  ],
+  "town": "Fellabær",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Fellabær",
+   "bus Fellabær",
+   "bus stop Fellabær",
+   "long distance bus Fellabær",
+   "coach Fellabær"
+  ],
+  "ll": [
+   -14.406022,
+   65.274809
+  ],
+  "muni": "Múlaþing",
+  "postal": [
+   "700"
+  ]
+ },
+ {
+  "name": "Fellabær",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "56"
+  ],
+  "routes": [
+   "Strætó 56: Akureyri – Egilsstaðir"
+  ],
+  "town": "Fellabær",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Fellabær",
+   "bus Fellabær",
+   "bus stop Fellabær",
+   "long distance bus Fellabær",
+   "coach Fellabær"
+  ],
+  "ll": [
+   -14.425887,
+   65.2826
+  ],
+  "muni": "Múlaþing",
+  "postal": [
+   "700"
+  ]
+ },
+ {
+  "name": "Flateyri - N1",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "R"
+  ],
+  "routes": [
+   "Ísafjörður bus R: Ísafjörður – Flateyri – Þingeyri"
+  ],
+  "town": "Flateyri",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Flateyri",
+   "bus Flateyri",
+   "bus stop Flateyri",
+   "long distance bus Flateyri",
+   "coach Flateyri"
+  ],
+  "ll": [
+   -23.51062,
+   66.051717
+  ],
+  "muni": "Ísafjarðarbær",
+  "postal": [
+   "425"
+  ]
+ },
+ {
+  "name": "Flúðir",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "72",
+   "73"
+  ],
+  "routes": [
+   "Strætó 72: Selfoss – Borg – Flúðir",
+   "Strætó 73: Selfoss – Flúðir – Borg"
+  ],
+  "town": "Flúðir",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Flúðir",
+   "bus Flúðir",
+   "bus stop Flúðir",
+   "long distance bus Flúðir",
+   "coach Flúðir"
+  ],
+  "ll": [
+   -20.322058,
+   64.131631
+  ],
+  "muni": "Hrunamannahreppur",
+  "postal": [
+   "845"
+  ]
+ },
+ {
+  "name": "Fáskrúðsfjörður - Kirkjugarður",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "92",
+   "96"
+  ],
+  "routes": [
+   "Strætó 92: Fáskrúðsfjörður – Breiðdalsvík",
+   "Strætó 96: Fáskrúðsfjörður – Neskaupstaður"
+  ],
+  "town": "Fáskrúðsfjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Fáskrúðsfjörður",
+   "bus Fáskrúðsfjörður",
+   "bus stop Fáskrúðsfjörður",
+   "long distance bus Fáskrúðsfjörður",
+   "coach Fáskrúðsfjörður"
+  ],
+  "ll": [
+   -14.028193,
+   64.934192
+  ],
+  "muni": "Fjarðabyggð",
+  "postal": [
+   "750"
+  ]
+ },
+ {
+  "name": "Pósthúsið Garði / Garður",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "89"
+  ],
+  "routes": [
+   "Strætó 89: Reykjanesbær – Sandgerði – Garður"
+  ],
+  "town": "Garður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Garður",
+   "bus Garður",
+   "bus stop Garður",
+   "long distance bus Garður",
+   "coach Garður"
+  ],
+  "ll": [
+   -22.650504,
+   64.069796
+  ],
+  "muni": "Suðurnesjabær",
+  "postal": [
+   "250"
+  ]
+ },
+ {
+  "name": "Grundarfjörður",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "82"
+  ],
+  "routes": [
+   "Strætó 82: Stykkishólmur – Hellissandur"
+  ],
+  "town": "Grundarfjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Grundarfjörður",
+   "bus Grundarfjörður",
+   "bus stop Grundarfjörður",
+   "long distance bus Grundarfjörður",
+   "coach Grundarfjörður"
+  ],
+  "ll": [
+   -23.260333,
+   64.925131
+  ],
+  "muni": "Grundarfjörður",
+  "postal": [
+   "350"
+  ]
+ },
+ {
+  "name": "Hallormsstaðaskóli",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [],
+  "routes": [
+   "Múlaþing bus: Egilsstaðir – Hallormsstaður"
+  ],
+  "town": "Hallormsstaður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Hallormsstaður",
+   "bus Hallormsstaður",
+   "bus stop Hallormsstaður",
+   "long distance bus Hallormsstaður",
+   "coach Hallormsstaður"
+  ],
+  "ll": [
+   -14.741077,
+   65.092783
+  ],
+  "muni": "Múlaþing",
+  "postal": [
+   "701"
+  ]
+ },
+ {
+  "name": "Hella",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "52",
+   "53"
+  ],
+  "routes": [
+   "Strætó 52: Reykjavík – Vík – Höfn",
+   "Strætó 53: Selfoss – Landeyjahöfn"
+  ],
+  "town": "Hella",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Hella",
+   "bus Hella",
+   "bus stop Hella",
+   "long distance bus Hella",
+   "coach Hella"
+  ],
+  "ll": [
+   -20.400527,
+   63.834195
+  ],
+  "muni": "Rangárþing ytra",
+  "postal": [
+   "850"
+  ]
+ },
+ {
+  "name": "Hellissandur",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "82"
+  ],
+  "routes": [
+   "Strætó 82: Stykkishólmur – Hellissandur"
+  ],
+  "town": "Hellissandur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Hellissandur",
+   "bus Hellissandur",
+   "bus stop Hellissandur",
+   "long distance bus Hellissandur",
+   "coach Hellissandur"
+  ],
+  "ll": [
+   -23.883787,
+   64.916529
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "360"
+  ]
+ },
+ {
+  "name": "Búð",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "F"
+  ],
+  "routes": [
+   "Ísafjörður bus F: Ísafjörður – Bolungarvík"
+  ],
+  "town": "Hnífsdalur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Hnífsdalur",
+   "bus Hnífsdalur",
+   "bus stop Hnífsdalur",
+   "long distance bus Hnífsdalur",
+   "coach Hnífsdalur"
+  ],
+  "ll": [
+   -23.11778,
+   66.108978
+  ],
+  "muni": "Ísafjarðarbær",
+  "postal": [
+   "410"
+  ]
+ },
+ {
+  "name": "Hvanneyri",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "64"
+  ],
+  "routes": [
+   "Strætó 64: Borgarnes – Kleppjárnsreykir"
+  ],
+  "town": "Hvanneyri",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Hvanneyri",
+   "bus Hvanneyri",
+   "bus stop Hvanneyri",
+   "long distance bus Hvanneyri",
+   "coach Hvanneyri"
+  ],
+  "ll": [
+   -21.765192,
+   64.561465
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "311"
+  ]
+ },
+ {
+  "name": "Hveragerði",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "51",
+   "52",
+   "71"
+  ],
+  "routes": [
+   "Strætó 51: Reykjavík – Selfoss",
+   "Strætó 52: Reykjavík – Vík – Höfn",
+   "Strætó 71: Hveragerði – Þorlákshöfn"
+  ],
+  "town": "Hveragerði",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Hveragerði",
+   "bus Hveragerði",
+   "bus stop Hveragerði",
+   "long distance bus Hveragerði",
+   "coach Hveragerði"
+  ],
+  "ll": [
+   -21.184322,
+   63.995449
+  ],
+  "muni": "Hveragerði",
+  "postal": [
+   "810"
+  ]
+ },
+ {
+  "name": "Hvolsvöllur",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "52",
+   "53"
+  ],
+  "routes": [
+   "Strætó 52: Reykjavík – Vík – Höfn",
+   "Strætó 53: Selfoss – Landeyjahöfn"
+  ],
+  "town": "Hvolsvöllur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Hvolsvöllur",
+   "bus Hvolsvöllur",
+   "bus stop Hvolsvöllur",
+   "long distance bus Hvolsvöllur",
+   "coach Hvolsvöllur"
+  ],
+  "ll": [
+   -20.234235,
+   63.749871
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "860"
+  ]
+ },
+ {
+  "name": "Hólmavík - Kaupfélag",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "59"
+  ],
+  "routes": [
+   "Strætó 59: Borgarnes – Hólmavík"
+  ],
+  "town": "Hólmavík",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Hólmavík",
+   "bus Hólmavík",
+   "bus stop Hólmavík",
+   "long distance bus Hólmavík",
+   "coach Hólmavík"
+  ],
+  "ll": [
+   -21.685938,
+   65.700967
+  ],
+  "muni": "Strandabyggð",
+  "postal": [
+   "510"
+  ]
+ },
+ {
+  "name": "Höfn í Hornafirði - Sundlaug",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "52",
+   "94"
+  ],
+  "routes": [
+   "Strætó 52: Reykjavík – Vík – Höfn",
+   "Strætó 94: Höfn – Djúpivogur"
+  ],
+  "town": "Höfn",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Höfn",
+   "bus Höfn",
+   "bus stop Höfn",
+   "long distance bus Höfn",
+   "coach Höfn"
+  ],
+  "ll": [
+   -15.208199,
+   64.254363
+  ],
+  "muni": "Hornafjörður",
+  "postal": [
+   "780"
+  ]
+ },
+ {
+  "name": "Húsavík",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "79"
+  ],
+  "routes": [
+   "Strætó 79: Akureyri – Húsavík"
+  ],
+  "town": "Húsavík",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Húsavík",
+   "bus Húsavík",
+   "bus stop Húsavík",
+   "long distance bus Húsavík",
+   "coach Húsavík"
+  ],
+  "ll": [
+   -17.342847,
+   66.047575
+  ],
+  "muni": "Norðurþing",
+  "postal": [
+   "640"
+  ]
+ },
+ {
+  "name": "Tjarnarhverfi",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "55"
+  ],
+  "routes": [
+   "Strætó 55: Reykjavík – Keflavík Airport"
+  ],
+  "town": "Innri-Njarðvík",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Innri-Njarðvík",
+   "bus Innri-Njarðvík",
+   "bus stop Innri-Njarðvík",
+   "long distance bus Innri-Njarðvík",
+   "coach Innri-Njarðvík"
+  ],
+  "ll": [
+   -22.51365,
+   63.969144
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
+  ]
+ },
+ {
+  "name": "Holtaskóli",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "87",
+   "89"
+  ],
+  "routes": [
+   "Strætó 87: Reykjanesbær – Vogar",
+   "Strætó 89: Reykjanesbær – Sandgerði – Garður"
+  ],
+  "town": "Keflavík",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Keflavík",
+   "bus Keflavík",
+   "bus stop Keflavík",
+   "long distance bus Keflavík",
+   "coach Keflavík"
+  ],
+  "ll": [
+   -22.562996,
+   63.998488
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "230"
+  ]
+ },
+ {
+  "name": "Kirkjubæjarklaustur",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "52"
+  ],
+  "routes": [
+   "Strætó 52: Reykjavík – Vík – Höfn"
+  ],
+  "town": "Kirkjubæjarklaustur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Kirkjubæjarklaustur",
+   "bus Kirkjubæjarklaustur",
+   "bus stop Kirkjubæjarklaustur",
+   "long distance bus Kirkjubæjarklaustur",
+   "coach Kirkjubæjarklaustur"
+  ],
+  "ll": [
+   -18.039078,
+   63.793932
+  ],
+  "muni": "Skaftárhreppur",
+  "postal": [
+   "880"
+  ]
+ },
+ {
+  "name": "Kleppjárnsreykir",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "64"
+  ],
+  "routes": [
+   "Strætó 64: Borgarnes – Kleppjárnsreykir"
+  ],
+  "town": "Kleppjárnsreykir",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Kleppjárnsreykir",
+   "bus Kleppjárnsreykir",
+   "bus stop Kleppjárnsreykir",
+   "long distance bus Kleppjárnsreykir",
+   "coach Kleppjárnsreykir"
+  ],
+  "ll": [
+   -21.406363,
+   64.65518
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "320"
+  ]
+ },
+ {
+  "name": "Króksfjarðarnes",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "59"
+  ],
+  "routes": [
+   "Strætó 59: Borgarnes – Hólmavík"
+  ],
+  "town": "Króksfjarðarnes",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Króksfjarðarnes",
+   "bus Króksfjarðarnes",
+   "bus stop Króksfjarðarnes",
+   "long distance bus Króksfjarðarnes",
+   "coach Króksfjarðarnes"
+  ],
+  "ll": [
+   -21.916559,
+   65.455697
+  ],
+  "muni": "Reykhólahreppur",
+  "postal": [
+   "381"
+  ]
+ },
+ {
+  "name": "Laugar",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "56"
+  ],
+  "routes": [
+   "Strætó 56: Akureyri – Egilsstaðir"
+  ],
+  "town": "Laugar",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Laugar",
+   "bus Laugar",
+   "bus stop Laugar",
+   "long distance bus Laugar",
+   "coach Laugar"
+  ],
+  "ll": [
+   -17.372243,
+   65.721073
+  ],
+  "muni": "Þingeyjarsveit",
+  "postal": [
+   "650"
+  ]
+ },
+ {
+  "name": "Laugar - Einarsstaðaskáli",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "79"
+  ],
+  "routes": [
+   "Strætó 79: Akureyri – Húsavík"
+  ],
+  "town": "Laugar",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Laugar",
+   "bus Laugar",
+   "bus stop Laugar",
+   "long distance bus Laugar",
+   "coach Laugar"
+  ],
+  "ll": [
+   -17.408697,
+   65.738158
+  ],
+  "muni": "Þingeyjarsveit",
+  "postal": [
+   "641"
+  ]
+ },
+ {
+  "name": "Laugarvatn",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "73"
+  ],
+  "routes": [
+   "Strætó 73: Selfoss – Flúðir – Borg"
+  ],
+  "town": "Laugarvatn",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Laugarvatn",
+   "bus Laugarvatn",
+   "bus stop Laugarvatn",
+   "long distance bus Laugarvatn",
+   "coach Laugarvatn"
+  ],
+  "ll": [
+   -20.734344,
+   64.216956
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "840"
+  ]
+ },
+ {
+  "name": "Laugarás",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "72"
+  ],
+  "routes": [
+   "Strætó 72: Selfoss – Borg – Flúðir"
+  ],
+  "town": "Laugarás",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Laugarás",
+   "bus Laugarás",
+   "bus stop Laugarás",
+   "long distance bus Laugarás",
+   "coach Laugarás"
+  ],
+  "ll": [
+   -20.50564,
+   64.112516
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "806"
+  ]
+ },
+ {
+  "name": "Melahverfi",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "50",
+   "57"
+  ],
+  "routes": [
+   "Strætó 50: Reykjavík – Akranes – Borgarnes",
+   "Strætó 57: Reykjavík – Akureyri"
+  ],
+  "town": "Melahverfi",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Melahverfi",
+   "bus Melahverfi",
+   "bus stop Melahverfi",
+   "long distance bus Melahverfi",
+   "coach Melahverfi"
+  ],
+  "ll": [
+   -21.849569,
+   64.382382
+  ],
+  "muni": "Hvalfjarðarsveit",
+  "postal": [
+   "301"
+  ]
+ },
+ {
+  "name": "Norðfjörður - Miðstræti",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "91",
+   "96"
+  ],
+  "routes": [
+   "Strætó 91: Egilsstaðir – Neskaupstaður",
+   "Strætó 96: Fáskrúðsfjörður – Neskaupstaður"
+  ],
+  "town": "Neskaupstaður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Neskaupstaður",
+   "bus Neskaupstaður",
+   "bus stop Neskaupstaður",
+   "long distance bus Neskaupstaður",
+   "coach Neskaupstaður"
+  ],
+  "ll": [
+   -13.690017,
+   65.148406
+  ],
+  "muni": "Fjarðabyggð",
+  "postal": [
+   "740"
+  ]
+ },
+ {
+  "name": "Patreksfjörður - N1",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "62",
+   "66"
+  ],
+  "routes": [
+   "Strætó 62: Ísafjörður – Patreksfjörður",
+   "Strætó 66: Patreksfjörður – Bíldudalur"
+  ],
+  "town": "Patreksfjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Patreksfjörður",
+   "bus Patreksfjörður",
+   "bus stop Patreksfjörður",
+   "long distance bus Patreksfjörður",
+   "coach Patreksfjörður"
+  ],
+  "ll": [
+   -23.976217,
+   65.590945
+  ],
+  "muni": "Vesturbyggð",
+  "postal": [
+   "450"
+  ]
+ },
+ {
+  "name": "Reykholt",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "72",
+   "73"
+  ],
+  "routes": [
+   "Strætó 72: Selfoss – Borg – Flúðir",
+   "Strætó 73: Selfoss – Flúðir – Borg"
+  ],
+  "town": "Reykholt",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Reykholt",
+   "bus Reykholt",
+   "bus stop Reykholt",
+   "long distance bus Reykholt",
+   "coach Reykholt"
+  ],
+  "ll": [
+   -20.453763,
+   64.177172
+  ],
+  "muni": "Bláskógabyggð",
+  "postal": [
+   "806"
+  ]
+ },
+ {
+  "name": "Mývatn - Reykjahlíð",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "56"
+  ],
+  "routes": [
+   "Strætó 56: Akureyri – Egilsstaðir"
+  ],
+  "town": "Reykjahlíð",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Reykjahlíð",
+   "bus Reykjahlíð",
+   "bus stop Reykjahlíð",
+   "long distance bus Reykjahlíð",
+   "coach Reykjahlíð"
+  ],
+  "ll": [
+   -16.911269,
+   65.641737
+  ],
+  "muni": "Þingeyjarsveit",
+  "postal": [
+   "660"
+  ]
+ },
+ {
+  "name": "Reyðarfjörður - Molinn",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "91",
+   "96"
+  ],
+  "routes": [
+   "Strætó 91: Egilsstaðir – Neskaupstaður",
+   "Strætó 96: Fáskrúðsfjörður – Neskaupstaður"
+  ],
+  "town": "Reyðarfjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Reyðarfjörður",
+   "bus Reyðarfjörður",
+   "bus stop Reyðarfjörður",
+   "long distance bus Reyðarfjörður",
+   "coach Reyðarfjörður"
+  ],
+  "ll": [
+   -14.217014,
+   65.032584
+  ],
+  "muni": "Fjarðabyggð",
+  "postal": [
+   "730"
+  ]
+ },
+ {
+  "name": "Rif",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "82"
+  ],
+  "routes": [
+   "Strætó 82: Stykkishólmur – Hellissandur"
+  ],
+  "town": "Rif",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Rif",
+   "bus Rif",
+   "bus stop Rif",
+   "long distance bus Rif",
+   "coach Rif"
+  ],
+  "ll": [
+   -23.829733,
+   64.921428
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "360"
+  ]
+ },
+ {
+  "name": "Varðan",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "89"
+  ],
+  "routes": [
+   "Strætó 89: Reykjanesbær – Sandgerði – Garður"
+  ],
+  "town": "Sandgerði",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Sandgerði",
+   "bus Sandgerði",
+   "bus stop Sandgerði",
+   "long distance bus Sandgerði",
+   "coach Sandgerði"
+  ],
+  "ll": [
+   -22.704444,
+   64.038332
+  ],
+  "muni": "Suðurnesjabær",
+  "postal": [
+   "245"
+  ]
+ },
+ {
+  "name": "Sauðárkrókur - N1",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "57"
+  ],
+  "routes": [
+   "Strætó 57: Reykjavík – Akureyri"
+  ],
+  "town": "Sauðárkrókur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Sauðárkrókur",
+   "bus Sauðárkrókur",
+   "bus stop Sauðárkrókur",
+   "long distance bus Sauðárkrókur",
+   "coach Sauðárkrókur"
+  ],
+  "ll": [
+   -19.636877,
+   65.740339
+  ],
+  "muni": "Skagafjörður",
+  "postal": [
+   "550"
+  ]
+ },
+ {
+  "name": "Selfoss - N1",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "51",
+   "52",
+   "53",
+   "72",
+   "73"
+  ],
+  "routes": [
+   "Strætó 51: Reykjavík – Selfoss",
+   "Strætó 52: Reykjavík – Vík – Höfn",
+   "Strætó 53: Selfoss – Landeyjahöfn",
+   "Strætó 72: Selfoss – Borg – Flúðir",
+   "Strætó 73: Selfoss – Flúðir – Borg"
+  ],
+  "town": "Selfoss",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Selfoss",
+   "bus Selfoss",
+   "bus stop Selfoss",
+   "long distance bus Selfoss",
+   "coach Selfoss"
+  ],
+  "ll": [
+   -20.987858,
+   63.936712
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
+  "name": "Selfoss - Ráðhúsið",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "51",
+   "52",
+   "72",
+   "73"
+  ],
+  "routes": [
+   "Strætó 51: Reykjavík – Selfoss",
+   "Strætó 52: Reykjavík – Vík – Höfn",
+   "Strætó 72: Selfoss – Borg – Flúðir",
+   "Strætó 73: Selfoss – Flúðir – Borg"
+  ],
+  "town": "Selfoss",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Selfoss",
+   "bus Selfoss",
+   "bus stop Selfoss",
+   "long distance bus Selfoss",
+   "coach Selfoss"
+  ],
+  "ll": [
+   -21.002319,
+   63.937359
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
+  "name": "Selfoss - FSU",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "51",
+   "52",
+   "53",
+   "72",
+   "73"
+  ],
+  "routes": [
+   "Strætó 51: Reykjavík – Selfoss",
+   "Strætó 52: Reykjavík – Vík – Höfn",
+   "Strætó 53: Selfoss – Landeyjahöfn",
+   "Strætó 72: Selfoss – Borg – Flúðir",
+   "Strætó 73: Selfoss – Flúðir – Borg"
+  ],
+  "town": "Selfoss",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Selfoss",
+   "bus Selfoss",
+   "bus stop Selfoss",
+   "long distance bus Selfoss",
+   "coach Selfoss"
+  ],
+  "ll": [
+   -20.999125,
+   63.932679
+  ],
+  "muni": "Árborg",
+  "postal": [
+   "800"
+  ]
+ },
+ {
+  "name": "Herðubreið",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "93"
+  ],
+  "routes": [
+   "Strætó 93: Egilsstaðir – Seyðisfjörður"
+  ],
+  "town": "Seyðisfjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Seyðisfjörður",
+   "bus Seyðisfjörður",
+   "bus stop Seyðisfjörður",
+   "long distance bus Seyðisfjörður",
+   "coach Seyðisfjörður"
+  ],
+  "ll": [
+   -14.006731,
+   65.260025
+  ],
+  "muni": "Múlaþing",
+  "postal": [
+   "710"
+  ]
+ },
+ {
+  "name": "Siglufjörður - Olís",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "78"
+  ],
+  "routes": [
+   "Strætó 78: Akureyri – Siglufjörður"
+  ],
+  "town": "Siglufjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Siglufjörður",
+   "bus Siglufjörður",
+   "bus stop Siglufjörður",
+   "long distance bus Siglufjörður",
+   "coach Siglufjörður"
+  ],
+  "ll": [
+   -18.9031,
+   66.149295
+  ],
+  "muni": "Fjallabyggð",
+  "postal": [
+   "580"
+  ]
+ },
+ {
+  "name": "Skagaströnd",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "84"
+  ],
+  "routes": [
+   "Strætó 84: Blönduós – Skagaströnd"
+  ],
+  "town": "Skagaströnd",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Skagaströnd",
+   "bus Skagaströnd",
+   "bus stop Skagaströnd",
+   "long distance bus Skagaströnd",
+   "coach Skagaströnd"
+  ],
+  "ll": [
+   -20.305728,
+   65.823768
+  ],
+  "muni": "Skagaströnd",
+  "postal": [
+   "545"
+  ]
+ },
+ {
+  "name": "Skógar",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "52"
+  ],
+  "routes": [
+   "Strætó 52: Reykjavík – Vík – Höfn"
+  ],
+  "town": "Skógar",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Skógar",
+   "bus Skógar",
+   "bus stop Skógar",
+   "long distance bus Skógar",
+   "coach Skógar"
+  ],
+  "ll": [
+   -19.510341,
+   63.525281
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "861"
+  ]
+ },
+ {
+  "name": "Stykkishólmur - Sundlaug",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "58",
+   "82"
+  ],
+  "routes": [
+   "Strætó 58: Borgarnes – Stykkishólmur",
+   "Strætó 82: Stykkishólmur – Hellissandur"
+  ],
+  "town": "Stykkishólmur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Stykkishólmur",
+   "bus Stykkishólmur",
+   "bus stop Stykkishólmur",
+   "long distance bus Stykkishólmur",
+   "coach Stykkishólmur"
+  ],
+  "ll": [
+   -22.72925,
+   65.073266
+  ],
+  "muni": "Stykkishólmur",
+  "postal": [
+   "340"
+  ]
+ },
+ {
+  "name": "Stöðvarfjörður - Brekkan",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "92"
+  ],
+  "routes": [
+   "Strætó 92: Fáskrúðsfjörður – Breiðdalsvík"
+  ],
+  "town": "Stöðvarfjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Stöðvarfjörður",
+   "bus Stöðvarfjörður",
+   "bus stop Stöðvarfjörður",
+   "long distance bus Stöðvarfjörður",
+   "coach Stöðvarfjörður"
+  ],
+  "ll": [
+   -13.875342,
+   64.833127
+  ],
+  "muni": "Fjarðabyggð",
+  "postal": [
+   "755"
+  ]
+ },
+ {
+  "name": "Suðureyri",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "G"
+  ],
+  "routes": [
+   "Ísafjörður bus G: Ísafjörður – Suðureyri"
+  ],
+  "town": "Suðureyri",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Suðureyri",
+   "bus Suðureyri",
+   "bus stop Suðureyri",
+   "long distance bus Suðureyri",
+   "coach Suðureyri"
+  ],
+  "ll": [
+   -23.527315,
+   66.12949
+  ],
+  "muni": "Ísafjarðarbær",
+  "postal": [
+   "430"
+  ]
+ },
+ {
+  "name": "Tálknafjörður - N1",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "66"
+  ],
+  "routes": [
+   "Strætó 66: Patreksfjörður – Bíldudalur"
+  ],
+  "town": "Tálknafjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Tálknafjörður",
+   "bus Tálknafjörður",
+   "bus stop Tálknafjörður",
+   "long distance bus Tálknafjörður",
+   "coach Tálknafjörður"
+  ],
+  "ll": [
+   -23.82576,
+   65.626682
+  ],
+  "muni": "Vesturbyggð",
+  "postal": [
+   "460"
+  ]
+ },
+ {
+  "name": "Varmahlíð",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "57"
+  ],
+  "routes": [
+   "Strætó 57: Reykjavík – Akureyri"
+  ],
+  "town": "Varmahlíð",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Varmahlíð",
+   "bus Varmahlíð",
+   "bus stop Varmahlíð",
+   "long distance bus Varmahlíð",
+   "coach Varmahlíð"
+  ],
+  "ll": [
+   -19.445685,
+   65.553349
+  ],
+  "muni": "Skagafjörður",
+  "postal": [
+   "560"
+  ]
+ },
+ {
+  "name": "Varmalandsskóli",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "63"
+  ],
+  "routes": [
+   "Strætó 63: Borgarnes – Varmaland"
+  ],
+  "town": "Varmaland",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Varmaland",
+   "bus Varmaland",
+   "bus stop Varmaland",
+   "long distance bus Varmaland",
+   "coach Varmaland"
+  ],
+  "ll": [
+   -21.593202,
+   64.689556
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "311"
+  ]
+ },
+ {
+  "name": "Vogaafleggjari",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "55",
+   "87"
+  ],
+  "routes": [
+   "Strætó 55: Reykjavík – Keflavík Airport",
+   "Strætó 87: Reykjanesbær – Vogar"
+  ],
+  "town": "Vogar",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Vogar",
+   "bus Vogar",
+   "bus stop Vogar",
+   "long distance bus Vogar",
+   "coach Vogar"
+  ],
+  "ll": [
+   -22.358645,
+   63.974232
+  ],
+  "muni": "Vogar",
+  "postal": [
+   "190"
+  ]
+ },
+ {
+  "name": "Vík í Mýrdal",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "52"
+  ],
+  "routes": [
+   "Strætó 52: Reykjavík – Vík – Höfn"
+  ],
+  "town": "Vík",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Vík",
+   "bus Vík",
+   "bus stop Vík",
+   "long distance bus Vík",
+   "coach Vík"
+  ],
+  "ll": [
+   -19.000616,
+   63.417643
+  ],
+  "muni": "Mýrdalshreppur",
+  "postal": [
+   "870"
+  ]
+ },
+ {
+  "name": "Miðstöð",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "55",
+   "87",
+   "89"
+  ],
+  "routes": [
+   "Strætó 55: Reykjavík – Keflavík Airport",
+   "Strætó 87: Reykjanesbær – Vogar",
+   "Strætó 89: Reykjanesbær – Sandgerði – Garður"
+  ],
+  "town": "Ytri-Njarðvík",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Ytri-Njarðvík",
+   "bus Ytri-Njarðvík",
+   "bus stop Ytri-Njarðvík",
+   "long distance bus Ytri-Njarðvík",
+   "coach Ytri-Njarðvík"
+  ],
+  "ll": [
+   -22.55182,
+   63.993856
+  ],
+  "muni": "Reykjanesbær",
+  "postal": [
+   "260"
+  ]
+ },
+ {
+  "name": "Árskógssandur - Orkan",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "78"
+  ],
+  "routes": [
+   "Strætó 78: Akureyri – Siglufjörður"
+  ],
+  "town": "Árskógssandur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Árskógssandur",
+   "bus Árskógssandur",
+   "bus stop Árskógssandur",
+   "long distance bus Árskógssandur",
+   "coach Árskógssandur"
+  ],
+  "ll": [
+   -18.354638,
+   65.944145
+  ],
+  "muni": "Dalvíkurbyggð",
+  "postal": [
+   "621"
+  ]
+ },
+ {
+  "name": "Pollgata",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "F",
+   "G",
+   "R"
+  ],
+  "routes": [
+   "Ísafjörður bus F: Ísafjörður – Bolungarvík",
+   "Ísafjörður bus G: Ísafjörður – Suðureyri",
+   "Ísafjörður bus R: Ísafjörður – Flateyri – Þingeyri"
+  ],
+  "town": "Ísafjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Ísafjörður",
+   "bus Ísafjörður",
+   "bus stop Ísafjörður",
+   "long distance bus Ísafjörður",
+   "coach Ísafjörður"
+  ],
+  "ll": [
+   -23.121339,
+   66.072405
+  ],
+  "muni": "Ísafjarðarbær",
+  "postal": [
+   "400"
+  ]
+ },
+ {
+  "name": "Ísafjörður Edinborgarhús",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "62"
+  ],
+  "routes": [
+   "Strætó 62: Ísafjörður – Patreksfjörður"
+  ],
+  "town": "Ísafjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Ísafjörður",
+   "bus Ísafjörður",
+   "bus stop Ísafjörður",
+   "long distance bus Ísafjörður",
+   "coach Ísafjörður"
+  ],
+  "ll": [
+   -23.121499,
+   66.070549
+  ],
+  "muni": "Ísafjarðarbær",
+  "postal": [
+   "400"
+  ]
+ },
+ {
+  "name": "Ólafsfjörður - Aðalgata",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "78"
+  ],
+  "routes": [
+   "Strætó 78: Akureyri – Siglufjörður"
+  ],
+  "town": "Ólafsfjörður",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Ólafsfjörður",
+   "bus Ólafsfjörður",
+   "bus stop Ólafsfjörður",
+   "long distance bus Ólafsfjörður",
+   "coach Ólafsfjörður"
+  ],
+  "ll": [
+   -18.656232,
+   66.070876
+  ],
+  "muni": "Fjallabyggð",
+  "postal": [
+   "625"
+  ]
+ },
+ {
+  "name": "Ólafsvík",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "82"
+  ],
+  "routes": [
+   "Strætó 82: Stykkishólmur – Hellissandur"
+  ],
+  "town": "Ólafsvík",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Ólafsvík",
+   "bus Ólafsvík",
+   "bus stop Ólafsvík",
+   "long distance bus Ólafsvík",
+   "coach Ólafsvík"
+  ],
+  "ll": [
+   -23.702588,
+   64.893494
+  ],
+  "muni": "Snæfellsbær",
+  "postal": [
+   "355"
+  ]
+ },
+ {
+  "name": "Þingeyri - N1",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "62",
+   "R"
+  ],
+  "routes": [
+   "Strætó 62: Ísafjörður – Patreksfjörður",
+   "Ísafjörður bus R: Ísafjörður – Flateyri – Þingeyri"
+  ],
+  "town": "Þingeyri",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Þingeyri",
+   "bus Þingeyri",
+   "bus stop Þingeyri",
+   "long distance bus Þingeyri",
+   "coach Þingeyri"
+  ],
+  "ll": [
+   -23.488845,
+   65.876713
+  ],
+  "muni": "Ísafjarðarbær",
+  "postal": [
+   "470"
+  ]
+ },
+ {
+  "name": "Þorlákshöfn",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "71"
+  ],
+  "routes": [
+   "Strætó 71: Hveragerði – Þorlákshöfn"
+  ],
+  "town": "Þorlákshöfn",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Þorlákshöfn",
+   "bus Þorlákshöfn",
+   "bus stop Þorlákshöfn",
+   "long distance bus Þorlákshöfn",
+   "coach Þorlákshöfn"
+  ],
+  "ll": [
+   -21.386542,
+   63.855945
+  ],
+  "muni": "Ölfus",
+  "postal": [
+   "815"
+  ]
+ },
+ {
+  "name": "Akureyrarflugvöllur",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "56",
+   "57",
+   "78",
+   "79"
+  ],
+  "routes": [
+   "Strætó 56: Akureyri – Egilsstaðir",
+   "Strætó 57: Reykjavík – Akureyri",
+   "Strætó 78: Akureyri – Siglufjörður",
+   "Strætó 79: Akureyri – Húsavík"
+  ],
+  "at": "Akureyrarflugvöllur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Akureyrarflugvöllur",
+   "Akureyri Airport",
+   "bus Akureyrarflugvöllur",
+   "bus stop Akureyrarflugvöllur",
+   "long distance bus Akureyrarflugvöllur",
+   "coach Akureyrarflugvöllur",
+   "bus Akureyri Airport",
+   "bus stop Akureyri Airport",
+   "long distance bus Akureyri Airport",
+   "coach Akureyri Airport",
+   "bus airport",
+   "bus stop airport",
+   "long distance bus airport",
+   "coach airport",
+   "airport bus"
+  ],
+  "ll": [
+   -18.075972,
+   65.654617
+  ],
+  "muni": "Akureyri",
+  "postal": [
+   "600"
+  ]
+ },
+ {
+  "name": "Baula",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "57",
+   "59",
+   "63",
+   "65"
+  ],
+  "routes": [
+   "Strætó 57: Reykjavík – Akureyri",
+   "Strætó 59: Borgarnes – Hólmavík",
+   "Strætó 63: Borgarnes – Varmaland",
+   "Strætó 65: Borgarnes – Búðardalur"
+  ],
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn"
+  ],
+  "ll": [
+   -21.664953,
+   64.67497
+  ],
+  "muni": "Borgarbyggð",
+  "postal": [
+   "311"
+  ]
+ },
+ {
+  "name": "Brjánslækur",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "62"
+  ],
+  "routes": [
+   "Strætó 62: Ísafjörður – Patreksfjörður"
+  ],
+  "at": "Brjánslækur",
+  "ferry": "for the Baldur ferry to Flatey and Stykkishólmur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Brjánslækur",
+   "bus Brjánslækur",
+   "bus stop Brjánslækur",
+   "long distance bus Brjánslækur",
+   "coach Brjánslækur",
+   "bus ferry",
+   "bus stop ferry",
+   "long distance bus ferry",
+   "coach ferry",
+   "bus ferry port",
+   "bus stop ferry port",
+   "long distance bus ferry port",
+   "coach ferry port",
+   "ferry bus",
+   "ferry port bus"
+  ],
+  "ll": [
+   -23.194481,
+   65.529708
+  ],
+  "muni": "Vesturbyggð",
+  "postal": [
+   "451"
+  ]
+ },
+ {
+  "name": "Bíldudalsflugvöllur",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "66"
+  ],
+  "routes": [
+   "Strætó 66: Patreksfjörður – Bíldudalur"
+  ],
+  "at": "Bíldudalsflugvöllur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Bíldudalsflugvöllur",
+   "bus Bíldudalsflugvöllur",
+   "bus stop Bíldudalsflugvöllur",
+   "long distance bus Bíldudalsflugvöllur",
+   "coach Bíldudalsflugvöllur",
+   "bus airport",
+   "bus stop airport",
+   "long distance bus airport",
+   "coach airport",
+   "airport bus"
+  ],
+  "ll": [
+   -23.542907,
+   65.645601
+  ],
+  "muni": "Vesturbyggð",
+  "postal": [
+   "466"
+  ]
+ },
+ {
+  "name": "Dynjandi",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "62"
+  ],
+  "routes": [
+   "Strætó 62: Ísafjörður – Patreksfjörður"
+  ],
+  "at": "Dynjandi",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Dynjandi",
+   "bus Dynjandi",
+   "bus stop Dynjandi",
+   "long distance bus Dynjandi",
+   "coach Dynjandi"
+  ],
+  "ll": [
+   -23.208951,
+   65.736533
+  ],
+  "muni": "Ísafjarðarbær",
+  "postal": [
+   "466"
+  ]
+ },
+ {
+  "name": "Fosshóll - Goðafoss",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "56",
+   "79"
+  ],
+  "routes": [
+   "Strætó 56: Akureyri – Egilsstaðir",
+   "Strætó 79: Akureyri – Húsavík"
+  ],
+  "at": "Goðafoss",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Goðafoss",
+   "bus Goðafoss",
+   "bus stop Goðafoss",
+   "long distance bus Goðafoss",
+   "coach Goðafoss"
+  ],
+  "ll": [
+   -17.538845,
+   65.686124
+  ],
+  "muni": "Þingeyjarsveit",
+  "postal": [
+   "645"
+  ]
+ },
+ {
+  "name": "Höfn - Flugvöllur",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "94"
+  ],
+  "routes": [
+   "Strætó 94: Höfn – Djúpivogur"
+  ],
+  "at": "Hornafjarðarflugvöllur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Hornafjarðarflugvöllur",
+   "bus Hornafjarðarflugvöllur",
+   "bus stop Hornafjarðarflugvöllur",
+   "long distance bus Hornafjarðarflugvöllur",
+   "coach Hornafjarðarflugvöllur",
+   "bus airport",
+   "bus stop airport",
+   "long distance bus airport",
+   "coach airport",
+   "airport bus"
+  ],
+  "ll": [
+   -15.226144,
+   64.302178
+  ],
+  "muni": "Hornafjörður",
+  "postal": [
+   "781"
+  ]
+ },
+ {
+  "name": "Jökulsárlón",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "52"
+  ],
+  "routes": [
+   "Strætó 52: Reykjavík – Vík – Höfn"
+  ],
+  "at": "Jökulsárlón",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Jökulsárlón",
+   "glacier lagoon",
+   "bus Jökulsárlón",
+   "bus stop Jökulsárlón",
+   "long distance bus Jökulsárlón",
+   "coach Jökulsárlón",
+   "bus glacier lagoon",
+   "bus stop glacier lagoon",
+   "long distance bus glacier lagoon",
+   "coach glacier lagoon"
+  ],
+  "ll": [
+   -16.180209,
+   64.047913
+  ],
+  "muni": "Hornafjörður",
+  "postal": [
+   "785"
+  ]
+ },
+ {
+  "name": "KEF Brottfarir / Departures",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "55"
+  ],
+  "routes": [
+   "Strætó 55: Reykjavík – Keflavík Airport"
+  ],
+  "at": "Keflavíkurflugvöllur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Keflavíkurflugvöllur",
+   "Keflavík Airport",
+   "bus Keflavíkurflugvöllur",
+   "bus stop Keflavíkurflugvöllur",
+   "long distance bus Keflavíkurflugvöllur",
+   "coach Keflavíkurflugvöllur",
+   "bus Keflavík Airport",
+   "bus stop Keflavík Airport",
+   "long distance bus Keflavík Airport",
+   "coach Keflavík Airport",
+   "bus airport",
+   "bus stop airport",
+   "long distance bus airport",
+   "coach airport",
+   "airport bus"
+  ],
+  "ll": [
+   -22.624623,
+   63.997223
+  ],
+  "muni": "Suðurnesjabær",
+  "postal": [
+   "235"
+  ]
+ },
+ {
+  "name": "KEF Komur / Arrivals",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "55"
+  ],
+  "routes": [
+   "Strætó 55: Reykjavík – Keflavík Airport"
+  ],
+  "at": "Keflavíkurflugvöllur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Keflavíkurflugvöllur",
+   "Keflavík Airport",
+   "bus Keflavíkurflugvöllur",
+   "bus stop Keflavíkurflugvöllur",
+   "long distance bus Keflavíkurflugvöllur",
+   "coach Keflavíkurflugvöllur",
+   "bus Keflavík Airport",
+   "bus stop Keflavík Airport",
+   "long distance bus Keflavík Airport",
+   "coach Keflavík Airport",
+   "bus airport",
+   "bus stop airport",
+   "long distance bus airport",
+   "coach airport",
+   "airport bus"
+  ],
+  "ll": [
+   -22.62021,
+   63.998316
+  ],
+  "muni": "Suðurnesjabær",
+  "postal": [
+   "235"
+  ]
+ },
+ {
+  "name": "Kjóavellir",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "89"
+  ],
+  "routes": [
+   "Strætó 89: Reykjanesbær – Sandgerði – Garður"
+  ],
+  "at": "Keflavíkurflugvöllur",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Keflavíkurflugvöllur",
+   "Keflavík Airport",
+   "bus Keflavíkurflugvöllur",
+   "bus stop Keflavíkurflugvöllur",
+   "long distance bus Keflavíkurflugvöllur",
+   "coach Keflavíkurflugvöllur",
+   "bus Keflavík Airport",
+   "bus stop Keflavík Airport",
+   "long distance bus Keflavík Airport",
+   "coach Keflavík Airport",
+   "bus airport",
+   "bus stop airport",
+   "long distance bus airport",
+   "coach airport",
+   "airport bus"
+  ],
+  "ll": [
+   -22.627909,
+   63.996924
+  ],
+  "muni": "Suðurnesjabær",
+  "postal": [
+   "235"
+  ]
+ },
+ {
+  "name": "Landeyjahöfn",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "53"
+  ],
+  "routes": [
+   "Strætó 53: Selfoss – Landeyjahöfn"
+  ],
+  "at": "Landeyjahöfn",
+  "ferry": "for the Herjólfur ferry to Vestmannaeyjar",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Landeyjahöfn",
+   "Vestmannaeyjar ferry port",
+   "bus Landeyjahöfn",
+   "bus stop Landeyjahöfn",
+   "long distance bus Landeyjahöfn",
+   "coach Landeyjahöfn",
+   "bus Vestmannaeyjar ferry port",
+   "bus stop Vestmannaeyjar ferry port",
+   "long distance bus Vestmannaeyjar ferry port",
+   "coach Vestmannaeyjar ferry port",
+   "bus ferry",
+   "bus stop ferry",
+   "long distance bus ferry",
+   "coach ferry",
+   "bus ferry port",
+   "bus stop ferry port",
+   "long distance bus ferry port",
+   "coach ferry port",
+   "ferry bus",
+   "ferry port bus"
+  ],
+  "ll": [
+   -20.117807,
+   63.530315
+  ],
+  "muni": "Rangárþing eystra",
+  "postal": [
+   "861"
+  ]
+ },
+ {
+  "name": "Skaftafell",
+  "cat": "bus",
+  "kind": "coach",
+  "lines": [
+   "52"
+  ],
+  "routes": [
+   "Strætó 52: Reykjavík – Vík – Höfn"
+  ],
+  "at": "Skaftafell",
+  "words": [
+   "long distance bus",
+   "coach",
+   "intercity bus",
+   "landsbyggdarvagn",
+   "Skaftafell",
+   "bus Skaftafell",
+   "bus stop Skaftafell",
+   "long distance bus Skaftafell",
+   "coach Skaftafell"
+  ],
+  "ll": [
+   -16.965856,
+   64.016324
+  ],
+  "muni": "Hornafjörður",
+  "postal": [
+   "785"
   ]
  }
 ]

@@ -14,6 +14,13 @@ From the Iceland OSM extract:
     relations; lettered platforms like "Mjódd B" count as one stop) or with lettered platforms A and B.
     Every bus place lists its line numbers. Hlemmur is placed by hand: its
     stops are out of OSM while the square is rebuilt.
+  - long-distance bus stops: in every town or village outside the capital region that a long-distance bus
+    calls at (Strætó's countryside routes 50-96, LONG_LINES, and the public buses linking villages to their
+    town, REGIONAL: Ísafjörður's R, G and F and Múlaþing's scheduled routes; not tourist coaches, airport
+    shuttles, the ski bus or in-town buses): any stop where 4 or more of these lines call, then the fewest
+    more stops that cover the rest of the lines calling there, each with where its lines go. Outside towns,
+    the stops at an airport, a ferry port (FERRY) or a sight on this map, and any where 4 or more lines meet
+    (Baula). Stops come from OSM's route relations.
   - well-known sights and tourist attractions (SIGHTS, placed by hand from OSM: Hallgrímskirkja, Gullfoss,
     Seljalandsfoss, Bláa lónið, Kirkjufell...)
 Only places inside the map's municipalities are kept (region.py). Outside the capital region, parks are kept
@@ -332,6 +339,28 @@ CENTRE = ["Hlemmur", "Lækjartorg"]
 TERMINAL = "BSÍ"
 # stops OSM does not show right now: name -> (lat, lng)
 MANUAL_STOPS = {"Hlemmur": (64.14318, -21.91470)}
+# long-distance buses: Strætó's countryside routes (landsbyggðarvagnar) by number, where they go
+LONG_LINES = {"50": "Reykjavík – Akranes – Borgarnes", "51": "Reykjavík – Selfoss", "52": "Reykjavík – Vík – Höfn",
+              "53": "Selfoss – Landeyjahöfn", "55": "Reykjavík – Keflavík Airport", "56": "Akureyri – Egilsstaðir",
+              "57": "Reykjavík – Akureyri", "58": "Borgarnes – Stykkishólmur", "59": "Borgarnes – Hólmavík",
+              "62": "Ísafjörður – Patreksfjörður", "63": "Borgarnes – Varmaland", "64": "Borgarnes – Kleppjárnsreykir",
+              "65": "Borgarnes – Búðardalur", "66": "Patreksfjörður – Bíldudalur", "71": "Hveragerði – Þorlákshöfn",
+              "72": "Selfoss – Borg – Flúðir", "73": "Selfoss – Flúðir – Borg", "78": "Akureyri – Siglufjörður",
+              "79": "Akureyri – Húsavík", "82": "Stykkishólmur – Hellissandur", "84": "Blönduós – Skagaströnd",
+              "87": "Reykjanesbær – Vogar", "89": "Reykjanesbær – Sandgerði – Garður", "91": "Egilsstaðir – Neskaupstaður",
+              "92": "Fáskrúðsfjörður – Breiðdalsvík", "93": "Egilsstaðir – Seyðisfjörður", "94": "Höfn – Djúpivogur",
+              "94S": "Djúpivogur – Breiðdalsvík", "96": "Fáskrúðsfjörður – Neskaupstaður"}
+# and the public buses that link villages to the nearest town: (network, ref) -> (line shown, where it goes)
+REGIONAL = {("Strætisvagnar Ísafjarðar", "R"): ("R", "Ísafjörður bus R: Ísafjörður – Flateyri – Þingeyri"),
+            ("Strætisvagnar Ísafjarðar", "G"): ("G", "Ísafjörður bus G: Ísafjörður – Suðureyri"),
+            ("Strætisvagnar Ísafjarðar", "F"): ("F", "Ísafjörður bus F: Ísafjörður – Bolungarvík"),
+            **{("Almenningssamgöngur í Múlaþingi", r): ("", "Múlaþing bus: Egilsstaðir – Djúpivogur") for r in ("DV - EG", "EG - DV")},
+            **{("Almenningssamgöngur í Múlaþingi", r): ("", "Múlaþing bus: Egilsstaðir – Borgarfjörður eystri") for r in ("BE - EG", "EG - BE")},
+            **{("Almenningssamgöngur í Múlaþingi", r): ("", "Múlaþing bus: Egilsstaðir – Hallormsstaður") for r in ("EG - HS", "HS - EG")}}
+STOP_NAME = {"Laugarás. Bláskógabyggð": "Laugarás"}     # stop names to tidy
+# ferry ports a long-distance bus calls at, and where the ferry goes
+FERRY = {"Landeyjahöfn": "for the Herjólfur ferry to Vestmannaeyjar",
+         "Brjánslækur": "for the Baldur ferry to Flatey and Stykkishólmur"}
 # second-hand shops and the flea market: extra words people search with
 SECOND_WORDS = {"Góði hirðirinn": ["good shepherd", "sorpa"], "Kolaportið": ["kolaport", "flea market"]}
 STORE_WORDS = {"Elko": ["electronics"], "BYKO": ["hardware", "diy"], "Húsasmiðjan": ["hardware", "diy"],
@@ -350,8 +379,10 @@ class H(osmium.SimpleHandler):
         self.stations = {}
         self.stop_nodes = {}                    # node id -> (stop name without platform letter, lon, lat)
         self.routes = []                        # (line number, [member node ids]) for Strætó bus routes
+        self.long = []                          # (line shown, "Strætó 57: Reykjavík – Akureyri", [member node ids])
         self.parks = {}                         # name -> (kind, km2, (lon, lat), bbox)
         self.pools = {}                         # OSM name -> (lon, lat, is_area)
+        self.ports = []                         # (name, "airport" | "ferry", (lon, lat)): airports with flights, ferry terminals
 
     def take(self, kind, t, lon, lat):
         if not (W <= lon <= E and S <= lat <= N):
@@ -379,6 +410,8 @@ class H(osmium.SimpleHandler):
                 self.platforms[base].append((letter if re.fullmatch(r"[A-Z]", letter or "") else "", lon, lat))
         if t.get("amenity") == "bus_station" and name:
             self.stations[name] = (lon, lat)
+        if name and ((t.get("aeroway") == "aerodrome" and t.get("iata")) or t.get("amenity") == "ferry_terminal"):
+            self.ports.append((name, "airport" if t.get("aeroway") else "ferry", (lon, lat)))
 
     def node(self, n):
         if n.tags:
@@ -392,9 +425,19 @@ class H(osmium.SimpleHandler):
 
     def relation(self, r):
         t = r.tags
-        if t.get("type") == "route" and t.get("route") == "bus" and t.get("ref") and \
-                ("Strætó" in t.get("operator", "") or t.get("network", "").startswith("Strætó Höfuðborgarsvæðið")):
-            self.routes.append((t["ref"], [m.ref for m in r.members if m.type == "n"]))
+        if t.get("type") != "route" or t.get("route") != "bus":
+            return
+        ref, net = t.get("ref", ""), t.get("network", "")
+        members = [m.ref for m in r.members if m.type == "n"]
+        straeto = "Strætó" in t.get("operator", "") or net.startswith("Strætó")
+        if ref and ("Strætó" in t.get("operator", "") or net.startswith("Strætó Höfuðborgarsvæðið")):
+            self.routes.append((ref, members))
+        if straeto and ref in LONG_LINES:
+            self.long.append((ref, f"Strætó {ref}: {LONG_LINES[ref]}", members))
+        elif straeto and re.fullmatch(r"[5-9]\d\w?", ref):
+            print(f"  long-distance line {ref} not in LONG_LINES: {t.get('name')}")
+        elif (net, ref) in REGIONAL:
+            self.long.append((*REGIONAL[(net, ref)], members))
 
     def park(self, a):
         t, name = a.tags, a.tags.get("name")
@@ -422,7 +465,8 @@ class H(osmium.SimpleHandler):
 
     def area(self, a):
         self.park(a)
-        if not (a.tags.get("shop") or a.tags.get("tourism") or a.tags.get("amenity") or a.tags.get("name") in POOLS):
+        if not (a.tags.get("shop") or a.tags.get("tourism") or a.tags.get("amenity") or a.tags.get("aeroway") == "aerodrome"
+                or a.tags.get("name") in POOLS):
             return
         try:
             pts = [(p.lon, p.lat) for p in next(iter(a.outer_rings()))]
@@ -576,18 +620,104 @@ def main(pbf, mapdata, out):
         lon, lat = sum(p[1] for p in pts) / len(pts), sum(p[2] for p in pts) / len(pts)
         add({"name": base, "cat": "bus", "kind": "stop", "stops": "".join(sorted(letters)), "lines": lines_at(base, lon, lat)}, lon, lat)
         used.add(base)
-    # any other stop served by 4 or more lines (busiest first, so a same-named smaller stop is skipped)
+    # any other capital-region stop served by 4 or more lines (busiest first, so a same-named smaller stop is skipped);
+    # outside the capital region such stops are shown as long-distance stops, below
     taken = {(p["name"], p["muni"]) for p in pois if p["cat"] == "bus"}
+    mid = lambda c: (sum(x for x, _ in c["pts"]) / len(c["pts"]), sum(y for _, y in c["pts"]) / len(c["pts"]))
     for base, c in sorted(((b, c) for b, cs in clusters.items() for c in cs if len(c["lines"]) >= 4),
                           key=lambda bc: -len(bc[1]["lines"])):
         if base in used:
             continue
-        lon = sum(x for x, _ in c["pts"]) / len(c["pts"]); lat = sum(y for _, y in c["pts"]) / len(c["pts"])
+        lon, lat = mid(c)
         muni = muni_at(lon, lat)
-        if not muni or (base, muni) in taken:
+        if muni not in R.CAP_MUNIS or (base, muni) in taken:
             continue
         taken.add((base, muni))
         add({"name": base, "cat": "bus", "kind": "stop", "stops": "", "lines": sorted(c["lines"], key=line_key)}, lon, lat)
+
+    # long-distance buses outside the capital region. In every town they call at: any stop where 4 or more lines
+    # call, then the fewest more stops that cover the rest of its lines (most lines first, then nearest the centre).
+    # Outside towns: stops at an airport, ferry port or sight on this map, and any stop where 4 or more lines meet.
+    for c in node_cluster.values():
+        c.setdefault("long", {})
+    for line, label, members in h.long:
+        for m in members:
+            if m in node_cluster:
+                node_cluster[m]["long"][label] = line
+
+    def town_of(base, lon, lat):
+        """Town or village a stop is in: within its radius, or named after it and within 3 km ("Skógar")."""
+        near = [(metres(t["ll"], (lon, lat)), t) for t in d["towns"]]
+        inside = [(m, t) for m, t in near if m <= R.TOWN_RADIUS_KM.get(t["place"], 2.5) * 1000]
+        named = [(m, t) for m, t in near if m <= 3000 and re.split(r" - |, ", base)[0] == t["name"]]
+        return min(inside or named, key=lambda mt: mt[0], default=(0, None))[1]
+
+    # what a stop outside town is at: a sight on this map within 1 km (an airport within 1.5 km), else an
+    # airport with flights (IATA code) within 1.5 km or a ferry terminal within 1 km.
+    # Gives (name, English name, "airport" | "ferry" | "sight").
+    marks = [(p["name"], p.get("en", ""), "airport" if p["kind"] == "airport" else "sight", tuple(p["ll"]),
+              1500 if p["kind"] == "airport" else 1000) for p in pois if p["cat"] == "sight"]
+    n_sights = len(marks)
+    marks += [(name, "", kind, ll, 1500 if kind == "airport" else 1000) for name, kind, ll in h.ports]
+
+    def at_what(lon, lat):
+        near = [(i >= n_sights, metres(ll, (lon, lat)), (name, en, "ferry" if name in FERRY else kind))
+                for i, (name, en, kind, ll, r) in enumerate(marks) if metres(ll, (lon, lat)) <= r]
+        return min(near, key=lambda m: m[:2], default=(0, 0, None))[2]      # sights first, then the nearest
+
+    long_order = lambda label: (0, line_key(label.split()[1].rstrip(":"))) if label.startswith("Strætó") else (1, label)
+
+    def coach(base, c, lon, lat, town=None, at=None):
+        name = STOP_NAME.get(base, base)
+        if (name, muni_at(lon, lat)) in taken:
+            return
+        taken.add((name, muni_at(lon, lat)))
+        labels = sorted(c["long"], key=long_order)
+        rec = {"name": name, "cat": "bus", "kind": "coach",
+               "lines": sorted({c["long"][l] for l in labels if c["long"][l]}, key=line_key), "routes": labels}
+        places, extra = [], []
+        if town:
+            rec["town"], places = town, [town]
+        elif at:
+            rec["at"], places = at[0], [w for w in at[:2] if w]
+            if at[0] in FERRY:
+                rec["ferry"] = FERRY[at[0]]
+            extra = {"airport": ["airport"], "ferry": ["ferry", "ferry port"]}.get(at[2], [])
+        rec["words"] = ["long distance bus", "coach", "intercity bus", "landsbyggdarvagn", *places,     # "bus Selfoss"
+                        *(f"{w} {p}" for p in places + extra for w in ("bus", "bus stop", "long distance bus", "coach")),
+                        *(f"{p} bus" for p in extra)]
+        add(rec, lon, lat)
+
+    by_town, outside = defaultdict(list), []
+    for base, cs in clusters.items():
+        for c in cs:
+            if not c["long"]:
+                continue
+            lon, lat = mid(c)
+            if muni_at(lon, lat) in R.CAP_MUNIS:
+                continue
+            t = town_of(base, lon, lat)
+            if t and t["muni"] in R.CAP_MUNIS:
+                continue
+            if t:
+                by_town[(t["name"], t["muni"])].append((base, c, lon, lat, t))
+            else:
+                outside.append((base, c, lon, lat))
+    for (town, muni), cand in sorted(by_town.items()):
+        need = set().union(*(c["long"] for _, c, _, _, _ in cand))
+        pick = [x for x in cand if len(x[1]["long"]) >= 4]          # 4+ lines: an important stop anyway
+        for x in pick:
+            need -= set(x[1]["long"])
+        while need:
+            x = max(cand, key=lambda x: (len(need & set(x[1]["long"])), -metres(x[4]["ll"], (x[2], x[3]))))
+            need -= set(x[1]["long"])
+            pick.append(x)
+        for base, c, lon, lat, t in pick:
+            coach(base, c, lon, lat, town=town)
+    for base, c, lon, lat in sorted(outside, key=lambda x: x[0]):
+        at = at_what(lon, lat)
+        if at or len(c["long"]) >= 4:
+            coach(base, c, lon, lat, at=at)
 
     count = defaultdict(int)
     for p in pois:
