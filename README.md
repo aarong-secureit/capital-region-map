@@ -25,7 +25,9 @@ towns, villages, big roads and sights.
 - **Points of interest**, each switchable: groceries (Bónus, Krónan, Nettó, Hagkaup), shopping, swimming
   pools, parks, the main bus stops and transfer hubs, and about 80 sights (Hallgrímskirkja, Gullfoss, Geysir,
   Seljalandsfoss, Bláa lónið, Kirkjufell, Reynisfjara...).
-- **What's here:** the area, town, region, postal code and nearest street wherever you tap.
+- **Islands:** about 120 named islands, from Viðey and Engey off Reykjavík to Heimaey, Surtsey and the
+  Breiðafjörður islands (Flatey, Brokey), labelled, searchable and with their own row when you tap one.
+- **What's here:** the area, town, island, region, postal code and nearest street wherever you tap.
 - **Home and Work pins** (up to three each), light/dark theme and your layer choices, all kept in your
   browser's local storage. Addresses are looked up in the page; nothing you type is sent anywhere.
   (Only the 🎤 search leaves the page: your browser sends the audio to its speech service.)

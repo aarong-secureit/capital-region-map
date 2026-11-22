@@ -18,6 +18,7 @@ done
 python extract_osm.py osm/iceland-latest.osm.pbf data/osm_extract.json
 python extract_coast.py osm/iceland-latest.osm.pbf data/coast.json
 python build_data.py data data/mapdata.json
+python islands.py osm/iceland-latest.osm.pbf data/coast.json data/mapdata.json
 python landmarks.py data/mapdata.json landmarks.json
 python pois.py osm/iceland-latest.osm.pbf data/mapdata.json pois.json
 python addresses.py osm/iceland-latest.osm.pbf data/mapdata.json ../_assets/addresses.js
@@ -54,7 +55,12 @@ python inject.py data/mapdata.json template.html ../capital-region-map.html ../_
 - `roads.json` (from `streets_geo.py`): the big roads, so the search finds Suðurlandsvegur or "Route 35".
 - `land.py`: a rough land outline (grown ~200 m, simplified) embedded in the page, so a tap on the open sea
   says "Ocean". `build_data.py` adds it; `python land.py data/coast.json data/mapdata.json` updates an
-  existing map data file.
+  existing map data file (run `islands.py` again after it).
+- `islands.py`: named islands from OSM (`place=island / islet / archipelago`): every named one in the capital
+  region and Vestmannaeyjar (Viðey, Engey, Heimaey, Surtsey, Þrídrangar...), elsewhere those of 0.1 km² or more
+  (Brokey, Hjörsey, Flatey, Árnes in Þjórsá), about 120 in all. Each gets its municipality (the boundary that holds
+  it, else the nearest within 10 km; the Flatey group goes to Reykhólahreppur) and is added to the land outline,
+  so a tap on it never says "Ocean". The page labels them, finds them in search, and shows an Island row.
 
 The page embeds only `_assets/audio/index.json` (name → clip id). The clips stay in `_assets/audio/c/`, which
 must sit next to the HTML file, locally and on the web.

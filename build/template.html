@@ -55,7 +55,7 @@ header h1{margin:4px 0 0;font-size:20px;line-height:1.2}
 .b-nbh{background:var(--navy);color:#fff}.b-small{background:#E7EBF0;color:var(--navy)}
 .b-postal{background:var(--gold);color:var(--navy)}.b-district{background:#3E546E;color:#fff}
 .b-hverfi{background:#F3E6CC;color:#7A5A22}.b-street{background:#EEF0F2;color:var(--gray-mid)}
-.b-point{background:#EEF0F2;color:var(--navy)}.b-poi{background:#FFF4D6;color:#7A5A22}.b-muni{background:#1F2B3A;color:var(--gold)}.b-zone{background:#2F6F73;color:#fff}.b-town{background:#1F2B3A;color:#fff}.b-road{background:#EEF0F2;color:#4A5568}
+.b-point{background:#EEF0F2;color:var(--navy)}.b-poi{background:#FFF4D6;color:#7A5A22}.b-muni{background:#1F2B3A;color:var(--gold)}.b-zone{background:#2F6F73;color:#fff}.b-town{background:#1F2B3A;color:#fff}.b-road{background:#EEF0F2;color:#4A5568}.b-isle{background:#DCEBF3;color:#1F4E6B}
 #scroll{flex:1;overflow:auto}
 section.card{padding:14px 18px;border-bottom:1px solid var(--gray-light)}
 section.card h2{margin:0 0 8px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dark)}
@@ -129,6 +129,11 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 .lbl-town span{font-size:14px;font-weight:bold;color:var(--navy);margin-top:15px}
 .lbl-town.village span{font-size:12px;margin-top:13px}
 .lbl-town.hamlet span{font-size:11px;font-weight:normal;margin-top:12px}
+.lbl-isle span{font-size:12px;font-style:italic;font-weight:bold;color:#2C5F7F}
+.lbl-isle.isle-xl span{font-size:14px}.lbl-isle.isle-s span{font-size:11px;font-weight:normal}
+.lbl-isle.grp span{font-weight:normal;letter-spacing:.08em}
+#map:not(.show-isle-xl) .lbl-isle.isle-xl, #map:not(.show-isle-l) .lbl-isle.isle-l, #map:not(.show-isle-m) .lbl-isle.isle-m,
+#map:not(.show-isle-s) .lbl-isle.isle-s{display:none}
 .lbl.clash{visibility:hidden}
 .set-ver{margin:18px 0 0;font-size:12px;color:var(--gray-mid)}
 /* zoomed out to the whole area: neighbourhood outlines would only make a dark smudge over Reykjavík */
@@ -276,6 +281,8 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 :root[data-theme="dark"] .lbl-district span{color:#DDE5EE}
 :root[data-theme="dark"] .lbl-hverfi span{color:#E2C48A}
 :root[data-theme="dark"] .lbl-park span{color:#8FD19E}
+:root[data-theme="dark"] .lbl-isle span{color:#9FCBE6}
+:root[data-theme="dark"] .b-isle{background:#1E3A4D;color:#BFE0F3}
 :root[data-theme="dark"] .lbl-muni span, :root[data-theme="dark"] .lbl-point span, :root[data-theme="dark"] .lbl-postal small{color:#A9B3BF}
 :root[data-theme="dark"] .lbl-postal span{color:#F0F3F6;text-shadow:0 0 4px #151B22,0 0 4px #151B22,0 0 3px #151B22}
 :root[data-theme="dark"] .poi b, :root[data-theme="dark"] .mypin b{color:#E6E9ED}
@@ -403,6 +410,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
         <label><input type="checkbox" id="L-pool" checked><span class="sw sw-poi"><i style="background:#00A3C4"></i></span><span class="lt">Swimming pools<small>sundlaugar · Laugardalslaug, Vesturbæjarlaug, Nauthólsvík…</small></span></label>
         <label><input type="checkbox" id="L-park" checked><span class="sw" style="background:#CFE8D0;border:1px solid #2E7D32"></span><span class="lt">Parks<small>almenningsgarðar · Klambratún, Heiðmörk, Elliðaárdalur…</small></span></label>
         <label><input type="checkbox" id="L-sight" checked><span class="sw sw-poi"><i style="background:#2D3E52"></i></span><span class="lt">Sights<small>ferðamannastaðir · Hallgrímskirkja, Gullfoss, Geysir, Bláa lónið, Kirkjufell…</small></span></label>
+        <label><input type="checkbox" id="L-isle" checked><span class="sw" style="background:#DCEBF3;border:1px solid #2C5F7F"></span><span class="lt">Islands<small>eyjar · Viðey, Engey, Heimaey, Surtsey, Flatey…</small></span></label>
         <label><input type="checkbox" id="L-bus" checked><span class="sw sw-poi"><i style="background:#FFD100;border-radius:2px"></i></span><span class="lt">Bus hubs &amp; big stops<small>skiptistöðvar · Mjódd, Hlemmur, Hamraborg, BSÍ</small></span></label>
         <label style="margin-top:14px"><input type="checkbox" id="L-postal"><span class="sw" style="background:linear-gradient(90deg,#4E79A7 33%,#F28E2B 33% 66%,#59A14F 66%);opacity:.7"></span><span class="lt">Postal codes<small>póstnúmer · 101, 105, 201…</small></span></label>
         <label style="margin-top:14px"><input type="checkbox" id="L-loc"><span class="sw me-sw"></span><span class="lt">Show my location</span></label>
@@ -699,7 +707,7 @@ function inGeom(x,y,f){
   return false;
 }
 const ALL = {};  // kind -> features
-for(const k of ["zones","munis","districts","hverfi","nbh","small","postal"]){
+for(const k of ["zones","munis","districts","hverfi","nbh","small","postal","islands"]){
   ALL[k] = (DATA[k] || {features: []}).features;
   ALL[k].forEach((f,i)=>{ f._bb=bboxOf(f.geometry); f._kind=k; f._id=k+":"+i; });
 }
@@ -751,6 +759,17 @@ TOWNS.forEach((t,i)=>{
   townsGroup.addLayer(label(t.ll, esc(t.name), "lbl-town "+t.place));
 });
 groups.towns = townsGroup;
+// islands (build/islands.py): names only; the background map already draws the land
+const isleWord = p => p.place==="archipelago" ? ["Island group","eyjar"] : /sker$/.test(p.name) ? ["Skerry","sker"]
+  : /drang(ur|ar)$/.test(p.name) ? ["Sea stack","drangur"] : /h[óo]lm(i|ur|ar)$/.test(p.name) ? ["Islet","hólmi"] : ["Island","eyja"];
+const isleSize = p => p.km2 >= 5 ? "xl" : p.km2 >= 1 ? "l" : p.km2 >= 0.2 ? "m" : "s";
+const islesGroup = L.layerGroup();
+for(const f of ALL.islands){
+  const p = f.properties;
+  islesGroup.addLayer(label(p.label, esc(p.name), `lbl-isle isle-${isleSize(p)}${p.place==="archipelago" ? " grp" : ""}`));
+}
+groups.islands = islesGroup;
+const chipIsle = f => `<button class="chip" data-go="islands:${esc(f.properties.name)}|${esc(f.properties.muni)}">${esc(f.properties.name)}</button>`;
 const ROADS = DATA.roads || [];
 ROADS.forEach((r,i)=>{ r._kind="road"; r._id="road:"+i; });
 makeLayer("postal", f=>{const c=PALETTE[f.properties.ci%PALETTE.length]; return {color:c,weight:2.5,opacity:.95,fillColor:c,fillOpacity:.30};},
@@ -833,7 +852,7 @@ POIS.forEach((p,i)=>{
 
 const order = ["munis","postal","districts","hverfi","nbh","small"];
 const toggles = {"L-zone":["zones"],"L-muni":["munis","towns"],"L-postal":["postal"],"L-district":["districts"],"L-hverfi":["hverfi"],"L-nbh":["nbh"],"L-small":["small","points"],
-  "L-groc":["groceries"],"L-shop":["shops"],"L-pool":["pools"],"L-park":["parks"],"L-sight":["sights"],"L-bus":["bus"]};
+  "L-groc":["groceries"],"L-shop":["shops"],"L-pool":["pools"],"L-park":["parks"],"L-sight":["sights"],"L-isle":["islands"],"L-bus":["bus"]};
 function applyToggles(){
   const saved = {};
   for(const [id,ks] of Object.entries(toggles)){
@@ -875,6 +894,7 @@ function updateLabelClasses(){
   set("show-busstop", z>=13);
   set("show-poi-name", z>=15);
   set("show-park-l", z>=11); set("show-park-m", z>=13); set("show-park-s", z>=15); set("show-park-xs", z>=16);
+  set("show-isle-xl", z>=9); set("show-isle-l", z>=11); set("show-isle-m", z>=12); set("show-isle-s", z>=14);
   el.querySelectorAll(".lbl-point.minor").forEach(n=>n.style.display = z>=15?"":"none");
   el.querySelectorAll(".lbl-postal span").forEach(n=>n.style.fontSize = (z<=10?13:z<=11?17:z<=13?22:26)+"px");
   declutter();
@@ -882,7 +902,8 @@ function updateLabelClasses(){
 // Labels that would overlap a more important one are hidden (regions first, then towns, districts,
 // neighbourhoods...). Runs after every zoom or pan.
 const LABEL_RANK = [".lbl-postal", ".lbl-zone", ".lbl-town.town", ".lbl-muni:not(.outer)", ".lbl-town.village", ".lbl-district",
-  ".lbl-muni.outer", ".lbl-hverfi", ".lbl-nbh.big", ".lbl-park.park-l", ".lbl-nbh", ".lbl-town.hamlet", ".lbl-point", ".lbl-small", ".lbl-park"];
+  ".lbl-muni.outer", ".lbl-isle.isle-xl", ".lbl-isle.isle-l", ".lbl-hverfi", ".lbl-nbh.big", ".lbl-park.park-l", ".lbl-nbh", ".lbl-isle.isle-m",
+  ".lbl-town.hamlet", ".lbl-point", ".lbl-isle.isle-s", ".lbl-small", ".lbl-park"];
 function declutter(){
   const box = map.getContainer().getBoundingClientRect(), placed = [], seen = new Set();
   const pane = map.getPane("labels");
@@ -913,8 +934,8 @@ function highlight(f){
   L.geoJSON(f,{pane:"sel",style:{color:GOLD,weight:5,opacity:1,fill:true,fillColor:GOLD,fillOpacity:.15}}).addTo(selLayer);
   L.geoJSON(f,{pane:"sel",style:{color:NAVY,weight:1.5,opacity:1,fill:false}}).addTo(selLayer);
 }
-const KIND_LABEL = {zones:"Region",town:"Town",road:"Road",nbh:"Neighbourhood",small:"Small area",districts:"District",hverfi:"Sub-district",postal:"Postal code",munis:"Town",point:"Named place",street:"Street",poi:"Place",mine:"My place"};
-const BADGE = {zones:"b-zone",town:"b-town",road:"b-road",nbh:"b-nbh",small:"b-small",districts:"b-district",hverfi:"b-hverfi",postal:"b-postal",munis:"b-muni",point:"b-point",street:"b-street",poi:"b-poi",mine:"b-mine"};
+const KIND_LABEL = {zones:"Region",town:"Town",road:"Road",islands:"Island",nbh:"Neighbourhood",small:"Small area",districts:"District",hverfi:"Sub-district",postal:"Postal code",munis:"Town",point:"Named place",street:"Street",poi:"Place",mine:"My place"};
+const BADGE = {zones:"b-zone",town:"b-town",road:"b-road",islands:"b-isle",nbh:"b-nbh",small:"b-small",districts:"b-district",hverfi:"b-hverfi",postal:"b-postal",munis:"b-muni",point:"b-point",street:"b-street",poi:"b-poi",mine:"b-mine"};
 const infoEl = document.getElementById("info");
 // the details panel as the page opens, to go back to when "You are here" no longer applies
 const INFO_START = infoEl.innerHTML, PEEK_START = document.getElementById("peek").innerHTML;
@@ -977,6 +998,7 @@ function resolveShare(spec){
     title = r.kind==="postal" ? `${p.code} ${p.town}` : p.name;
     town = r.kind==="munis" || r.kind==="zones" ? p.name : r.kind==="postal" ? p.town : (p.muni || "Reykjavík");
     ll = [p.label[1], p.label[0]]; what = "the middle of the area";
+    if(r.kind==="islands"){ what = "the middle of the island"; if(p.km2 >= 0.2){ gq = `${p.name}, ${p.muni}`; what = p.name; } }   // small skerries: by position
   }
   if(lm){ ll = lm.ll; gq = lm.poi.replace(/\s*\([^)]*\)/g, "") + (lm.poi.includes(town) ? "" : ", " + town); what = `${lm.poi}, a well-known spot in ${title}`; }
   const g = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(gq ? gq + ", Iceland" : ll[0].toFixed(6) + "," + ll[1].toFixed(6));
@@ -1055,16 +1077,24 @@ function nearestTown(lng,lat){
 const TOWN_NEAR_KM = {town: 2.5, village: 1.2, hamlet: 0.6};
 function whatsHereRows(lng,lat){
   const n = smallestHit("nbh",lng,lat), s = smallestHit("small",lng,lat), h = smallestHit("hverfi",lng,lat),
-        d = smallestHit("districts",lng,lat), m = smallestHit("munis",lng,lat), p = smallestHit("postal",lng,lat),
-        z = smallestHit("zones",lng,lat);
+        d = smallestHit("districts",lng,lat), p = smallestHit("postal",lng,lat);
+  // an island (smallest first) and the island group it belongs to; municipality borders often leave islands out
+  const ih = hitAll("islands",lng,lat).sort((a,b)=>a.properties.km2-b.properties.km2);
+  const i = ih.find(f=>f.properties.place!=="archipelago"), ig = ih.find(f=>f.properties.place==="archipelago"), isl = i || ig;
+  let m = smallestHit("munis",lng,lat), z = smallestHit("zones",lng,lat);
+  if(!m && isl) m = ALL.munis.find(f=>f.properties.name===isl.properties.muni);
+  if(!z && m) z = ALL.zones.find(f=>f.properties.name===m.properties.zone);
   if(!m && !onLand(lng,lat)) return {ocean:true, html:""};
+  const isleRow = f => f ? chipIsle(f)+sayBtn(f.properties.name,1)+shareBtn(`islands|${f.properties.name}|${f.properties.muni}`,1) : "";
   const outer = m && isOuter(m.properties), nt = outer ? nearestTown(lng,lat) : null;
   const inTown = nt && nt.km <= TOWN_NEAR_KM[nt.t.place] ? nt.t : null;
   const st = nearestStreet(lng,lat);
   const townRow = nt ? row(inTown ? (TOWN_WORD[inTown.place][0]) : "Nearest town",
     chipTown(nt.t)+sayBtn(nt.t.name,1)+shareBtn(`town|${nt.t.name}|${nt.t.muni}`,1)+(inTown ? "" : ` <span class="muted">(~${nt.km<10?nt.km.toFixed(1):Math.round(nt.km)} km)</span>`)) : "";
-  return { n,s,h,d,m,p,st,z,t:inTown, html:
-    (outer ? townRow : !m ? "" : row("Neighbourhood", n?chipName("nbh",n.properties.name)+sayBtn(n.properties.name,1)+shareBtn(`nbh|${n.properties.name}|${n.properties.muni}`,1)+akaNote(n):'<span class="muted">none mapped here</span>'))+
+  return { n,s,h,d,m,p,st,z,t:inTown,i,ig, html:
+    (outer ? townRow : !m ? "" : row("Neighbourhood", n?chipName("nbh",n.properties.name)+sayBtn(n.properties.name,1)+shareBtn(`nbh|${n.properties.name}|${n.properties.muni}`,1)+akaNote(n):isl?"":'<span class="muted">none mapped here</span>'))+
+    row(i ? isleWord(i.properties)[0] : "", isleRow(i))+
+    row("Island group", isleRow(ig))+
     row("Small area", s?chipName("small",s.properties.name)+sayBtn(s.properties.name,1)+shareBtn(`small|${s.properties.name}|${s.properties.muni}`,1):"")+
     row("Sub-district", h?chipName("hverfi",h.properties.name)+sayBtn(h.properties.name,1)+shareBtn(`hverfi|${h.properties.name}|Reykjavík`,1)+akaNote(h):"")+
     row("District", d?chipName("districts",d.properties.name)+sayBtn(d.properties.name,1)+shareBtn(`districts|${d.properties.name}|${d.properties.muni}`,1)+akaNote(d):"")+
@@ -1137,17 +1167,19 @@ function showPin(lat,lng){
 function infoAt(lat,lng,title,extra,isMe,shareSpec){
   infoIsMe = !!isMe;
   const w = whatsHereRows(lng,lat);
-  highlight(w.n || w.s || w.p);
+  const wi = w.i || w.ig;
+  highlight(w.n || w.s || wi || w.p);
   if(isMe){ if(pin){ map.removeLayer(pin); pin=null; } }   // your own position already has the blue dot
   else showPin(lat,lng);
-  const t = title || (w.ocean ? "Ocean" : w.n ? w.n.properties.name : (w.s ? w.s.properties.name : w.t ? w.t.name : "Map point"));
+  const t = title || (w.ocean ? "Ocean" : w.n ? w.n.properties.name : (w.s ? w.s.properties.name : w.t ? w.t.name : wi ? wi.properties.name : "Map point"));
   if(w.ocean && !title) extra = '<div class="muted" style="margin-bottom:6px">Open sea (haf)</div>' + (extra||"");
-  if(!title && !shareSpec) shareSpec = w.n ? `nbh|${w.n.properties.name}|${w.n.properties.muni}` : w.s ? `small|${w.s.properties.name}|${w.s.properties.muni}` : w.t ? `town|${w.t.name}|${w.t.muni}` : null;
+  if(!title && !shareSpec) shareSpec = w.n ? `nbh|${w.n.properties.name}|${w.n.properties.muni}` : w.s ? `small|${w.s.properties.name}|${w.s.properties.muni}` : w.t ? `town|${w.t.name}|${w.t.muni}`
+    : wi ? `islands|${wi.properties.name}|${wi.properties.muni}` : null;
   infoEl.innerHTML = `<h2>${isMe?"Your location":"What's here"}</h2><div class="title">${esc(t)}${sayBtn(t)}${isMe?"":shareBtn(shareSpec)}</div>${hasClip(t)?forvo(t):""}
     ${extra||""}<table>${w.html}</table>
     <div class="muted" style="margin-top:8px">${lat.toFixed(5)}, ${lng.toFixed(5)}</div>`;
-  const where = [w.p ? w.p.properties.code+" "+w.p.properties.town : (w.m ? w.m.properties.name : ""), w.d && w.d.properties.name!==t ? w.d.properties.name : "",
-    !w.n && w.m && isOuter(w.m.properties) && w.m.properties.name!==t ? w.m.properties.name : ""].filter(Boolean).join(" · ");
+  const where = [...new Set([w.p ? w.p.properties.code+" "+w.p.properties.town : (w.m ? w.m.properties.name : ""), w.d && w.d.properties.name!==t ? w.d.properties.name : "",
+    !w.n && w.m && isOuter(w.m.properties) && w.m.properties.name!==t ? w.m.properties.name : ""].filter(Boolean))].join(" · ");
   if(isMe) setPeek(w.n ? "You're in " + w.n.properties.name : "You are here", where);
   else setPeek(t, where);
   scrollEl.scrollTop = 0;
@@ -1182,6 +1214,14 @@ function featureInfo(f){
     if(p.zone) rows += row("Region", chipName("zones",p.zone)+sayBtn(p.zone,1));
     if(isOuter(p) && (p.towns||[]).length) rows += row("Towns and villages", '<div class="chips">'+p.towns.map(n=>{ const t=TOWNS.find(x=>x.name===n && x.muni===p.name); return t?chipTown(t):""; }).join("")+"</div>");
     rows += row("Size (land)", p.km2.toLocaleString("en")+" km²");
+  } else if(k==="islands"){
+    const w = isleWord(p), grp = p.group && ALL.islands.find(x=>x.properties.name===p.group && x.properties.muni===p.muni);
+    rows += row("Kind", `${w[0]} <span class="muted">(${w[1]})</span>`);
+    if(grp) rows += row("Part of", chipIsle(grp)+sayBtn(p.group,1));
+    if((p.isles||[]).length) rows += row("Islands", '<div class="chips">'+p.isles.map(n=>{ const x=ALL.islands.find(y=>y.properties.name===n && y.properties.muni===p.muni); return x?chipIsle(x):""; }).join("")+"</div>");
+    rows += row(isOuter(p) ? "Municipality" : "Town", esc(p.muni)+sayBtn(p.muni,1)+shareBtn(`munis|${p.muni}`,1));
+    rows += row("Region", chipName("zones",p.zone)+sayBtn(p.zone,1));
+    rows += row("Size", p.km2 >= 0.1 ? p.km2.toFixed(1)+" km²" : p.km2 >= 0.01 ? Math.round(p.km2*100)+" hectares" : "under 1 hectare");
   } else {
     rows += row("Town", esc(p.muni)+sayBtn(p.muni,1)+shareBtn(`munis|${p.muni}`,1));
     if(p.district && p.district!==p.name) rows += row("District", chipName("districts",p.district)+sayBtn(p.district,1)+shareBtn(`districts|${p.district}|${p.muni}`,1));
@@ -1191,7 +1231,7 @@ function featureInfo(f){
     rows += row("Size", p.km2+" km²");
     if(p.src) rows += row("Boundary from", esc(p.src));
   }
-  const kind = k==="munis" && isOuter(p) ? "Municipality" : k==="zones" ? "Region (weather forecast zone)" : KIND_LABEL[k];
+  const kind = k==="munis" && isOuter(p) ? "Municipality" : k==="zones" ? "Region (weather forecast zone)" : k==="islands" ? isleWord(p)[0] : KIND_LABEL[k];
   const title = k==="postal" ? p.code+" "+p.town : p.name;
   const clipKey = k==="postal" ? "postal:"+p.code : p.name;
   const spec = k==="postal" ? `postal|${p.code}` : k==="munis" || k==="zones" ? `${k}|${p.name}` : `${k}|${p.name}|${p.muni}`;
@@ -1257,6 +1297,7 @@ infoEl.addEventListener("click", e=>{
   let f;
   if(kind==="poi"){ if(POIS[+name]) select(POIS[+name]); return; }
   if(kind==="town"){ const [tn, tm] = name.split("|"); const t = TOWNS.find(x=>x.name===tn && (!tm || x.muni===tm)); if(t) select(t); return; }
+  if(kind==="islands"){ const [n, mu] = name.split("|"); f = ALL.islands.find(x=>x.properties.name===n && (!mu || x.properties.muni===mu)); if(f) select(f); return; }
   if(kind==="postal") f=postalByCode[name];
   else {
     const cands = ALL[kind].filter(x=>x.properties.name===name);
@@ -1281,6 +1322,11 @@ ALL.zones.forEach(f=>{ addIdx(f.properties.name,"zones",f,f.properties.en,7); ad
 TOWNS.forEach(t=>addIdx(t.name,"town",t,[TOWN_WORD[t.place][0]+" in "+t.muni,(t.postal||[])[0]].filter(Boolean).join(" · "),{town:9,village:7,hamlet:3}[t.place]));
 ROADS.forEach(r=>{ addIdx(r.name,"road",r,r.refs.length ? "Route " + r.refs.join(", ") : "Main road",0);
   if(!r.name.startsWith("Route ")) r.refs.forEach(x=>addIdx("Route "+x,"road",r,r.name,-1)); });
+// islands; one that is also a sight (Viðey) is found as the sight, and still shows as an island when tapped
+ALL.islands.forEach(f=>{ const p = f.properties;
+  if(POIS.some(s=>s.cat==="sight" && s.name===p.name && Math.hypot(s.ll[0]-p.label[0], s.ll[1]-p.label[1]) < 0.05)) return;
+  const sub = [isleWord(p)[0]+" in "+p.muni, p.group ? "part of "+p.group : ""].filter(Boolean).join(" · ");
+  index.push({name:p.name, n:norm(p.name), kind:"islands", ref:f, sub, boost:p.km2>=1?6:p.km2>=0.2?4:1, lab:p.place==="archipelago"?"Islands":"Island"}); });
 ALL.postal.forEach(f=>addIdx(f.properties.code+" "+f.properties.town,"postal",f,(f.properties.contains||[]).slice(0,3).join(", "),10));
 DATA.points.forEach(p=>addIdx(p.name,"point",p,[p.muni,(p.postal||[])[0]].filter(Boolean).join(" · "),p.place==="locality"?-4:1));
 DATA.streets.forEach(s=>addIdx(s[0],"street",{_kind:"street",s},s[1]+" "+(postalByCode[s[1]]?postalByCode[s[1]].properties.town:""),-2));
@@ -1312,7 +1358,7 @@ for(const [alias,[kind,name,muni]] of Object.entries(ALIASES)){
   addIdx(alias,kind,f,`→ ${name}${muni?" · "+muni:""}`,7,true);
   if(alias !== name && !ALIASES[alias].includes("case")) (f._aka = f._aka || []).push(alias);   // shown as "Also called"
 }
-const FILLER = /\b(west|east|north|south|upper|lower|old|new|the|vestur|austur|nordur|sudur|efri|efra|nedri|nedra|gamli|nyi|nyja|hverfi|hverfid|neighbourhood|neighborhood|area|in|i|a|vid|uti|ut|reykjavik)\b/g;
+const FILLER = /\b(west|east|north|south|upper|lower|old|new|the|vestur|austur|nordur|sudur|efri|efra|nedri|nedra|gamli|nyi|nyja|hverfi|hverfid|neighbourhood|neighborhood|area|island|islands|isle|eyja|eyjan|in|i|a|vid|uti|ut|reykjavik)\b/g;
 function variants(q){
   const out = new Set([q]);
   const stripped = q.replace(FILLER," ").replace(/\s+/g," ").trim();

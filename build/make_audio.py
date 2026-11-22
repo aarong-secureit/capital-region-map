@@ -211,7 +211,7 @@ def name_texts(mapdata, pois_json=None, aliases_json=None, roads_json=None, stre
     roads "Nearest street" can name that have no addresses (Þormóðsdalsvegur)."""
     d = json.load(open(Path(mapdata).resolve(), encoding="utf-8"))
     texts = {}
-    for k in ("zones", "munis", "districts", "hverfi", "nbh", "small"):
+    for k in ("zones", "munis", "districts", "hverfi", "nbh", "small", "islands"):
         for f in d.get(k, {"features": []})["features"]:
             texts[f["properties"]["name"]] = spoken(f["properties"]["name"])
     for p in d["points"] + d.get("towns", []):
