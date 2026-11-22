@@ -30,8 +30,12 @@ def polys_only(g):
     parts = [p for p in getattr(g, "geoms", []) if isinstance(p, (Polygon, MultiPolygon))]
     return unary_union(parts) if parts else Polygon()
 
-def clean(g, tol=0.00012):
+def clean(g, tol=None):
+    """Valid polygons; simplified to tol if given (the boundary layers come already simplified together from
+    conform.make_borders, so a border shared by several areas stays one line)."""
     g = polys_only(shapely.make_valid(g))
+    if not tol:
+        return g
     g = g.simplify(tol, preserve_topology=True)
     g = polys_only(shapely.make_valid(g))
     return shapely.set_precision(g, 0.0001 if tol >= 0.0004 else 0.00001)   # rural areas: ~10 m is plenty
@@ -44,7 +48,7 @@ def label_pt(g):
         p = big.representative_point()
     return [round(p.x, 5), round(p.y, 5)]
 
-def feat(g, tol=0.00012, min_km2=0, **props):
+def feat(g, tol=None, min_km2=0, **props):
     g = clean(g, tol)
     if min_km2 and isinstance(g, MultiPolygon):           # drop skerries and islets on the big rural areas
         big = [p for p in g.geoms if km2(p) >= min_km2]
@@ -340,6 +344,23 @@ for (s, c), ps in sacc.items():
 street_list.sort(key=lambda r: (norm(r[0]), r[1]))
 print("streets", len(street_list))
 
+# ---------------- one set of borders ----------------
+# Each layer comes from its own source, and simplifying each area on its own drew a border shared by several
+# layers as several lines a few metres apart. conform.make_borders fits the detailed layers to the streets
+# (extract_roads.py) and to the layers above them, tidies the ones that split up a municipality, and simplifies
+# every border once for all layers, so a shared border is the same line everywhere.
+import conform
+hv_union = {code: shapely.make_valid(unary_union(gs)) for code, gs in hv.items()}
+hv_items = sorted(hv_union.items(), key=lambda t: [float(x) for x in t[0].split(".")])
+B = conform.make_borders(muni_land, R.ZONES, districts, [g for _, g in hv_items], nbh, small, postal,
+                         json.load(open(f"{D}/roads_lines.json")), R.DETAIL_MUNIS)
+for items, gs in ((districts, B["districts"]), (nbh, B["nbh"]), (small, B["small"])):
+    for it, g in zip(items, gs):
+        it["g"] = g
+hv_union = {code: g for (code, _), g in zip(hv_items, B["hverfi"])}
+postal = B["postal"]
+print("borders made")
+
 # ---------------- postal descriptions ----------------
 postal_feats = []
 for c in sorted(postal):
@@ -351,7 +372,7 @@ for c in sorted(postal):
             inside_n.append(n["name"])
     in_towns = [t["name"] for t in towns if g.contains(Point(*t["ll"]))]
     outer = not CAP_CODE(c)
-    f = feat(g, tol=0.0008 if outer else 0.00012, min_km2=0.1 if outer else 0, code=c, town=TOWN(c),
+    f = feat(g, min_km2=0.1 if outer else 0, code=c, town=TOWN(c),
              contains=sorted(set(inside_n), key=norm), towns=in_towns, addresses=int(cnt[c]))
     if f:
         postal_feats.append(f)
@@ -367,15 +388,16 @@ def postals_for(g):
                 out.append((c, share))
     return [c for c, _ in sorted(out, key=lambda t: -t[1])]
 
-hv_union = {code: shapely.make_valid(unary_union(gs)) for code, gs in hv.items()}
 hv_feats = []
-for code, g in sorted(hv_union.items(), key=lambda t: [float(x) for x in t[0].split(".")]):
+for code, _ in hv_items:
+    gl = hv_union[code]
     name = hv_name[code].most_common(1)[0][0] if hv_name[code] else HV_MISSING.get(code, code)
     name = HV_FIX.get(name, name)
     if code == "0.0":
         name = "Elliðaárdalur"
-    gl = g.intersection(land.buffer(0.002))
-    f = feat(gl, name=name, muni="Reykjavík", district=borgarhluti_of(g.representative_point()),
+    if gl.is_empty:
+        continue
+    f = feat(gl, name=name, muni="Reykjavík", district=borgarhluti_of(gl.representative_point()),
              postal=postals_for(gl))
     if f:
         hv_feats.append(f)
@@ -394,9 +416,9 @@ small_feats = [feat(s["g"], name=s["name"], muni=s["muni"], parent=s["parent"],
                     postal=postals_for(s["g"]), src=s["src"]) for s in small]
 dist_feats = [feat(d["g"], name=d["name"], muni=d["muni"], postal=postals_for(d["g"])) for d in districts]
 muni_feats = []
-for k, g in muni_land.items():
+for k, g in B["munis"].items():
     outer = k not in R.CAP_MUNIS
-    muni_feats.append(feat(g, tol=0.001 if outer else 0.00012, min_km2=0.2 if outer else 0, name=k,
+    muni_feats.append(feat(g, min_km2=0.2 if outer else 0, name=k,
                            zone=R.ZONE_OF[k], towns=[t["name"] for t in towns if t["muni"] == k and t["place"] != "hamlet"]))
 def zone_label(zg, z):
     """A region's label in its lived-in part (within ~33 km of its towns and villages), not the middle of
@@ -413,9 +435,9 @@ def zone_label(zg, z):
 
 zone_feats = []
 for z, ms in R.ZONES.items():
-    zg = unary_union([muni_land[m] for m in ms])
+    zg = B["zones"][z]
     lab = zone_label(zg, z)
-    zone_feats.append(feat(zg, tol=0.002, min_km2=1.0, name=z, en=R.ZONE_EN[z], munis=ms,
+    zone_feats.append(feat(zg, min_km2=1.0, name=z, en=R.ZONE_EN[z], munis=ms,
                            towns=[t["name"] for t in towns if t["zone"] == z and t["place"] == "town"],
                            **({"label": lab} if lab else {})))
 for t in towns:

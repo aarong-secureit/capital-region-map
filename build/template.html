@@ -694,27 +694,26 @@ function centerOn(lat,lng,z){
   const p=viewPad(), dx=(p.br[0]-p.tl[0])/2, dy=(p.br[1]-p.tl[1])/2;
   map.setView(map.unproject(map.project([lat,lng],z).add([dx,dy]),z), z);
 }
-// Back to what you picked: select() moves the map through aim(), which remembers the place. Once panning or
-// zooming takes it out of view, a small arrow by its name points the way and brings the map back.
+// Back to what you picked: select() moves the map through aim(), which remembers the place and, once the map
+// has settled there, the view. As soon as the map is panned away from that view, a small arrow by the name
+// points to the place and brings the map back.
 let goal = null;
 const GO_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l7 18-7-4-7 4z" fill="currentColor"/></svg>';
 const goBtn = () => `<button type="button" class="goback" data-goback hidden>${GO_ICON}</button>`;
-function aim(name, lat, lng, z, bb){
-  goal = {name, lat, lng, z, bb, settling:true};
-  const g = goal, done = () => { g.settling = false; updateGoBack(); };
-  map.once("moveend", done); setTimeout(done, 600);          // no arrow while the map is still flying there
-  if(bb) fitTo(bb); else centerOn(lat, lng, z);
+function settle(g){                       // no arrow while the map is still flying there
+  g.settling = true;
+  const done = () => { if(!g.settling) return; g.settling = false; g.c = map.getCenter(); updateGoBack(); };
+  map.once("moveend", done); setTimeout(done, 600);
 }
+function goTo(g){ settle(g); if(g.bb) fitTo(g.bb); else centerOn(g.lat, g.lng, g.z); }
+function aim(name, lat, lng, z, bb){ goal = {name, lat, lng, z, bb}; goTo(goal); }
 function updateGoBack(){
   let show = false, deg = 0;
   if(goal && !goal.settling){
-    const p = viewPad(), sz = map.getSize(), x0 = p.tl[0], y0 = p.tl[1], x1 = sz.x - p.br[0], y1 = sz.y - p.br[1];
-    const at = map.latLngToContainerPoint([goal.lat, goal.lng]);
-    if(goal.bb){
-      const a = map.latLngToContainerPoint([goal.bb[3], goal.bb[0]]), b = map.latLngToContainerPoint([goal.bb[1], goal.bb[2]]);
-      show = b.x < x0 || a.x > x1 || b.y < y0 || a.y > y1;     // none of the area left in view
-    } else show = at.x < x0 || at.x > x1 || at.y < y0 || at.y > y1;
-    deg = Math.atan2(at.y - (y0 + y1) / 2, at.x - (x0 + x1) / 2) * 180 / Math.PI + 90;
+    const z = map.getZoom(), moved = map.project(goal.c, z).distanceTo(map.project(map.getCenter(), z));
+    show = moved > 20;                      // panned more than a nudge (zooming in place doesn't count)
+    const sz = map.getSize(), back = map.latLngToContainerPoint(goal.c);      // points back the way the map was panned
+    deg = Math.atan2(back.y - sz.y / 2, back.x - sz.x / 2) * 180 / Math.PI + 90;
   }
   document.querySelectorAll("[data-goback]").forEach(b => {
     b.hidden = !show;
@@ -724,10 +723,7 @@ function updateGoBack(){
   });
 }
 map.on("move", updateGoBack);
-document.addEventListener("click", e => {
-  if(!e.target.closest("[data-goback]") || !goal) return;
-  if(goal.bb) fitTo(goal.bb); else centerOn(goal.lat, goal.lng, goal.z);
-});
+document.addEventListener("click", e => { if(e.target.closest("[data-goback]") && goal) goTo(goal); });
 function keepVisible(lat,lng){
   if(!MOBILE.matches) return;
   const p=viewPad(), cp=map.latLngToContainerPoint([lat,lng]), sz=map.getSize();

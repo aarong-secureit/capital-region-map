@@ -18,6 +18,7 @@ for SV in Hverfaheiti Stjornsysluskipting Ibudahverfi_hverfaskipulags; do
 done
 python extract_osm.py osm/iceland-latest.osm.pbf data/osm_extract.json
 python extract_coast.py osm/iceland-latest.osm.pbf data/coast.json
+python extract_roads.py osm/iceland-latest.osm.pbf data/roads_lines.json
 python build_data.py data data/mapdata.json
 python islands.py osm/iceland-latest.osm.pbf data/coast.json data/mapdata.json
 python landmarks.py data/mapdata.json landmarks.json
@@ -28,6 +29,15 @@ python streets_geo.py osm/iceland-latest.osm.pbf data/mapdata.json ../_assets/st
 python inject.py data/mapdata.json template.html ../capital-region-map.html ../_assets/audio/index.json landmarks.json pois.json aliases.json roads.json
 ```
 
+- `conform.py` (run by `build_data.py`): makes the boundary layers agree. Each comes from its own source, and
+  simplifying each area on its own used to draw a border shared by several layers as several lines a few
+  metres apart. In the capital region and Akureyri a border is moved onto a street it runs along (within
+  10 m, 20 m for postal areas; streets from `extract_roads.py`) and onto the border of a layer above it
+  (municipality, district, sub-district, neighbourhood; within 15 m, 25 m for postal areas, or a whole stretch
+  running alongside it up to 40 m away, 55 m for postal areas, capped at a quarter of the area's width); layers that split
+  up a municipality are clipped to it with thin slivers closed; then every border of every layer is cut into
+  pieces where borders meet and each piece simplified once (5 m in town, 12 m along the coast, 80 m and 150 m in
+  the countryside), so a shared border is the same line in every layer and the coast is one line.
 - `landmarks.py`: the well-known spot each big area shares to Google Maps (town hall, main church,
   shopping centre). Edit the `LANDMARKS` list; it checks each point lies inside its area. Rural
   municipalities and postal codes without one share their biggest town.
