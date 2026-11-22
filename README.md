@@ -1,16 +1,15 @@
-# Capital Region Map
+# Iceland for Beginners
 
-A map for people learning their way around Iceland's capital region and the west and south: where the
+A map for people learning their way around Iceland, starting from the capital region: where the
 neighbourhoods, districts and towns are, how their names sound, and the everyday places around them, such as
 grocery stores, swimming pools, the main bus stops and the well-known sights.
 
 It isn't trying to be a full navigation map. It answers "where is Holtin?" or "which area is 108?", and hands
 anything else off to Google Maps with one click.
 
-Covers four of Iceland's eight regions (landshlutar, groups of municipalities a bit like counties): the
-capital region (Höfuðborgarsvæðið) in full detail, and Suðurnes (the Reykjanes peninsula), Vesturland
-(Akranes, Borgarfjörður, Snæfellsnes, Dalir) and Suðurland (out to Vík and Vestmannaeyjar) with their towns,
-villages, big roads and sights, plus Reykhólahreppur at the southern edge of the Westfjords.
+Covers all of Iceland and its eight regions (landshlutar, groups of municipalities a bit like counties):
+the capital region (Höfuðborgarsvæðið) in full detail, Akureyri with its neighbourhoods and streets, and
+every other town and village with its streets, plus the big roads, the sights and the highlands.
 
 ## What it does
 
@@ -22,11 +21,13 @@ villages, big roads and sights, plus Reykhólahreppur at the southern edge of th
   (generated offline with the Piper voice Ugla).
 - **Share any place.** Big areas share their well-known landmark (town hall, main church, shopping centre)
   to Google Maps, or a link straight back to this map.
-- **Points of interest**, each switchable: groceries (Bónus, Krónan, Nettó, Hagkaup), shopping, swimming
-  pools, parks, the main bus stops and transfer hubs, and about 80 sights (Hallgrímskirkja, Gullfoss, Geysir,
-  Seljalandsfoss, Bláa lónið, Kirkjufell, Reynisfjara...).
-- **Islands:** about 120 named islands, from Viðey and Engey off Reykjavík to Heimaey, Surtsey and the
-  Breiðafjörður islands (Flatey, Brokey), labelled, searchable and with their own row when you tap one.
+- **Points of interest**, each switchable: groceries (Bónus, Krónan, Nettó, Hagkaup, and in towns without
+  them the local shop, such as Kjörbúðin or the kaupfélag), shopping, swimming
+  pools, parks, the main bus stops and transfer hubs, and about 150 sights (Hallgrímskirkja, Gullfoss, Geysir,
+  Seljalandsfoss, Bláa lónið, Kirkjufell, Dettifoss, Mývatn, Jökulsárlón, Dynjandi...).
+- **Islands:** about 150 named islands, from Viðey and Engey off Reykjavík to Heimaey, Surtsey, the
+  Breiðafjörður islands (Flatey, Brokey), Vigur, Drangey, Hrísey and Grímsey, labelled, searchable and with
+  their own row when you tap one.
 - **What's here:** the area, town, island, region, postal code and nearest street wherever you tap.
 - **Home and Work pins** (up to three each), light/dark theme and your layer choices, all kept in your
   browser's local storage. Addresses are looked up in the page; nothing you type is sent anywhere.

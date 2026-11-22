@@ -21,10 +21,31 @@
   ]
  },
  "zones|Vestfirðir": {
-  "poi": "Reykhólar",
+  "poi": "Ísafjörður",
   "ll": [
-   65.44859,
-   -22.20148
+   66.07269,
+   -23.11935
+  ]
+ },
+ "zones|Norðurland vestra": {
+  "poi": "Sauðárkrókur",
+  "ll": [
+   65.74432,
+   -19.63858
+  ]
+ },
+ "zones|Norðurland eystra": {
+  "poi": "Akureyrarkirkja (Akureyri)",
+  "ll": [
+   65.67986,
+   -18.09094
+  ]
+ },
+ "zones|Austurland": {
+  "poi": "Egilsstaðir",
+  "ll": [
+   65.26204,
+   -14.40353
   ]
  },
  "zones|Suðurland": {
@@ -32,6 +53,13 @@
   "ll": [
    63.93311,
    -20.99707
+  ]
+ },
+ "munis|Akureyri": {
+  "poi": "Akureyrarkirkja",
+  "ll": [
+   65.67986,
+   -18.09094
   ]
  },
  "munis|Reykjavík": {
@@ -349,11 +377,158 @@
    -21.93281
   ]
  },
+ "munis|Hornafjörður": {
+  "poi": "Höfn",
+  "ll": [
+   64.25326,
+   -15.20804
+  ]
+ },
+ "munis|Fjallabyggð": {
+  "poi": "Siglufjörður",
+  "ll": [
+   66.15049,
+   -18.90963
+  ]
+ },
+ "munis|Dalvíkurbyggð": {
+  "poi": "Dalvík",
+  "ll": [
+   65.97109,
+   -18.53044
+  ]
+ },
+ "munis|Hörgársveit": {
+  "poi": "Lónsbakki",
+  "ll": [
+   65.70274,
+   -18.15595
+  ]
+ },
+ "munis|Svalbarðsstrandarhreppur": {
+  "poi": "Svalbarðseyri",
+  "ll": [
+   65.74585,
+   -18.08297
+  ]
+ },
+ "munis|Grýtubakkahreppur": {
+  "poi": "Grenivík",
+  "ll": [
+   65.94751,
+   -18.18014
+  ]
+ },
+ "munis|Eyjafjarðarsveit": {
+  "poi": "Hrafnagil",
+  "ll": [
+   65.57355,
+   -18.09453
+  ]
+ },
+ "munis|Skagafjörður": {
+  "poi": "Sauðárkrókur",
+  "ll": [
+   65.74432,
+   -19.63858
+  ]
+ },
+ "munis|Skagaströnd": {
+  "poi": "Skagaströnd",
+  "ll": [
+   65.82332,
+   -20.30056
+  ]
+ },
+ "munis|Húnaþing vestra": {
+  "poi": "Hvammstangi",
+  "ll": [
+   65.39696,
+   -20.94403
+  ]
+ },
+ "munis|Fjarðabyggð": {
+  "poi": "Reyðarfjörður",
+  "ll": [
+   65.03407,
+   -14.20847
+  ]
+ },
+ "munis|Langanesbyggð": {
+  "poi": "Þórshöfn",
+  "ll": [
+   66.19814,
+   -15.33594
+  ]
+ },
+ "munis|Vopnafjarðarhreppur": {
+  "poi": "Vopnafjörður",
+  "ll": [
+   65.75406,
+   -14.82949
+  ]
+ },
+ "munis|Norðurþing": {
+  "poi": "Húsavík",
+  "ll": [
+   66.04332,
+   -17.34104
+  ]
+ },
+ "munis|Þingeyjarsveit": {
+  "poi": "Reykjahlíð",
+  "ll": [
+   65.64156,
+   -16.91001
+  ]
+ },
+ "munis|Bolungarvík": {
+  "poi": "Bolungarvík",
+  "ll": [
+   66.15755,
+   -23.25073
+  ]
+ },
+ "munis|Ísafjarðarbær": {
+  "poi": "Ísafjörður",
+  "ll": [
+   66.07269,
+   -23.11935
+  ]
+ },
+ "munis|Súðavíkurhreppur": {
+  "poi": "Súðavík",
+  "ll": [
+   66.02601,
+   -22.99149
+  ]
+ },
  "munis|Reykhólahreppur": {
   "poi": "Reykhólar",
   "ll": [
    65.44859,
    -22.20148
+  ]
+ },
+ "munis|Árneshreppur": {
+  "poi": "Norðurfjörður",
+  "ll": [
+   66.05118,
+   -21.54811
+  ]
+ },
+ "munis|Kaldrananeshreppur": {
+  "poi": "Drangsnes",
+  "ll": [
+   65.68863,
+   -21.44294
+  ]
+ },
+ "munis|Strandabyggð": {
+  "poi": "Hólmavík",
+  "ll": [
+   65.7065,
+   -21.6692
   ]
  },
  "munis|Dalabyggð": {
@@ -382,6 +557,13 @@
   "ll": [
    63.41882,
    -19.00547
+  ]
+ },
+ "munis|Skaftárhreppur": {
+  "poi": "Kirkjubæjarklaustur",
+  "ll": [
+   63.79306,
+   -18.04186
   ]
  },
  "munis|Ölfus": {
@@ -503,11 +685,32 @@
    -20.44613
   ]
  },
+ "munis|Múlaþing": {
+  "poi": "Egilsstaðir",
+  "ll": [
+   65.26204,
+   -14.40353
+  ]
+ },
  "munis|Vestmannaeyjar": {
   "poi": "Vestmannaeyjar",
   "ll": [
    63.4401,
    -20.27859
+  ]
+ },
+ "munis|Vesturbyggð": {
+  "poi": "Patreksfjörður",
+  "ll": [
+   65.59729,
+   -24.0009
+  ]
+ },
+ "munis|Húnabyggð": {
+  "poi": "Blönduós",
+  "ll": [
+   65.66013,
+   -20.281
   ]
  },
  "postal|190": {
@@ -657,6 +860,398 @@
    -21.9235
   ]
  },
+ "postal|400": {
+  "poi": "Ísafjörður",
+  "ll": [
+   66.07269,
+   -23.11935
+  ]
+ },
+ "postal|410": {
+  "poi": "Hnífsdalur",
+  "ll": [
+   66.10966,
+   -23.1202
+  ]
+ },
+ "postal|415": {
+  "poi": "Bolungarvík",
+  "ll": [
+   66.15755,
+   -23.25073
+  ]
+ },
+ "postal|420": {
+  "poi": "Súðavík",
+  "ll": [
+   66.02601,
+   -22.99149
+  ]
+ },
+ "postal|425": {
+  "poi": "Flateyri",
+  "ll": [
+   66.04881,
+   -23.51296
+  ]
+ },
+ "postal|430": {
+  "poi": "Suðureyri",
+  "ll": [
+   66.12957,
+   -23.52678
+  ]
+ },
+ "postal|450": {
+  "poi": "Patreksfjörður",
+  "ll": [
+   65.59729,
+   -24.0009
+  ]
+ },
+ "postal|460": {
+  "poi": "Tálknafjörður",
+  "ll": [
+   65.62742,
+   -23.8249
+  ]
+ },
+ "postal|465": {
+  "poi": "Bíldudalur",
+  "ll": [
+   65.6859,
+   -23.59886
+  ]
+ },
+ "postal|470": {
+  "poi": "Þingeyri",
+  "ll": [
+   65.87912,
+   -23.49245
+  ]
+ },
+ "postal|500": {
+  "poi": "Borðeyri",
+  "ll": [
+   65.20748,
+   -21.09877
+  ]
+ },
+ "postal|510": {
+  "poi": "Hólmavík",
+  "ll": [
+   65.7065,
+   -21.6692
+  ]
+ },
+ "postal|520": {
+  "poi": "Drangsnes",
+  "ll": [
+   65.68863,
+   -21.44294
+  ]
+ },
+ "postal|524": {
+  "poi": "Norðurfjörður",
+  "ll": [
+   66.05118,
+   -21.54811
+  ]
+ },
+ "postal|530": {
+  "poi": "Hvammstangi",
+  "ll": [
+   65.39696,
+   -20.94403
+  ]
+ },
+ "postal|531": {
+  "poi": "Laugarbakki",
+  "ll": [
+   65.32749,
+   -20.89213
+  ]
+ },
+ "postal|540": {
+  "poi": "Blönduós",
+  "ll": [
+   65.66013,
+   -20.281
+  ]
+ },
+ "postal|545": {
+  "poi": "Skagaströnd",
+  "ll": [
+   65.82332,
+   -20.30056
+  ]
+ },
+ "postal|550": {
+  "poi": "Sauðárkrókur",
+  "ll": [
+   65.74432,
+   -19.63858
+  ]
+ },
+ "postal|551": {
+  "poi": "Hólar",
+  "ll": [
+   65.73203,
+   -19.11112
+  ]
+ },
+ "postal|560": {
+  "poi": "Varmahlíð",
+  "ll": [
+   65.55324,
+   -19.44748
+  ]
+ },
+ "postal|565": {
+  "poi": "Hofsós",
+  "ll": [
+   65.89746,
+   -19.41102
+  ]
+ },
+ "postal|580": {
+  "poi": "Siglufjörður",
+  "ll": [
+   66.15049,
+   -18.90963
+  ]
+ },
+ "postal|600": {
+  "poi": "Akureyri",
+  "ll": [
+   65.68264,
+   -18.0913
+  ]
+ },
+ "postal|604": {
+  "poi": "Lónsbakki",
+  "ll": [
+   65.70274,
+   -18.15595
+  ]
+ },
+ "postal|605": {
+  "poi": "Hrafnagil",
+  "ll": [
+   65.57355,
+   -18.09453
+  ]
+ },
+ "postal|606": {
+  "poi": "Svalbarðseyri",
+  "ll": [
+   65.74585,
+   -18.08297
+  ]
+ },
+ "postal|610": {
+  "poi": "Grenivík",
+  "ll": [
+   65.94751,
+   -18.18014
+  ]
+ },
+ "postal|611": {
+  "poi": "Grímsey",
+  "ll": [
+   66.5396,
+   -18.01533
+  ]
+ },
+ "postal|620": {
+  "poi": "Dalvík",
+  "ll": [
+   65.97109,
+   -18.53044
+  ]
+ },
+ "postal|621": {
+  "poi": "Árskógssandur",
+  "ll": [
+   65.94444,
+   -18.35387
+  ]
+ },
+ "postal|625": {
+  "poi": "Ólafsfjörður",
+  "ll": [
+   66.07196,
+   -18.648
+  ]
+ },
+ "postal|630": {
+  "poi": "Hrísey",
+  "ll": [
+   65.97967,
+   -18.3772
+  ]
+ },
+ "postal|640": {
+  "poi": "Húsavík",
+  "ll": [
+   66.04332,
+   -17.34104
+  ]
+ },
+ "postal|650": {
+  "poi": "Laugar",
+  "ll": [
+   65.72165,
+   -17.37275
+  ]
+ },
+ "postal|660": {
+  "poi": "Reykjahlíð",
+  "ll": [
+   65.64156,
+   -16.91001
+  ]
+ },
+ "postal|670": {
+  "poi": "Kópasker",
+  "ll": [
+   66.30095,
+   -16.44661
+  ]
+ },
+ "postal|675": {
+  "poi": "Raufarhöfn",
+  "ll": [
+   66.453,
+   -15.95094
+  ]
+ },
+ "postal|680": {
+  "poi": "Þórshöfn",
+  "ll": [
+   66.19814,
+   -15.33594
+  ]
+ },
+ "postal|685": {
+  "poi": "Bakkafjörður",
+  "ll": [
+   66.03654,
+   -14.80414
+  ]
+ },
+ "postal|690": {
+  "poi": "Vopnafjörður",
+  "ll": [
+   65.75406,
+   -14.82949
+  ]
+ },
+ "postal|700": {
+  "poi": "Egilsstaðir",
+  "ll": [
+   65.26204,
+   -14.40353
+  ]
+ },
+ "postal|701": {
+  "poi": "Hallormsstaður",
+  "ll": [
+   65.09323,
+   -14.74376
+  ]
+ },
+ "postal|710": {
+  "poi": "Seyðisfjörður",
+  "ll": [
+   65.25985,
+   -14.0049
+  ]
+ },
+ "postal|715": {
+  "poi": "Brekka",
+  "ll": [
+   65.20381,
+   -13.79587
+  ]
+ },
+ "postal|720": {
+  "poi": "Bakkagerði",
+  "ll": [
+   65.52696,
+   -13.8161
+  ]
+ },
+ "postal|730": {
+  "poi": "Reyðarfjörður",
+  "ll": [
+   65.03407,
+   -14.20847
+  ]
+ },
+ "postal|735": {
+  "poi": "Eskifjörður",
+  "ll": [
+   65.07131,
+   -14.01237
+  ]
+ },
+ "postal|740": {
+  "poi": "Neskaupstaður",
+  "ll": [
+   65.14872,
+   -13.68887
+  ]
+ },
+ "postal|750": {
+  "poi": "Fáskrúðsfjörður",
+  "ll": [
+   64.92997,
+   -14.00845
+  ]
+ },
+ "postal|755": {
+  "poi": "Stöðvarfjörður",
+  "ll": [
+   64.8338,
+   -13.87373
+  ]
+ },
+ "postal|760": {
+  "poi": "Breiðdalsvík",
+  "ll": [
+   64.79291,
+   -14.00637
+  ]
+ },
+ "postal|765": {
+  "poi": "Djúpivogur",
+  "ll": [
+   64.65578,
+   -14.2821
+  ]
+ },
+ "postal|780": {
+  "poi": "Höfn",
+  "ll": [
+   64.25326,
+   -15.20804
+  ]
+ },
+ "postal|781": {
+  "poi": "Nesjahverfi",
+  "ll": [
+   64.31439,
+   -15.22521
+  ]
+ },
+ "postal|785": {
+  "poi": "Hof",
+  "ll": [
+   63.90687,
+   -16.70714
+  ]
+ },
  "postal|800": {
   "poi": "Selfoss",
   "ll": [
@@ -781,6 +1376,13 @@
   "ll": [
    63.55356,
    -19.25226
+  ]
+ },
+ "postal|880": {
+  "poi": "Kirkjubæjarklaustur",
+  "ll": [
+   63.79306,
+   -18.04186
   ]
  },
  "postal|900": {

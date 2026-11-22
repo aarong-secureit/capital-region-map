@@ -1,12 +1,13 @@
 # Rebuilding capital-region-map.html
 
-The map's area is set in `region.py`: four of Iceland's eight regions (landshlutar: the capital region,
-Suðurnes, Vesturland, Suðurland) plus Reykhólahreppur from Vestfirðir, each a group of municipalities, with
-the highlands cut off (`LOWLAND`). The capital region gets full detail; elsewhere the map keeps towns and
-villages, the streets in them (`TOWN_RADIUS_KM`), big roads and sights.
+The map's area is set in `region.py`: all of Iceland, in its eight regions (landshlutar), each a group of
+whole municipalities (the highlands included). The capital region gets full detail and Akureyri its
+neighbourhoods and every street (`DETAIL_MUNIS`); elsewhere the map keeps towns and villages, the streets in
+them (`TOWN_RADIUS_KM`), big roads and sights. Distances and areas use `region.scale()`, which shrinks
+longitude by each point's own latitude, so they are right from Vík to Grímsey.
 
 Run from `build/`. Needs Python 3 with `pip install osmium shapely numpy scipy pillow` (here in `.venv`;
-`build_data.py` takes about 8 minutes):
+`build_data.py` takes about 14 minutes):
 
 ```bash
 mkdir -p data osm
@@ -30,8 +31,9 @@ python inject.py data/mapdata.json template.html ../capital-region-map.html ../_
 - `landmarks.py`: the well-known spot each big area shares to Google Maps (town hall, main church,
   shopping centre). Edit the `LANDMARKS` list; it checks each point lies inside its area. Rural
   municipalities and postal codes without one share their biggest town.
-- `pois.py`: every Bónus, Krónan, Nettó and Hagkaup; shopping centres (Spöngin placed by hand in `MANUAL_MALLS`); second-hand shops and Kolaportið; big stores
-  (Costco, IKEA, Elko, BYKO, Húsasmiðjan, Bauhaus, JYSK); sights (`SIGHTS`, about 80 hand-picked: Hallgrímskirkja,
+- `pois.py`: every Bónus, Krónan, Nettó and Hagkaup, and in towns without one their own grocery store
+  (`LOCAL_GROCERIES`: Kjörbúðin, Krambúðin, the kaupfélag...); shopping centres (Spöngin placed by hand in `MANUAL_MALLS`); second-hand shops and Kolaportið; big stores
+  (Costco, IKEA, Elko, BYKO, Húsasmiðjan, Bauhaus, JYSK); sights (`SIGHTS`, about 150 hand-picked: Hallgrímskirkja,
   Gullfoss, Geysir, Seljalandsfoss, Bláa lónið, Kirkjufell, the airports...); public swimming pools (`POOLS`, by name);
   named parks, gardens, nature areas and big woods (green labels, sized by area; outside the capital region
   only parks in towns); and bus places: Strætó's transfer hubs
@@ -49,6 +51,9 @@ python inject.py data/mapdata.json template.html ../capital-region-map.html ../_
 - Pronunciation rules live in `make_audio.py` (`load_voice()`, `post()`, `spoken()`). They were tuned with an
   automatic listening check (Whisper large-v3-turbo transcribing every clip, scored by sound). The main lesson:
   feed the voice espeak's phonemes as espeak writes them; "correcting" them to IPA it never trained on drops sounds.
+  Piper varies a little from run to run, so a name that scores badly can simply be an unlucky take: voicing it
+  a few times and keeping the best-scoring take fixed most of the low scorers among the whole-country names,
+  where respelling (Krafla as "Krapla") or splitting compounds did not.
 - `make_audio.py clips` keeps one small mp3 per name in `_assets/audio/c/` (about 5,000 files, ~20 MB). It voices
   only names without a clip and deletes clips of names that left the map; `--redo` voices everything again
   under new ids (an id is never reused, so browsers may cache clips for good).
@@ -59,9 +64,10 @@ python inject.py data/mapdata.json template.html ../capital-region-map.html ../_
   existing map data file (run `islands.py` again after it).
 - `islands.py`: named islands from OSM (`place=island / islet / archipelago`): every named one in the capital
   region and Vestmannaeyjar (Viðey, Engey, Heimaey, Surtsey, Þrídrangar...), elsewhere those of 0.1 km² or more
-  (Brokey, Hjörsey, Flatey, Árnes in Þjórsá), about 120 in all. Each gets its municipality (the boundary that holds
-  it, else the nearest within 10 km; the Flatey group goes to Reykhólahreppur) and is added to the land outline,
-  so a tap on it never says "Ocean". The page labels them, finds them in search, and shows an Island row.
+  (Brokey, Flatey, Vigur, Drangey, Hrísey, Grímsey, Árnes in Þjórsá), about 150 in all. Each gets its
+  municipality (the boundary that holds it, else the nearest within 10 km; the Flatey group goes to
+  Reykhólahreppur) and is added to the land outline, so a tap on it never says "Ocean". The page labels them,
+  finds them in search, and shows an Island row.
 
 The page embeds only `_assets/audio/index.json` (name → clip id). The clips stay in `_assets/audio/c/`, which
 must sit next to the HTML file, locally and on the web.

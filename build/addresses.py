@@ -28,6 +28,7 @@ class H(osmium.SimpleHandler):
 
     def take(self, t, lon, lat):
         st, num = t.get("addr:street"), t.get("addr:housenumber")
+        st = st.split(";")[0].strip() if st else st          # first spelling where OSM lists two
         if st and num and W <= lon <= E and S <= lat <= N:
             self.rows.append((st.strip(), num.strip(), lon, lat))
 

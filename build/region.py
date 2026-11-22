@@ -1,18 +1,20 @@
 """The map's area, shared by every build script.
 
-Iceland is divided into eight regions (landshlutar), each a group of whole municipalities, a bit like
-counties: they are used for statistics and by the municipalities' regional associations. The map covers
-the capital region, Suðurnes, Vesturland and Suðurland, plus Reykhólahreppur, the southern edge of
-Vestfirðir. Municipalities outside the capital region have their highland parts cut off.
+The map covers all of Iceland. The country is divided into eight regions (landshlutar), each a group of
+whole municipalities, a bit like counties: they are used for statistics and by the municipalities' regional
+associations. Every piece of land, the highlands included, belongs to one municipality.
 
-Detail differs by region: the capital region has neighbourhoods, districts and every street; elsewhere the
-map has towns and villages, the streets inside them, and the big roads (this is a learning map, not a
-navigation tool).
+Detail differs: the capital region has neighbourhoods, districts and every street, and Akureyri its
+neighbourhoods and every street (DETAIL_MUNIS); elsewhere the map has towns and villages, the streets
+inside them, and the big roads (this is a learning map, not a navigation tool).
 """
-from shapely.geometry import Polygon, box
+import math
+import numpy as np
+import shapely
+from shapely.geometry import box
 
-# whole map (lon/lat)
-W, S, E, N = -24.40, 63.25, -18.50, 65.80
+# whole map (lon/lat): Iceland with Vestmannaeyjar and Grímsey
+W, S, E, N = -24.60, 63.20, -13.30, 66.65
 
 # OSM municipality name -> name shown on the map
 MUNI_SHORT = {
@@ -30,6 +32,18 @@ MUNI_SHORT = {
     "Skeiða- og Gnúpverjahreppur": "Skeiða- og Gnúpverjahreppur", "Ásahreppur": "Ásahreppur",
     "Rangárþing ytra": "Rangárþing ytra", "Rangárþing eystra": "Rangárþing eystra",
     "Mýrdalshreppur": "Mýrdalshreppur", "Vestmannaeyjabær": "Vestmannaeyjar",
+    "Skaftárhreppur": "Skaftárhreppur", "Sveitarfélagið Hornafjörður": "Hornafjörður",
+    "Vesturbyggð": "Vesturbyggð", "Ísafjarðarbær": "Ísafjarðarbær", "Bolungarvíkurkaupstaður": "Bolungarvík",
+    "Súðavíkurhreppur": "Súðavíkurhreppur", "Strandabyggð": "Strandabyggð", "Kaldrananeshreppur": "Kaldrananeshreppur",
+    "Árneshreppur": "Árneshreppur",
+    "Húnaþing vestra": "Húnaþing vestra", "Húnabyggð": "Húnabyggð", "Sveitarfélagið Skagaströnd": "Skagaströnd",
+    "Skagafjörður": "Skagafjörður",
+    "Akureyrarbær": "Akureyri", "Fjallabyggð": "Fjallabyggð", "Dalvíkurbyggð": "Dalvíkurbyggð", "Hörgársveit": "Hörgársveit",
+    "Eyjafjarðarsveit": "Eyjafjarðarsveit", "Svalbarðsstrandarhreppur": "Svalbarðsstrandarhreppur",
+    "Grýtubakkahreppur": "Grýtubakkahreppur", "Þingeyjarsveit": "Þingeyjarsveit", "Tjörneshreppur": "Tjörneshreppur",
+    "Norðurþing": "Norðurþing", "Langanesbyggð": "Langanesbyggð",
+    "Vopnafjarðarhreppur": "Vopnafjarðarhreppur", "Múlaþing": "Múlaþing", "Fljótsdalshreppur": "Fljótsdalshreppur",
+    "Fjarðabyggð": "Fjarðabyggð",
 }
 
 # region (landshluti) -> municipalities (short names)
@@ -39,29 +53,52 @@ ZONES = {
     "Suðurnes": ["Reykjanesbær", "Suðurnesjabær", "Vogar", "Grindavík"],
     "Vesturland": ["Akranes", "Hvalfjarðarsveit", "Borgarbyggð", "Eyja- og Miklaholtshreppur", "Snæfellsbær",
                    "Grundarfjörður", "Stykkishólmur", "Dalabyggð"],
-    "Vestfirðir": ["Reykhólahreppur"],
+    "Vestfirðir": ["Reykhólahreppur", "Vesturbyggð", "Ísafjarðarbær", "Bolungarvík", "Súðavíkurhreppur",
+                   "Strandabyggð", "Kaldrananeshreppur", "Árneshreppur"],
+    "Norðurland vestra": ["Húnaþing vestra", "Húnabyggð", "Skagaströnd", "Skagafjörður"],
+    "Norðurland eystra": ["Akureyri", "Fjallabyggð", "Dalvíkurbyggð", "Hörgársveit", "Eyjafjarðarsveit",
+                          "Svalbarðsstrandarhreppur", "Grýtubakkahreppur", "Þingeyjarsveit", "Tjörneshreppur",
+                          "Norðurþing", "Langanesbyggð"],
+    "Austurland": ["Vopnafjarðarhreppur", "Múlaþing", "Fljótsdalshreppur", "Fjarðabyggð"],
     "Suðurland": ["Ölfus", "Hveragerði", "Árborg", "Flóahreppur", "Grímsnes- og Grafningshreppur", "Bláskógabyggð",
                   "Hrunamannahreppur", "Skeiða- og Gnúpverjahreppur", "Ásahreppur", "Rangárþing ytra",
-                  "Rangárþing eystra", "Mýrdalshreppur", "Vestmannaeyjar"],
+                  "Rangárþing eystra", "Mýrdalshreppur", "Vestmannaeyjar", "Skaftárhreppur", "Hornafjörður"],
 }
 ZONE_EN = {"Höfuðborgarsvæðið": "Capital Region", "Suðurnes": "Reykjanes Peninsula", "Vesturland": "West Iceland",
-           "Vestfirðir": "Westfjords", "Suðurland": "South Iceland"}
+           "Vestfirðir": "Westfjords", "Norðurland vestra": "Northwest Iceland",
+           "Norðurland eystra": "Northeast Iceland", "Austurland": "East Iceland", "Suðurland": "South Iceland"}
 ZONE_OF = {m: z for z, ms in ZONES.items() for m in ms}
 CAP_MUNIS = set(ZONES["Höfuðborgarsvæðið"])
 
-# Lowland outline: municipalities outside the capital region are cut to this, dropping their highland parts
-# (Borgarbyggð, Bláskógabyggð and the Rangárþing municipalities reach far into the highlands). Keeps
-# Húsafell, Geysir, Gullfoss, Þjórsárdalur, Hekla, Þórsmörk and Mýrdalur.
-LOWLAND = Polygon([
-    (-24.40, 65.80), (-21.60, 65.80), (-21.05, 65.35), (-20.75, 64.95), (-20.75, 64.62), (-20.35, 64.42),
-    (-19.95, 64.40), (-19.75, 64.25), (-19.55, 64.12), (-19.45, 64.05), (-19.25, 63.95), (-19.15, 63.80),
-    (-18.95, 63.70), (-18.50, 63.62), (-18.50, 63.25), (-24.40, 63.25),
-])
+# Neighbourhoods, small areas, named places and every street (not only those in towns): the capital region
+# and Akureyri
+DETAIL_MUNIS = CAP_MUNIS | {"Akureyri"}
 BOX = box(W, S, E, N)
 
-# Outside the capital region, streets and addresses are kept only in towns: within this many km of a
-# town or village (OSM place=town / village).
-TOWN_RADIUS_KM = {"town": 2.5, "village": 1.2}
+# Outside DETAIL_MUNIS, streets and addresses are kept only in towns: within this many km of a town,
+# village or hamlet (OSM place=town / village / hamlet)
+TOWN_RADIUS_KM = {"town": 2.5, "village": 1.2, "hamlet": 0.6}
+
+KM = 111.2                                         # km per degree of latitude
+
+
+def kx(lat):
+    """East-west shrink at a latitude: one degree of longitude is kx(lat) degrees of latitude long."""
+    return math.cos(math.radians(lat))
+
+
+def scale(g):
+    """Shapes in a near-metric plane (longitude times the cosine of each point's own latitude), for
+    buffering, simplifying and measuring; right from Vík (63.4°) to Grímsey (66.5°)."""
+    return shapely.transform(g, lambda c: np.column_stack([c[:, 0] * np.cos(np.radians(c[:, 1])), c[:, 1]]))
+
+
+def unscale(g):
+    return shapely.transform(g, lambda c: np.column_stack([c[:, 0] / np.cos(np.radians(c[:, 1])), c[:, 1]]))
+
+
+def km2(g):
+    return scale(g).area * KM * KM
 
 
 def inb(lon, lat):
@@ -82,6 +119,32 @@ POSTAL_TOWN = {
     "810": "Hveragerði", "815": "Þorlákshöfn", "816": "Ölfus", "820": "Eyrarbakki", "825": "Stokkseyri",
     "840": "Laugarvatn", "845": "Flúðir", "846": "Flúðir", "850": "Hella", "851": "Hella", "860": "Hvolsvöllur",
     "861": "Hvolsvöllur", "870": "Vík", "871": "Vík", "900": "Vestmannaeyjar",
+    "880": "Kirkjubæjarklaustur", "881": "Kirkjubæjarklaustur", "780": "Höfn í Hornafirði", "781": "Höfn í Hornafirði",
+    "785": "Öræfi",
+    # Vestfirðir
+    "400": "Ísafjörður", "401": "Ísafjörður", "410": "Hnífsdalur", "415": "Bolungarvík", "416": "Bolungarvík",
+    "420": "Súðavík", "421": "Súðavík", "425": "Flateyri", "426": "Flateyri", "430": "Suðureyri", "431": "Suðureyri",
+    "450": "Patreksfjörður", "451": "Patreksfjörður", "460": "Tálknafjörður", "461": "Tálknafjörður",
+    "465": "Bíldudalur", "466": "Bíldudalur", "470": "Þingeyri", "471": "Þingeyri", "510": "Hólmavík",
+    "511": "Hólmavík", "512": "Hólmavík", "520": "Drangsnes", "524": "Árneshreppur",
+    # Norðurland vestra
+    "500": "Staður", "530": "Hvammstangi", "531": "Hvammstangi", "540": "Blönduós", "541": "Blönduós",
+    "545": "Skagaströnd", "546": "Skagaströnd", "550": "Sauðárkrókur", "551": "Sauðárkrókur", "560": "Varmahlíð",
+    "561": "Varmahlíð", "565": "Hofsós", "566": "Hofsós", "570": "Fljót",
+    # Norðurland eystra
+    "580": "Siglufjörður", "581": "Siglufjörður", "600": "Akureyri", "601": "Akureyri", "603": "Akureyri",
+    "604": "Akureyri", "605": "Akureyri", "606": "Akureyri", "607": "Akureyri", "610": "Grenivík", "611": "Grímsey",
+    "616": "Grenivík", "620": "Dalvík", "621": "Dalvík", "625": "Ólafsfjörður", "626": "Ólafsfjörður", "630": "Hrísey",
+    "640": "Húsavík", "641": "Húsavík", "645": "Fosshóll", "650": "Laugar", "660": "Mývatn", "670": "Kópasker",
+    "671": "Kópasker", "675": "Raufarhöfn", "676": "Raufarhöfn", "680": "Þórshöfn", "681": "Þórshöfn",
+    "685": "Bakkafjörður", "686": "Bakkafjörður",
+    # Austurland
+    "690": "Vopnafjörður", "691": "Vopnafjörður", "700": "Egilsstaðir", "701": "Egilsstaðir", "710": "Seyðisfjörður",
+    "711": "Seyðisfjörður", "715": "Mjóifjörður", "720": "Borgarfjörður eystri", "721": "Borgarfjörður eystri",
+    "730": "Reyðarfjörður", "731": "Reyðarfjörður", "735": "Eskifjörður", "736": "Eskifjörður",
+    "740": "Neskaupstaður", "741": "Neskaupstaður", "750": "Fáskrúðsfjörður", "751": "Fáskrúðsfjörður",
+    "755": "Stöðvarfjörður", "756": "Stöðvarfjörður", "760": "Breiðdalsvík", "761": "Breiðdalsvík",
+    "765": "Djúpivogur", "766": "Djúpivogur",
 }
 # OSM town names shown differently (or dropped: the municipality already carries the name)
 TOWN_RENAME = {"Vestmannaeyjabær": "Vestmannaeyjar"}
@@ -91,19 +154,18 @@ BIG_ROADS = {"motorway", "trunk", "primary", "secondary", "motorway_link", "trun
 
 
 def town_filter(d):
-    """For map data d (mapdata.json): a function (lon, lat) -> True inside the capital region or a town."""
-    import math
+    """For map data d (mapdata.json): a function (lon, lat) -> True in DETAIL_MUNIS (the capital region and
+    Akureyri) or within a town's radius elsewhere."""
     from shapely.geometry import shape, Point
     from shapely.ops import unary_union
     from shapely.prepared import prep
-    cap = prep(unary_union([shape(f["geometry"]) for f in d["munis"]["features"]
-                            if f["properties"]["name"] in CAP_MUNIS]).buffer(0.002))
-    rad = {"town": TOWN_RADIUS_KM["town"], "village": TOWN_RADIUS_KM["village"], "hamlet": 0.6}
-    towns = [(t["ll"][0], t["ll"][1], rad[t["place"]]) for t in d.get("towns", [])]
-    kx = math.cos(math.radians(64.3))
+    detail = prep(unary_union([shape(f["geometry"]) for f in d["munis"]["features"]
+                               if f["properties"]["name"] in DETAIL_MUNIS]).buffer(0.002))
+    towns = [(t["ll"][0], t["ll"][1], TOWN_RADIUS_KM[t["place"]]) for t in d.get("towns", [])]
 
     def ok(lon, lat):
-        if any(math.hypot((lon - x) * kx, lat - y) * 111.2 <= r for x, y, r in towns):
+        k = kx(lat)
+        if any(math.hypot((lon - x) * k, lat - y) * KM <= r for x, y, r in towns):
             return True
-        return cap.contains(Point(lon, lat))
+        return detail.contains(Point(lon, lat))
     return ok

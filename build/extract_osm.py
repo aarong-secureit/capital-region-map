@@ -9,7 +9,14 @@ def inb(lon, lat):
     return W <= lon <= E and S <= lat <= N
 
 gj = osmium.geom.GeoJSONFactory()
-PLACES = {"suburb", "neighbourhood", "quarter", "locality", "village", "town", "hamlet", "city_block", "borough"}
+
+
+def street_of(t):
+    """addr:street, first spelling only where OSM lists two ("Elísabetarhagi;Elísarbetarhagi")"""
+    st = t.get("addr:street")
+    return st.split(";")[0].strip() if st else st
+
+PLACES = {"suburb", "neighbourhood", "quarter", "locality", "village", "town", "city", "hamlet", "city_block", "borough"}
 
 class H(osmium.SimpleHandler):
     def __init__(self):
@@ -27,7 +34,7 @@ class H(osmium.SimpleHandler):
         t = n.tags
         pc = t.get("addr:postcode")
         if pc:
-            self.post_pts.append([round(lon, 6), round(lat, 6), pc, t.get("addr:street"), t.get("addr:city") or t.get("addr:place")])
+            self.post_pts.append([round(lon, 6), round(lat, 6), pc, street_of(t), t.get("addr:city") or t.get("addr:place")])
         if t.get("place") in PLACES and t.get("name"):
             self.place_nodes.append({"name": t["name"], "place": t["place"], "lon": lon, "lat": lat,
                                      "tags": {k.k: k.v for k in t}})
@@ -60,7 +67,7 @@ class H(osmium.SimpleHandler):
             lon = sum(p[0] for p in ring) / len(ring)
             lat = sum(p[1] for p in ring) / len(ring)
             if inb(lon, lat):
-                self.post_pts.append([round(lon, 6), round(lat, 6), pc, t.get("addr:street"), t.get("addr:city") or t.get("addr:place")])
+                self.post_pts.append([round(lon, 6), round(lat, 6), pc, street_of(t), t.get("addr:city") or t.get("addr:place")])
             return
         if keep == "admin":
             xs = [p[0] for p in g["coordinates"][0][0]]
@@ -72,7 +79,7 @@ class H(osmium.SimpleHandler):
         if pc:
             ring = g["coordinates"][0][0]
             self.post_pts.append([round(sum(p[0] for p in ring) / len(ring), 6),
-                                  round(sum(p[1] for p in ring) / len(ring), 6), pc, t.get("addr:street"),
+                                  round(sum(p[1] for p in ring) / len(ring), 6), pc, street_of(t),
                                   t.get("addr:city") or t.get("addr:place")])
 
 h = H()

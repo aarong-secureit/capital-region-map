@@ -4,41 +4,28 @@ Islands come from OSM (place=island, islet or archipelago, with a name). Which o
 map rather than a chart:
   - the capital region and Vestmannaeyjar: every named island (Viðey, Engey, Akurey, Heimaey, Surtsey,
     Elliðaey, the Þrídrangar skerries...), down to about 0.001 km²
-  - elsewhere: islands and island groups of 0.1 km² or more (Brokey, Hjörsey, Flatey, Árnes in Þjórsá,
-    Sandey in Þingvallavatn...); Breiðafjörður alone has hundreds of named skerries.
+  - elsewhere: islands and island groups of 0.1 km² or more (Brokey, Flatey, Vigur, Drangey, Hrísey,
+    Grímsey, Papey, Árnes in Þjórsá, Sandey in Þingvallavatn...); Breiðafjörður alone has hundreds of named
+    skerries.
 An island belongs to the municipality whose boundary contains it, or failing that the nearest one within
-10 km (municipality boundaries hug the coast in some places). Islands nearest a municipality outside the
-map (Skagafjörður, the Westfjords) are left out. The Flatey group (Vestureyjar) belonged to Flateyjarhreppur,
-now part of Reykhólahreppur, though Barðaströnd is closer.
+10 km (municipality boundaries hug the coast in some places). The Flatey group (Vestureyjar) belonged to
+Flateyjarhreppur, now part of Reykhólahreppur, though Barðaströnd is closer.
 
 Usage: python islands.py osm/iceland-latest.osm.pbf data/coast.json data/mapdata.json
 Adds "islands" to the map data and adds the islands to its "land" outline. Run after build_data.py.
 """
-import json, math, sys
-import numpy as np
+import json, sys
 import osmium
 import shapely
 from shapely.geometry import LineString, MultiPolygon, Polygon, mapping, shape
 from shapely.ops import linemerge, polygonize, polylabel, unary_union
 import region as R
 
-KX = math.cos(math.radians(64.3))
 M = 1 / 111200                                  # one metre in degrees of latitude
+scale, unscale, km2 = R.scale, R.unscale, R.km2  # near-metric plane, right at every latitude
 MIN_KM2 = 0.1                                   # outside the capital region and Vestmannaeyjar
 MIN_KM2_ALL = 0.001                             # inside them
 ALL_NAMED = R.CAP_MUNIS | {"Vestmannaeyjar"}
-
-
-def scale(g):
-    return shapely.transform(g, lambda c: c * np.array([KX, 1.0]))
-
-
-def unscale(g):
-    return shapely.transform(g, lambda c: c / np.array([KX, 1.0]))
-
-
-def km2(g):
-    return scale(g).area * 111.2 ** 2
 
 
 def scan(pbf):
@@ -79,13 +66,11 @@ FLATEY_GROUP = Polygon([(-23.10, 65.24), (-22.74, 65.24), (-22.74, 65.47), (-23.
 
 def muni_of(pt, rels):
     d, name = min((g.distance(pt), n) for n, g in rels)
-    km = d * 111.2 * KX
+    km = d * R.KM * R.kx(pt.y)
     if km > 0.05 and FLATEY_GROUP.contains(pt):
         return "Reykhólahreppur"
     short = R.MUNI_SHORT.get(name)
     if not short or km > 10:
-        return None
-    if short not in R.CAP_MUNIS and not R.LOWLAND.contains(pt):
         return None
     return short
 
@@ -117,8 +102,8 @@ def build(pbf, coast, d):
         if not mu:
             continue
         a = km2(o["g"])
-        if a < (MIN_KM2_ALL if mu in ALL_NAMED else MIN_KM2):
-            continue
+        if a < (MIN_KM2_ALL if mu in ALL_NAMED else MIN_KM2) or a > 5000:
+            continue                            # > 5000 km²: Iceland itself (place=island, name Ísland)
         if o["place"] == "archipelago" and (o["name"] == mu or o["name"] in R.MUNI_SHORT.values()):
             continue                            # Vestmannaeyjar: the municipality already has the name
         keep.append({**o, "muni": mu, "km2": a})

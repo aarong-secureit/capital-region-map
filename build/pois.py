@@ -22,7 +22,7 @@ only in towns; big nature areas show up as sights instead.
 Usage: python pois.py iceland-latest.osm.pbf MAPDATA_JSON OUT_JSON
 """
 import json, math, re, sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 import osmium
 from shapely.geometry import shape, Point, Polygon
 from shapely.ops import unary_union
@@ -122,6 +122,125 @@ SIGHTS = [
     ("Landeyjahöfn", 63.53090, -20.11699, "Vestmannaeyjar ferry port", "landmark", ["ferry", "herjolfur"]),
     ("Eldfell", 63.43232, -20.24728, "", "volcano", ["volcano"]),
     ("Eldheimar", 63.43496, -20.26018, "volcano museum", "museum", ["pompeii of the north"]),
+    # south-east: Skaftárhreppur and Hornafjörður
+    ("Fjaðrárgljúfur", 63.77260, -18.17372, "canyon", "nature", ["canyon"]),
+    ("Kirkjugólf", 63.79524, -18.04620, "church floor", "nature", ["basalt"]),
+    ("Lakagígar", 64.07019, -18.23631, "Laki craters", "volcano", ["laki", "craters"]),
+    ("Eldgjá", 63.96441, -18.61217, "fire canyon", "volcano", ["ofaerufoss", "canyon"]),
+    ("Skaftafell", 64.01645, -16.96646, "", "nature", ["national park", "hiking"]),
+    ("Svartifoss", 64.02772, -16.97529, "", "waterfall", ["waterfall", "black falls"]),
+    ("Hvannadalshnúkur", 64.01415, -16.67696, "Iceland's highest peak", "mountain", ["highest mountain"]),
+    ("Vatnajökull", 64.38297, -16.92576, "", "glacier", ["glacier", "national park"]),
+    ("Hofskirkja", 63.90704, -16.70673, "turf church", "church", ["turf church", "church"]),
+    ("Fjallsárlón", 64.02290, -16.39779, "glacier lagoon", "lake", ["glacier lagoon", "icebergs"]),
+    ("Jökulsárlón", 64.04800, -16.18000, "glacier lagoon", "lake", ["glacier lagoon", "icebergs"]),
+    ("Breiðamerkursandur", 64.04314, -16.17825, "Diamond Beach", "beach", ["diamond beach", "ice beach"]),
+    ("Vestrahorn", 64.27605, -14.94975, "", "mountain", ["stokksnes", "mountain"]),
+    # highlands
+    ("Landmannalaugar", 63.99051, -19.06049, "", "geothermal", ["hot springs", "hiking", "laugavegur"]),
+    ("Háifoss", 64.20792, -19.68699, "", "waterfall", ["waterfall"]),
+    ("Langjökull", 64.69983, -20.14365, "", "glacier", ["glacier", "ice cave"]),
+    ("Hofsjökull", 64.80852, -18.80605, "", "glacier", ["glacier"]),
+    ("Kerlingarfjöll", 64.62416, -19.25835, "", "geothermal", ["mountains", "hot springs"]),
+    ("Hveravellir", 64.86533, -19.55652, "", "geothermal", ["hot springs", "kjolur"]),
+    ("Askja", 65.03044, -16.74689, "", "volcano", ["viti", "caldera"]),
+    ("Herðubreið", 65.17492, -16.34620, "queen of mountains", "mountain", ["mountain"]),
+    ("Snæfell", 64.79751, -15.56155, "", "mountain", ["mountain"]),
+    # Vestfirðir
+    ("Dynjandi", 65.73278, -23.19925, "", "waterfall", ["waterfall", "fjallfoss"]),
+    ("Látrabjarg", 65.50213, -24.53079, "bird cliff", "nature", ["bird cliff", "puffins", "westernmost point"]),
+    ("Rauðasandur", 65.44563, -23.96905, "red sand beach", "beach", ["red beach", "beach"]),
+    ("Garðar BA 64", 65.51675, -23.83679, "shipwreck", "landmark", ["ship wreck", "gardar"]),
+    ("Bolafjall", 66.17837, -23.33159, "", "mountain", ["viewpoint", "platform"]),
+    ("Hornstrandir", 66.36180, -22.43903, "nature reserve", "nature", ["nature reserve", "arctic fox"]),
+    ("Ísafjarðarflugvöllur", 66.05683, -23.13858, "Ísafjörður Airport", "airport", ["airport"]),
+    # Norðurland vestra
+    ("Hvítserkur", 65.60588, -20.63730, "sea stack", "nature", ["troll rock", "sea stack"]),
+    ("Kolugljúfur", 65.33278, -20.57010, "canyon", "nature", ["canyon"]),
+    ("Borgarvirki", 65.47478, -20.59718, "fortress", "landmark", ["fortress"]),
+    ("Glaumbær", 65.61103, -19.50470, "turf farm museum", "museum", ["turf houses", "turf farm"]),
+    ("Víðimýrarkirkja", 65.53881, -19.47037, "turf church", "church", ["turf church", "church"]),
+    ("Hólar í Hjaltadal", 65.73319, -19.11160, "Hólar cathedral", "church", ["holar", "cathedral"]),
+    ("Grettislaug", 65.88223, -19.73654, "hot pool", "lagoon", ["hot pool", "reykir"]),
+    # Norðurland eystra
+    ("Akureyrarkirkja", 65.67986, -18.09094, "Akureyri church", "church", ["church"]),
+    ("Akureyrarflugvöllur", 65.65699, -18.07332, "Akureyri Airport", "airport", ["airport"]),
+    ("Skógarböðin", 65.66992, -18.04180, "Forest Lagoon", "lagoon", ["forest lagoon", "spa"]),
+    ("Síldarminjasafnið", 66.14757, -18.91339, "Herring Era Museum", "museum", ["herring museum", "siglufjordur"]),
+    ("Goðafoss", 65.68282, -17.55062, "", "waterfall", ["waterfall"]),
+    ("Aldeyjarfoss", 65.36640, -17.33700, "", "waterfall", ["waterfall"]),
+    ("Mývatn", 65.60325, -17.01333, "", "lake", ["lake myvatn", "midge lake"]),
+    ("Skútustaðagígar", 65.57138, -17.03373, "pseudocraters", "volcano", ["pseudo craters"]),
+    ("Dimmuborgir", 65.58661, -16.89534, "dark castles", "nature", ["lava formations"]),
+    ("Hverfjall", 65.60506, -16.87395, "", "volcano", ["crater", "hverfell"]),
+    ("Grjótagjá", 65.62641, -16.88297, "", "cave", ["hot spring cave", "game of thrones"]),
+    ("Jarðböðin við Mývatn", 65.63046, -16.84760, "Mývatn Nature Baths", "lagoon", ["nature baths", "spa"]),
+    ("Hverir", 65.64114, -16.80918, "Námafjall geothermal area", "geothermal", ["namafjall", "mud pots"]),
+    ("Krafla", 65.73775, -16.82762, "", "volcano", ["viti", "volcano"]),
+    ("Húsavíkurkirkja", 66.04583, -17.34216, "Húsavík church", "church", ["church"]),
+    ("Hvalasafnið á Húsavík", 66.04679, -17.34471, "Húsavík Whale Museum", "museum", ["whale museum"]),
+    ("Ásbyrgi", 66.00159, -16.51223, "horseshoe canyon", "nature", ["canyon"]),
+    ("Hljóðaklettar", 65.94441, -16.53302, "echo rocks", "nature", ["basalt"]),
+    ("Dettifoss", 65.81435, -16.38449, "", "waterfall", ["waterfall", "most powerful waterfall"]),
+    ("Heimskautsgerðið", 66.46220, -15.96233, "Arctic Henge", "landmark", ["arctic henge"]),
+    # Austurland
+    ("Stuðlagil", 65.16233, -15.30812, "basalt canyon", "nature", ["canyon", "basalt columns"]),
+    ("Hengifoss", 65.09518, -14.88955, "", "waterfall", ["waterfall"]),
+    ("Hallormsstaðaskógur", 65.09537, -14.72071, "Iceland's largest forest", "nature", ["forest", "woods"]),
+    ("Skriðuklaustur", 65.04094, -14.95309, "", "museum", ["gunnar gunnarsson"]),
+    ("Vök Baths", 65.30307, -14.44748, "", "lagoon", ["vok", "spa"]),
+    ("Egilsstaðaflugvöllur", 65.28288, -14.40199, "Egilsstaðir Airport", "airport", ["airport"]),
+    ("Seyðisfjarðarkirkja", 65.26132, -14.01060, "Blue Church", "church", ["blue church", "rainbow street"]),
+    ("Gufufoss", 65.23995, -14.05750, "", "waterfall", ["waterfall"]),
+    ("Hafnarhólmi", 65.54247, -13.75678, "puffin islet", "nature", ["puffins", "borgarfjordur eystri"]),
+    ("Steinasafn Petru", 64.83572, -13.88052, "Petra's Stone Collection", "museum", ["stone collection"]),
+    ("Eggin í Gleðivík", 64.66191, -14.29513, "Eggs of Merry Bay", "artwork", ["eggs", "djupivogur"]),
+]
+# The main grocery store of each town or village outside the capital region that has no Bónus, Krónan, Nettó
+# or Hagkaup nearby (picked from OSM: a supermarket or a known grocery name such as Kjörbúðin, Krambúðin or a
+# kaupfélag over a corner shop; fuel stations and grills left out). (name, lat, lng, street address, town)
+LOCAL_GROCERIES = [
+    ("Kjörbúðin", 65.65983, -20.28474, "Húnabraut 4", "Blönduós"),
+    ("Kjörbúðin", 65.97305, -18.53155, "Hafnartorg", "Dalvík"),
+    ("Kjörbúðin", 65.07086, -14.01377, "Strandgata 50", "Eskifjörður"),
+    ("Kjörbúðin", 64.92993, -14.01129, "Skólavegur 59", "Fáskrúðsfjörður"),
+    ("Kjörbúðin", 64.07047, -22.65022, "Sunnubraut 4", "Garður"),
+    ("Kjörbúðin", 64.92531, -23.26022, "Grundargata 38", "Grundarfjörður"),
+    ("Kjörbúðin", 63.83484, -20.40123, "Suðurlandsvegur 1", "Hella"),
+    ("Spar", 65.14733, -13.69239, "Hafnarbraut 13", "Neskaupstaður"),
+    ("Kjörbúðin", 66.07370, -18.64500, "Aðalgata 2", "Ólafsfjörður"),
+    ("Kassinn", 64.89742, -23.70913, "", "Ólafsvík"),
+    ("Fjölval", 65.59833, -24.00113, "", "Patreksfjörður"),
+    ("Kjörbúðin", 64.03937, -22.70635, "Miðnestorg 1", "Sandgerði"),
+    ("Skagfirðingabúð", 65.74140, -19.63738, "Ártorg 1", "Sauðárkrókur"),
+    ("Kjörbúðin", 65.25995, -14.00876, "Vesturvegur 1", "Seyðisfjörður"),
+    ("Kjörbúðin", 66.15076, -18.91058, "Suðurgata 2-4", "Siglufjörður"),
+    ("Vogus", 63.98066, -22.37917, "Iðndalur 2", "Vogar"),
+    ("Kauptún", 65.75377, -14.82691, "", "Vopnafjörður"),
+    ("Vegamót", 65.68553, -23.60088, "", "Bíldudalur"),
+    ("Kaupfjelagið", 64.79207, -14.00939, "", "Breiðdalsvík"),
+    ("Krambúðin", 65.10807, -21.76282, "Vesturbraut 10", "Búðardalur"),
+    ("Kjörbúðin", 64.65597, -14.28603, "Búland 1", "Djúpivogur"),
+    ("Krambúðin", 64.13102, -20.32098, "Grund", "Flúðir"),
+    ("Jónsabúð", 65.94675, -18.18145, "", "Grenivík"),
+    ("KS Hofsós", 65.89724, -19.41295, "Suðurbraut 9", "Hofsós"),
+    ("Krambúðin", 65.70082, -21.68588, "Höfðatún 4", "Hólmavík"),
+    ("Hríseyjarbúðin", 65.97950, -18.37689, "Norðurvegur 7", "Hrísey"),
+    ("Kaupfélag Vestur-Húnvetninga", 65.39587, -20.94675, "", "Hvammstangi"),
+    ("Gvendarkjör", 63.79023, -18.04784, "Klausturvegur 13", "Kirkjubæjarklaustur"),
+    ("Verslunin Skerjakolla", 66.30035, -16.44784, "Bakkagata 10", "Kópasker"),
+    ("Krambúðin", 64.21686, -20.73401, "Dalbraut 8", "Laugarvatn"),
+    ("Reykhólabúðin", 65.45161, -22.20156, "", "Reykhólar"),
+    ("Bjarnabúð", 64.17708, -20.45357, "", "Reykholt"),
+    ("Krambúðin", 65.64172, -16.91054, "Hraunvegur 10", "Reykjahlíð"),
+    ("Kjörbúðin", 65.82460, -20.30592, "Bogabraut 1", "Skagaströnd"),
+    ("Hjá Jóhönnu", 65.62686, -23.82580, "", "Tálknafjörður"),
+    ("Kjörbúðin", 66.19847, -15.33731, "Langanesvegur 2", "Þórshöfn"),
+    ("Verslunin Árborg", 64.04132, -20.25097, "", "Árnes"),
+    ("Búðin", 65.52720, -13.81670, "", "Bakkagerði"),
+    ("Kaupfélag Steingrímsfjarðar", 65.68932, -21.44230, "", "Drangsnes"),
+    ("Verslunin Vala", 64.06583, -20.64439, "", "Sólheimar"),
+    ("Víkurbúðin", 66.02605, -22.99142, "", "Súðavík"),
 ]
 # public pools: OSM name -> (name shown, kind, extra search words)
 POOLS = {"Laugardalslaug": ("Laugardalslaug", "pool", []), "Vesturbæjarlaug": ("Vesturbæjarlaug", "pool", []),
@@ -159,7 +278,53 @@ POOLS = {"Laugardalslaug": ("Laugardalslaug", "pool", []), "Vesturbæjarlaug": (
          "Brautarholtslaug": ("Brautarholtslaug", "pool", []), "Þjórsárdalslaug": ("Þjórsárdalslaug", "pool", []),
          "Sundlaugin Hellu": ("Sundlaugin á Hellu", "pool", []), "Sundlaugin Laugalandi": ("Sundlaugin á Laugalandi", "pool", []),
          "Sundlaugin Hvolsvelli": ("Sundlaugin á Hvolsvelli", "pool", []), "Sundlaugin Vík": ("Sundlaugin í Vík", "pool", []),
-         "Sundlaug og íþróttamiðstöð Vestmannaeyja": ("Sundlaug Vestmannaeyja", "pool", [])}
+         "Sundlaug og íþróttamiðstöð Vestmannaeyja": ("Sundlaug Vestmannaeyja", "pool", []),
+         "Sundlaugin Kirkjubæjarklaustri": ("Sundlaugin á Kirkjubæjarklaustri", "pool", []),
+         "Sundlaug Hafnar": ("Sundlaug Hafnar", "pool", ["hofn pool"]),
+         # Vestfirðir
+         "Sundhöll Ísafjarðar": ("Sundhöll Ísafjarðar", "pool", ["isafjordur pool"]),
+         "Íþrottamiðstöð Árbær": ("Sundlaug Bolungarvíkur", "pool", []),
+         "Flateyrarlaug": ("Flateyrarlaug", "pool", []), "Sundlaug Suðureyrar": ("Sundlaug Suðureyrar", "pool", []),
+         "Sundlaugin á Þingeyri": ("Sundlaugin á Þingeyri", "pool", []),
+         "Brattahlíð (Steep hill)": ("Sundlaug Patreksfjarðar", "pool", []),
+         "Íþróttamiðstöðin á Tálknafirði": ("Sundlaug Tálknafjarðar", "pool", []),
+         "Íþróttamiðstöðin Byltu": ("Sundlaugin á Bíldudal", "pool", []),
+         "Sundlaugin Birkimel": ("Sundlaugin Birkimel", "pool", []),
+         "Pollurinn": ("Pollurinn", "pool", ["hot pot"]), "Krossneslaug": ("Krossneslaug", "pool", ["hot pool"]),
+         "Sundlaug Hólmavíkur": ("Sundlaug Hólmavíkur", "pool", []),
+         "Sundlaugin á Drangsnesi": ("Sundlaugin á Drangsnesi", "pool", []),
+         # Norðurland vestra
+         "Íþróttamiðstöðin Blönduósi": ("Sundlaug Blönduóss", "pool", []),
+         "Sundlaugin á Skagaströnd": ("Sundlaugin á Skagaströnd", "pool", []),
+         "Sundlaug Sauðárkróks": ("Sundlaug Sauðárkróks", "pool", []),
+         "Sundlaugin í Varmahlíð": ("Sundlaugin í Varmahlíð", "pool", []),
+         "Sundlaugin á Hofsósi": ("Sundlaugin á Hofsósi", "pool", ["hofsos pool"]),
+         # Norðurland eystra
+         "Sundhöll Siglufjarðar": ("Sundhöll Siglufjarðar", "pool", []),
+         "Íþróttamiðstöð Ólafsfjarðar": ("Sundlaug Ólafsfjarðar", "pool", []),
+         "Íþróttamiðstöð Dalvíkur": ("Sundlaug Dalvíkur", "pool", []),
+         "Sundlaug Akureyrar": ("Sundlaug Akureyrar", "pool", ["akureyri pool"]), "Glerárlaug": ("Glerárlaug", "pool", []),
+         "Þelamerkurlaug": ("Þelamerkurlaug", "pool", []), "Sundlaug Hríseyjar": ("Sundlaug Hríseyjar", "pool", []),
+         "Sundlaugin í Grímsey": ("Sundlaugin í Grímsey", "pool", []),
+         "Sundlaugin Grenivík": ("Sundlaugin á Grenivík", "pool", []),
+         "Sundlaug Svalbarðsstrandar": ("Sundlaug Svalbarðsstrandar", "pool", []),
+         "Sundlaug Eyjafjarðarsveitar": ("Sundlaug Eyjafjarðarsveitar", "pool", ["hrafnagil"]),
+         "Sundlaugin Illugastöðum": ("Sundlaugin á Illugastöðum", "pool", []),
+         "Sundlaug Húsavíkur": ("Sundlaug Húsavíkur", "pool", []),
+         "Laugar swimming pool": ("Sundlaugin á Laugum", "pool", []),
+         "Sundlaugin Lundi": ("Sundlaugin í Lundi", "pool", []),
+         "Sundlaug Raufarhafnar": ("Sundlaug Raufarhafnar", "pool", []),
+         "Sundlaug Þórshafnar": ("Sundlaug Þórshafnar", "pool", []),
+         # Austurland
+         "Selárdalslaug": ("Selárdalslaug", "pool", ["vopnafjordur pool"]),
+         "Íþróttamiðstöðin á Egilsstöðum": ("Sundlaugin á Egilsstöðum", "pool", []),
+         "Sundhöll Seyðisfjarðar": ("Sundhöll Seyðisfjarðar", "pool", []),
+         "Stefánslaug": ("Stefánslaug", "pool", ["neskaupstadur pool"]),
+         "Sundlaug Eskifjarðar": ("Sundlaug Eskifjarðar", "pool", []),
+         "Sundlaug Fáskrúðsfjarðar": ("Sundlaug Fáskrúðsfjarðar", "pool", []),
+         "Sundlaug Stöðvarfjarðar": ("Sundlaug Stöðvarfjarðar", "pool", []),
+         "Sundlaugin Breiðdalsvík": ("Sundlaugin á Breiðdalsvík", "pool", []),
+         "Íþróttamiðstöð Djúpavogs": ("Sundlaugin á Djúpavogi", "pool", [])}
 # shopping centres OSM does not tag as malls: name -> (lat, lng, street)
 MANUAL_MALLS = {"Spöngin": (64.15060, -21.78830, "Spöngin")}
 HUBS = ["Fjörður", "Ásgarður", "Hamraborg", "Mjódd", "Ártún", "Spöngin", "Háholt"]   # Strætó's own list
@@ -174,7 +339,7 @@ STORE_WORDS = {"Elko": ["electronics"], "BYKO": ["hardware", "diy"], "Húsasmið
 
 
 def metres(a, b):
-    return math.hypot((a[0] - b[0]) * 111320 * math.cos(math.radians(64.1)), (a[1] - b[1]) * 110540)
+    return math.hypot((a[0] - b[0]) * 111320 * math.cos(math.radians((a[1] + b[1]) / 2)), (a[1] - b[1]) * 110540)
 
 
 class H(osmium.SimpleHandler):
@@ -246,7 +411,7 @@ class H(osmium.SimpleHandler):
         x0, y0, x1, y1 = g.bounds
         if x1 < W or x0 > E or y1 < S or y0 > N:
             return
-        km2 = g.area * 111.32 * 111.32 * math.cos(math.radians(64.1))
+        km2 = g.area * 111.32 * 111.32 * math.cos(math.radians((y0 + y1) / 2))
         if wood and km2 < 0.3:                  # only big named woods (Heiðmörk...)
             return
         kind = ("botanical" if t.get("garden:type") == "botanical" else "garden") if le == "garden" else \
@@ -272,13 +437,23 @@ def main(pbf, mapdata, out):
     postal = [(f["properties"]["code"], f["properties"]["town"], shape(f["geometry"])) for f in d["postal"]["features"]]
     streets = d["streets"]                                  # [name, postcode, lng, lat, count]
 
+    NEAR = 0.004                                      # ~200-400 m: harbour fronts just outside the mapped coastline
+
     def muni_at(lon, lat):
         pt = Point(lon, lat)
-        return next((n for n, g in munis if g.contains(pt)), None)
+        hit = next((n for n, g in munis if g.contains(pt)), None)
+        if hit:
+            return hit
+        d, n = min((g.distance(pt), n) for n, g in munis)
+        return n if d <= NEAR else None
 
     def postal_at(lon, lat):
         pt = Point(lon, lat)
-        return next(((c, t) for c, t, g in postal if g.contains(pt)), (None, None))
+        hit = next(((c, t) for c, t, g in postal if g.contains(pt)), None)
+        if hit:
+            return hit
+        d, c, t = min((g.distance(pt), c, t) for c, t, g in postal)
+        return (c, t) if d <= NEAR else (None, None)
 
     def nearest_street(lon, lat):
         return min(streets, key=lambda s: metres((s[2], s[3]), (lon, lat)))[0]
@@ -312,6 +487,12 @@ def main(pbf, mapdata, out):
         if brand == "Hagkaup":
             rec.update(kind="department", words=["department store"])
         add(rec, lon, lat)
+    # towns without a chain supermarket: their own grocery store (Kjörbúðin, Krambúðin, the kaupfélag...)
+    many_local = {n for n, k in Counter(r[0] for r in LOCAL_GROCERIES).items() if k > 1}
+    for name, lat, lon, addr, town in LOCAL_GROCERIES:                # one per town: "Kjörbúðin Blönduós"
+        add({"name": f"{name} {town}" if name in many_local else name, "cat": "grocery", "kind": "local",
+             "brand": name, "addr": addr, "town": town, "g": f"{name}, {town}", "words": ["grocery", "shop", "milk", town]},
+            lon, lat)
     # make store names unique if a brand has two shops on one street
     for name in {p["name"] for p in pois if sum(q["name"] == p["name"] for q in pois) > 1}:
         for p in (q for q in pois if q["name"] == name):
@@ -333,10 +514,10 @@ def main(pbf, mapdata, out):
     towns = d.get("towns", [])
 
     def near_town(lon, lat):
-        return any(metres(t["ll"], (lon, lat)) <= 1000 * R.TOWN_RADIUS_KM.get(t["place"], 0.6) for t in towns)
+        return any(metres(t["ll"], (lon, lat)) <= 1000 * R.TOWN_RADIUS_KM[t["place"]] for t in towns)
     for name, (kind, km2, (lon, lat), bb) in sorted(h.parks.items()):
         mu = muni_at(lon, lat)
-        if mu and mu not in R.CAP_MUNIS and not (kind in ("park", "garden", "botanical") and near_town(lon, lat)):
+        if mu and mu not in R.DETAIL_MUNIS and not (kind in ("park", "garden", "botanical") and near_town(lon, lat)):
             continue                                        # rural nature areas: the big ones are sights
         add({"name": name, "cat": "park", "kind": kind, "km2": round(km2, 3), "bb": [round(v, 5) for v in bb],
              "g": f"{name}, {{PC}}"}, lon, lat)

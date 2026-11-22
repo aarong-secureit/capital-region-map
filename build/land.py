@@ -7,25 +7,23 @@ Usage: python land.py data/coast.json data/mapdata.json     (adds "land" to the 
 build_data.py calls land_mask() itself, so this is only needed to update an existing mapdata.json.
 """
 import json, sys
-import numpy as np
 import shapely
 from shapely.geometry import LineString, MultiPolygon, mapping
 from shapely.ops import linemerge, polygonize, unary_union
 import region as R
 
-KX = np.cos(np.radians(64.3))
 
 
 def land_mask(coast, margin_km=0.2):
     lines = [LineString(c) for c in coast["coast"] if len(c) >= 2]
     faces = [p for p in polygonize(linemerge(lines)) if p.intersects(R.BOX)]
     land = unary_union(faces).intersection(R.BOX.buffer(0.05))
-    g = shapely.transform(land, lambda c: c * np.array([KX, 1.0]))          # metres-ish: same scale both ways
+    g = R.scale(land)                                                       # metres-ish: same scale both ways
     d = margin_km / 111.2
     g = g.buffer(d, quad_segs=2).simplify(d, preserve_topology=True)
     parts = list(g.geoms) if isinstance(g, MultiPolygon) else [g]
     g = unary_union([p for p in parts if p.area * 111.2 ** 2 >= 0.3])
-    g = shapely.transform(g, lambda c: c / np.array([KX, 1.0]))
+    g = R.unscale(g)
     return shapely.set_precision(g, 0.0001)
 
 

@@ -12,12 +12,16 @@ from shapely.geometry import shape, Point
 
 # (kind, area name, town or None, landmark name, lat, lng)
 LANDMARKS = [
-    # regions: the biggest town (Vestfirðir: Reykhólar, the only village of the region on the map)
+    # regions: the biggest town
     ("zones", "Höfuðborgarsvæðið", None, "Hallgrímskirkja (Reykjavík)", 64.14177, -21.92667),
     ("zones", "Suðurnes", None, "Keflavík (Reykjanesbær)", 63.99977, -22.55654),
     ("zones", "Vesturland", None, "Akranes", 64.32179, -22.07490),
-    ("zones", "Vestfirðir", None, "Reykhólar", 65.44859, -22.20148),
+    ("zones", "Vestfirðir", None, "Ísafjörður", 66.07269, -23.11935),
+    ("zones", "Norðurland vestra", None, "Sauðárkrókur", 65.74432, -19.63858),
+    ("zones", "Norðurland eystra", None, "Akureyrarkirkja (Akureyri)", 65.67986, -18.09094),
+    ("zones", "Austurland", None, "Egilsstaðir", 65.26204, -14.40353),
     ("zones", "Suðurland", None, "Selfoss", 63.93311, -20.99707),
+    ("munis", "Akureyri", None, "Akureyrarkirkja", 65.67986, -18.09094),
     # towns: town hall, or the best-known spot
     ("munis", "Reykjavík", None, "Ráðhús Reykjavíkur (City Hall)", 64.14613, -21.94238),
     ("munis", "Kópavogur", None, "Ráðhús Kópavogs (town hall)", 64.11125, -21.90805),

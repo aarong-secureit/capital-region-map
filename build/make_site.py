@@ -22,13 +22,13 @@ NAVY, GOLD = "#2D3E52", "#D5A754"
 HEAD_EXTRA = """<link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Capital Map">
+<meta name="apple-mobile-web-app-title" content="Iceland">
 """
 
 MANIFEST = {
-    "name": "Reykjavík Capital Region Map",
-    "short_name": "Capital Map",
-    "description": "Neighbourhoods, towns, sights and postal codes in Reykjavík and west and south Iceland, with Icelandic pronunciation.",
+    "name": "Iceland for Beginners",
+    "short_name": "Iceland",                      # home-screen label: the full name would be cut off
+    "description": "Neighbourhoods, towns, sights and postal codes all over Iceland, with Icelandic pronunciation.",
     "start_url": "./",
     "scope": "./",
     "display": "standalone",

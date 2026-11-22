@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#2D3E52">
-<meta name="description" content="Find neighbourhoods, towns, sights and postal codes in Reykjavík and west and south Iceland. Search names the way you hear them, and hear them said.">
+<meta name="description" content="Find neighbourhoods, towns, sights and postal codes all over Iceland. Search names the way you hear them, and hear them said.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Reykjavík Capital Region Map">
+<meta property="og:title" content="Iceland for Beginners">
 <meta property="og:description" content="Where is Holtin, Árbær, Selfoss or 105? Neighbourhoods, towns, sights and postal codes on one map, with Icelandic pronunciation.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232D3E52'/%3E%3Cpath d='M32 9a15 15 0 0 0-15 15c0 11 15 30 15 30s15-19 15-30A15 15 0 0 0 32 9z' fill='%23D5A754'/%3E%3Ccircle cx='32' cy='24' r='6' fill='%232D3E52'/%3E%3C/svg%3E">
-<title>Capital Region Map</title>
+<title>Iceland for Beginners</title>
 <script>try{var t=(JSON.parse(localStorage.getItem("capitalRegionMap.v1"))||{}).theme||"auto";if(t==="dark"||(t==="auto"&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.dataset.theme="dark";}catch(e){}</script>
 <link rel="preconnect" href="https://tile.openstreetmap.de">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -124,6 +124,8 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 .lbl-muni.outer span{font-size:12px;letter-spacing:.1em}
 .lbl-zone span{font-size:19px;font-weight:bold;letter-spacing:.2em;text-transform:uppercase;color:#2F6F73}
 .lbl-zone small{display:block;font-size:10px;font-weight:normal;letter-spacing:.06em;text-transform:none;color:var(--gray-mid)}
+/* the whole country on screen: smaller region names, no English line, so all eight fit */
+#map.z-ctry .lbl-zone span{font-size:12px;letter-spacing:.1em}#map.z-ctry .lbl-zone small{display:none}
 .lbl-town span{font-size:14px;font-weight:bold;color:var(--navy);margin-top:15px}
 .lbl-town.village span{font-size:12px;margin-top:13px}
 .lbl-town.hamlet span{font-size:11px;font-weight:normal;margin-top:12px}
@@ -161,6 +163,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 .poi-kronan i{background:#D7261E;color:#fff}
 .poi-netto i{background:#F28C00;color:#1A1A1A}
 .poi-hagkaup i{background:#B0306A;color:#fff}
+.poi-local i{background:#3E7C4A;color:#fff}   /* a town's own grocery store (Kjörbúðin, Krambúðin, kaupfélag...) */
 .poi-store i{background:#00798C;color:#fff}
 .poi-mall i{background:#6B3FA0;color:#fff}
 .poi-second i{background:#2E7D4F;color:#fff}
@@ -354,7 +357,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 <div id="app">
   <div id="top">
     <header>
-      <div class="eyebrow" title="Höfuðborgarsvæðið, Suðurnes, Vesturland, Suðurland">Reykjavík, west &amp; south Iceland</div>
+      <div class="eyebrow" title="Reykjavík and the capital region in full detail, the rest of Iceland by town">Iceland · Reykjavík in detail</div>
       <h1>Neighbourhoods &amp; postal codes</h1>
     </header>
     <div class="searchbox">
@@ -381,7 +384,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
   <aside id="side">
     <div id="grab" role="button" tabindex="0" aria-label="Show more or less" aria-expanded="false">
       <span class="handle"></span>
-      <div id="peek">Tap the map, or search a name <small>· Reykjavík, west &amp; south Iceland</small></div>
+      <div id="peek">Tap the map, or search a name <small>· anywhere in Iceland</small></div>
     </div>
     <div id="scroll">
       <section class="card" id="info">
@@ -392,13 +395,13 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
         <h2><button type="button" id="layersToggle" class="fold" aria-expanded="true" aria-controls="layersBody">Show on map<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h2>
         <div id="layersBody">
         <div class="muted" style="margin-bottom:4px">Biggest to smallest. Grey text is the Icelandic word you may hear.</div>
-        <label><input type="checkbox" id="L-zone" checked><span class="lt">Regions<small>landshlutar · Höfuðborgarsvæðið, Suðurnes, Vesturland, Suðurland</small></span></label>
+        <label><input type="checkbox" id="L-zone" checked><span class="lt">Regions<small>landshlutar · Höfuðborgarsvæðið, Suðurland, Vestfirðir, Austurland…</small></span></label>
         <label><input type="checkbox" id="L-muni" checked><span class="lt">Towns &amp; villages<small>sveitarfélög, bæir · Reykjavík, Kópavogur, Selfoss, Akranes, Vík…</small></span></label>
         <label><input type="checkbox" id="L-district" checked><span class="lt">Districts<small>borgarhlutar · Breiðholt, Vesturbær, Kársnes…</small></span></label>
         <label><input type="checkbox" id="L-hverfi"><span class="lt">Sub-districts (Reykjavík only)<small>hverfi · Seljahverfi, Háteigshverfi…</small></span></label>
-        <label><input type="checkbox" id="L-nbh" checked><span class="lt">Neighbourhoods<small>hverfi · Holt, Lindir, Vellir, Árbær…</small></span></label>
+        <label><input type="checkbox" id="L-nbh" checked><span class="lt">Neighbourhoods<small>hverfi · Holt, Lindir, Vellir, Árbær, Oddeyri…</small></span></label>
         <label><input type="checkbox" id="L-small" checked><span class="lt">Small areas &amp; named places<small>Kvosin, Grjótaþorp, Hjallar…</small></span></label>
-        <label style="margin-top:14px"><input type="checkbox" id="L-groc" checked><span class="lt">Groceries<small>matvöruverslanir · Bónus, Krónan, Nettó, Hagkaup</small></span></label>
+        <label style="margin-top:14px"><input type="checkbox" id="L-groc" checked><span class="lt">Groceries<small>matvöruverslanir · Bónus, Krónan, Nettó, Hagkaup, and each town's own shop</small></span></label>
         <label><input type="checkbox" id="L-shop" checked><span class="lt">Shopping<small>verslanir · Kringlan, Smáralind, IKEA, Elko, Hagkaup, Góði hirðirinn, Kolaportið</small></span></label>
         <label><input type="checkbox" id="L-pool" checked><span class="lt">Swimming pools<small>sundlaugar · Laugardalslaug, Vesturbæjarlaug, Nauthólsvík…</small></span></label>
         <label><input type="checkbox" id="L-park" checked><span class="lt">Parks<small>almenningsgarðar · Klambratún, Heiðmörk, Elliðaárdalur…</small></span></label>
@@ -432,7 +435,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
           <summary>About the data</summary>
           <p><b>Reykjavík districts, sub-districts and neighbourhoods:</b> official boundaries from Reykjavíkurborg open data (lukrgatt.reykjavik.is).</p>
           <p><b>Kópavogur, Garðabær, Hafnarfjörður, Mosfellsbær:</b> OpenStreetMap neighbourhood boundaries. Coverage varies; some areas show as named points only.</p>
-          <p><b>Postal codes:</b> approximate. Built from about 47,000 OpenStreetMap address points, each tagged with its postal code, then turned into areas and clipped to land and to municipality borders. Edges can be off by about one street.</p>
+          <p><b>Postal codes:</b> approximate. Built from about 116,000 OpenStreetMap address points, each tagged with its postal code, then turned into areas and clipped to land and to municipality borders. Edges can be off by about one street.</p>
           <p><b>Pronunciations:</b> computer-generated Icelandic speech for every place, postal code and street (Piper TTS, “Ugla” voice trained on the Talrómur corpus, CC BY 4.0), slowed slightly. Close, but not a native speaker; Forvo has real recordings for many names. The sound files live in the <code>_assets/audio</code> folder next to this page.</p>
           <p>Background maps need no API key. Map data © OpenStreetMap contributors (ODbL). Data built __BUILT__.</p>
         </details>
@@ -488,7 +491,8 @@ function saveStore(patch){ Object.assign(store, patch); try { localStorage.setIt
 // ---------- map + base layers ----------
 // open where the map was left (one view set at start, not a default then a jump); a link after # still wins
 const V0 = Array.isArray(store.view) && store.view.length === 3 && store.view.every(Number.isFinite) ? store.view : [64.115, -21.86, 12];
-const map = L.map("map",{zoomControl:true, minZoom:7, maxZoom:19, preferCanvas:false}).setView([V0[0], V0[1]], Math.min(Math.max(V0[2], 7), 19));
+// minZoom 5: the whole country fits a phone screen
+const map = L.map("map",{zoomControl:true, minZoom:5, maxZoom:19, preferCanvas:false}).setView([V0[0], V0[1]], Math.min(Math.max(V0[2], 5), 19));
 const attrOSM='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const ESRI = "https://server.arcgisonline.com/ArcGIS/rest/services/";
 // MAXZ = deepest zoom each provider really serves; the map is capped there instead of showing blurry or blank tiles.
@@ -736,17 +740,18 @@ function makeLayer(kind, style, hover, labelCls, labelFn, pane){
 const sub = p => p.muni && p.muni!=="Reykjavík" ? p.muni : (p.district||p.muni||"");
 const isOuter = p => !!p.zone && p.zone !== "Höfuðborgarsvæðið";      // outside the capital region
 makeLayer("zones", ()=>({color:"#2F6F73",weight:4,opacity:.75,fill:false,dashArray:"1 9",lineCap:"round"}), null,
-  ()=>"lbl-zone", f=>esc(f.properties.name)+"<small>"+esc(f.properties.en)+"</small>", "zone");
+  f=>"lbl-zone"+(f.properties.km2 >= 5000 ? " zone-big" : ""), f=>esc(f.properties.name)+"<small>"+esc(f.properties.en)+"</small>", "zone");
 makeLayer("munis", f=>({color:"#4A5568",weight:isOuter(f.properties)?1.6:2.5,opacity:isOuter(f.properties)?.6:.8,fill:false,dashArray:"8 5"}), null,
   f=>"lbl-muni"+(isOuter(f.properties)?" outer":""), f=>esc(f.properties.name), "muni");
 // towns and villages outside the capital region: a dot and a name
 const TOWNS = DATA.towns || [];
 const TOWN_WORD = {town:["Town","bær"], village:["Village","þorp"], hamlet:["Hamlet","smáþorp"]};
-const townsGroup = L.layerGroup();
+const townsGroup = L.layerGroup(), townDots = [];   // [marker, radius]: smaller when the whole country is on screen
 TOWNS.forEach((t,i)=>{
   t._kind="town"; t._id="town:"+i;
   const r = {town:6, village:4.5, hamlet:3.5}[t.place] * (TOUCH?1.4:1);
   const m = L.circleMarker([t.ll[1],t.ll[0]],{pane:"pts",radius:r,color:"#fff",weight:2,fillColor:t.place==="hamlet"?"#4A5568":NAVY,fillOpacity:1,className:"town-"+t.place});
+  townDots.push([m, r]);
   if(!TOUCH) m.bindTooltip(esc(t.name)+' <span style="font-weight:normal;color:#4A5568">· '+esc(t.muni)+'</span>',{className:"tt",direction:"top",offset:[0,-4]});
   m.on("click",ev=>{ L.DomEvent.stopPropagation(ev); select(t); });
   townsGroup.addLayer(m);
@@ -809,16 +814,17 @@ const BAG_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-
 const TAG_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12.6V4.5A1.5 1.5 0 0 1 4.5 3h8.1l8.4 8.4-9.6 9.6L3 12.6z" fill="currentColor"/><circle cx="7.7" cy="7.7" r="1.7" fill="#2E7D4F"/></svg>';
 const BUS_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2.5" width="14" height="15.5" rx="2.5" fill="currentColor"/><rect x="7" y="5" width="10" height="6" rx="1" fill="#FFD100"/><circle cx="8.6" cy="14.6" r="1.3" fill="#FFD100"/><circle cx="15.4" cy="14.6" r="1.3" fill="#FFD100"/><rect x="6.3" y="17.5" width="3.2" height="3.5" rx="1" fill="currentColor"/><rect x="14.5" y="17.5" width="3.2" height="3.5" rx="1" fill="currentColor"/></svg>';
 const STAR_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.6L12 17.5l-5.9 3.2 1.2-6.6-4.8-4.6 6.6-.9z" fill="currentColor"/></svg>';
-const poiCls = p => "poi-" + (p.brand ? norm(p.brand).replace(/\W/g,"") : p.cat);
+const poiCls = p => "poi-" + (p.kind==="local" ? "local" : p.brand ? norm(p.brand).replace(/\W/g,"") : p.cat);
 const poiGlyph = p => ({bus:BUS_ICON, sight:STAR_ICON, mall:BAG_ICON, second:TAG_ICON, pool:WAVE_ICON})[p.cat] || esc(p.brand[0]);
 const poiLabel = p => p.cat==="bus" ? (p.kind==="stop" ? "Bus stop" : p.kind==="terminal" ? "Bus terminal" : "Bus hub")
   : p.cat==="park" ? (PARK_KIND[p.kind]||PARK_KIND.park)[0] : p.cat==="pool" ? (p.kind==="pool" ? "Swimming pool" : p.kind==="beach" ? "Beach" : "Spa")
   : p.cat==="sight" ? (SIGHT_KIND[p.kind]||SIGHT_KIND.landmark)[0]
-  : p.kind==="flea" ? "Flea market" : p.kind==="department" ? "Department store" : POI_CAT[p.cat];
+  : p.kind==="flea" ? "Flea market" : p.kind==="department" ? "Department store" : p.kind==="local" ? "Grocery store" : POI_CAT[p.cat];
 const poiDesc = p => p.cat==="bus"
   ? `${BUS_KIND[p.kind]||BUS_KIND.hub}${p.lines && p.lines.length ? " · lines " + esc(p.lines.join(", ")) : ""}${p.stops ? " · stops " + p.stops.split("").join(", ") : ""}${p.kind==="terminal" ? "" : " · Strætó"}`
   : p.kind==="flea" ? `Flea market (flóamarkaður), open weekends${p.addr ? " · " + esc(p.addr) : ""}`
   : p.kind==="department" ? `Supermarket and department store (stórmarkaður)${p.addr ? " · " + esc(p.addr) : ""}`
+  : p.kind==="local" ? `Grocery store in ${esc(p.town)} (matvöruverslun)${p.addr ? " · " + esc(p.addr) : ""}`
   : p.cat==="park" ? `${(PARK_KIND[p.kind]||PARK_KIND.park)[0]} (${(PARK_KIND[p.kind]||PARK_KIND.park)[1]}) · ${p.km2 >= 0.1 ? p.km2.toFixed(1) + " km²" : Math.round(p.km2 * 100) + " hectares"}`
   : p.cat==="pool" ? `${POOL_KIND[p.kind][0]} (${POOL_KIND[p.kind][1]})`
   : p.cat==="sight" ? `${(SIGHT_KIND[p.kind]||SIGHT_KIND.landmark)[0]} (${(SIGHT_KIND[p.kind]||SIGHT_KIND.landmark)[1]})${p.en ? " · " + esc(p.en) : ""}`
@@ -865,7 +871,9 @@ function updateLabelClasses(){
   const z = map.getZoom(), el = map.getContainer(), postalOn = document.getElementById("L-postal").checked;
   const set=(c,on)=>el.classList.toggle(c,on);
   set("show-zone", z<=9);
-  set("z-low", z<=10); set("z-vlow", z<=9);
+  set("z-low", z<=10); set("z-vlow", z<=9); set("z-ctry", z<=7);
+  const dotK = z<=6 ? .5 : z<=7 ? .7 : 1;
+  for(const [m, r] of townDots) if(m.options.radius !== r*dotK) m.setRadius(r*dotK);
   set("show-muni", z>=10 && z<=11);
   set("show-muni-outer", z>=9 && z<=10);
   set("show-town", z>=8);
@@ -894,7 +902,8 @@ function updateLabelClasses(){
 }
 // Labels that would overlap a more important one are hidden (regions first, then towns, districts,
 // neighbourhoods...). Runs after every zoom or pan.
-const LABEL_RANK = [".lbl-postal", ".lbl-zone", ".lbl-town.town", ".lbl-muni:not(.outer)", ".lbl-town.village", ".lbl-district",
+// the two small regions (capital region, Suðurnes) give way to the big ones when the whole country is on screen
+const LABEL_RANK = [".lbl-postal", ".lbl-zone.zone-big", ".lbl-zone:not(.zone-big)", ".lbl-town.town", ".lbl-muni:not(.outer)", ".lbl-town.village", ".lbl-district",
   ".lbl-muni.outer", ".lbl-isle.isle-xl", ".lbl-isle.isle-l", ".lbl-hverfi", ".lbl-nbh.big", ".lbl-park.park-l", ".lbl-nbh", ".lbl-isle.isle-m",
   ".lbl-town.hamlet", ".lbl-point", ".lbl-isle.isle-s", ".lbl-small", ".lbl-park"];
 function declutter(){
@@ -927,8 +936,6 @@ function highlight(f){
   L.geoJSON(f,{pane:"sel",style:{color:GOLD,weight:5,opacity:1,fill:true,fillColor:GOLD,fillOpacity:.15}}).addTo(selLayer);
   L.geoJSON(f,{pane:"sel",style:{color:NAVY,weight:1.5,opacity:1,fill:false}}).addTo(selLayer);
 }
-// regions only partly on the map
-const PARTIAL_REGION = {"Vestfirðir": "Only Reykhólahreppur, at the southern edge of the Westfjords, is on this map."};
 const KIND_LABEL = {zones:"Region",town:"Town",road:"Road",islands:"Island",nbh:"Neighbourhood",small:"Small area",districts:"District",hverfi:"Sub-district",postal:"Postal code",munis:"Town",point:"Named place",street:"Street",poi:"Place",mine:"My place"};
 const BADGE = {zones:"b-zone",town:"b-town",road:"b-road",islands:"b-isle",nbh:"b-nbh",small:"b-small",districts:"b-district",hverfi:"b-hverfi",postal:"b-postal",munis:"b-muni",point:"b-point",street:"b-street",poi:"b-poi",mine:"b-mine"};
 const infoEl = document.getElementById("info");
@@ -1069,6 +1076,16 @@ function nearestTown(lng,lat){
   return best ? {t: best, km: bd} : null;
 }
 const TOWN_NEAR_KM = {town: 2.5, village: 1.2, hamlet: 0.6};
+// a tap on land just outside every municipality outline (harbours and new fill beyond the mapped
+// coastline): the municipality within a few hundred metres
+function muniNear(lng, lat){
+  const kx = Math.cos(lat*Math.PI/180), r = 0.0027;  // ~300 m
+  for(const k of [1, 2]) for(let a = 0; a < 8; a++){
+    const f = smallestHit("munis", lng + Math.cos(a*Math.PI/4)*r*k/kx, lat + Math.sin(a*Math.PI/4)*r*k);
+    if(f) return f;
+  }
+  return null;
+}
 function whatsHereRows(lng,lat){
   const n = smallestHit("nbh",lng,lat), s = smallestHit("small",lng,lat), h = smallestHit("hverfi",lng,lat),
         d = smallestHit("districts",lng,lat), p = smallestHit("postal",lng,lat);
@@ -1077,16 +1094,19 @@ function whatsHereRows(lng,lat){
   const i = ih.find(f=>f.properties.place!=="archipelago"), ig = ih.find(f=>f.properties.place==="archipelago"), isl = i || ig;
   let m = smallestHit("munis",lng,lat), z = smallestHit("zones",lng,lat);
   if(!m && isl) m = ALL.munis.find(f=>f.properties.name===isl.properties.muni);
+  if(!m && onLand(lng,lat)) m = muniNear(lng,lat);
   if(!z && m) z = ALL.zones.find(f=>f.properties.name===m.properties.zone);
   if(!m && !onLand(lng,lat)) return {ocean:true, html:""};
   const isleRow = f => f ? chipIsle(f)+sayBtn(f.properties.name,1)+shareBtn(`islands|${f.properties.name}|${f.properties.muni}`,1) : "";
   const outer = m && isOuter(m.properties), nt = outer ? nearestTown(lng,lat) : null;
   const inTown = nt && nt.km <= TOWN_NEAR_KM[nt.t.place] ? nt.t : null;
   const st = nearestStreet(lng,lat);
+  const nbhRow = n ? row("Neighbourhood", chipName("nbh",n.properties.name)+sayBtn(n.properties.name,1)+shareBtn(`nbh|${n.properties.name}|${n.properties.muni}`,1)+akaNote(n)) : "";
   const townRow = nt ? row(inTown ? (TOWN_WORD[inTown.place][0]) : "Nearest town",
     chipTown(nt.t)+sayBtn(nt.t.name,1)+shareBtn(`town|${nt.t.name}|${nt.t.muni}`,1)+(inTown ? "" : ` <span class="muted">(~${nt.km<10?nt.km.toFixed(1):Math.round(nt.km)} km)</span>`)) : "";
   return { n,s,d,m,p,t:inTown,i,ig, html:
-    (outer ? townRow : !m ? "" : row("Neighbourhood", n?chipName("nbh",n.properties.name)+sayBtn(n.properties.name,1)+shareBtn(`nbh|${n.properties.name}|${n.properties.muni}`,1)+akaNote(n):isl?"":'<span class="muted">none mapped here</span>'))+
+    // outside the capital region: the town first, then a neighbourhood where the town has them (Akureyri)
+    (outer ? townRow + (n ? nbhRow : "") : !m ? "" : n ? nbhRow : row("Neighbourhood", isl?"":'<span class="muted">none mapped here</span>'))+
     row(i ? isleWord(i.properties)[0] : "", isleRow(i))+
     row("Island group", isleRow(ig))+
     row("Small area", s?chipName("small",s.properties.name)+sayBtn(s.properties.name,1)+shareBtn(`small|${s.properties.name}|${s.properties.muni}`,1):"")+
@@ -1203,9 +1223,9 @@ function featureInfo(f){
     rows += row("In English", esc(p.en));
     rows += row("Municipalities", '<div class="chips">'+p.munis.map(n=>chipName("munis",n)).join("")+"</div>");
     if((p.towns||[]).length) rows += row("Towns", '<div class="chips">'+p.towns.map(n=>{ const t=TOWNS.find(x=>x.name===n); return t?chipTown(t):""; }).join("")+"</div>");
-    rows += row(PARTIAL_REGION[p.name] ? "Size (on this map)" : "Size (land)", Math.round(p.km2).toLocaleString("en")+" km²");
+    rows += row("Size (land)", Math.round(p.km2).toLocaleString("en")+" km²");
     rows += row("About", '<span class="muted">One of Iceland’s eight regions (landshlutar): groups of municipalities, a bit like counties. '
-      +(PARTIAL_REGION[p.name] || "Drawn here along municipality borders, without the highlands.")+'</span>');
+      +'Every piece of land, the highlands too, belongs to one of its municipalities.</span>');
   } else if(k==="postal" && (p.towns||[]).length && !p.contains.length){
     rows += row("Town", esc(p.town));
     rows += row("Towns and villages", '<div class="chips">'+p.towns.map(n=>{ const t=TOWNS.find(x=>x.name===n); return t?chipTown(t):""; }).join("")+"</div>");
@@ -1850,7 +1870,7 @@ if(SLOTS.some(k => (store.places || {})[k])) SLOTS.forEach(k => { if((store.plac
 // ⌖ button only ever turns it ON: off → start and follow you; dot shown → re-centre and follow again.
 // Dragging the map stops following (the dot stays). On a later visit the dot comes back by itself if the
 // switch was left on, or if nothing was saved yet and the browser already has permission.
-const REGION = L.latLngBounds([63.25,-24.40],[65.80,-18.50]);
+const REGION = L.latLngBounds([63.20,-24.60],[66.65,-13.30]);   // Iceland (region.py W, S, E, N)
 const toastEl = document.createElement("div"); toastEl.className = "toast"; toastEl.setAttribute("role","status");
 map.getContainer().appendChild(toastEl);
 let toastTimer = null;
@@ -1884,7 +1904,7 @@ function onFix(p){
     meDot.on("click", ev => { L.DomEvent.stopPropagation(ev); if(MOBILE.matches) setSheet("half"); showWhereIAm(); });
   } else { meDot.setLatLng(ll); meRing.setLatLng(ll).setRadius(accuracy); }
   if(!REGION.contains(ll)){
-    if(!warnedOutside){ toast("You seem to be outside the map’s area (Reykjavík, west and south Iceland), so the map stays put."); warnedOutside = true; }
+    if(!warnedOutside){ toast("You seem to be outside Iceland, so the map stays put."); warnedOutside = true; }
     if(follow){ follow = false; } setLocState("on"); return;
   }
   if(follow){
@@ -1934,7 +1954,7 @@ const Loc = L.Control.extend({options:{position:"topleft"}, onAdd(){
       follow = true; setLocState("follow");
       if(MOBILE.matches) setSheet("half");
       centerOn(lastFix.lat, lastFix.lng, Math.max(map.getZoom(), 15)); showWhereIAm();
-    } else if(lastFix) toast("You seem to be outside the map’s area (Reykjavík, west and south Iceland), so the map stays put.");
+    } else if(lastFix) toast("You seem to be outside Iceland, so the map stays put.");
     else { follow = true; setLocState("seeking"); }                      // still waiting for a first fix
   });
   return b;
