@@ -6,18 +6,25 @@
    -21.92667
   ]
  },
- "zones|Faxaflói": {
+ "zones|Suðurnes": {
+  "poi": "Keflavík (Reykjanesbær)",
+  "ll": [
+   63.99977,
+   -22.55654
+  ]
+ },
+ "zones|Vesturland": {
   "poi": "Akranes",
   "ll": [
    64.32179,
    -22.0749
   ]
  },
- "zones|Breiðafjörður": {
-  "poi": "Stykkishólmur",
+ "zones|Vestfirðir": {
+  "poi": "Reykhólar",
   "ll": [
-   65.07507,
-   -22.72981
+   65.44859,
+   -22.20148
   ]
  },
  "zones|Suðurland": {

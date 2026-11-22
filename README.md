@@ -7,10 +7,10 @@ grocery stores, swimming pools, the main bus stops and the well-known sights.
 It isn't trying to be a full navigation map. It answers "where is Holtin?" or "which area is 108?", and hands
 anything else off to Google Maps with one click.
 
-Covers four of the Icelandic Met Office's weather forecast zones, the region names you hear in every forecast:
-the capital region (Höfuðborgarsvæðið) in full detail, and Faxaflói (Reykjanes, Akranes, Borgarfjörður),
-Breiðafjörður (Snæfellsnes, Dalir) and South Iceland (Suðurland, out to Vík and Vestmannaeyjar) with their
-towns, villages, big roads and sights.
+Covers four of Iceland's eight regions (landshlutar, groups of municipalities a bit like counties): the
+capital region (Höfuðborgarsvæðið) in full detail, and Suðurnes (the Reykjanes peninsula), Vesturland
+(Akranes, Borgarfjörður, Snæfellsnes, Dalir) and Suðurland (out to Vík and Vestmannaeyjar) with their towns,
+villages, big roads and sights, plus Reykhólahreppur at the southern edge of the Westfjords.
 
 ## What it does
 

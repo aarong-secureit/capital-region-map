@@ -12,10 +12,11 @@ from shapely.geometry import shape, Point
 
 # (kind, area name, town or None, landmark name, lat, lng)
 LANDMARKS = [
-    # forecast zones: the main town
+    # regions: the biggest town (Vestfirðir: Reykhólar, the only village of the region on the map)
     ("zones", "Höfuðborgarsvæðið", None, "Hallgrímskirkja (Reykjavík)", 64.14177, -21.92667),
-    ("zones", "Faxaflói", None, "Akranes", 64.32179, -22.07490),
-    ("zones", "Breiðafjörður", None, "Stykkishólmur", 65.07507, -22.72981),
+    ("zones", "Suðurnes", None, "Keflavík (Reykjanesbær)", 63.99977, -22.55654),
+    ("zones", "Vesturland", None, "Akranes", 64.32179, -22.07490),
+    ("zones", "Vestfirðir", None, "Reykhólar", 65.44859, -22.20148),
     ("zones", "Suðurland", None, "Selfoss", 63.93311, -20.99707),
     # towns: town hall, or the best-known spot
     ("munis", "Reykjavík", None, "Ráðhús Reykjavíkur (City Hall)", 64.14613, -21.94238),

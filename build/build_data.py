@@ -1,4 +1,4 @@
-"""Build the map data: forecast zones, municipalities, towns, and (capital region) districts, hverfi,
+"""Build the map data: regions, municipalities, towns, and (capital region) districts, hverfi,
 neighbourhoods; postal areas and streets everywhere (outside the capital region only in towns). Area: region.py."""
 import json, re, sys, unicodedata
 from collections import Counter, defaultdict

@@ -1,12 +1,12 @@
 """The map's area, shared by every build script.
 
-The map covers four of the Icelandic Met Office's forecast zones (spásvæði): the capital region, Faxaflói,
-Breiðafjörður and South Iceland. The Met Office publishes the zones only as pictures, so each zone here is a
-group of whole municipalities, with their highland parts cut off (the Central Highlands are a forecast
-zone of their own).
+Iceland is divided into eight regions (landshlutar), each a group of whole municipalities, a bit like
+counties: they are used for statistics and by the municipalities' regional associations. The map covers
+the capital region, Suðurnes, Vesturland and Suðurland, plus Reykhólahreppur, the southern edge of
+Vestfirðir. Municipalities outside the capital region have their highland parts cut off.
 
-Detail differs by zone: the capital region has neighbourhoods, districts and every street; elsewhere the map
-has towns and villages, the streets inside them, and the big roads (this is a learning map, not a
+Detail differs by region: the capital region has neighbourhoods, districts and every street; elsewhere the
+map has towns and villages, the streets inside them, and the big roads (this is a learning map, not a
 navigation tool).
 """
 from shapely.geometry import Polygon, box
@@ -33,19 +33,20 @@ MUNI_SHORT = {
     "Mýrdalshreppur": "Mýrdalshreppur", "Vestmannaeyjabær": "Vestmannaeyjar",
 }
 
-# forecast zone -> municipalities (short names). Snæfellsbær goes with Breiðafjörður (its towns face it).
+# region (landshluti) -> municipalities (short names)
 ZONES = {
     "Höfuðborgarsvæðið": ["Reykjavík", "Kópavogur", "Seltjarnarnes", "Garðabær", "Hafnarfjörður", "Mosfellsbær",
                           "Kjósarhreppur"],
-    "Faxaflói": ["Reykjanesbær", "Suðurnesjabær", "Vogar", "Grindavík", "Akranes", "Hvalfjarðarsveit", "Borgarbyggð",
-                 "Eyja- og Miklaholtshreppur"],
-    "Breiðafjörður": ["Snæfellsbær", "Grundarfjörður", "Stykkishólmur", "Dalabyggð", "Reykhólahreppur"],
+    "Suðurnes": ["Reykjanesbær", "Suðurnesjabær", "Vogar", "Grindavík"],
+    "Vesturland": ["Akranes", "Hvalfjarðarsveit", "Borgarbyggð", "Eyja- og Miklaholtshreppur", "Snæfellsbær",
+                   "Grundarfjörður", "Stykkishólmur", "Dalabyggð"],
+    "Vestfirðir": ["Reykhólahreppur"],
     "Suðurland": ["Ölfus", "Hveragerði", "Árborg", "Flóahreppur", "Grímsnes- og Grafningshreppur", "Bláskógabyggð",
                   "Hrunamannahreppur", "Skeiða- og Gnúpverjahreppur", "Ásahreppur", "Rangárþing ytra",
                   "Rangárþing eystra", "Mýrdalshreppur", "Vestmannaeyjar"],
 }
-ZONE_EN = {"Höfuðborgarsvæðið": "Capital Region", "Faxaflói": "Faxaflói (Southwest)",
-           "Breiðafjörður": "Breiðafjörður (West)", "Suðurland": "South Iceland"}
+ZONE_EN = {"Höfuðborgarsvæðið": "Capital Region", "Suðurnes": "Reykjanes Peninsula", "Vesturland": "West Iceland",
+           "Vestfirðir": "Westfjords", "Suðurland": "South Iceland"}
 ZONE_OF = {m: z for z, ms in ZONES.items() for m in ms}
 CAP_MUNIS = set(ZONES["Höfuðborgarsvæðið"])
 

@@ -1,9 +1,9 @@
 # Rebuilding capital-region-map.html
 
-The map's area is set in `region.py`: four of the Met Office's weather forecast zones (capital region,
-Faxaflói, Breiðafjörður, South Iceland), each a group of municipalities with the highlands cut off
-(`LOWLAND`). The capital region gets full detail; elsewhere the map keeps towns and villages, the streets
-in them (`TOWN_RADIUS_KM`), big roads and sights.
+The map's area is set in `region.py`: four of Iceland's eight regions (landshlutar: the capital region,
+Suðurnes, Vesturland, Suðurland) plus Reykhólahreppur from Vestfirðir, each a group of municipalities, with
+the highlands cut off (`LOWLAND`). The capital region gets full detail; elsewhere the map keeps towns and
+villages, the streets in them (`TOWN_RADIUS_KM`), big roads and sights.
 
 Run from `build/`. Needs Python 3 with `pip install osmium shapely numpy scipy pillow` (here in `.venv`;
 `build_data.py` takes about 8 minutes):
