@@ -113,7 +113,7 @@ def main():
     sys.path.insert(0, str(ROOT / "build"))
     from stamp import build_stamp
     html = re.sub(r'(<span id="buildStamp">)[^<]*(</span>)', lambda m: m.group(1) + build_stamp() + m.group(2), html, count=1)
-    if 'rel="manifest"' not in html:
+    if '<link rel="manifest"' not in html:
         html = html.replace("</title>", "</title>\n" + HEAD_EXTRA, 1)
     # street addresses for Home / Work, road lines for "Nearest street" (both loaded by the page when needed),
     # named by their content's hash so they can be cached for a year; the page is pointed at the new names

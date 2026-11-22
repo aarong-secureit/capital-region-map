@@ -40,7 +40,8 @@ every other town and village with its streets, plus the big roads, the sights an
   browser's local storage. Addresses are looked up in the page; nothing you type is sent anywhere.
   (Only the 🎤 search leaves the page: your browser sends the audio to its speech service.)
 - **Show my location**, on your device only.
-- Works on phones, needs no API keys, and runs from a plain file.
+- Works on phones, needs no API keys, and runs from a plain file. The web version can be added as an app
+  (Settings › Add as app; on iPhone and iPad, Share › Add to Home Screen).
 
 ## Run it
 

@@ -143,6 +143,13 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 #map:not(.show-isle-s) .lbl-isle.isle-s{display:none}
 .lbl.clash{visibility:hidden}
 .set-ver{margin:18px 0 0;font-size:12px;color:var(--gray-mid)}
+.app-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px;font:inherit;font-size:15px;font-weight:bold;
+  border:1px solid #D49A4A;border-radius:8px;background:linear-gradient(#FFEBD0,#FAD9A8);color:#3B2A12;cursor:pointer}
+.app-btn svg{width:18px;height:18px}
+.app-btn[hidden]{display:none}
+.app-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.app-how{font-size:13px;color:var(--gray-mid);margin:6px 0 0}
+.app-how svg{width:15px;height:15px;vertical-align:-2px}
 /* zoomed out to the whole area: neighbourhood outlines would only make a dark smudge over Reykjavík */
 #map.z-low .leaflet-nbh-pane, #map.z-low .leaflet-small-pane, #map.z-low .leaflet-hverfi-pane, #map.z-vlow .leaflet-district-pane{display:none}
 .lbl-point span{font-size:11px;color:var(--gray-mid);margin-top:14px}
@@ -263,6 +270,7 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
 :root[data-theme="dark"] .b-hverfi{background:#4A3A1E;color:#E8CF9C}
 :root[data-theme="dark"] .b-poi{background:#4A3F22;color:#EBD49A}
 :root[data-theme="dark"] .handle{background:#4A5562}
+:root[data-theme="dark"] .app-btn{background:linear-gradient(#6A4C25,#57391A);color:#FBE3BF;border-color:#2A1D0C}
 :root[data-theme="dark"] .seg input:checked + span{background:linear-gradient(#6A4C25,#57391A);color:#FBE3BF;box-shadow:inset 0 -2px 0 #2A1D0C}
 :root[data-theme="dark"] .layers label:has(> input:checked){background:linear-gradient(#6A4C25,#57391A);border-color:#C98D3E;color:#FBE3BF;box-shadow:0 2px 0 #2A1D0C,0 4px 8px rgba(0,0,0,.35)}
 :root[data-theme="dark"] .layers label:has(> input:checked) .lt small{color:#E8C996}
@@ -473,6 +481,11 @@ details summary{cursor:pointer;color:var(--navy);font-weight:bold}
     <div class="pl"><label for="pl-work1">1</label><input id="pl-work1" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work1" class="pl-st" role="status"></div></div>
     <div class="pl"><label for="pl-work2">2</label><input id="pl-work2" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work2" class="pl-st" role="status"></div></div>
     <div class="pl"><label for="pl-work3">3</label><input id="pl-work3" type="text" maxlength="120" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Street and number"><div id="st-work3" class="pl-st" role="status"></div></div>
+    <div id="appSec" hidden>
+    <h3>App</h3>
+    <button type="button" id="appBtn" class="app-btn" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0l-4.5-4.5M12 14l4.5-4.5M5 15v4h14v-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Add as app</button>
+    <p id="appHow" class="app-how"></p>
+    </div>
     <p class="set-ver">Version <span id="buildStamp">__BUILDSTAMP__</span></p>
     </div>
   </div>
@@ -1946,6 +1959,40 @@ const REGION = L.latLngBounds([63.20,-24.60],[66.65,-13.30]);   // Iceland (regi
 const toastEl = document.createElement("div"); toastEl.className = "toast"; toastEl.setAttribute("role","status");
 map.getContainer().appendChild(toastEl);
 let toastTimer = null;
+// ---------- Add as app (web version only: it needs the manifest build/make_site.py adds) ----------
+// Chrome, Edge and Samsung Internet offer their own install prompt (beforeinstallprompt); Safari has none, so
+// Settings says where it is: Share › Add to Home Screen on iPhone and iPad, File › Add to Dock on a Mac.
+// Nothing shows when the page already runs as an app, or opened as a plain file. With the app installed, Chrome,
+// Edge and Samsung Internet stop offering the prompt in a browser tab too, so no button there either; Safari
+// can't tell a tab whether the page is on the home screen, so its hint starts "not added yet?".
+{
+  const sec = document.getElementById("appSec"), btn = document.getElementById("appBtn"), how = document.getElementById("appHow");
+  const SHARE_IC = '<svg viewBox="0 0 24 24" aria-label="Share"><path d="M12 3v12M12 3L8 7M12 3l4 4M7 10H5v11h14V10h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const appWin = matchMedia("(display-mode: standalone), (display-mode: fullscreen), (display-mode: minimal-ui), (display-mode: window-controls-overlay)");
+  const asApp = appWin.matches || navigator.standalone === true;
+  const canAdd = !asApp && window.isSecureContext && !!document.querySelector('link[rel="manifest"]');
+  const ua = navigator.userAgent, iOS = /iP(hone|ad|od)/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  const macSafari = !iOS && /Macintosh/.test(ua) && /Version\/(1[7-9]|[2-9]\d)/.test(ua) && !/Chrome|Chromium|Edg|OPR|Firefox/.test(ua);
+  let ask = null;
+  const show = kind => {
+    if(!canAdd) return;
+    sec.hidden = false; btn.hidden = kind !== "prompt";
+    how.innerHTML = kind === "prompt" ? "Opens in its own window, with an icon on your home screen or desktop."
+      : kind === "ios" ? `Not on your home screen yet? Tap <b>Share</b> ${SHARE_IC} then <b>Add to Home Screen</b>.`
+      : "Not in your Dock yet? In Safari's menu bar, choose <b>File › Add to Dock</b>.";
+  };
+  window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); ask = e; show("prompt"); });
+  window.addEventListener("appinstalled", () => { ask = null; sec.hidden = true; toast("Added as an app"); });
+  appWin.addEventListener("change", e => { if(e.matches){ ask = null; sec.hidden = true; } });    // the tab became the app's window
+  btn.addEventListener("click", async () => {
+    if(!ask) return;
+    const e = ask; ask = null;
+    e.prompt();
+    await e.userChoice.catch(() => {});
+    sec.hidden = true;             // a prompt can only be used once; the browser offers it again when it is ready
+  });
+  if(iOS) show("ios"); else if(macSafari) show("mac");
+}
 function toast(msg, ms=5000){ toastEl.textContent = msg; toastEl.classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(()=>toastEl.classList.remove("show"), ms); }
 let watchId = null, follow = false, meDot = null, meRing = null, lastFix = null, lastAreaKey = "", locBtn = null, warnedOutside = false;
 const locToggle = document.getElementById("L-loc");
