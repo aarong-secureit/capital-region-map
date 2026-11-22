@@ -35,7 +35,7 @@ import json, math, re, sys
 from collections import Counter, defaultdict
 import osmium
 from shapely.geometry import shape, Point, Polygon
-from shapely.ops import unary_union
+from shapely.ops import unary_union, nearest_points
 import region as R
 
 from region import W, S, E, N
@@ -546,6 +546,15 @@ def main(pbf, mapdata, out):
         d, c, t = min((g.distance(pt), c, t) for c, t, g in postal)
         return (c, t) if d <= NEAR else (None, None)
 
+    # Busy roads (Snorrabraut, Kringlumýrarbraut, Hringbraut) are often postal borders, drawn down the middle of
+    # the road, and a bus stop is one point between its stops on either side. Such a stop gets both codes.
+    BORDER_M = 20
+
+    def postal_near(lon, lat):
+        pt = Point(lon, lat)
+        return [c for c, t, g in postal if g.distance(pt) < BORDER_M / 30000          # degrees, generous
+                and metres(nearest_points(g, pt)[0].coords[0], (lon, lat)) <= BORDER_M]
+
     def nearest_street(lon, lat):
         return min(streets, key=lambda s: metres((s[2], s[3]), (lon, lat)))[0]
 
@@ -559,7 +568,10 @@ def main(pbf, mapdata, out):
             skipped.append(rec["name"])
             return
         pc, town = postal_at(lon, lat)
-        rec.update(ll=[round(lon, 6), round(lat, 6)], muni=muni, postal=[pc] if pc else [])
+        codes = [pc] if pc else []
+        if pc and rec.get("cat") == "bus":
+            codes = sorted(set(codes) | set(postal_near(lon, lat)))
+        rec.update(ll=[round(lon, 6), round(lat, 6)], muni=muni, postal=codes)
         if rec.get("g"):
             rec["g"] = rec["g"].replace("{PC}", f"{pc} {town}" if pc else muni)
         pois.append(rec)

@@ -51,7 +51,8 @@ python inject.py data/mapdata.json template.html ../capital-region-map.html ../_
   named parks, gardens, nature areas and big woods (green labels, sized by area; outside the capital region
   only parks in towns); and bus places: Strætó's transfer hubs
   (`HUBS`, from straeto.is), Hlemmur and Lækjartorg, the BSÍ terminal, and other big stops with lettered
-  platforms. Hlemmur is placed by hand (`MANUAL_STOPS`) while its stops are out of OSM.
+  platforms. Hlemmur is placed by hand (`MANUAL_STOPS`) while its stops are out of OSM. A bus stop within 20 m of
+  a postal border (busy roads like Snorrabraut often are one) gets both codes, as its stops sit on either side.
   Long-distance bus stops: in each town or village outside the capital region that a long-distance bus calls
   at (Strætó's countryside routes, `LONG_LINES`, and the village buses around Ísafjörður and in Múlaþing,
   `REGIONAL`; not tourist coaches or airport shuttles): every stop where 4 or more of these lines call, then

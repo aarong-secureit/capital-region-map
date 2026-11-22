@@ -1148,7 +1148,7 @@ function muniNear(lng, lat){
   }
   return null;
 }
-function whatsHereRows(lng,lat){
+function whatsHereRows(lng,lat,codes){              // codes: a bus stop on a postal border has both
   const n = smallestHit("nbh",lng,lat), s = smallestHit("small",lng,lat), h = smallestHit("hverfi",lng,lat),
         d = smallestHit("districts",lng,lat), p = smallestHit("postal",lng,lat);
   // an island (smallest first) and the island group it belongs to; municipality borders often leave islands out
@@ -1176,7 +1176,7 @@ function whatsHereRows(lng,lat){
     row("District", d?chipName("districts",d.properties.name)+sayBtn(d.properties.name,1)+shareBtn(`districts|${d.properties.name}|${d.properties.muni}`,1)+akaNote(d):"")+
     row(outer ? "Municipality" : m ? "Town" : "Area", m?esc(m.properties.name)+sayBtn(m.properties.name,1)+shareBtn(`munis|${m.properties.name}`,1)+akaNote(m):'<span class="muted">outside the map’s area</span>')+
     row("Region", z?chipName("zones",z.properties.name)+sayBtn(z.properties.name,1)+` <span class="muted">${esc(z.properties.en)}</span>`:"")+
-    row("Postal code", p?chipPC([p.properties.code])+sayBtn("postal:"+p.properties.code,1)+shareBtn(`postal|${p.properties.code}`,1):"")+
+    row("Postal code", codes && codes.length > 1 ? chipPC(codes) : p?chipPC([p.properties.code])+sayBtn("postal:"+p.properties.code,1)+shareBtn(`postal|${p.properties.code}`,1):"")+
     row(outer && !inTown ? "Nearest road" : "Nearest street", st && st.d < 3000 ?`${esc(st[0])}${sayBtn(st[0],1)}${STREET_NAMES.has(st[0]) ? shareBtn(`street|${st[0]}|${st[1]}`,1) : ""} <span class="muted">(${st[1] ? esc(st[1]) + ", " : ""}~${st.d<1000?Math.round(st.d)+" m":(st.d/1000).toFixed(1)+" km"})</span>`:"")
   };
 }
@@ -1247,11 +1247,11 @@ function showPin(lat,lng){
   pin = L.circleMarker([lat,lng],{pane:"pts",radius:7,color:NAVY,weight:3,fillColor:GOLD,fillOpacity:1}).addTo(map);
 }
 let lastInfo = null;                                // the last "What's here": redrawn when the road lines arrive
-function infoAt(lat,lng,title,extra,isMe,shareSpec){
-  const args = [lat,lng,title,extra,isMe,shareSpec];
+function infoAt(lat,lng,title,extra,isMe,shareSpec,codes){
+  const args = [lat,lng,title,extra,isMe,shareSpec,codes];
   infoIsMe = !!isMe;
   if(isMe) goal = null;                             // your position has its own button
-  const w = whatsHereRows(lng,lat);
+  const w = whatsHereRows(lng,lat,codes);
   const wi = w.i || w.ig;
   highlight(w.n || w.s || wi || w.p);
   if(isMe){ if(pin){ map.removeLayer(pin); pin=null; } }   // your own position already has the blue dot
@@ -1263,7 +1263,9 @@ function infoAt(lat,lng,title,extra,isMe,shareSpec){
   infoEl.innerHTML = `<h2>${isMe?"Your location":"What's here"}</h2><div class="title">${isMe?"":goBtn()}${esc(t)}${sayBtn(t)}${isMe?"":shareBtn(shareSpec)}</div>${hasClip(t)?forvo(t):""}
     ${extra||""}<table>${w.html}</table>
     <div class="muted" style="margin-top:8px">${lat.toFixed(5)}, ${lng.toFixed(5)}</div>`;
-  const where = [...new Set([w.p ? w.p.properties.code+" "+w.p.properties.town : (w.m ? w.m.properties.name : ""), w.d && w.d.properties.name!==t ? w.d.properties.name : "",
+  const pcs = codes && codes.length > 1 ? codes : w.p ? [w.p.properties.code] : [];
+  const pcTowns = [...new Set(pcs.map(c=>postalByCode[c] ? postalByCode[c].properties.town : ""))];
+  const where = [...new Set([pcs.length ? (pcTowns.length===1 ? pcs.join(", ")+" "+pcTowns[0] : pcs.map(c=>c+" "+(postalByCode[c] ? postalByCode[c].properties.town : "")).join(", ")) : (w.m ? w.m.properties.name : ""), w.d && w.d.properties.name!==t ? w.d.properties.name : "",
     !w.n && w.m && isOuter(w.m.properties) && w.m.properties.name!==t ? w.m.properties.name : ""].filter(Boolean))].join(" · ");
   if(isMe) setPeek(w.n ? "You're in " + w.n.properties.name : "You are here", where);
   else setPeek(t, where);
@@ -1364,7 +1366,7 @@ function select(item){
     if(tg && !tg.checked){ tg.checked = true; applyToggles(); }
     aim(item.name, item.ll[1], item.ll[0], Math.max(map.getZoom(),16), item.bb);
     const aka = akaBlock(item);
-    infoAt(item.ll[1],item.ll[0], item.name, `${aka}<div class="muted" style="margin-bottom:6px">${poiDesc(item)}</div>`, false, poiSpec(item));
+    infoAt(item.ll[1],item.ll[0], item.name, `${aka}<div class="muted" style="margin-bottom:6px">${poiDesc(item)}</div>`, false, poiSpec(item), item.postal);
     return;
   }
   if(item._kind==="street"){
