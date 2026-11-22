@@ -18,7 +18,7 @@ import json, math, sys
 import numpy as np
 import osmium
 import shapely
-from shapely.geometry import LineString, MultiPolygon, Point, Polygon, mapping, shape
+from shapely.geometry import LineString, MultiPolygon, Polygon, mapping, shape
 from shapely.ops import linemerge, polygonize, polylabel, unary_union
 import region as R
 

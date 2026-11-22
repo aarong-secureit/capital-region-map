@@ -1,8 +1,8 @@
-"""List candidate landmarks in the capital region from the Iceland OSM extract.
+"""Helper for landmarks.py: look up landmark coordinates in the Iceland OSM extract.
 
 Usage: python find_landmarks.py iceland-latest.osm.pbf
-Prints every town hall, plus features whose name matches the WANTED list, with coordinates,
-so landmarks.json can be filled in from real data.
+Prints every town hall on the map, plus features whose name matches the WANTED list, with coordinates,
+to copy into the LANDMARKS list in landmarks.py. Edit WANTED for the places you need.
 """
 import sys
 import osmium

@@ -1,10 +1,10 @@
 """Build the map data: regions, municipalities, towns, and (capital region) districts, hverfi,
 neighbourhoods; postal areas and streets everywhere (outside the capital region only in towns). Area: region.py."""
-import json, re, sys, unicodedata
+import datetime, json, os, re, sys, unicodedata
 from collections import Counter, defaultdict
 import numpy as np
 import shapely
-from shapely.geometry import shape, mapping, box, LineString, MultiPoint, Point, Polygon, MultiPolygon
+from shapely.geometry import shape, mapping, LineString, MultiPoint, Point, Polygon, MultiPolygon
 from shapely.ops import linemerge, polygonize, unary_union, polylabel
 from scipy.spatial import cKDTree
 import region as R
@@ -92,7 +92,6 @@ for k, g in munis.items():
     print("muni", k, round(km2(g)), "land", round(km2(g.intersection(land))))
 region = unary_union(list(munis.values()))
 region_land = region.intersection(land)
-region_land_p = shapely.prepared.prep(region_land)
 muni_land = {k: g.intersection(land) for k, g in munis.items()}
 
 def muni_of(pt):
@@ -138,7 +137,6 @@ pts = np.array([[p[0], p[1]] for p in ex["post_pts"]])
 codes = np.array([p[2].strip()[:3] for p in ex["post_pts"]])
 streets = [p[3] for p in ex["post_pts"]]
 inside = shapely.contains_xy(region_land, pts[:, 0], pts[:, 1])
-# also accept points within ~150 m of land in region (piers)
 pts, codes = pts[inside], codes[inside]
 streets = [s for s, ok in zip(streets, inside) if ok]
 cnt = Counter(codes)
@@ -287,8 +285,7 @@ for n in ex["place_nodes"]:
     if any(nm == nn and g.distance(pt) < 0.012 for nm, g in allpolys):
         continue
     mu = muni_of(pt)
-    parent = next((x["name"] for x in nbh if x["muni"] == mu and x["g"].contains(pt)), None)
-    points.append({"name": n["name"], "place": n["place"], "muni": mu, "parent": parent,
+    points.append({"name": n["name"], "place": n["place"], "muni": mu,
                    "ll": [round(n["lon"], 5), round(n["lat"], 5)]})
 
 # ---------------- towns (outside the capital region) ----------------
@@ -364,13 +361,6 @@ def postals_for(g):
                 out.append((c, share))
     return [c for c, _ in sorted(out, key=lambda t: -t[1])]
 
-def hv_for(g):
-    rp = g.representative_point()
-    for code, gs in hv.items():
-        if unary_union(gs).contains(rp):
-            return code
-    return None
-
 hv_union = {code: shapely.make_valid(unary_union(gs)) for code, gs in hv.items()}
 hv_feats = []
 for code, g in sorted(hv_union.items(), key=lambda t: [float(x) for x in t[0].split(".")]):
@@ -379,7 +369,7 @@ for code, g in sorted(hv_union.items(), key=lambda t: [float(x) for x in t[0].sp
     if code == "0.0":
         name = "Elliðaárdalur"
     gl = g.intersection(land.buffer(0.002))
-    f = feat(gl, name=name, code=code, muni="Reykjavík", district=borgarhluti_of(g.representative_point()),
+    f = feat(gl, name=name, muni="Reykjavík", district=borgarhluti_of(g.representative_point()),
              postal=postals_for(gl))
     if f:
         hv_feats.append(f)
@@ -394,9 +384,9 @@ def hv_name_of(g):
 nbh_feats = [feat(n["g"], name=n["name"], muni=n["muni"], district=n["district"],
                   hverfi=hv_name_of(n["g"]) if n["muni"] == "Reykjavík" else None,
                   postal=postals_for(n["g"]), src=n["src"]) for n in nbh]
-small_feats = [feat(s["g"], name=s["name"], muni=s["muni"], parent=s["parent"], kind=s["kind"],
+small_feats = [feat(s["g"], name=s["name"], muni=s["muni"], parent=s["parent"],
                     postal=postals_for(s["g"]), src=s["src"]) for s in small]
-dist_feats = [feat(d["g"], name=d["name"], muni=d["muni"], num=d.get("num"), postal=postals_for(d["g"])) for d in districts]
+dist_feats = [feat(d["g"], name=d["name"], muni=d["muni"], postal=postals_for(d["g"])) for d in districts]
 muni_feats = []
 for k, g in muni_land.items():
     outer = k not in R.CAP_MUNIS
@@ -415,9 +405,12 @@ for p in points:
     p["postal"] = [c for c, g in postal.items() if g.contains(pt)][:1]
 
 fc = lambda fs: {"type": "FeatureCollection", "features": [f for f in fs if f]}
+for t in towns:
+    t.pop("zone")                                  # used above for the regions' town lists; the page reads munis
+built = datetime.date.fromtimestamp(os.path.getmtime(os.path.join(D, "osm_extract.json"))).isoformat()
 data = {"zones": fc(zone_feats), "towns": towns, "munis": fc(muni_feats), "districts": fc(dist_feats), "hverfi": fc(hv_feats), "nbh": fc(nbh_feats),
         "small": fc(small_feats), "postal": fc(postal_feats), "points": points, "streets": street_list,
-        "land": mapping(land_mask(coast)), "built": "2026-11-21"}
+        "land": mapping(land_mask(coast)), "built": built}
 s = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
 open(OUT, "w").write(s)
 print("sizes KB", {k: len(json.dumps(v, ensure_ascii=False, separators=(",", ":"))) // 1024 for k, v in data.items()})

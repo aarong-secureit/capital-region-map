@@ -1,10 +1,9 @@
-"""Shops, landmarks and bus hubs shown as icons on the map (and found by the search).
+"""Shops, sights, swimming pools, parks and bus hubs shown as icons on the map (and found by the search).
 
 From the Iceland OSM extract:
   - every Bónus, Krónan and Nettó supermarket, and every Hagkaup (supermarket and department store)
   - shopping centres (Kringlan, Smáralind, Fjörður...), second-hand shops and Kolaportið flea market
   - big stores: Costco, IKEA, Elko, BYKO, Húsasmiðjan, Bauhaus, JYSK
-  - Perlan
   - the public swimming pools (POOLS, by name: a heuristic would also catch pools inside pools, school pools,
     the seal pool at the zoo and a recording studio called Sundlaugin), Nauthólsvík beach and Sky Lagoon
   - parks, gardens and nature areas with a name (leisure=park/garden/common/nature_reserve; big named woods),
@@ -420,8 +419,7 @@ def main(pbf, mapdata, out):
         tally[p.get("brand") or p["cat"]] += 1
     print(f"{len(pois)} places:", dict(tally))
     for cat in ("pool", "park"):
-        print(f"  {cat}:", ", ".join(p["name"] + (f" ({p['kind']}{' ' + p['stops'] if p.get('stops') else ''})" if cat == "bus" else "")
-                                    for p in pois if p["cat"] == cat))
+        print(f"  {cat}:", ", ".join(p["name"] for p in pois if p["cat"] == cat))
     if skipped:
         print("outside the map's municipalities, skipped:", len(skipped))
 

@@ -3,7 +3,7 @@
 Usage: python inject.py MAPDATA_JSON TEMPLATE_HTML OUT_HTML [AUDIO_INDEX_JSON] [LANDMARKS_JSON] [POIS_JSON] [ALIASES_JSON] [ROADS_JSON]
 AUDIO_INDEX_JSON comes from make_audio.py (no listen buttons without it);
 LANDMARKS_JSON from landmarks.py (shares fall back to area middles without it);
-POIS_JSON from pois.py (shops, Perlan, bus hubs; none shown without it);
+POIS_JSON from pois.py (shops, sights, pools, parks, bus hubs; none shown without it);
 ALIASES_JSON = aliases.json (other names people use, e.g. Holtin, Grandi);
 ROADS_JSON from streets_geo.py (big roads, found by the search).
 """
@@ -43,11 +43,12 @@ for i in sorted(adj, key=lambda i: -len(adj[i])):
     tally[c] += 1
 print("colours used", max(f["properties"]["ci"] for f in fs) + 1)
 s = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-html = open(tpl_fn).read().replace("/*__DATA__*/null", s).replace("__BUILT__", d["built"]).replace("__BUILDSTAMP__", build_stamp())
+html = open(tpl_fn).read().replace("__DATA_JSON__", s).replace("__BUILT__", d["built"]).replace("__BUILDSTAMP__", build_stamp())
 if audio_fn:
     a = open(audio_fn, encoding="utf-8").read()
     # escape "</" like the map data: a place name containing "</script>" must not end the script block
-    html = html.replace("/*__AUDIO__*/null", a.replace("</", "<\\/"))
+    html = html.replace("__AUDIO_JSON__", a.replace("</", "<\\/"))
     print("audio clips", len(json.loads(a).get("clips", {})))
+html = html.replace("__AUDIO_JSON__", "null")    # built without audio: no listen buttons
 open(out_fn, "w").write(html)
 print("wrote", out_fn, len(html) // 1024, "KB")

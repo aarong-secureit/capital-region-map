@@ -50,7 +50,8 @@ python inject.py data/mapdata.json template.html ../capital-region-map.html ../_
   automatic listening check (Whisper large-v3-turbo transcribing every clip, scored by sound). The main lesson:
   feed the voice espeak's phonemes as espeak writes them; "correcting" them to IPA it never trained on drops sounds.
 - `make_audio.py clips` keeps one small mp3 per name in `_assets/audio/c/` (about 5,000 files, ~20 MB). It voices
-  only names without a clip and deletes clips of names that left the map; `--redo` voices everything again.
+  only names without a clip and deletes clips of names that left the map; `--redo` voices everything again
+  under new ids (an id is never reused, so browsers may cache clips for good).
   Postal codes are read as numbers (`postal_words()`: 262 = "tvö hundruð sextíu og tveir").
 - `roads.json` (from `streets_geo.py`): the big roads, so the search finds Suðurlandsvegur or "Route 35".
 - `land.py`: a rough land outline (grown ~200 m, simplified) embedded in the page, so a tap on the open sea
@@ -91,11 +92,13 @@ From the project root:
 python build/make_site.py
 ```
 
-Writes `site/` (index.html, manifest, icons, `_headers`, `_assets/audio/c/` clips, `_assets/addresses.js`, `_assets/streets.js`)
-and `site.zip`. Cloudflare Workers allows 20,000 files per deploy on the free plan.
+Writes `site/` (index.html, manifest, icons, `_headers`, `_assets/audio/c/` clips, `_assets/addresses.<hash>.js`,
+`_assets/streets.<hash>.js`) and `site.zip`. The two scripts get their content's hash in the name (the page in
+`site/` is pointed at them), so `_headers` can let browsers cache everything under `_assets/` for a year;
+index.html itself is revalidated on every visit. Cloudflare Workers allows 20,000 files per deploy on the free plan.
 Security: `_headers` carries a Content-Security-Policy that lets only the page's own inline scripts run
-(pinned by SHA-256, recomputed by `make_site.py` on every build), plus Leaflet from cdnjs, which the page pins
-with an SRI `integrity` hash. Upgrading Leaflet means updating both URLs and both hashes in `template.html`.
+(pinned by SHA-256, recomputed by `make_site.py` on every build), plus Leaflet's own folder on cdnjs, which the
+page pins with an SRI `integrity` hash. The page makes no network calls from code (`connect-src 'none'`). Upgrading Leaflet means updating both URLs and both hashes in `template.html`.
 Permissions-Policy allows location and the microphone (🎤 search) for this site only.
 Anything Cloudflare injects into the page (Web Analytics beacon, Rocket Loader, email obfuscation) would be
 blocked by the policy: keep those off, or add their sources to `csp_for()`.

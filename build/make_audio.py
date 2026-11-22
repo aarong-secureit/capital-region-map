@@ -7,14 +7,13 @@ Voices are trained on the Talrómur corpus (CC BY 4.0).
 Usage:
   python make_audio.py samples VOICE_DIR OUT_DIR              # one comparison clip per voice
   python make_audio.py clips VOICE_ONNX MAPDATA_JSON OUT_DIR [POIS_JSON] [ALIASES_JSON] [ROADS_JSON]
-  python make_audio.py split OUT_DIR                          # one-off: old pack-NN.mp3 files -> single clips
 
 "clips" keeps one small mp3 per name in OUT_DIR/c/<id>.mp3 and OUT_DIR/index.json =
 {"next": n, "clips": {name: id}} (ids are short base-36 numbers that never change, so a clip stays cached).
 It voices only the names that have no clip yet and deletes clips of names no longer on the map; add
 --redo to voice everything again (new ids). The map embeds the index and plays c/<id>.mp3.
 """
-import array, base64, io, json, os, re, subprocess, sys, wave
+import array, io, json, os, re, subprocess, sys, wave
 from pathlib import Path
 import piper
 from piper import PiperVoice, SynthesisConfig
@@ -119,7 +118,6 @@ def spoken(name):
     t = name
     for word, say in SAY_AS.items():                 # also inside longer names ("BYKO Skemmuvegur")
         t = re.sub(rf"\b{word}\b", say, t)
-    t = t.replace("Kjalarn.-dreifb.", "Kjalarnes dreifbýli")
     t = re.sub(r"\b(\d{1,2})\.\s*(?=\w)", lambda m: ORDINAL.get(int(m.group(1)), m.group(1)) + " ", t)   # 3.Gata
     t = re.sub(r"\b(II|III|IV|VI|VII)\b-?", lambda m: ROMAN[m.group(1)] + " ", t)                      # Eyjar II
     t = t.replace("v/", "við ").replace("/", " ")                                                    # v/Rauðavatn
@@ -243,9 +241,10 @@ def clips(voice_onnx, mapdata, out_dir, pois_json=None, aliases_json=None, roads
     cdir = out / "c"
     cdir.mkdir(parents=True, exist_ok=True)
     ip = out / "index.json"
-    index = json.loads(ip.read_text(encoding="utf-8")) if ip.exists() and not redo else {"next": 0, "clips": {}}
-    if "files" in index:
-        sys.exit("index.json still describes packs: run  make_audio.py split OUT_DIR  first")
+    old = json.loads(ip.read_text(encoding="utf-8")) if ip.exists() else None
+    # --redo voices every name again under new ids: an id is never reused for different audio, so the site
+    # can let browsers cache clips for good
+    index = old if old and not redo else {"next": old["next"] if old else 0, "clips": {}}
     texts = name_texts(mapdata, pois_json, aliases_json, roads_json, streets_js=out.parent / "streets.js")
     gone = [k for k in index["clips"] if k not in texts]
     for k in gone:                                           # names no longer on the map
@@ -269,41 +268,11 @@ def clips(voice_onnx, mapdata, out_dir, pois_json=None, aliases_json=None, roads
     print(f"{len(index['clips'])} clips, {size / 1024 / 1024:.1f} MB; index {ip.stat().st_size / 1024:.0f} KB")
 
 
-def split(out_dir, margin=0.04):
-    """Cut the old packs (pack-NN.mp3 + index.json with start/duration) into one file per name, without voicing
-    anything again, then delete the packs."""
-    out = Path(out_dir).resolve()
-    old = json.loads((out / "index.json").read_text(encoding="utf-8"))
-    cdir = out / "c"
-    cdir.mkdir(parents=True, exist_ok=True)
-    by_file = {}
-    for k, (fi, start, dur) in old["clips"].items():
-        by_file.setdefault(fi, []).append((start, k, dur))
-    index, n = {"next": 0, "clips": {}}, 0
-    for fi, items in sorted(by_file.items()):
-        pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", str(out / old["files"][fi]), "-f", "s16le", "-ar", str(RATE),
-                              "-ac", "1", "pipe:1"], capture_output=True, check=True).stdout
-        for start, k, dur in sorted(items):
-            a = max(0, int((start - margin) * RATE)) * 2
-            b = min(len(pcm), int((start + dur + margin) * RATE) * 2)
-            cid = b36(index["next"]); index["next"] += 1
-            encode_clip(pcm[a:b], cdir / f"{cid}.mp3")
-            index["clips"][k] = cid
-            n += 1
-        print(f"  {old['files'][fi]}: {len(items)} clips", flush=True)
-    (out / "index.json").write_text(json.dumps(index, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    for f in old["files"]:
-        (out / f).unlink(missing_ok=True)
-    print(f"{n} clips written to {cdir}")
-
-
 if __name__ == "__main__":
     args = [a for a in sys.argv[1:] if a != "--redo"]
     if args[0] == "samples":
         samples(args[1], args[2])
     elif args[0] == "clips":
         clips(args[1], args[2], args[3], *args[4:7], redo="--redo" in sys.argv)
-    elif args[0] == "split":
-        split(args[1])
     else:
         sys.exit(__doc__)

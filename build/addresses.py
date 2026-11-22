@@ -1,8 +1,8 @@
 """Every street address (street + house number) on the map, for the Home / Work settings: the whole capital
 region, and the towns elsewhere (region.py).
 
-Reads OSM nodes and buildings tagged addr:street + addr:housenumber, keeps those inside the capital-region
-towns, takes the postcode from the map's postal areas, and writes a small JavaScript file the page loads
+Reads OSM nodes and buildings tagged addr:street + addr:housenumber, keeps those in the capital region and
+in towns elsewhere, takes the postcode from the map's postal areas, and writes a small JavaScript file the page loads
 only when someone uses Home / Work. The lookup happens in the browser, so typed addresses never leave
 the device.
 
@@ -63,7 +63,7 @@ def main(pbf, mapdata, out):
         pt = Point(lon, lat)
         pc = next((postal[i][0] for i in tree.query(pt) if postal[i][1].contains(pt)), None)
         if not pc:
-            continue                           # outside the capital region
+            continue                           # outside the map's postal areas
         num = re.sub(r"\s+", "", num).lower()  # "11 A" -> "11a"
         by[(st, pc)].setdefault(num, (lat, lon))
     outd, total = {}, 0

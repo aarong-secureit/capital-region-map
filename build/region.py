@@ -11,9 +11,8 @@ navigation tool).
 """
 from shapely.geometry import Polygon, box
 
-# whole map, and the capital region's detailed part (lon/lat)
+# whole map (lon/lat)
 W, S, E, N = -24.40, 63.25, -18.50, 65.80
-CAP_BOX = (-22.15, 63.95, -21.30, 64.35)
 
 # OSM municipality name -> name shown on the map
 MUNI_SHORT = {
@@ -68,10 +67,6 @@ TOWN_RADIUS_KM = {"town": 2.5, "village": 1.2}
 def inb(lon, lat):
     return W <= lon <= E and S <= lat <= N
 
-
-def in_cap_box(lon, lat):
-    w, s, e, n = CAP_BOX
-    return w <= lon <= e and s <= lat <= n
 
 # Postal codes outside the capital region -> the town name Pósturinn uses for them
 POSTAL_TOWN = {

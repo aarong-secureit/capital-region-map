@@ -29,3 +29,7 @@ venv/
 
 # Local Claude Code settings
 .claude/
+
+# Secrets (never commit)
+.env*
+.dev.vars*
