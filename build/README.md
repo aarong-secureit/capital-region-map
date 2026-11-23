@@ -35,7 +35,9 @@ python inject.py data/mapdata.json template.html ../capital-region-map.html ../_
   10 m, 20 m for postal areas; streets from `extract_roads.py`) and onto the border of a layer above it
   (municipality, district, sub-district, neighbourhood; within 15 m, 25 m for postal areas, or a whole stretch
   running alongside it up to 40 m away, 55 m for postal areas, capped at a quarter of the area's width); layers that split
-  up a municipality are clipped to it with thin slivers closed; then every border of every layer is cut into
+  up a municipality are clipped to it with thin slivers closed; an area this leaves in more pieces than its
+  source gets back the narrow neck that joined them (a small piece that can't be joined goes to its neighbour,
+  and the same happens to slivers left by simplifying and rounding); then every border of every layer is cut into
   pieces where borders meet and each piece simplified once (5 m in town, 12 m along the coast, 80 m and 150 m in
   the countryside), so a shared border is the same line in every layer and the coast is one line.
 - `landmarks.py`: the well-known spot each big area shares to Google Maps (town hall, main church,

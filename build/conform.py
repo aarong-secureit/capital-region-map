@@ -11,6 +11,8 @@ that follow a street ran beside it instead of on it. All of this works in region
 - tidy(): for a layer that splits up its parent (Reykjavík's districts, postal areas...): clips each area to
   the parent, gives thin leftover slivers to the neighbour they border most, and cleans the set into a GEOS
   coverage (no overlaps, narrow gaps closed, shared edges identical).
+- keep_whole(): an area the two steps above broke into more pieces than its source has gets the narrow neck
+  back that joined them; a small piece that can't be joined goes to its neighbour.
 - simplify_together(): cuts every border of every layer into pieces where borders meet, simplifies each piece
   once, and rebuilds every area from the simplified pieces, so a border shared by several areas or layers is
   exactly the same line in all of them.
@@ -174,6 +176,91 @@ def tidy(geoms, parent, gap_m=60):
     return out
 
 
+def split_offs(g, src):
+    """The pieces of g that its source didn't have: g's pieces matched to the source piece each overlaps most;
+    all but the biggest of those that share one source piece were split off by the build."""
+    sp, gp = parts(src), parts(g)
+    if len(gp) < 2 or not sp:
+        return []
+    by, stray = defaultdict(list), []
+    for p in gp:
+        ov = [sp[k].intersection(p).area for k in range(len(sp))]
+        if max(ov) > 0:
+            by[int(np.argmax(ov))].append(p)
+        else:
+            stray.append(p)                 # outside the source altogether: a speck left by simplifying
+    if not by:
+        return []
+    return stray + [p for ps in by.values() for p in sorted(ps, key=lambda p: -p.area)[1:]]
+
+
+def longest_border(p, out, skip, eps=GRID):
+    """Which of `out` (not index skip) shares the longest border with p, or None."""
+    edge = p.boundary.buffer(eps)
+    best, bl = None, 0
+    for j, h in enumerate(out):
+        if j != skip and not h.is_empty and h.intersects(edge):
+            l = h.boundary.intersection(edge).length
+            if l > bl:
+                best, bl = j, l
+    return best
+
+
+def keep_whole(out, ins, partition=True, keep_m2=5000):
+    """Areas that fit() or tidy() broke into more pieces than they came in with: both sides of a narrow neck
+    moved onto one street, or the neck given to a neighbour that overlapped it after fitting (Miðbær's strip
+    beside Tjörnin). The neck is given back from whoever took it, where that leaves them in one piece too and
+    it's no bigger than the piece it joins up; a smaller piece (under keep_m2) that still stands alone goes to
+    the neighbour it borders most (partition), or is dropped; a bigger one stays as it is. `ins` are the areas
+    as they came in, same order. Returns a new list."""
+    out = list(out)
+
+    def count(g):
+        return len(parts(g))
+    for i in [*range(len(out)), *range(len(out))]:      # twice: a neighbour that gave or took may need it too
+        for _ in range(6):
+            extra = split_offs(out[i], ins[i])
+            if not extra:
+                break
+            changed = False
+            for p in extra:
+                rest = polys(out[i].difference(p))
+                q = max(parts(ins[i]), key=lambda s: s.intersection(p).area)
+                link = shapely.shortest_line(p, rest)
+                for comp in parts(polys(q.difference(out[i]))):
+                    near = comp.buffer(GRID)
+                    if not (near.intersects(p) and near.intersects(rest)):
+                        continue
+                    # the narrowest bit of it that joins them up (along the shortest way across), so the rest of
+                    # the border keeps its fit; failing that all of it
+                    necks = [polys(comp.intersection(link.buffer(w / 2 * M, cap_style="flat"))) for w in (5, 10, 20, 40)]
+                    for neck in necks + [comp]:
+                        if neck.is_empty or neck.area > max(p.area, 300 * M * M) or \
+                                count(polys(unary_union([p, rest, neck.buffer(GRID / 2)]))) > 1:
+                            continue
+                        takers = [j for j, h in enumerate(out) if partition and j != i and h.intersection(neck).area > 0]
+                        if all(count(polys(out[j].difference(neck))) <= count(out[j]) for j in takers):
+                            out[i] = polys(unary_union([out[i], neck.buffer(GRID / 2).intersection(q)]))
+                            for j in takers:
+                                out[j] = polys(out[j].difference(out[i]))
+                            changed = True
+                            break
+                    if changed:
+                        break
+                if changed:
+                    break
+            if not changed:
+                for p in extra:
+                    if p.area >= keep_m2 * M * M:
+                        continue
+                    j = longest_border(p, out, i) if partition else None
+                    if j is not None:
+                        out[j] = polys(unary_union([out[j], p]))
+                    out[i] = polys(out[i].difference(p))
+                break
+    return out
+
+
 def simplify_together(geoms, detail, land, own_lines=None, detail_m=5, detail_coast_m=12, rural_m=80, rural_coast_m=150):
     """Every border of every area in `geoms` (any number of layers, overlapping freely) cut into pieces where
     borders meet; each piece simplified once and every area rebuilt from the simplified pieces it is made of.
@@ -268,11 +355,14 @@ def make_borders(muni_land, zones, districts, hverfi, nbh, small, postal, roads,
         ref = Lines(edge_lines)
         out = [fit(polys(S(it["g"])).intersection(ml[it["muni"]]), road_ref, road_m, ref, edge_m, parallel_m) for it in items]
         out = [polys(g.intersection(ml[it["muni"]])) for g, it in zip(out, items)]
+        ins = [polys(S(it["g"])).intersection(ml[it["muni"]]) for it in items]
         if partition:
             for m in {it["muni"] for it in items}:
                 idx = [i for i, it in enumerate(items) if it["muni"] == m]
-                for i, g in zip(idx, tidy([out[i] for i in idx], ml[m])):
+                for i, g in zip(idx, keep_whole(tidy([out[i] for i in idx], ml[m]), [ins[i] for i in idx])):
                     out[i] = g
+        else:
+            out = keep_whole(out, ins, partition=False)
         return out
 
     t = _tick("start")
@@ -292,7 +382,7 @@ def make_borders(muni_land, zones, districts, hverfi, nbh, small, postal, roads,
     ref = Lines([r for g in d_out + h_out + n_out for r in rings(g)] + [r for m in detail for r in rings(ml[m])])
     fitted = [fit(p_in[c], road_ref, postal_road_m, ref, postal_edge_m, postal_parallel_m) for c in group]
     p_out = dict(p_in)
-    for c, g in zip(group, tidy(fitted, polys(unary_union([p_in[c] for c in group])))):
+    for c, g in zip(group, keep_whole(tidy(fitted, polys(unary_union([p_in[c] for c in group]))), [p_in[c] for c in group])):
         p_out[c] = g
     # one set of lines for everything
     zl = {z: polys(unary_union([ml[m] for m in ms])) for z, ms in zones.items()}
@@ -316,4 +406,17 @@ def make_borders(muni_land, zones, districts, hverfi, nbh, small, postal, roads,
         return np.where(fine[:, None], np.round(xy, 5), np.round(xy, 4))
     for (k, i), g in zip(keys, done):
         res[k][i] = polys(shapely.transform(R.unscale(g), rounded))
+    # simplifying (or rounding a narrow bit to ~5 m) can still leave a sliver of an area cut off from it: it
+    # goes to the neighbour in the same layer it borders most (small areas, which overlap freely, just lose it)
+    for k in ("munis", "districts", "hverfi", "nbh", "small", "postal"):
+        ids = list(res[k]) if isinstance(res[k], dict) else list(range(len(res[k])))
+        lay = [res[k][i] for i in ids]
+        for a, i in enumerate(ids):
+            for p in split_offs(lay[a], R.unscale(src[k][i])):
+                b = longest_border(p, lay, a, eps=1e-6) if k != "small" else None
+                if b is not None:
+                    lay[b] = polys(unary_union([lay[b], p]))
+                lay[a] = polys(lay[a].difference(p))
+        for a, i in enumerate(ids):
+            res[k][i] = lay[a]
     return res
